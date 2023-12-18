@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://c820wfua0imkw"]
+
+[ext_resource type="PackedScene" uid="uid://ck346mxns8kjs" path="res://models/map/map_test.tscn" id="1_n67c0"]
+[ext_resource type="PackedScene" uid="uid://cwxpkbdnvlvw0" path="res://models/ouji/OUJI_HOLDER.glb" id="2_6kreb"]
+[ext_resource type="PackedScene" uid="uid://b71c6sh4m0f5e" path="res://scenes/game/player/katamari_controllable.tscn" id="2_tifuw"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xv6rd"]
+sky_top_color = Color(0.239216, 0.635294, 1, 1)
+sky_horizon_color = Color(0.611765, 0.827451, 1, 1)
+ground_bottom_color = Color(0.611765, 0.827451, 1, 1)
+ground_horizon_color = Color(0.611765, 0.827451, 1, 1)
+
+[sub_resource type="Sky" id="Sky_dvqvd"]
+sky_material = SubResource("ProceduralSkyMaterial_xv6rd")
+
+[sub_resource type="Environment" id="Environment_h6sqg"]
+background_mode = 2
+background_color = Color(0, 0.560784, 0.988235, 1)
+sky = SubResource("Sky_dvqvd")
+ambient_light_source = 2
+ambient_light_color = Color(0.572549, 0.572549, 0.572549, 1)
+reflected_light_source = 1
+
+[node name="Node3D" type="Node3D"]
+
+[node name="map_test" parent="." instance=ExtResource("1_n67c0")]
+
+[node name="KatamariControllable" parent="." instance=ExtResource("2_tifuw")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.3, 0)
+
+[node name="OUJI_HOLDER2" parent="." instance=ExtResource("2_6kreb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.3)
+
+[node name="WorldEnv" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h6sqg")
+
+[node name="WorldSun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0.683013, 0.183013, 0, -0.258819, 0.965926, 0.707107, -0.683013, -0.183013, 0, 3, 0)

@@ -1,0 +1,167 @@
+[gd_scene load_steps=8 format=3 uid="uid://b71c6sh4m0f5e"]
+
+[ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
+[ext_resource type="CameraAttributesPractical" uid="uid://b3ss2g57oq1de" path="res://misc/katamari_cam_attributes.tres" id="2_dfura"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_01wts"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5e5bl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmoml"]
+bg_color = Color(0.12549, 0.160784, 0.258824, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2q56b"]
+bg_color = Color(0.458824, 0.458824, 0.458824, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.611765, 0.611765, 0.611765, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_8467r"]
+font_size = 32
+
+[node name="KatamariControllable" type="Node3D"]
+editor_description = "An inherited scene for a player-controlled katamari. Only one should exist per-viewport; any more can cause issues with multiple active cameras."
+script = ExtResource("1_k6077")
+
+[node name="KatamariCameraPivot" type="Node3D" parent="."]
+process_mode = 3
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="KatamariCamera" type="Camera3D" parent="KatamariCameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+attributes = ExtResource("2_dfura")
+current = true
+
+[node name="KatamariBody" type="CharacterBody3D" parent="."]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="KatamariMesh" type="MeshInstance3D" parent="KatamariBody"]
+mesh = SubResource("SphereMesh_01wts")
+skeleton = NodePath("../../..")
+
+[node name="KatamariBaseCollision" type="CollisionShape3D" parent="KatamariBody"]
+shape = SubResource("SphereShape3D_5e5bl")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchor_left = 0.5
+anchor_top = 0.98
+anchor_right = 0.5
+anchor_bottom = 0.98
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PanelL" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_right = 100.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qmoml")
+
+[node name="StickL" type="Panel" parent="Control/PanelL"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
+
+[node name="PanelR" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qmoml")
+
+[node name="StickR" type="Panel" parent="Control/PanelR"]
+z_index = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
+
+[node name="Line2D" type="Line2D" parent="Control"]
+points = PackedVector2Array(50, 50, 150, 50)
+width = 5.0
+
+[node name="StickM" type="Panel" parent="Control"]
+z_index = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 4.99999
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = -22.0
+offset_right = -40.0
+grow_horizontal = 2
+rotation = 1.5708
+pivot_offset = Vector2(40, 22)
+text = "<="
+label_settings = SubResource("LabelSettings_8467r")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 28.6
+offset_right = 499.0
+offset_bottom = 73.6
+pivot_offset = Vector2(40, 22)
+text = "a: XXrad (XXdeg)"
+label_settings = SubResource("LabelSettings_8467r")
+vertical_alignment = 1

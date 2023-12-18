@@ -1,0 +1,103 @@
+[gd_scene load_steps=9 format=3 uid="uid://r5b6h4jwf6gn"]
+
+[ext_resource type="Script" path="res://scripts/timer_normal.gd" id="1_hk2xi"]
+[ext_resource type="Texture2D" uid="uid://7rlhllfm8cej" path="res://textures/ui/timer_normal_hand.png" id="2_hyjjg"]
+[ext_resource type="Texture2D" uid="uid://tssi71yqff0q" path="res://textures/ui/timer_normal_wedge.png" id="3_lq5tj"]
+[ext_resource type="FontFile" uid="uid://c23prmorm3rd2" path="res://fonts/hud.ttf" id="4_vp1ax"]
+[ext_resource type="AnimationLibrary" uid="uid://cp3q5qj7mxpnm" path="res://animations/ui/timer.res" id="5_tucfh"]
+[ext_resource type="AnimationLibrary" uid="uid://e0nygmind07c" path="res://animations/ui/timer_scroll.res" id="6_uugll"]
+[ext_resource type="AudioStream" uid="uid://cso44tyyumlcl" path="res://sounds/ui/countdown.mp3" id="9_3jco8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pvrry"]
+font = ExtResource("4_vp1ax")
+font_size = 112
+outline_size = 16
+outline_color = Color(0, 0.0627451, 0.321569, 1)
+
+[node name="TimerNormal" type="Control"]
+process_mode = 1
+editor_description = "Responsible for tracking time in a normal (not Eternal/Time Attack) game."
+layout_mode = 3
+anchor_left = 0.98
+anchor_top = 0.02
+anchor_right = 0.98
+anchor_bottom = 0.02
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+auto_translate = false
+localize_numeral_system = false
+mouse_filter = 2
+script = ExtResource("1_hk2xi")
+
+[node name="TimerBody" type="TextureRect" parent="."]
+self_modulate = Color(0, 0.27451, 0.627451, 0.784314)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 152.0
+offset_right = 456.0
+offset_bottom = 160.002
+grow_horizontal = 0
+auto_translate = false
+localize_numeral_system = false
+mouse_filter = 2
+texture = ExtResource("3_lq5tj")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="TimerHand" type="TextureRect" parent="TimerBody"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_bottom = 160.0
+grow_horizontal = 0
+pivot_offset = Vector2(80, 80)
+auto_translate = false
+localize_numeral_system = false
+mouse_filter = 2
+texture = ExtResource("2_hyjjg")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TimerText" type="Label" parent="TimerBody"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -394.0
+offset_top = -218.001
+offset_right = -184.0
+offset_bottom = 83.999
+grow_horizontal = 0
+grow_vertical = 2
+auto_translate = false
+localize_numeral_system = false
+text = "0"
+label_settings = SubResource("LabelSettings_pvrry")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="TimerAnimation" type="AnimationPlayer" parent="."]
+process_priority = -1
+process_thread_group = 1
+process_thread_group_order = 0
+process_thread_messages = 0
+deterministic = true
+libraries = {
+"": ExtResource("5_tucfh")
+}
+
+[node name="TimerScrollAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": ExtResource("6_uugll")
+}
+
+[node name="TimerAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_3jco8")
+max_polyphony = 2
+bus = &"SFX"
