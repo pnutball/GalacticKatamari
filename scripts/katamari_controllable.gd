@@ -15,7 +15,7 @@ var MinimumSize:float = Size
 ## Sets how much the katamari accelerates horizontally relative to a size of 1m.
 @export_range(0, 0, 0.01, "or_less", "or_greater", "hide_slider", "suffix:m/s²/m") var Acceleration:float = .5
 ## Sets the katamari's maximum speed relative to a size of 1m.
-@export_range(0, 0, 0.01, "or_less", "or_greater", "hide_slider", "suffix:m/s/m") var MaxSpeed:float = 1
+@export_range(0, 0, 0.01, "or_less", "or_greater", "hide_slider", "suffix:m/s/m") var MaxSpeed:float = .5
 
 @export_group("Camera")
 ## The camera's scale, relative to a size of 1m.
@@ -67,12 +67,14 @@ func _process(delta):
 	if StickMidpoint.length() <= 0.501: StickMidpoint = Vector2.ZERO
 	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle()
 	
+	
+	
 	# Update camera angles
 	CameraRotation -= StickAngle * 2 * delta
 	
 	# Transform camera
 	$KatamariCameraPivot/KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale))
-	$KatamariCameraPivot.transform = Transform3D.IDENTITY.translated_local($KatamariBody.position).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with($KatamariCameraPivot.transform, 0.90)
+	$KatamariCameraPivot.transform = Transform3D.IDENTITY.translated_local($KatamariBody.position).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with($KatamariCameraPivot.transform, 0.85)
 	
 	# Update debug info
 	$Control/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
@@ -84,18 +86,26 @@ func _process(delta):
 
 func _physics_process(delta):
 	$KatamariBody.scale = Vector3.ONE * Size
+	# Update safe margin
+	#TODO: move this to size change (rollup and knockoff) code when made
+	$KatamariBody.safe_margin = Size * 0.01
+	$KatamariBody.floor_snap_length = Size * 0.01
+	
 	$KatamariBody.velocity.y -= (Gravity) * delta * $"..".scale.y
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
 	
+	$KatamariBody.velocity.x *= .98
+	$KatamariBody.velocity.z *= .98
+	
 	if Vector2($KatamariBody.velocity.x, $KatamariBody.velocity.y).length() < MaxSpeed:
-		$KatamariBody.velocity.x += tempMovement.x * Acceleration * Size * delta * $"..".scale.x
-		$KatamariBody.velocity.z += tempMovement.y * Acceleration * Size * delta * $"..".scale.z
-	else: $KatamariBody.velocity = $KatamariBody.velocity
+		$KatamariBody.velocity.x += tempMovement.x * Size * delta * $"..".scale.x
+		$KatamariBody.velocity.z += tempMovement.y * Size * delta * $"..".scale.z
 	
 	var collision_info = $KatamariBody.move_and_collide($KatamariBody.velocity * delta, true)
 	if collision_info:
 		var tempVelocity: Vector3 = $KatamariBody.velocity.bounce(collision_info.get_normal()) / 1.8
-		if absf($KatamariBody.velocity.y) < ((Size)/4) * $"..".scale.y: tempVelocity.y = 0
+		if absf($KatamariBody.velocity.y) < (((Size)/4) * $"..".scale.y) and collision_info.get_normal().angle_to(Vector3.UP) < deg_to_rad(1): tempVelocity.y = 0
+		
 		$KatamariBody.velocity = tempVelocity
 	
 	$KatamariBody.move_and_slide()

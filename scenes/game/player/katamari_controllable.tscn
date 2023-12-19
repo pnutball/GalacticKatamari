@@ -45,6 +45,8 @@ current = true
 [node name="KatamariBody" type="CharacterBody3D" parent="."]
 process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+floor_snap_length = 0.01
+safe_margin = 0.01
 
 [node name="KatamariMesh" type="MeshInstance3D" parent="KatamariBody"]
 mesh = SubResource("SphereMesh_01wts")
