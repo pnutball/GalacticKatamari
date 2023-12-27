@@ -10,12 +10,8 @@ var MinimumSize:float = Size
 @export_range(0, 1) var GrowthMultiplier:float = 1
 
 @export_group("Physics")
-## Sets the strength of the katamari's gravity.
-@export_range(0, 0, 0.01, "or_less", "or_greater", "hide_slider", "suffix:m/s²") var Gravity:float = 2.725
-## Sets how much the katamari accelerates horizontally relative to a size of 1m.
-@export_range(0, 0, 0.01, "or_less", "or_greater", "hide_slider", "suffix:m/s²/m") var Acceleration:float = .5
-## Sets the katamari's maximum speed relative to a size of 1m.
-@export_range(0, 0, 0.01, "or_less", "or_greater", "hide_slider", "suffix:m/s/m") var MaxSpeed:float = .5
+## Sets the katamari's speed relative to a size of 1m.
+@export_range(0, 0, 0.01, "or_less", "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 1
 
 @export_group("Camera")
 ## The camera's scale, relative to a size of 1m.
@@ -85,30 +81,14 @@ func _process(delta):
 	$Control/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
 
 func _physics_process(delta):
+	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody.scale = Vector3.ONE * Size
-	# Update safe margin
-	#TODO: move this to size change (rollup and knockoff) code when made
-	$KatamariBody.safe_margin = Size * 0.01
-	$KatamariBody.floor_snap_length = Size * 0.01
-	
-	$KatamariBody.velocity.y -= (Gravity) * delta * $"..".scale.y
+	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * 0.25
+
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
-	
-	$KatamariBody.velocity.x *= .98
-	$KatamariBody.velocity.z *= .98
-	
-	if Vector2($KatamariBody.velocity.x, $KatamariBody.velocity.y).length() < MaxSpeed:
-		$KatamariBody.velocity.x += tempMovement.x * Size * delta * $"..".scale.x
-		$KatamariBody.velocity.z += tempMovement.y * Size * delta * $"..".scale.z
-	
-	var collision_info = $KatamariBody.move_and_collide($KatamariBody.velocity * delta, true)
-	if collision_info:
-		var tempVelocity: Vector3 = $KatamariBody.velocity.bounce(collision_info.get_normal()) / 1.8
-		if absf($KatamariBody.velocity.y) < (((Size)/4) * $"..".scale.y) and collision_info.get_normal().angle_to(Vector3.UP) < deg_to_rad(1): tempVelocity.y = 0
-		
-		$KatamariBody.velocity = tempVelocity
-	
-	$KatamariBody.move_and_slide()
+	$KatamariBody.linear_velocity.x += tempMovement.x * Size * delta * $"..".scale.x * Speed
+	$KatamariBody.linear_velocity.z += tempMovement.y * Size * delta * $"..".scale.z * Speed
+
 	
 
 

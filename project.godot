@@ -126,6 +126,10 @@ folder_colors={
 ]
 }
 
+[physics]
+
+3d/default_gravity=2.0
+
 [rendering]
 
 renderer/rendering_method="mobile"

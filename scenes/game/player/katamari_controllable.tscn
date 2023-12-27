@@ -1,7 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=9 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="CameraAttributesPractical" uid="uid://b3ss2g57oq1de" path="res://misc/katamari_cam_attributes.tres" id="2_dfura"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tecj2"]
+rough = true
+bounce = 0.5
 
 [sub_resource type="SphereMesh" id="SphereMesh_01wts"]
 
@@ -42,11 +46,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 attributes = ExtResource("2_dfura")
 current = true
 
-[node name="KatamariBody" type="CharacterBody3D" parent="."]
+[node name="KatamariBody" type="RigidBody3D" parent="."]
 process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-floor_snap_length = 0.01
-safe_margin = 0.01
+physics_material_override = SubResource("PhysicsMaterial_tecj2")
+can_sleep = false
+continuous_cd = true
+linear_damp = 0.7
 
 [node name="KatamariMesh" type="MeshInstance3D" parent="KatamariBody"]
 mesh = SubResource("SphereMesh_01wts")
