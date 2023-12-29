@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=10 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="CameraAttributesPractical" uid="uid://b3ss2g57oq1de" path="res://misc/katamari_cam_attributes.tres" id="2_dfura"]
+[ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tecj2"]
 friction = 0.08
@@ -37,6 +38,7 @@ font_size = 32
 [node name="KatamariControllable" type="Node3D"]
 editor_description = "An inherited scene for a player-controlled katamari. Only one should exist per-viewport; any more can cause issues with multiple active cameras."
 script = ExtResource("1_k6077")
+InclineSpeedMultiplier = ExtResource("2_dth00")
 
 [node name="KatamariCameraPivot" type="Node3D" parent="."]
 process_mode = 3
@@ -175,5 +177,21 @@ offset_right = 499.0
 offset_bottom = 73.6
 pivot_offset = Vector2(40, 22)
 text = "a: XXrad (XXdeg)"
+label_settings = SubResource("LabelSettings_8467r")
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -848.0
+offset_top = -181.4
+offset_right = -573.0
+offset_bottom = 103.6
+pivot_offset = Vector2(40, 22)
+text = "x:
+y:
+z:
+Vx: 
+Vy: 
+Vz:"
 label_settings = SubResource("LabelSettings_8467r")
 vertical_alignment = 1

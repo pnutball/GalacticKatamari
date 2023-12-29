@@ -12,6 +12,7 @@ var MinimumSize:float = Size
 @export_group("Physics")
 ## Sets the katamari's speed relative to a size of 1m.
 @export_range(0, 0, 0.01, "or_less", "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 1
+@export var InclineSpeedMultiplier:Curve
 
 @export_group("Camera")
 ## The camera's scale, relative to a size of 1m.
@@ -56,17 +57,10 @@ func _ready():
 	$KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 
 func _process(delta):
-	# Handle inputs
-	LeftStick = Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5)
-	RightStick = Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5)
-	StickMidpoint = (LeftStick + Vector2.LEFT).lerp(RightStick + Vector2.RIGHT, 0.5)
-	if StickMidpoint.length() <= 0.501: StickMidpoint = Vector2.ZERO
-	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle()
-	
 	
 	
 	# Update camera angles
-	CameraRotation -= StickAngle * 2 * delta
+	CameraRotation -= StickAngle * 2.5 * delta
 	
 	# Transform camera
 	$KatamariCameraPivot/KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale))
@@ -79,15 +73,28 @@ func _process(delta):
 	$Control/Line2D.points = [Vector2(50, 50) + (25 * LeftStick), Vector2(150, 50) + (25 * RightStick)]
 	$Control/Label.rotation = StickAngle + (PI/2)
 	$Control/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
+	$Control/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z]
 
 func _physics_process(delta):
+	# Handle inputs
+	LeftStick = Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5)
+	RightStick = Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5)
+	StickMidpoint = (LeftStick + Vector2.LEFT).lerp(RightStick + Vector2.RIGHT, 0.5)
+	if StickMidpoint.length() <= 0.501: StickMidpoint = Vector2.ZERO
+	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle()
+	
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody.scale = Vector3.ONE * Size
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * 0.2
 
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
-	$KatamariBody.linear_velocity.x += tempMovement.x * Size * delta * $"..".scale.x * Speed
-	$KatamariBody.linear_velocity.z += tempMovement.y * Size * delta * $"..".scale.z * Speed
+	var floorCollision:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.DOWN * 0.1, true)
+	var floorAngle:Vector3 = Vector3.UP
+	if floorCollision: floorAngle = floorCollision.get_normal()
+	$KatamariBody.linear_velocity.x += tempMovement.x * Size * delta * $"..".scale.x * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.x))
+	$KatamariBody.linear_velocity.z += tempMovement.y * Size * delta * $"..".scale.z * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.z))
+	#var movement3:Vector3 = Vector3(tempMovement.x * Size * delta * $"..".scale.x * Speed, 0, tempMovement.y * Size * delta * $"..".scale.z * Speed)
+	#$KatamariBody.linear_velocity += floorAngle * movement3
 
 	
 
@@ -101,7 +108,7 @@ func changeSizeArea(index:int):
 	if CameraZones.size() - 1 < CurrentZone: nextBound = CameraZones[CurrentZone+1].x
 	CurrentZoneBounds = Vector2(CameraZones[CurrentZone].x, nextBound)
 	CameraScale = CameraZones[CurrentZone].y
-	$KatamariCameraPivot/KatamariCamera.attributes.dof_blur_far_distance = CameraScale * 10 * $"..".scale.y
+	$KatamariCameraPivot/KatamariCamera.attributes.dof_blur_far_distance = CameraScale * 5 * $"..".scale.y
 	CameraTilt = CameraZones[CurrentZone].z
 	CameraShift = CameraZones[CurrentZone].w
 	
