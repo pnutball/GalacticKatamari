@@ -10,8 +10,11 @@ var MinimumSize:float = Size
 @export_range(0, 1) var GrowthMultiplier:float = 1
 
 @export_group("Physics")
-## Sets the katamari's speed relative to a size of 1m.
-@export_range(0, 0, 0.01, "or_less", "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 1
+## Sets the katamari's acceleration relative to a size of 1m.
+@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 1
+## Sets the katamari's top speed relative to a size of 1m.
+@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var TopSpeed:float = 1
+## Sets how much the katamari's acceleration/top speed is multiplied.
 @export var InclineSpeedMultiplier:Curve
 
 @export_group("Camera")
@@ -91,11 +94,9 @@ func _physics_process(delta):
 	var floorCollision:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.DOWN * 0.1, true)
 	var floorAngle:Vector3 = Vector3.UP
 	if floorCollision: floorAngle = floorCollision.get_normal()
-	$KatamariBody.linear_velocity.x += tempMovement.x * Size * delta * $"..".scale.x * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.x))
-	$KatamariBody.linear_velocity.z += tempMovement.y * Size * delta * $"..".scale.z * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.z))
-	#var movement3:Vector3 = Vector3(tempMovement.x * Size * delta * $"..".scale.x * Speed, 0, tempMovement.y * Size * delta * $"..".scale.z * Speed)
-	#$KatamariBody.linear_velocity += floorAngle * movement3
-
+	if ($KatamariBody.linear_velocity * Vector3(1,0,1)).length() < TopSpeed: $KatamariBody.linear_velocity.x += tempMovement.x * Size * delta * $"..".scale.x * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.x))
+	if ($KatamariBody.linear_velocity * Vector3(1,0,1)).length() < TopSpeed: $KatamariBody.linear_velocity.z += tempMovement.y * Size * delta * $"..".scale.z * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.z))
+	
 	
 
 
