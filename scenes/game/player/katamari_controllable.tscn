@@ -4,6 +4,7 @@
 [ext_resource type="CameraAttributesPractical" uid="uid://b3ss2g57oq1de" path="res://misc/katamari_cam_attributes.tres" id="2_dfura"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tecj2"]
+friction = 0.08
 rough = true
 bounce = 0.5
 
@@ -49,10 +50,13 @@ current = true
 [node name="KatamariBody" type="RigidBody3D" parent="."]
 process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 1.81
 physics_material_override = SubResource("PhysicsMaterial_tecj2")
+center_of_mass_mode = 1
 can_sleep = false
-continuous_cd = true
-linear_damp = 0.7
 
 [node name="KatamariMesh" type="MeshInstance3D" parent="KatamariBody"]
 mesh = SubResource("SphereMesh_01wts")

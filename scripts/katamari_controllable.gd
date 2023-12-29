@@ -83,7 +83,7 @@ func _process(delta):
 func _physics_process(delta):
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody.scale = Vector3.ONE * Size
-	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * 0.25
+	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * 0.2
 
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
 	$KatamariBody.linear_velocity.x += tempMovement.x * Size * delta * $"..".scale.x * Speed

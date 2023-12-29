@@ -128,7 +128,7 @@ folder_colors={
 
 [physics]
 
-3d/default_gravity=2.0
+3d/default_gravity=3.0
 
 [rendering]
 
