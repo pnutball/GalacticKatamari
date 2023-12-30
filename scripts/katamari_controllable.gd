@@ -84,6 +84,9 @@ func _physics_process(delta):
 	if StickMidpoint.length() <= 0.501: StickMidpoint = Vector2.ZERO
 	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle()
 	
+	if Input.is_action_pressed("DEBUG Bigger"): Size += delta
+	if Input.is_action_pressed("DEBUG Smaller"): Size -= delta
+	
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody.scale = Vector3.ONE * Size
 	$KatamariBody.mass = Size * 10
