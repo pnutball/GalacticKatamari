@@ -11,9 +11,9 @@ var MinimumSize:float = Size
 
 @export_group("Physics")
 ## Sets the katamari's acceleration relative to a size of 1m.
-@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 1
+@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 20
 ## Sets the katamari's top speed relative to a size of 1m.
-@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var TopSpeed:float = 1
+@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var TopSpeed:float = .75
 ## Sets how much the katamari's acceleration/top speed is multiplied.
 @export var InclineSpeedMultiplier:Curve
 
@@ -94,9 +94,12 @@ func _physics_process(delta):
 	var floorCollision:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.DOWN * 0.1, true)
 	var floorAngle:Vector3 = Vector3.UP
 	if floorCollision: floorAngle = floorCollision.get_normal()
-	if ($KatamariBody.linear_velocity * Vector3(1,0,1)).length() < TopSpeed: $KatamariBody.linear_velocity.x += tempMovement.x * Size * delta * $"..".scale.x * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.x))
-	if ($KatamariBody.linear_velocity * Vector3(1,0,1)).length() < TopSpeed: $KatamariBody.linear_velocity.z += tempMovement.y * Size * delta * $"..".scale.z * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.z))
 	
+	tempMovement.x = tempMovement.x * Size * $"..".scale.x * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.x))
+	tempMovement.y = tempMovement.y * Size * $"..".scale.z * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.z))
+	
+	
+	$KatamariBody.apply_force(Vector3(tempMovement.x, 0, tempMovement.y))
 	
 
 
@@ -112,5 +115,5 @@ func changeSizeArea(index:int):
 	$KatamariCameraPivot/KatamariCamera.attributes.dof_blur_far_distance = CameraScale * 5 * $"..".scale.y
 	CameraTilt = CameraZones[CurrentZone].z
 	CameraShift = CameraZones[CurrentZone].w
-	
-	if CurrentZone > HighestZone: HighestZone = CurrentZone
+	if CurrentZone > HighestZone: 
+		HighestZone = CurrentZone
