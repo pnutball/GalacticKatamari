@@ -5,7 +5,7 @@
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tecj2"]
-friction = 0.33
+friction = 0.08
 rough = true
 bounce = 0.5
 
@@ -59,6 +59,7 @@ mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_tecj2")
 center_of_mass_mode = 1
 can_sleep = false
+linear_damp = 1.1
 
 [node name="KatamariMesh" type="MeshInstance3D" parent="KatamariBody"]
 mesh = SubResource("SphereMesh_01wts")

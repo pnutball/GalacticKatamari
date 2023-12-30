@@ -10,10 +10,8 @@ var MinimumSize:float = Size
 @export_range(0, 1) var GrowthMultiplier:float = 1
 
 @export_group("Physics")
-## Sets the katamari's acceleration relative to a size of 1m.
-@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 20
-## Sets the katamari's top speed relative to a size of 1m.
-@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var TopSpeed:float = .75
+## Sets the katamari's speed relative to a size of 1m. This also affects the max speed.
+@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 16
 ## Sets how much the katamari's acceleration/top speed is multiplied.
 @export var InclineSpeedMultiplier:Curve
 
@@ -88,6 +86,8 @@ func _physics_process(delta):
 	
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody.scale = Vector3.ONE * Size
+	$KatamariBody.mass = Size * 10
+	$KatamariBody.linear_damp = 1.1 / Size
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * 0.2
 
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
@@ -95,11 +95,11 @@ func _physics_process(delta):
 	var floorAngle:Vector3 = Vector3.UP
 	if floorCollision: floorAngle = floorCollision.get_normal()
 	
-	tempMovement.x = tempMovement.x * Size * $"..".scale.x * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.x))
-	tempMovement.y = tempMovement.y * Size * $"..".scale.z * Speed * InclineSpeedMultiplier.sample(absf(floorAngle.z))
+	tempMovement.x = tempMovement.x * Speed * Size * $"..".scale.x * InclineSpeedMultiplier.sample(absf(floorAngle.x))
+	tempMovement.y = tempMovement.y * Speed * Size * $"..".scale.z * InclineSpeedMultiplier.sample(absf(floorAngle.z))
 	
 	
-	$KatamariBody.apply_force(Vector3(tempMovement.x, 0, tempMovement.y))
+	$KatamariBody.constant_force = Vector3(tempMovement.x, 0, tempMovement.y)
 	
 
 
