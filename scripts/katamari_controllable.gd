@@ -76,7 +76,6 @@ func _process(delta):
 	$Control/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
 	$Control/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z]
 	$Control/Label4.text = "size:%dm%02dcm%01dmm\ndamp:%f" % [floori(Size), floori(Size * 100) % 100, floori(Size * 1000) % 10, $KatamariBody.linear_damp]
-	# 1000
 
 func _physics_process(delta):
 	# Handle inputs
@@ -91,8 +90,8 @@ func _physics_process(delta):
 	
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody.scale = Vector3.ONE * Size
-	$KatamariBody.mass = Size*10
-	$KatamariBody.linear_damp = 2*(1 / (Size*2))
+	#$KatamariBody.mass = Size*10
+	$KatamariBody.linear_damp = Size
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * 0.2
 
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
@@ -100,8 +99,8 @@ func _physics_process(delta):
 	var floorAngle:Vector3 = Vector3.UP
 	if floorCollision: floorAngle = floorCollision.get_normal()
 	
-	tempMovement.x = tempMovement.x * Speed * Size * $"..".scale.x * InclineSpeedMultiplier.sample(absf(floorAngle.x))
-	tempMovement.y = tempMovement.y * Speed * Size * $"..".scale.z * InclineSpeedMultiplier.sample(absf(floorAngle.z))
+	tempMovement.x = tempMovement.x * Size * Speed * $"..".scale.x * InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5)
+	tempMovement.y = tempMovement.y * Size * Speed * $"..".scale.z * InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)
 	
 	
 	$KatamariBody.constant_force = Vector3(tempMovement.x, 0, tempMovement.y)

@@ -1,8 +1,7 @@
 [gd_resource type="Curve" format=3 uid="uid://cqv88nsvwy1k"]
 
 [resource]
-min_value = 1.0
-max_value = 5.0
-bake_resolution = 180
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.707, 2), 3.0, 0.0, 0, 0]
-point_count = 2
+max_value = 2.0
+bake_resolution = 360
+_data = [Vector2(0.25, 1), 0.0, -5.13889, 0, 0, Vector2(0.5, 1), 2.79284, 2.79284, 0, 0, Vector2(0.75, 2), 3.83313, 0.0323034, 0, 0]
+point_count = 3
