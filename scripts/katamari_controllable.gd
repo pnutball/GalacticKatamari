@@ -11,7 +11,7 @@ var MinimumSize:float = Size
 
 @export_group("Physics")
 ## Sets the katamari's speed relative to a size of 1m. This also affects the max speed.
-@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 16
+@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 12
 ## Sets how much the katamari's acceleration/top speed is multiplied.
 @export var InclineSpeedMultiplier:Curve
 
@@ -75,6 +75,8 @@ func _process(delta):
 	$Control/Label.rotation = StickAngle + (PI/2)
 	$Control/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
 	$Control/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z]
+	$Control/Label4.text = "size:%dm%02dcm%01dmm\ndamp:%f" % [floori(Size), floori(Size * 100) % 100, floori(Size * 1000) % 10, $KatamariBody.linear_damp]
+	# 1000
 
 func _physics_process(delta):
 	# Handle inputs
@@ -85,12 +87,12 @@ func _physics_process(delta):
 	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle()
 	
 	if Input.is_action_pressed("DEBUG Bigger"): Size += delta
-	if Input.is_action_pressed("DEBUG Smaller"): Size -= delta
+	if Input.is_action_pressed("DEBUG Smaller"): Size = maxf(Size - delta, 0.05)
 	
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody.scale = Vector3.ONE * Size
-	$KatamariBody.mass = Size * 10
-	$KatamariBody.linear_damp = 1.1 / Size
+	$KatamariBody.mass = Size*10
+	$KatamariBody.linear_damp = 2*(1 / (Size*2))
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * 0.2
 
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
