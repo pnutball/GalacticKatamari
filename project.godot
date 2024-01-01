@@ -138,6 +138,7 @@ folder_colors={
 
 [physics]
 
+3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=3.0
 
 [rendering]
