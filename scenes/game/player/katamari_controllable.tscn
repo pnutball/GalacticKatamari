@@ -185,16 +185,17 @@ vertical_alignment = 1
 [node name="Label3" type="Label" parent="Control"]
 layout_mode = 0
 offset_left = -848.0
-offset_top = -181.4
+offset_top = -226.4
 offset_right = -573.0
-offset_bottom = 103.6
+offset_bottom = 106.6
 pivot_offset = Vector2(40, 22)
 text = "x:
 y:
 z:
 Vx: 
 Vy: 
-Vz:"
+Vz:
+Vr:"
 label_settings = SubResource("LabelSettings_8467r")
 vertical_alignment = 1
 

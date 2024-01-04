@@ -36,3 +36,4 @@ environment = SubResource("Environment_h6sqg")
 
 [node name="WorldSun" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.707107, 0.683013, 0.183013, 0, -0.258819, 0.965926, 0.707107, -0.683013, -0.183013, 0, 3, 0)
+directional_shadow_mode = 0
