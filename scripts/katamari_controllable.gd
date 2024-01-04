@@ -88,7 +88,7 @@ func _physics_process(delta):
 	if Input.is_action_pressed("DEBUG Bigger"): Size += delta
 	if Input.is_action_pressed("DEBUG Smaller"): Size = maxf(Size - delta, 0.05)
 	
-	$KatamariBody.gravity_scale = $"..".scale.y * sqrt(Size)
+	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody.scale = Vector3.ONE * Size
 	$KatamariBody.mass = 1
 	$KatamariBody.linear_damp = pow(Size, 1.0/6)
@@ -98,10 +98,9 @@ func _physics_process(delta):
 	var floorAngle:Vector3 = Vector3.UP
 	if floorCollision: floorAngle = floorCollision.get_normal()
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
-	tempMovement *= Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5))
-	tempMovement = ((tempMovement * Vector2($"..".scale.x, $"..".scale.z)) / $KatamariBody.mass) * Size
+	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * Size + (tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement)
 	
-	$KatamariBody.constant_force = Vector3(tempMovement.x, 0, tempMovement.y)
+	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y)
 	
 
 
