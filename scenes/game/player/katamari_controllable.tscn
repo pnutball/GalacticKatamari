@@ -1,8 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=13 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="CameraAttributesPractical" uid="uid://b3ss2g57oq1de" path="res://misc/katamari_cam_attributes.tres" id="2_dfura"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
+[ext_resource type="Shader" path="res://misc/KatamariCameraShader.gdshader" id="4_0tvtr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_efuoq"]
+render_priority = 0
+shader = ExtResource("4_0tvtr")
+shader_parameter/lod = 1.743
+
+[sub_resource type="QuadMesh" id="QuadMesh_tiuwf"]
+flip_faces = true
+size = Vector2(2, 2)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tecj2"]
 friction = 0.08
@@ -48,6 +58,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 attributes = ExtResource("2_dfura")
 current = true
+
+[node name="KatamariCamShaderTarget" type="MeshInstance3D" parent="KatamariCameraPivot/KatamariCamera"]
+visible = false
+material_override = SubResource("ShaderMaterial_efuoq")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_tiuwf")
 
 [node name="KatamariBody" type="RigidBody3D" parent="."]
 process_mode = 1
