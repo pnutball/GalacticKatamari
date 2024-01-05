@@ -68,6 +68,10 @@ func _process(delta):
 	$KatamariCameraPivot.transform = Transform3D.IDENTITY.translated_local($KatamariBody.position).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with($KatamariCameraPivot.transform, 0.85)
 	$KatamariCameraPivot/KatamariCamera.attributes.dof_blur_far_distance = CameraScale * $"..".scale.y * 0.01
 	
+	# Rotate katamari model
+	$KatamariBody/KatamariMesh.rotate_z(($KatamariBody.linear_velocity.x * -8 * delta) / Size)
+	$KatamariBody/KatamariMesh.rotate_x(($KatamariBody.linear_velocity.z * 8 * delta) / Size)
+	
 	# Update debug info
 	$Control/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
 	$Control/PanelR/StickR.set_position(Vector2(25, 25) + (25 * RightStick))

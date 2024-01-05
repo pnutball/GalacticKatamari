@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=15 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="CameraAttributesPractical" uid="uid://b3ss2g57oq1de" path="res://misc/katamari_cam_attributes.tres" id="2_dfura"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
 [ext_resource type="Shader" path="res://misc/KatamariCameraShader.gdshader" id="4_0tvtr"]
+[ext_resource type="ArrayMesh" uid="uid://b3d1u1ws4oeus" path="res://models/core/core_generic.obj" id="5_mqsmu"]
+[ext_resource type="Texture2D" uid="uid://dh11xmfpvorbh" path="res://textures/core/core_test.png" id="6_s083g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_efuoq"]
 render_priority = 0
@@ -19,7 +21,10 @@ friction = 0.08
 rough = true
 bounce = 0.5
 
-[sub_resource type="SphereMesh" id="SphereMesh_01wts"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h62m0"]
+albedo_texture = ExtResource("6_s083g")
+texture_filter = 2
+grow_amount = 0.881
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5e5bl"]
 
@@ -79,8 +84,9 @@ linear_damp_mode = 1
 linear_damp = 1.1
 
 [node name="KatamariMesh" type="MeshInstance3D" parent="KatamariBody"]
-mesh = SubResource("SphereMesh_01wts")
+mesh = ExtResource("5_mqsmu")
 skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_h62m0")
 
 [node name="KatamariBaseCollision" type="CollisionShape3D" parent="KatamariBody"]
 shape = SubResource("SphereShape3D_5e5bl")
