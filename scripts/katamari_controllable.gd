@@ -68,10 +68,6 @@ func _process(delta):
 	$KatamariCameraPivot.transform = Transform3D.IDENTITY.translated_local($KatamariBody.position).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with($KatamariCameraPivot.transform, 0.85)
 	$KatamariCameraPivot/KatamariCamera.attributes.dof_blur_far_distance = CameraScale * $"..".scale.y * 0.01
 	
-	# Rotate katamari model
-	$KatamariBody/KatamariMesh.rotate_z(($KatamariBody.linear_velocity.x * -8 * delta) / Size)
-	$KatamariBody/KatamariMesh.rotate_x(($KatamariBody.linear_velocity.z * 8 * delta) / Size)
-	
 	# Update debug info
 	$Control/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
 	$Control/PanelR/StickR.set_position(Vector2(25, 25) + (25 * RightStick))
@@ -90,21 +86,31 @@ func _physics_process(delta):
 	if StickMidpoint.length() <= 0.501: StickMidpoint = Vector2.ZERO
 	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle()
 	
+	# DEBUG: Adjust size
 	if Input.is_action_pressed("DEBUG Bigger"): Size += delta
 	if Input.is_action_pressed("DEBUG Smaller"): Size = maxf(Size - delta, 0.05)
 	
+	# Adjust physics settings
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody.scale = Vector3.ONE * Size
-	$KatamariBody.mass = 1
-	$KatamariBody.linear_damp = pow(Size, 1.0/6)
+	#$KatamariBody.mass = 1
+	#$KatamariBody.linear_damp = pow(Size, 1.0/6)
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE
 	
+	# Rotate katamari model (including objects and collision when that's implemented)
+	$KatamariBody/KatamariMesh.rotate_z(($KatamariBody.linear_velocity.x * -8 * delta) / Size)
+	$KatamariBody/KatamariMesh.rotate_x(($KatamariBody.linear_velocity.z * 8 * delta) / Size)
+	
+	# Determine floor collision
 	var floorCollision:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.DOWN * 0.1, true)
 	var floorAngle:Vector3 = Vector3.UP
 	if floorCollision: floorAngle = floorCollision.get_normal()
+	
+	# Calculate movement vector
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
 	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * sqrt(Size) * Speed + ((tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement) / pow(Speed, 1.0/3))
 	
+	# Create movement force
 	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y)
 	
 

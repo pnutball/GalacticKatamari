@@ -15,6 +15,10 @@ run/main_scene="res://scenes/game/testing.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
+[audio]
+
+driver/driver=""
+
 [display]
 
 window/size/viewport_width=1920
@@ -138,6 +142,7 @@ folder_colors={
 
 [physics]
 
+3d/run_on_separate_thread=true
 3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=3.0
 jolt_3d/sleep/enabled=false
@@ -146,4 +151,4 @@ jolt_3d/sleep/enabled=false
 
 renderer/rendering_method="mobile"
 renderer/rendering_method.mobile="gl_compatibility"
-anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/msaa_3d=2

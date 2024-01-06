@@ -76,7 +76,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
-mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_tecj2")
 center_of_mass_mode = 1
 can_sleep = false
