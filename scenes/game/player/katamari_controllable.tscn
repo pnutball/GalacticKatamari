@@ -1,20 +1,73 @@
-[gd_scene load_steps=15 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=20 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="CameraAttributesPractical" uid="uid://b3ss2g57oq1de" path="res://misc/katamari_cam_attributes.tres" id="2_dfura"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
-[ext_resource type="Shader" path="res://misc/KatamariCameraShader.gdshader" id="4_0tvtr"]
+[ext_resource type="Shader" path="res://misc/CameraShader.gdshader" id="4_0tvtr"]
+[ext_resource type="AudioStream" uid="uid://wmfgl0sojypp" path="res://sounds/game/scale_up.mp3" id="5_2kyss"]
 [ext_resource type="ArrayMesh" uid="uid://b3d1u1ws4oeus" path="res://models/core/core_generic.obj" id="5_mqsmu"]
 [ext_resource type="Texture2D" uid="uid://dh11xmfpvorbh" path="res://textures/core/core_test.png" id="6_s083g"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_efuoq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wcqj7"]
 render_priority = 0
 shader = ExtResource("4_0tvtr")
-shader_parameter/lod = 1.743
+shader_parameter/zoom_amount = 0.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_tiuwf"]
+[sub_resource type="QuadMesh" id="QuadMesh_boo8u"]
 flip_faces = true
 size = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_vc1w8"]
+resource_name = "CameraZoom"
+length = 2.89
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KatamariCamShaderTarget:material_override:shader_parameter/zoom_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.065, 0.0]
+}
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../KatamariAudio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_2kyss")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/1/use_blend = true
+
+[sub_resource type="Animation" id="Animation_dopje"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KatamariCamShaderTarget:material_override:shader_parameter/zoom_amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hdva6"]
+_data = {
+"CameraZoom": SubResource("Animation_vc1w8"),
+"RESET": SubResource("Animation_dopje")
+}
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tecj2"]
 friction = 0.08
@@ -50,6 +103,14 @@ corner_radius_bottom_left = 25
 [sub_resource type="LabelSettings" id="LabelSettings_8467r"]
 font_size = 32
 
+[sub_resource type="GDScript" id="GDScript_4llql"]
+resource_name = "ZoomAnimButton"
+script/source = "extends Button
+
+func _pressed():
+	$\"../../KatamariCameraPivot/KatamariCamera/KatamariCameraZoom\".play(\"CameraZoom\")
+"
+
 [node name="KatamariControllable" type="Node3D"]
 editor_description = "An inherited scene for a player-controlled katamari. Only one should exist per-viewport; any more can cause issues with multiple active cameras."
 script = ExtResource("1_k6077")
@@ -65,10 +126,17 @@ attributes = ExtResource("2_dfura")
 current = true
 
 [node name="KatamariCamShaderTarget" type="MeshInstance3D" parent="KatamariCameraPivot/KatamariCamera"]
-visible = false
-material_override = SubResource("ShaderMaterial_efuoq")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+material_override = SubResource("ShaderMaterial_wcqj7")
+cast_shadow = 0
 extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_tiuwf")
+gi_mode = 0
+mesh = SubResource("QuadMesh_boo8u")
+
+[node name="KatamariCameraZoom" type="AnimationPlayer" parent="KatamariCameraPivot/KatamariCamera"]
+libraries = {
+"": SubResource("AnimationLibrary_hdva6")
+}
 
 [node name="KatamariBody" type="RigidBody3D" parent="."]
 process_mode = 1
@@ -83,6 +151,7 @@ linear_damp_mode = 1
 linear_damp = 1.1
 
 [node name="KatamariMesh" type="MeshInstance3D" parent="KatamariBody"]
+transform = Transform3D(1.125, 0, 0, 0, 1.125, 0, 0, 0, 1.125, 0, 0, 0)
 mesh = ExtResource("5_mqsmu")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_h62m0")
@@ -231,3 +300,14 @@ text = "size:
 damp:"
 label_settings = SubResource("LabelSettings_8467r")
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = -159.0
+offset_top = 64.6
+offset_right = -25.0
+offset_bottom = 95.6
+text = "Play Zoom Anim"
+script = SubResource("GDScript_4llql")
+
+[node name="KatamariAudio" type="AudioStreamPlayer" parent="."]

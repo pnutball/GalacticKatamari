@@ -93,8 +93,6 @@ func _physics_process(delta):
 	# Adjust physics settings
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody.scale = Vector3.ONE * Size
-	#$KatamariBody.mass = 1
-	#$KatamariBody.linear_damp = pow(Size, 1.0/6)
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE
 	
 	# Rotate katamari model (including objects and collision when that's implemented)
@@ -121,10 +119,12 @@ func changeSizeArea(index:int):
 	CurrentZone = index
 	
 	var nextBound := 1.79769e308
+	if CurrentZone > HighestZone: 
+		HighestZone = CurrentZone
+		$KatamariCameraPivot/KatamariCamera/KatamariCameraZoom.play("CameraZoom")
 	if CameraZones.size() - 1 < CurrentZone: nextBound = CameraZones[CurrentZone+1].x
 	CurrentZoneBounds = Vector2(CameraZones[CurrentZone].x, nextBound)
 	CameraScale = CameraZones[CurrentZone].y
 	CameraTilt = CameraZones[CurrentZone].z
 	CameraShift = CameraZones[CurrentZone].w
-	if CurrentZone > HighestZone: 
-		HighestZone = CurrentZone
+	
