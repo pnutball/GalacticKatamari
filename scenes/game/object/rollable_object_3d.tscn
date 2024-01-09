@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7ohty8xjjwlv"]
+
+[ext_resource type="Script" path="res://scripts/rollable_object.gd" id="1_mpgf7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ou3l4"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gnvnq"]
+points = PackedVector3Array(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5)
+
+[node name="RollableObject3D" type="AnimatableBody3D"]
+script = ExtResource("1_mpgf7")
+
+[node name="RollableObjectMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ou3l4")
+
+[node name="RollableObjectCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_gnvnq")
