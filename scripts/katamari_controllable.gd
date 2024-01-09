@@ -28,13 +28,14 @@ var CameraScale: float = 1
 ##
 ## Ideal range should be between -pi/2 rad and pi/2 rad (-180deg to 180deg)
 @export_range(-90, 90, 0.001, "radians_as_degrees") var CameraTilt:float = 0
-## An array of size ranges and their respective camera scales/tilts.
+## An array of camera ranges and their respective camera scales/tilts.
 ##
-## X determines the minimum size (in meters) for the size range.
-## Y determines the camera scale relative to the World3D (NOT the katamari!).
-## Z determines the camera's tilt in radians.
-## W determines the camera's vertical shift, relative to the World3D
-@export var CameraZones:Array[Vector4] = [Vector4(0, 1.5, deg_to_rad(-15), .25)]
+## Bound determines the minimum size (in meters) for the size range.
+## Scale determines the camera scale relative to the World3D (NOT the katamari!).
+## Tilt determines the camera's tilt in radians.
+## Shift determines the camera's vertical shift, relative to the World3D.
+## Attributes, if available, determines the camera attributes file used by the camera when reaching the size area.
+@export var CameraZones:Array[Dictionary] = [{Bound = 0, Scale = 1.5, Tilt = -15, Shift = .25, Attributes = load("res://misc/attr_test_00.tres")}]
 ## The bounds of the current camera zone.
 ## Automatically set when changing CurrentZone.
 var CurrentZoneBounds:Vector2
@@ -54,7 +55,7 @@ var StickAngle:float = ((RightStick + Vector2(4,0))-LeftStick).angle()
 #endregion
 
 func _ready():
-	changeSizeArea(0)
+	changeCamArea(0, true)
 	$KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 
 func _process(delta):
@@ -91,13 +92,13 @@ func _physics_process(delta):
 	if Input.is_action_pressed("DEBUG Smaller"): Size = maxf(Size - delta, 0.05)
 	
 	# Adjust physics settings
-	$KatamariBody.gravity_scale = $"..".scale.y
+	$KatamariBody.gravity_scale = $"..".scale.y * Size
 	$KatamariBody.scale = Vector3.ONE * Size
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE
 	
 	# Rotate katamari model (including objects and collision when that's implemented)
-	$KatamariBody/KatamariMesh.rotate_z(($KatamariBody.linear_velocity.x * -8 * delta) / Size)
-	$KatamariBody/KatamariMesh.rotate_x(($KatamariBody.linear_velocity.z * 8 * delta) / Size)
+	$KatamariBody/KatamariMesh.rotate_z(($KatamariBody.linear_velocity.x * -8 / $"..".scale.x * delta) / Size)
+	$KatamariBody/KatamariMesh.rotate_x(($KatamariBody.linear_velocity.z * 8 / $"..".scale.z * delta) / Size)
 	
 	# Determine floor collision
 	var floorCollision:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.DOWN * 0.1, true)
@@ -111,20 +112,32 @@ func _physics_process(delta):
 	# Create movement force
 	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y)
 	
+	# Detect size/camera area changes
+	if Size < CurrentZoneBounds.x and CurrentZone > 0:
+		changeCamArea(CurrentZone - 1) # Decrease camera area
+	elif Size > CurrentZoneBounds.y:
+		changeCamArea(CurrentZone + 1) # Decrease camera area
 
 
 ## Changes the current camera zone to CameraZones[index].
-func changeSizeArea(index:int):
+func changeCamArea(index:int, skipAnimation:bool = false):
 	if index > CameraZones.size(): push_error("Camera zone index out of bounds")
 	CurrentZone = index
-	
-	var nextBound := 1.79769e308
 	if CurrentZone > HighestZone: 
 		HighestZone = CurrentZone
-		$KatamariCameraPivot/KatamariCamera/KatamariCameraZoom.play("CameraZoom")
-	if CameraZones.size() - 1 < CurrentZone: nextBound = CameraZones[CurrentZone+1].x
-	CurrentZoneBounds = Vector2(CameraZones[CurrentZone].x, nextBound)
-	CameraScale = CameraZones[CurrentZone].y
-	CameraTilt = CameraZones[CurrentZone].z
-	CameraShift = CameraZones[CurrentZone].w
+		if not skipAnimation: $KatamariCameraPivot/KatamariCamera/KatamariCameraZoom.play("CameraZoom")
+	var nextBound := 1.79769e308
+	if CameraZones.size() - 1 > CurrentZone: nextBound = CameraZones[CurrentZone+1].Bound
+	CurrentZoneBounds = Vector2(CameraZones[CurrentZone].Bound, nextBound)
+	print(CurrentZoneBounds.y)
+	if CameraZones[CurrentZone].Attributes: $KatamariCameraPivot/KatamariCamera.attributes = CameraZones[CurrentZone].Attributes
+	if skipAnimation:
+		CameraScale = CameraZones[CurrentZone].Scale
+		CameraTilt = deg_to_rad(CameraZones[CurrentZone].Tilt)
+		CameraShift = CameraZones[CurrentZone].Shift
+	else:
+		var CameraTween = get_tree().create_tween()
+		CameraTween.parallel().tween_property(self, "CameraScale", CameraZones[CurrentZone].Scale, 1)
+		CameraTween.parallel().tween_property(self, "CameraTilt", deg_to_rad(CameraZones[CurrentZone].Tilt), 1)
+		CameraTween.parallel().tween_property(self, "CameraShift", CameraZones[CurrentZone].Shift, 1)
 	

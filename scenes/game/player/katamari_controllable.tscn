@@ -1,7 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=19 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
-[ext_resource type="CameraAttributesPractical" uid="uid://b3ss2g57oq1de" path="res://misc/katamari_cam_attributes.tres" id="2_dfura"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
 [ext_resource type="Shader" path="res://misc/CameraShader.gdshader" id="4_0tvtr"]
 [ext_resource type="AudioStream" uid="uid://wmfgl0sojypp" path="res://sounds/game/scale_up.mp3" id="5_2kyss"]
@@ -122,7 +121,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="KatamariCamera" type="Camera3D" parent="KatamariCameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-attributes = ExtResource("2_dfura")
 current = true
 
 [node name="KatamariCamShaderTarget" type="MeshInstance3D" parent="KatamariCameraPivot/KatamariCamera"]

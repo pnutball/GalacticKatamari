@@ -27,6 +27,12 @@ reflected_light_source = 1
 
 [node name="KatamariControllable" parent="." instance=ExtResource("2_tifuw")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.3, 0)
+Size = 1.0
+GrowthMultiplier = 1.0
+Speed = 1.0
+CameraShift = 0.0
+CameraRotation = 0.0
+CameraTilt = 0.0
 
 [node name="OUJI_HOLDER2" parent="." instance=ExtResource("2_6kreb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.3)
