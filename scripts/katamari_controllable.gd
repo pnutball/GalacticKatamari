@@ -92,13 +92,13 @@ func _physics_process(delta):
 	if Input.is_action_pressed("DEBUG Smaller"): Size = maxf(Size - delta, 0.05)
 	
 	# Adjust physics settings
-	$KatamariBody.gravity_scale = $"..".scale.y * Size
-	$KatamariBody.scale = Vector3.ONE * Size
-	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE
+	$KatamariBody.gravity_scale = $"..".scale.y
+	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size
+	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size
 	
 	# Rotate katamari model (including objects and collision when that's implemented)
-	$KatamariBody/KatamariMesh.rotate_z(($KatamariBody.linear_velocity.x * -8 / $"..".scale.x * delta) / Size)
-	$KatamariBody/KatamariMesh.rotate_x(($KatamariBody.linear_velocity.z * 8 / $"..".scale.z * delta) / Size)
+	$KatamariBody/KatamariMeshPivot.rotate_z(($KatamariBody.linear_velocity.x * -8 / $"..".scale.x * delta) / Size)
+	$KatamariBody/KatamariMeshPivot.rotate_x(($KatamariBody.linear_velocity.z * 8 / $"..".scale.z * delta) / Size)
 	
 	# Determine floor collision
 	var floorCollision:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.DOWN * 0.1, true)
@@ -130,7 +130,8 @@ func changeCamArea(index:int, skipAnimation:bool = false):
 	if CameraZones.size() - 1 > CurrentZone: nextBound = CameraZones[CurrentZone+1].Bound
 	CurrentZoneBounds = Vector2(CameraZones[CurrentZone].Bound, nextBound)
 	print(CurrentZoneBounds.y)
-	if CameraZones[CurrentZone].Attributes: $KatamariCameraPivot/KatamariCamera.attributes = CameraZones[CurrentZone].Attributes
+	if CameraZones[CurrentZone].Attributes: 
+		$KatamariCameraPivot/KatamariCamera.attributes = CameraZones[CurrentZone].Attributes
 	if skipAnimation:
 		CameraScale = CameraZones[CurrentZone].Scale
 		CameraTilt = deg_to_rad(CameraZones[CurrentZone].Tilt)
