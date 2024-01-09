@@ -1,5 +1,6 @@
 [gd_resource type="CameraAttributesPractical" format=3 uid="uid://b3ss2g57oq1de"]
 
 [resource]
-dof_blur_far_enabled = true
-dof_blur_far_distance = 0.88
+dof_blur_far_distance = 0.59
+dof_blur_far_transition = 3.5
+dof_blur_amount = 1.0
