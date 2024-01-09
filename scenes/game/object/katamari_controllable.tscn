@@ -148,10 +148,12 @@ can_sleep = false
 linear_damp_mode = 1
 linear_damp = 1.1
 
-[node name="KatamariMesh" type="MeshInstance3D" parent="KatamariBody"]
+[node name="KatamariMeshPivot" type="Node3D" parent="KatamariBody"]
+
+[node name="KatamariMesh" type="MeshInstance3D" parent="KatamariBody/KatamariMeshPivot"]
 transform = Transform3D(1.125, 0, 0, 0, 1.125, 0, 0, 0, 1.125, 0, 0, 0)
 mesh = ExtResource("5_mqsmu")
-skeleton = NodePath("../../..")
+skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_h62m0")
 
 [node name="KatamariBaseCollision" type="CollisionShape3D" parent="KatamariBody"]
