@@ -139,12 +139,16 @@ libraries = {
 [node name="KatamariBody" type="RigidBody3D" parent="."]
 process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 3
+collision_mask = 3
+input_ray_pickable = false
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 physics_material_override = SubResource("PhysicsMaterial_tecj2")
 center_of_mass_mode = 1
 can_sleep = false
+continuous_cd = true
 linear_damp_mode = 1
 linear_damp = 1.1
 

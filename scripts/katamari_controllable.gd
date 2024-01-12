@@ -93,12 +93,18 @@ func _physics_process(delta):
 	
 	# Adjust physics settings
 	$KatamariBody.gravity_scale = $"..".scale.y
-	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size
+	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size * 1.15
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size
 	
 	# Rotate katamari model (including objects and collision when that's implemented)
 	$KatamariBody/KatamariMeshPivot.rotate_z(($KatamariBody.linear_velocity.x * -8 / $"..".scale.x * delta) / Size)
 	$KatamariBody/KatamariMeshPivot.rotate_x(($KatamariBody.linear_velocity.z * 8 / $"..".scale.z * delta) / Size)
+	
+	# Rotate object colliders
+	for collider in $KatamariBody.get_children():
+		if collider.name != "KatamariBaseCollision" and collider is CollisionShape3D:
+			collider.rotate_z(($KatamariBody.linear_velocity.x * -8 / $"..".scale.x * delta) / Size)
+			collider.rotate_x(($KatamariBody.linear_velocity.z * 8 / $"..".scale.z * delta) / Size)
 	
 	# Determine floor collision
 	var floorCollision:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.DOWN * 0.1, true)
