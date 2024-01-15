@@ -10,8 +10,8 @@ A Katamari fangame that aims to be the fanmade equivalent to a "Katamari 7".
 ## How to open the project
 
 1. Clone `https://github.com/pnutball/clover.git` to your local system. 
-    - [GitHub Desktop](https://desktop.github.com/): Press `File -> Clone repository...` and clone `pnutball/clover`. <br/><p><a href="x-github-client://openRepo/https://github.com/pnutball/clover"><img src="https://img.shields.io/badge/quick_setup-purple?logo=github"></a></p>
-    - Visual Studio: Press `Clone a repository` and enter `https://github.com/pnutball/clover.git` as the repository location. Enter your GitHub credentials if necessary.<br/><p><a href="git-client://clone?repo=https%3A%2F%2Fgithub.com%2Fpnutball%2Fclover"><img src="https://img.shields.io/badge/quick_setup-purple?logo=visualstudio"></a></p>
+    - [GitHub Desktop](https://desktop.github.com/): Press `File -> Clone repository...` and clone `pnutball/clover`. <br/>Alternatively, go into the main page and press `<> Code -> Open with GitHub Desktop`.
+    - Visual Studio: Press `Clone a repository` and enter `https://github.com/pnutball/clover.git` as the repository location. Enter your GitHub credentials if necessary.
     - Git (command line): Run `git clone https://github.com/pnutball/clover.git [local directory]`. Enter your GitHub credentials if necessary.
 2. Open project.godot using [Godot 4.2.x Standard](https://godotengine.org/download/archive/4.2.1-stable/).
 
