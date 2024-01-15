@@ -97,14 +97,17 @@ func _physics_process(delta):
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size
 	
 	# Rotate katamari model (including objects and collision when that's implemented)
-	$KatamariBody/KatamariMeshPivot.rotate_z(($KatamariBody.linear_velocity.x * -8 / $"..".scale.x * delta) / Size)
-	$KatamariBody/KatamariMeshPivot.rotate_x(($KatamariBody.linear_velocity.z * 8 / $"..".scale.z * delta) / Size)
+	var zRot:float = ($KatamariBody.linear_velocity.x * -8 / $"..".scale.x * delta) / Size
+	var xRot:float = ($KatamariBody.linear_velocity.z * 8 / $"..".scale.z * delta) / Size
+	$KatamariBody/KatamariMeshPivot.rotate_z(zRot)
+	$KatamariBody/KatamariMeshPivot.rotate_x(xRot)
 	
-	# Rotate object colliders
-	for collider in $KatamariBody.get_children():
-		if collider.name != "KatamariBaseCollision" and collider is CollisionShape3D:
-			collider.rotate_z(($KatamariBody.linear_velocity.x * -8 / $"..".scale.x * delta) / Size)
-			collider.rotate_x(($KatamariBody.linear_velocity.z * 8 / $"..".scale.z * delta) / Size)
+	# Rotate object collision
+	for collider:Node3D in $KatamariBody.get_children():
+		if collider is CollisionShape3D and collider.name != "KatamariBaseCollision":
+			#collider.rotate_z(zRot)
+			#collider.rotate_x(zRot)
+			collider.transform = collider.transform.rotated(Vector3(0,0,1), zRot).rotated(Vector3(1,0,0), xRot)
 	
 	# Determine floor collision
 	var floorCollision:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.DOWN * 0.1, true)

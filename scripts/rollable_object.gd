@@ -8,5 +8,5 @@ func _on_katamari_entered(body):
 	if body.name == "KatamariBody":
 		$RollableObjectCollision.queue_free()
 		$OnKatamariCollisionShape.reparent(body, true)
-		$RollableObjectMesh.reparent(body.get_node("KatamariMeshPivot/KatamariMesh"))
+		$RollableObjectMesh.reparent(body.get_node("KatamariMeshPivot"))
 		queue_free()
