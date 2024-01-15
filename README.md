@@ -1,6 +1,12 @@
-# <picture><source media="(prefers-color-scheme: dark)" srcset="readme_logo_dark.png"><source media="(prefers-color-scheme: light)" srcset="readme_logo.png"><img alt="Galactic Katamari" src="readme_logo.png"></picture>
+# <picture><source media="(prefers-color-scheme: dark)" srcset="readme/readme_logo_dark.png"><source media="(prefers-color-scheme: light)" srcset="readme/readme_logo.png"><img alt="Galactic Katamari" src="readme/readme_logo.png"></picture>
 
 A Katamari fangame that aims to be the fanmade equivalent to a "Katamari 7".
+
+<p>
+<a href="https://discord.gg/FCe3ZbUnHe"><img src="https://img.shields.io/discord/1186526841067012136?color=5865F2&label=Pnutball&logo=discord&logoColor=white" alt="Pnutball Discord"></a>
+<br/>
+<a href="LICENSE.md"><img src="https://img.shields.io/badge/license-CC--BY--NC--SA-%23EF9421?logo=creativecommons&logoColor=white" alt="Galactic Katamari is licensed under CC-BY-NC-SA 4.0."></a>
+</p>
 
 ## How to open the project
 
@@ -11,7 +17,3 @@ A Katamari fangame that aims to be the fanmade equivalent to a "Katamari 7".
 2. Open project.godot using [Godot 4.2.x Standard](https://godotengine.org/download/archive/4.2.1-stable/).
 
 The Godot project can be built and edited (including GDScript code) through the Godot editor.
-
-<hr/>
-
-Galactic Katamari is licensed under CC-BY-NC-SA 4.0. For more information, read [`LICENSE.md`](LICENSE.md).
