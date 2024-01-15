@@ -2,9 +2,8 @@
 
 A Katamari fangame that aims to be the fanmade equivalent to a "Katamari 7".
 
-<p style="text-align: center;">
+<p style="display: block; margin-left: auto; margin-right: auto;">
 <a href="https://discord.gg/FCe3ZbUnHe"><img src="https://img.shields.io/discord/1186526841067012136?color=5865F2&label=Pnutball&logo=discord&logoColor=white" alt="Pnutball Discord"></a>
-<br/>
 <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-CC--BY--NC--SA-%23EF9421?logo=creativecommons&logoColor=white" alt="Galactic Katamari is licensed under CC-BY-NC-SA 4.0."></a>
 </p>
 
