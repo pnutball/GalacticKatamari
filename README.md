@@ -10,9 +10,9 @@ A Katamari fangame that aims to be the fanmade equivalent to a "Katamari 7".
 ## How to open the project
 
 1. Clone `https://github.com/pnutball/clover.git` to your local system. 
-    - [GitHub Desktop](https://desktop.github.com/): Press `File -> Clone repository...` and clone `pnutball/clover`. <br/>Alternatively, go into the main page and press `<> Code -> Open with GitHub Desktop`.
-    - Visual Studio: Press `Clone a repository` and enter `https://github.com/pnutball/clover.git` as the repository location. Enter your GitHub credentials if necessary.
-    - Git (command line): Run `git clone https://github.com/pnutball/clover.git [local directory]`. Enter your GitHub credentials if necessary.
+    - [GitHub Desktop](https://desktop.github.com/): Press `File -> Clone repository...` and clone `pnutball/GalacticKatamari`. <br/>Alternatively, go into the main page and press `<> Code -> Open with GitHub Desktop`.
+    - Visual Studio: Press `Clone a repository` and enter `https://github.com/pnutball/GalacticKatamari.git` as the repository location. Enter your GitHub credentials if necessary.
+    - Git (command line): Run `git clone https://github.com/pnutball/GalacticKatamari.git [local directory]`. Enter your GitHub credentials if necessary.
 2. Open project.godot using [Godot 4.2.x Standard](https://godotengine.org/download/archive/4.2.1-stable/).
 
 The Godot project can be built and edited (including GDScript code) through the Godot editor.
