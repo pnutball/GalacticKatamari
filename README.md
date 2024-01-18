@@ -9,7 +9,7 @@ A Katamari fangame that aims to be the fanmade equivalent to a "Katamari 7".
 
 ## How to open the project
 
-1. Clone `https://github.com/pnutball/clover.git` to your local system. 
+1. Clone `https://github.com/pnutball/GalacticKatamari.git` to your local system. 
     - [GitHub Desktop](https://desktop.github.com/): Press `File -> Clone repository...` and clone `pnutball/GalacticKatamari`. <br/>Alternatively, go into the main page and press `<> Code -> Open with GitHub Desktop`.
     - Visual Studio: Press `Clone a repository` and enter `https://github.com/pnutball/GalacticKatamari.git` as the repository location. Enter your GitHub credentials if necessary.
     - Git (command line): Run `git clone https://github.com/pnutball/GalacticKatamari.git [local directory]`. Enter your GitHub credentials if necessary.
