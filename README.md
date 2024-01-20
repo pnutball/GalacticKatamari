@@ -7,6 +7,9 @@ A Katamari fangame that aims to be the fanmade equivalent to a "Katamari 7".
 <a href="LICENSE.md"><img src="https://img.shields.io/badge/license-CC--BY--NC--SA-%23EF9421?logo=creativecommons&logoColor=white" alt="Galactic Katamari is licensed under CC-BY-NC-SA 4.0."></a>
 </p>
 
+## NOTE
+This project is currently a _prototype_. Don't expect anything amazing yet.
+
 ## How to open the project
 
 1. Clone `https://github.com/pnutball/GalacticKatamari.git` to your local system. 
