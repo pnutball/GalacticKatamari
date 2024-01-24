@@ -14,6 +14,9 @@ var MinimumSize:float = Size
 @export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 1
 ## Sets how much the katamari's acceleration/top speed is multiplied.
 @export var InclineSpeedMultiplier:Curve
+## Determines if movement is currently enabled.
+## Should usually be TRUE unless control of the katamari is lost (e.g. getting slammed into, quick turning, etc.)
+var MovementEnabled:bool = true
 
 @export_group("Camera")
 ## The camera's scale, relative to a size of 1m.
@@ -80,9 +83,9 @@ func _process(delta):
 	$Control/Label4.text = "size:%dm%02dcm%01dmm\ndamp:%f" % [floori(Size), floori(Size * 100) % 100, floori(Size * 1000) % 10, $KatamariBody.linear_damp]
 
 func _physics_process(delta):
-	# Handle inputs
-	LeftStick = Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5)
-	RightStick = Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5)
+	# Handle movement inputs
+	LeftStick = Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5) * int(MovementEnabled)
+	RightStick = Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5) * int(MovementEnabled)
 	StickMidpoint = (LeftStick + Vector2.LEFT).lerp(RightStick + Vector2.RIGHT, 0.5)
 	if StickMidpoint.length() <= 0.501: StickMidpoint = Vector2.ZERO
 	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle()
@@ -95,10 +98,11 @@ func _physics_process(delta):
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size * 1.15
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size
+	$KatamariBody.center_of_mass = Vector3(0, -Size, 0)
 	
 	# Rotate katamari model (including objects and collision when that's implemented)
-	var zRot:float = ($KatamariBody.linear_velocity.x * -8 / $"..".scale.x * delta) / Size
-	var xRot:float = ($KatamariBody.linear_velocity.z * 8 / $"..".scale.z * delta) / Size
+	var zRot:float = ($KatamariBody.linear_velocity.x * -8.1 / $"..".scale.x * delta) / Size
+	var xRot:float = ($KatamariBody.linear_velocity.z * 8.1 / $"..".scale.z * delta) / Size
 	$KatamariBody/KatamariMeshPivot.rotate_z(zRot)
 	$KatamariBody/KatamariMeshPivot.rotate_x(xRot)
 	
@@ -126,6 +130,10 @@ func _physics_process(delta):
 		changeCamArea(CurrentZone - 1) # Decrease camera area
 	elif Size > CurrentZoneBounds.y:
 		changeCamArea(CurrentZone + 1) # Decrease camera area
+	
+	# Detect quick turn
+	if Input.is_action_just_pressed("Quick Turn Left") and Input.is_action_just_pressed("Quick Turn Right"):
+		doQuickTurn()
 
 
 ## Changes the current camera zone to CameraZones[index].
@@ -134,7 +142,8 @@ func changeCamArea(index:int, skipAnimation:bool = false):
 	CurrentZone = index
 	if CurrentZone > HighestZone: 
 		HighestZone = CurrentZone
-		if not skipAnimation: $KatamariCameraPivot/KatamariCamera/KatamariCameraZoom.play("CameraZoom")
+		if not skipAnimation: 
+			$KatamariCameraPivot/KatamariCamera/KatamariCameraZoom.play("CameraZoom")
 	var nextBound := 1.79769e308
 	if CameraZones.size() - 1 > CurrentZone: nextBound = CameraZones[CurrentZone+1].Bound
 	CurrentZoneBounds = Vector2(CameraZones[CurrentZone].Bound, nextBound)
@@ -151,3 +160,17 @@ func changeCamArea(index:int, skipAnimation:bool = false):
 		CameraTween.parallel().tween_property(self, "CameraTilt", deg_to_rad(CameraZones[CurrentZone].Tilt), 1)
 		CameraTween.parallel().tween_property(self, "CameraShift", CameraZones[CurrentZone].Shift, 1)
 	
+
+func doQuickTurn():
+	if MovementEnabled:
+		MovementEnabled = false
+		# put the quick turn code here
+		var QTTiltTween = get_tree().create_tween()
+		var QTRotTween = get_tree().create_tween()
+		$KatamariQTAudio.stream = preload("res://sounds/game/quick_turn.mp3")
+		$KatamariQTAudio.play()
+		QTRotTween.tween_property(self, "CameraRotation", CameraRotation + PI, 0.4).set_trans(Tween.TRANS_LINEAR)
+		QTTiltTween.tween_property(self, "CameraTilt", ((-16 * PI) / 32), 0.2).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+		QTTiltTween.tween_property(self, "CameraTilt", deg_to_rad(CameraZones[CurrentZone].Tilt), 0.2).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
+		await get_tree().create_timer(0.4).timeout
+		MovementEnabled = true

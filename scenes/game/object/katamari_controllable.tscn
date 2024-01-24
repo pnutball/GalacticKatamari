@@ -34,7 +34,7 @@ tracks/0/keys = {
 tracks/1/type = "audio"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../../KatamariAudio")
+tracks/1/path = NodePath("../../KatamariZoomAudio")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -70,7 +70,6 @@ _data = {
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tecj2"]
 friction = 0.08
-rough = true
 bounce = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h62m0"]
@@ -125,7 +124,6 @@ current = true
 
 [node name="KatamariCamShaderTarget" type="MeshInstance3D" parent="KatamariCameraPivot/KatamariCamera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-visible = false
 material_override = SubResource("ShaderMaterial_wcqj7")
 cast_shadow = 0
 extra_cull_margin = 16384.0
@@ -148,6 +146,7 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 physics_material_override = SubResource("PhysicsMaterial_tecj2")
 center_of_mass_mode = 1
+center_of_mass = Vector3(0, -1, 0)
 can_sleep = false
 continuous_cd = true
 linear_damp_mode = 1
@@ -315,4 +314,8 @@ offset_bottom = 95.6
 text = "Play Zoom Anim"
 script = SubResource("GDScript_4llql")
 
-[node name="KatamariAudio" type="AudioStreamPlayer" parent="."]
+[node name="KatamariZoomAudio" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="KatamariQTAudio" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
