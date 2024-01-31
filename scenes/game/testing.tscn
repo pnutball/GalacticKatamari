@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c820wfua0imkw"]
+[gd_scene load_steps=9 format=3 uid="uid://c820wfua0imkw"]
 
 [ext_resource type="PackedScene" uid="uid://ck346mxns8kjs" path="res://models/map/map_test.tscn" id="1_n67c0"]
 [ext_resource type="PackedScene" uid="uid://cwxpkbdnvlvw0" path="res://models/ouji/OUJI_HOLDER.glb" id="2_6kreb"]
 [ext_resource type="PackedScene" uid="uid://b71c6sh4m0f5e" path="res://scenes/game/object/katamari_controllable.tscn" id="2_tifuw"]
 [ext_resource type="PackedScene" uid="uid://b7ohty8xjjwlv" path="res://scenes/game/object/rollable_object_3d.tscn" id="4_rr44q"]
+[ext_resource type="AudioStream" uid="uid://x1kxsldubvww" path="res://music/result.ogg" id="5_4hene"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xv6rd"]
 sky_top_color = Color(0.239216, 0.635294, 1, 1)
@@ -41,3 +42,7 @@ directional_shadow_mode = 0
 
 [node name="RollableObject3D" parent="." instance=ExtResource("4_rr44q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -1)
+
+[node name="TestMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_4hene")
+autoplay = true
