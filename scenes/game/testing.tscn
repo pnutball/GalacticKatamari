@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://c820wfua0imkw"]
+[gd_scene load_steps=11 format=3 uid="uid://c820wfua0imkw"]
 
 [ext_resource type="PackedScene" uid="uid://ck346mxns8kjs" path="res://models/map/map_test.tscn" id="1_n67c0"]
 [ext_resource type="PackedScene" uid="uid://cwxpkbdnvlvw0" path="res://models/ouji/OUJI_HOLDER.glb" id="2_6kreb"]
 [ext_resource type="PackedScene" uid="uid://b71c6sh4m0f5e" path="res://scenes/game/object/katamari_controllable.tscn" id="2_tifuw"]
 [ext_resource type="PackedScene" uid="uid://b7ohty8xjjwlv" path="res://scenes/game/object/rollable_object_3d.tscn" id="4_rr44q"]
 [ext_resource type="AudioStream" uid="uid://x1kxsldubvww" path="res://music/result.ogg" id="5_4hene"]
+[ext_resource type="PackedScene" uid="uid://bp5gmy06yifpu" path="res://scenes/ui/king_moya.tscn" id="6_0kg0s"]
+[ext_resource type="PackedScene" uid="uid://r5b6h4jwf6gn" path="res://scenes/ui/timer_normal.tscn" id="7_kyiyc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xv6rd"]
 sky_top_color = Color(0.239216, 0.635294, 1, 1)
@@ -46,3 +48,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -1)
 [node name="TestMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_4hene")
 autoplay = true
+
+[node name="KingMoya" parent="." instance=ExtResource("6_0kg0s")]
+
+[node name="TimerNormal" parent="." instance=ExtResource("7_kyiyc")]
