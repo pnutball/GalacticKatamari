@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bp5gmy06yifpu"]
+[gd_scene load_steps=30 format=3 uid="uid://bp5gmy06yifpu"]
 
 [ext_resource type="Texture2D" uid="uid://evak7n0ethga" path="res://textures/king/moya/kingmoya.png" id="1_ldxbr"]
 [ext_resource type="Script" path="res://scripts/king_moya.gd" id="1_togpb"]
@@ -6,8 +6,16 @@
 [ext_resource type="Texture2D" uid="uid://18cwp3grxof" path="res://textures/king/rainbow/rainbow_spark.png" id="3_5ncxc"]
 [ext_resource type="AnimationLibrary" uid="uid://dpy8711l2hl38" path="res://animations/king/moya/moya_wibble.res" id="3_xesqk"]
 [ext_resource type="Texture2D" uid="uid://c3bx2hvt4e6n7" path="res://textures/king/king_face.png" id="6_wtp3r"]
+[ext_resource type="Texture2D" uid="uid://d7ugixhmm28n" path="res://textures/king/king_eye_close.png" id="7_d28yw"]
 [ext_resource type="Texture2D" uid="uid://cnkuka6jcidhp" path="res://textures/king/king_face_angry.png" id="7_w8afc"]
 [ext_resource type="Texture2D" uid="uid://us5kqg36q2ya" path="res://textures/king/king_mouth1.png" id="8_iv483"]
+[ext_resource type="Texture2D" uid="uid://dh70eqxvsdiv" path="res://textures/king/king_eye_close_angry.png" id="9_5kqxv"]
+[ext_resource type="Texture2D" uid="uid://bk7usk4yvyluk" path="res://textures/king/king_mouth2.png" id="11_7wcue"]
+[ext_resource type="Texture2D" uid="uid://bs5m7scj62npg" path="res://textures/king/king_mouth3.png" id="12_mt7oh"]
+[ext_resource type="Texture2D" uid="uid://dnhey36jrsbay" path="res://textures/king/king_mouth_smile1.png" id="13_pd1wp"]
+[ext_resource type="Texture2D" uid="uid://dl0ny1bkkeiok" path="res://textures/king/king_mouth_smile2.png" id="14_wwn8k"]
+[ext_resource type="Texture2D" uid="uid://cuc33oyse4s3" path="res://textures/king/king_mouth_smile3.png" id="15_0t1wj"]
+[ext_resource type="Texture2D" uid="uid://bbxfbhq4lwthq" path="res://textures/king/king_face_happy.png" id="16_ly25h"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_etfw7"]
 viewport_path = NodePath("MoyaView")
@@ -37,6 +45,157 @@ gravity = Vector3(0, 0, 0)
 scale_max = 3.0
 scale_curve = SubResource("CurveTexture_s4h50")
 alpha_curve = SubResource("CurveTexture_3wb6e")
+
+[sub_resource type="Animation" id="Animation_j046e"]
+resource_name = "blink"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KingFace/KingEyes:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 1.6, 4, 4.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [null, ExtResource("7_d28yw"), null, ExtResource("7_d28yw"), null]
+}
+
+[sub_resource type="Animation" id="Animation_gbow0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KingFace/KingEyes:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KingFace:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_wtp3r")]
+}
+
+[sub_resource type="Animation" id="Animation_hf7c6"]
+resource_name = "blink_angry"
+length = 6.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KingFace/KingEyes:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 1.6, 4, 4.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("7_w8afc"), ExtResource("9_5kqxv"), ExtResource("7_w8afc"), ExtResource("9_5kqxv"), ExtResource("7_w8afc")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KingFace:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_wtp3r")]
+}
+
+[sub_resource type="Animation" id="Animation_x73yh"]
+resource_name = "talk"
+length = 0.200003
+loop_mode = 2
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KingFace/KingMouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [null, ExtResource("8_iv483"), ExtResource("11_7wcue"), ExtResource("12_mt7oh")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KingFace:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_wtp3r")]
+}
+
+[sub_resource type="Animation" id="Animation_txb03"]
+resource_name = "talk_happy"
+length = 0.200003
+loop_mode = 2
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("KingFace/KingMouth:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [null, ExtResource("13_pd1wp"), ExtResource("14_wwn8k"), ExtResource("15_0t1wj")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("KingFace:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("16_ly25h")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2r6ns"]
+_data = {
+"RESET": SubResource("Animation_gbow0"),
+"blink": SubResource("Animation_j046e"),
+"blink_angry": SubResource("Animation_hf7c6"),
+"talk": SubResource("Animation_x73yh"),
+"talk_happy": SubResource("Animation_txb03")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gmees"]
+_data = {
+"RESET": SubResource("Animation_gbow0"),
+"blink": SubResource("Animation_j046e"),
+"blink_angry": SubResource("Animation_hf7c6"),
+"talk": SubResource("Animation_x73yh"),
+"talk_happy": SubResource("Animation_txb03")
+}
 
 [node name="KingMoya" type="Control"]
 layout_mode = 3
@@ -126,20 +285,6 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="KingEyes" type="TextureRect" parent="KingFace"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("7_w8afc")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="KingMouth" type="TextureRect" parent="KingFace"]
-visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -148,6 +293,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-texture = ExtResource("8_iv483")
 expand_mode = 3
 stretch_mode = 5
+
+[node name="KingMouth" type="TextureRect" parent="KingFace"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="KingMouthAnimation" type="AnimationPlayer" parent="KingFace"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_2r6ns")
+}
+
+[node name="KingEyesAnimation" type="AnimationPlayer" parent="KingFace"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_gmees")
+}

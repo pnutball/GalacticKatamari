@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbxfbhq4lwthq"
-path="res://.godot/imported/king_face_smile2.png-0612257c0438ca903a5cc323b9d0fa14.ctex"
+uid="uid://ca8sxxgjhnfnh"
+path="res://.godot/imported/king_face_shock.png-5aba69363f8cd7b0778298f2277384b5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/king/king_face_smile2.png"
-dest_files=["res://.godot/imported/king_face_smile2.png-0612257c0438ca903a5cc323b9d0fa14.ctex"]
+source_file="res://textures/king/king_face_shock.png"
+dest_files=["res://.godot/imported/king_face_shock.png-5aba69363f8cd7b0778298f2277384b5.ctex"]
 
 [params]
 
