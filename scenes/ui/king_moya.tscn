@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://bp5gmy06yifpu"]
+[gd_scene load_steps=15 format=3 uid="uid://bp5gmy06yifpu"]
 
 [ext_resource type="Texture2D" uid="uid://evak7n0ethga" path="res://textures/king/moya/kingmoya.png" id="1_ldxbr"]
 [ext_resource type="Script" path="res://scripts/king_moya.gd" id="1_togpb"]
 [ext_resource type="ArrayMesh" uid="uid://y0q12nmx3hnn" path="res://models/king/moya.tres" id="2_xksay"]
 [ext_resource type="Texture2D" uid="uid://18cwp3grxof" path="res://textures/king/rainbow/rainbow_spark.png" id="3_5ncxc"]
 [ext_resource type="AnimationLibrary" uid="uid://dpy8711l2hl38" path="res://animations/king/moya/moya_wibble.res" id="3_xesqk"]
+[ext_resource type="Texture2D" uid="uid://c3bx2hvt4e6n7" path="res://textures/king/king_face.png" id="6_wtp3r"]
+[ext_resource type="Texture2D" uid="uid://cnkuka6jcidhp" path="res://textures/king/king_face_angry.png" id="7_w8afc"]
+[ext_resource type="Texture2D" uid="uid://us5kqg36q2ya" path="res://textures/king/king_mouth1.png" id="8_iv483"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_etfw7"]
 viewport_path = NodePath("MoyaView")
@@ -54,6 +57,7 @@ offset_top = 10.0
 offset_right = 170.0
 offset_bottom = 350.0
 grow_horizontal = 2
+mouse_filter = 2
 texture = SubResource("ViewportTexture_etfw7")
 expand_mode = 1
 
@@ -71,6 +75,7 @@ offset_bottom = 160.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(160, 160)
+mouse_filter = 2
 texture = ExtResource("1_ldxbr")
 expand_mode = 1
 stretch_mode = 4
@@ -91,7 +96,6 @@ transparent_bg = true
 screen_space_aa = 1
 
 [node name="MoyaMesh" type="MeshInstance3D" parent="MoyaView"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = ExtResource("2_xksay")
 blend_shapes/moya2 = 0.0
 
@@ -105,3 +109,45 @@ size = 5.0
 libraries = {
 "": ExtResource("3_xesqk")
 }
+
+[node name="KingFace" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.0
+offset_top = 38.0
+offset_right = 72.0
+offset_bottom = 292.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("6_wtp3r")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="KingEyes" type="TextureRect" parent="KingFace"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("7_w8afc")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="KingMouth" type="TextureRect" parent="KingFace"]
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("8_iv483")
+expand_mode = 3
+stretch_mode = 5
