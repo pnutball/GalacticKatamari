@@ -311,6 +311,7 @@ offset_left = -159.0
 offset_top = 64.6
 offset_right = -25.0
 offset_bottom = 95.6
+focus_mode = 0
 text = "Play Zoom Anim"
 script = SubResource("GDScript_4llql")
 
