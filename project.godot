@@ -143,6 +143,7 @@ folder_colors={
 [physics]
 
 3d/run_on_separate_thread=true
+common/physics_ticks_per_second=120
 3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=3.0
 jolt_3d/sleep/enabled=false
