@@ -10,8 +10,13 @@ config_version=5
 
 [application]
 
-config/name="KD7"
+config/name="Galactic Katamari"
+config/name_localized={
+"ja": "銀河系塊魂"
+}
 run/main_scene="res://scenes/game/testing.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Pnutball/GalacticKatamari"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
@@ -142,6 +147,16 @@ import/blender/enabled=false
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194322,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
+}
+
+[internationalization]
+
+locale/translation_remaps={
+"res://textures/logo/logo_en_full.png": PackedStringArray("res://textures/logo/logo_jp_full.png:ja"),
+"res://textures/logo/logo_en_shadow.png": PackedStringArray("res://textures/logo/logo_jp_shadow.png:ja"),
+"res://textures/logo/logo_en_star_A.png": PackedStringArray("res://textures/logo/logo_jp_star_A.png:ja"),
+"res://textures/logo/logo_en_star_B.png": PackedStringArray("res://textures/logo/logo_jp_star_B.png:ja"),
+"res://textures/logo/logo_en_text.png": PackedStringArray("res://textures/logo/logo_jp_text.png:ja")
 }
 
 [physics]
