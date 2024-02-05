@@ -113,14 +113,24 @@ func _physics_process(delta):
 			#collider.rotate_x(zRot)
 			collider.transform = collider.transform.rotated(Vector3(0,0,1), zRot).rotated(Vector3(1,0,0), xRot)
 	
-	# Determine floor collision
+	# Determine floor collision (old method)
+	#var floorCollision:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.DOWN * 0.1, true)
+	#var floorAngle:Vector3 = Vector3.UP
+	#if floorCollision: floorAngle = floorCollision.get_normal()
+	
+	# Determine floor collision (new method)
 	var floorCollision:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.DOWN * 0.1, true)
 	var floorAngle:Vector3 = Vector3.UP
-	if floorCollision: floorAngle = floorCollision.get_normal()
+	if floorCollision: 
+		floorAngle = floorCollision.get_normal(0)
+		for col in floorCollision.get_collision_count():
+			if floorCollision.get_angle(col) < PI/2:
+				floorAngle = floorAngle.slerp(floorCollision.get_normal(col), 0.5)
 	
-	# Calculate movement vector
+	# Calculate movement vector (old method)
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
 	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * sqrt(Size) * Speed + ((tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement) / pow(Speed, 1.0/3))
+
 	
 	# Create movement force
 	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y)
