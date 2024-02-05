@@ -152,11 +152,11 @@ import/blender/enabled=false
 [internationalization]
 
 locale/translation_remaps={
-"res://textures/logo/logo_en_full.png": PackedStringArray("res://textures/logo/logo_jp_full.png:ja"),
-"res://textures/logo/logo_en_shadow.png": PackedStringArray("res://textures/logo/logo_jp_shadow.png:ja"),
-"res://textures/logo/logo_en_star_A.png": PackedStringArray("res://textures/logo/logo_jp_star_A.png:ja"),
-"res://textures/logo/logo_en_star_B.png": PackedStringArray("res://textures/logo/logo_jp_star_B.png:ja"),
-"res://textures/logo/logo_en_text.png": PackedStringArray("res://textures/logo/logo_jp_text.png:ja")
+"res://textures/logo/logo_full.png": PackedStringArray("res://i12n/logo/logo_jp_full.png:ja"),
+"res://textures/logo/logo_shadow.png": PackedStringArray("res://i12n/logo/logo_jp_shadow.png:ja"),
+"res://textures/logo/logo_star_A.png": PackedStringArray("res://i12n/logo/logo_jp_star_A.png:ja"),
+"res://textures/logo/logo_star_B.png": PackedStringArray("res://i12n/logo/logo_jp_star_B.png:ja"),
+"res://textures/logo/logo_text.png": PackedStringArray("res://i12n/logo/logo_jp_text.png:ja")
 }
 
 [physics]

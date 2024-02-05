@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxxkbcemmkr18"
-path="res://.godot/imported/logo_jp_full.png-ca5f6588ea53f6bbab0b63dbfd42bec3.ctex"
+uid="uid://bfxth2nq5vqrm"
+path="res://.godot/imported/logo_jp_text.png-4830abf2e5d2c24420db788b457f7f82.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/logo/logo_jp_full.png"
-dest_files=["res://.godot/imported/logo_jp_full.png-ca5f6588ea53f6bbab0b63dbfd42bec3.ctex"]
+source_file="res://i12n/logo/logo_jp_text.png"
+dest_files=["res://.godot/imported/logo_jp_text.png-4830abf2e5d2c24420db788b457f7f82.ctex"]
 
 [params]
 

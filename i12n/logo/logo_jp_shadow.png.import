@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vcqj57iscyqc"
-path="res://.godot/imported/logo_jp_shadow.png-3596cddecd90e025028d95c9b6b6f67a.ctex"
+path="res://.godot/imported/logo_jp_shadow.png-87174c17a0a16741060f33e5680a9218.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/logo/logo_jp_shadow.png"
-dest_files=["res://.godot/imported/logo_jp_shadow.png-3596cddecd90e025028d95c9b6b6f67a.ctex"]
+source_file="res://i12n/logo/logo_jp_shadow.png"
+dest_files=["res://.godot/imported/logo_jp_shadow.png-87174c17a0a16741060f33e5680a9218.ctex"]
 
 [params]
 
