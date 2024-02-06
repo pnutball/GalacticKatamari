@@ -1,0 +1,9 @@
+[gd_resource type="FontVariation" load_steps=4 format=3 uid="uid://jimsv6e58fx7"]
+
+[ext_resource type="FontFile" uid="uid://l21v4uxpypc1" path="res://fonts/hud_small.ttf" id="1_4klaf"]
+[ext_resource type="FontFile" uid="uid://fmllagtf13w8" path="res://fonts/hud_small_ja.ttf" id="2_q5wnx"]
+[ext_resource type="FontFile" uid="uid://dx3r7ljrd22hy" path="res://fonts/hud_small_kr.ttf" id="3_v246n"]
+
+[resource]
+fallbacks = Array[Font]([ExtResource("2_q5wnx"), ExtResource("3_v246n")])
+base_font = ExtResource("1_4klaf")
