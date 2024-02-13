@@ -13,7 +13,6 @@ shader = ExtResource("4_0tvtr")
 shader_parameter/zoom_amount = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_boo8u"]
-flip_faces = true
 size = Vector2(2, 2)
 
 [sub_resource type="Animation" id="Animation_vc1w8"]
@@ -123,11 +122,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 current = true
 
 [node name="KatamariCamShaderTarget" type="MeshInstance3D" parent="KatamariCameraPivot/KatamariCamera"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+top_level = true
 material_override = SubResource("ShaderMaterial_wcqj7")
 cast_shadow = 0
 extra_cull_margin = 16384.0
-gi_mode = 0
 mesh = SubResource("QuadMesh_boo8u")
 
 [node name="KatamariCameraZoom" type="AnimationPlayer" parent="KatamariCameraPivot/KatamariCamera"]
