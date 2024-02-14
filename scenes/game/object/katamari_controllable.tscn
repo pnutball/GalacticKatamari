@@ -123,6 +123,7 @@ current = true
 
 [node name="KatamariCamShaderTarget" type="MeshInstance3D" parent="KatamariCameraPivot/KatamariCamera"]
 top_level = true
+visible = false
 material_override = SubResource("ShaderMaterial_wcqj7")
 cast_shadow = 0
 extra_cull_margin = 16384.0
