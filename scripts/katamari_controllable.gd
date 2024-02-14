@@ -46,6 +46,8 @@ var CurrentZoneBounds:Vector2
 var CurrentZone:int = 0
 ## The largest camera zone reached so far in a level.
 var HighestZone := CurrentZone
+## The amount of camera smoothing.
+var CameraSmoothing:float = 0.85
 
 ## The input vector for the left stick.
 var LeftStick:Vector2 = Vector2(0, 0)
@@ -59,28 +61,27 @@ var StickAngle:float = ((RightStick + Vector2(4,0))-LeftStick).angle()
 
 func _ready():
 	changeCamArea(0, true)
-	$KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
+	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * 0.2).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 
 func _process(delta):
-	
+	$SubViewport.size = get_viewport().size
 	
 	# Update camera angles
 	CameraRotation -= StickAngle * 2.5 * delta
 	
 	# Transform camera
-	$KatamariCameraPivot/KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale))
-	$KatamariCameraPivot.transform = Transform3D.IDENTITY.translated_local($KatamariBody.position).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with($KatamariCameraPivot.transform, 0.85)
-	$KatamariCameraPivot/KatamariCamera.attributes.dof_blur_far_distance = CameraScale * $"..".scale.y * 0.01
+	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift * 5, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * 0.2)
+	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated_local($KatamariBody.position * 0.2).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
 	
 	# Update debug info
-	$Control/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
-	$Control/PanelR/StickR.set_position(Vector2(25, 25) + (25 * RightStick))
-	$Control/StickM.set_position(Vector2(95, 45) + (25 * StickMidpoint))
-	$Control/Line2D.points = [Vector2(50, 50) + (25 * LeftStick), Vector2(150, 50) + (25 * RightStick)]
-	$Control/Label.rotation = StickAngle + (PI/2)
-	$Control/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
-	$Control/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f\nVr:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z, ($KatamariBody.linear_velocity*Vector3(1,0,1)).length()]
-	$Control/Label4.text = "size:%dm%02dcm%01dmm\ndamp:%f" % [floori(Size), floori(Size * 100) % 100, floori(Size * 1000) % 10, $KatamariBody.linear_damp]
+	$Debug/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
+	$Debug/PanelR/StickR.set_position(Vector2(25, 25) + (25 * RightStick))
+	$Debug/StickM.set_position(Vector2(95, 45) + (25 * StickMidpoint))
+	$Debug/Line2D.points = [Vector2(50, 50) + (25 * LeftStick), Vector2(150, 50) + (25 * RightStick)]
+	$Debug/Label.rotation = StickAngle + (PI/2)
+	$Debug/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
+	$Debug/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f\nVr:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z, ($KatamariBody.linear_velocity*Vector3(1,0,1)).length()]
+	$Debug/Label4.text = "size:%dm%02dcm%01dmm\ndamp:%f" % [floori(Size), floori(Size * 100) % 100, floori(Size * 1000) % 10, $KatamariBody.linear_damp]
 
 func _physics_process(delta):
 	# Handle movement inputs
@@ -153,13 +154,13 @@ func changeCamArea(index:int, skipAnimation:bool = false):
 	if CurrentZone > HighestZone: 
 		HighestZone = CurrentZone
 		if not skipAnimation: 
-			$KatamariCameraPivot/KatamariCamera/KatamariCameraZoom.play("CameraZoom")
+			%KatamariCamera/KatamariCameraZoom.play("CameraZoom")
 	var nextBound := 1.79769e308
 	if CameraZones.size() - 1 > CurrentZone: nextBound = CameraZones[CurrentZone+1].Bound
 	CurrentZoneBounds = Vector2(CameraZones[CurrentZone].Bound, nextBound)
 	print(CurrentZoneBounds.y)
 	if CameraZones[CurrentZone].Attributes: 
-		$KatamariCameraPivot/KatamariCamera.attributes = CameraZones[CurrentZone].Attributes
+		%KatamariCamera.attributes = CameraZones[CurrentZone].Attributes
 	if skipAnimation:
 		CameraScale = CameraZones[CurrentZone].Scale
 		CameraTilt = deg_to_rad(CameraZones[CurrentZone].Tilt)
@@ -177,10 +178,12 @@ func doQuickTurn():
 		# put the quick turn code here
 		var QTTiltTween = get_tree().create_tween()
 		var QTRotTween = get_tree().create_tween()
+		CameraSmoothing = 0.1
 		$KatamariQTAudio.stream = preload("res://sounds/game/quick_turn.mp3")
 		$KatamariQTAudio.play()
 		QTRotTween.tween_property(self, "CameraRotation", CameraRotation + PI, 0.4).set_trans(Tween.TRANS_LINEAR)
 		QTTiltTween.tween_property(self, "CameraTilt", ((-16 * PI) / 32), 0.2).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 		QTTiltTween.tween_property(self, "CameraTilt", deg_to_rad(CameraZones[CurrentZone].Tilt), 0.2).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
 		await get_tree().create_timer(0.4).timeout
+		CameraSmoothing = 0.85
 		MovementEnabled = true

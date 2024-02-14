@@ -2,18 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
-[ext_resource type="Shader" path="res://misc/CameraShader.gdshader" id="4_0tvtr"]
 [ext_resource type="AudioStream" uid="uid://wmfgl0sojypp" path="res://sounds/game/scale_up.mp3" id="5_2kyss"]
 [ext_resource type="ArrayMesh" uid="uid://b3d1u1ws4oeus" path="res://models/core/core_generic.obj" id="5_mqsmu"]
+[ext_resource type="Shader" path="res://misc/KDZoom.gdshader" id="6_rnc8v"]
 [ext_resource type="Texture2D" uid="uid://dh11xmfpvorbh" path="res://textures/core/core_test.png" id="6_s083g"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wcqj7"]
-render_priority = 0
-shader = ExtResource("4_0tvtr")
-shader_parameter/zoom_amount = 0.0
-
-[sub_resource type="QuadMesh" id="QuadMesh_boo8u"]
-size = Vector2(2, 2)
 
 [sub_resource type="Animation" id="Animation_vc1w8"]
 resource_name = "CameraZoom"
@@ -21,7 +13,7 @@ length = 2.89
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("KatamariCamShaderTarget:material_override:shader_parameter/zoom_amount")
+tracks/0/path = NodePath("%ViewportRect:material:shader_parameter/zoom_amount")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -33,7 +25,7 @@ tracks/0/keys = {
 tracks/1/type = "audio"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../../KatamariZoomAudio")
+tracks/1/path = NodePath("%KatamariZoomAudio")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -51,7 +43,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("KatamariCamShaderTarget:material_override:shader_parameter/zoom_amount")
+tracks/0/path = NodePath("%ViewportRect:material:shader_parameter/zoom_amount")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -105,31 +97,35 @@ resource_name = "ZoomAnimButton"
 script/source = "extends Button
 
 func _pressed():
-	$\"../../KatamariCameraPivot/KatamariCamera/KatamariCameraZoom\".play(\"CameraZoom\")
+	%\"KatamariCamera/KatamariCameraZoom\".play(\"CameraZoom\")
 "
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hau7w"]
+shader = ExtResource("6_rnc8v")
+shader_parameter/zoom_amount = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_l3wab"]
+viewport_path = NodePath("SubViewport")
 
 [node name="KatamariControllable" type="Node3D"]
 editor_description = "An inherited scene for a player-controlled katamari. Only one should exist per-viewport; any more can cause issues with multiple active cameras."
 script = ExtResource("1_k6077")
 InclineSpeedMultiplier = ExtResource("2_dth00")
 
-[node name="KatamariCameraPivot" type="Node3D" parent="."]
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(853, 480)
+
+[node name="KatamariCameraPivot" type="Node3D" parent="SubViewport"]
+unique_name_in_owner = true
 process_mode = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
-[node name="KatamariCamera" type="Camera3D" parent="KatamariCameraPivot"]
+[node name="KatamariCamera" type="Camera3D" parent="SubViewport/KatamariCameraPivot"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 current = true
 
-[node name="KatamariCamShaderTarget" type="MeshInstance3D" parent="KatamariCameraPivot/KatamariCamera"]
-top_level = true
-visible = false
-material_override = SubResource("ShaderMaterial_wcqj7")
-cast_shadow = 0
-extra_cull_margin = 16384.0
-mesh = SubResource("QuadMesh_boo8u")
-
-[node name="KatamariCameraZoom" type="AnimationPlayer" parent="KatamariCameraPivot/KatamariCamera"]
+[node name="KatamariCameraZoom" type="AnimationPlayer" parent="SubViewport/KatamariCameraPivot/KatamariCamera"]
 libraries = {
 "": SubResource("AnimationLibrary_hdva6")
 }
@@ -162,7 +158,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_h62m0")
 [node name="KatamariBaseCollision" type="CollisionShape3D" parent="KatamariBody"]
 shape = SubResource("SphereShape3D_5e5bl")
 
-[node name="Control" type="Control" parent="."]
+[node name="Debug" type="Control" parent="."]
 layout_mode = 3
 anchor_left = 0.5
 anchor_top = 0.98
@@ -174,7 +170,7 @@ offset_right = 100.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="PanelL" type="Panel" parent="Control"]
+[node name="PanelL" type="Panel" parent="Debug"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -184,7 +180,7 @@ offset_right = 100.0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qmoml")
 
-[node name="StickL" type="Panel" parent="Control/PanelL"]
+[node name="StickL" type="Panel" parent="Debug/PanelL"]
 z_index = 2
 layout_mode = 1
 anchors_preset = 8
@@ -200,7 +196,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
 
-[node name="PanelR" type="Panel" parent="Control"]
+[node name="PanelR" type="Panel" parent="Debug"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -213,7 +209,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qmoml")
 
-[node name="StickR" type="Panel" parent="Control/PanelR"]
+[node name="StickR" type="Panel" parent="Debug/PanelR"]
 z_index = 2
 layout_mode = 1
 anchors_preset = 8
@@ -229,11 +225,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
 
-[node name="Line2D" type="Line2D" parent="Control"]
+[node name="Line2D" type="Line2D" parent="Debug"]
 points = PackedVector2Array(50, 50, 150, 50)
 width = 5.0
 
-[node name="StickM" type="Panel" parent="Control"]
+[node name="StickM" type="Panel" parent="Debug"]
 z_index = 3
 layout_mode = 1
 anchors_preset = 8
@@ -249,7 +245,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="Debug"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -264,7 +260,7 @@ label_settings = SubResource("LabelSettings_8467r")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="Control"]
+[node name="Label2" type="Label" parent="Debug"]
 layout_mode = 0
 offset_left = 224.0
 offset_top = 28.6
@@ -275,7 +271,7 @@ text = "a: XXrad (XXdeg)"
 label_settings = SubResource("LabelSettings_8467r")
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="Control"]
+[node name="Label3" type="Label" parent="Debug"]
 layout_mode = 0
 offset_left = -848.0
 offset_top = -226.4
@@ -292,7 +288,7 @@ Vr:"
 label_settings = SubResource("LabelSettings_8467r")
 vertical_alignment = 1
 
-[node name="Label4" type="Label" parent="Control"]
+[node name="Label4" type="Label" parent="Debug"]
 layout_mode = 0
 offset_left = -851.0
 offset_top = -945.4
@@ -304,7 +300,7 @@ damp:"
 label_settings = SubResource("LabelSettings_8467r")
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="Control"]
+[node name="Button" type="Button" parent="Debug"]
 layout_mode = 0
 offset_left = -159.0
 offset_top = 64.6
@@ -315,7 +311,20 @@ text = "Play Zoom Anim"
 script = SubResource("GDScript_4llql")
 
 [node name="KatamariZoomAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 bus = &"SFX"
 
 [node name="KatamariQTAudio" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"
+
+[node name="ViewportRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+z_index = -10
+material = SubResource("ShaderMaterial_hau7w")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("ViewportTexture_l3wab")
