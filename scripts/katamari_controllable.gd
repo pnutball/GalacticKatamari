@@ -61,7 +61,7 @@ var StickAngle:float = ((RightStick + Vector2(4,0))-LeftStick).angle()
 
 func _ready():
 	changeCamArea(0, true)
-	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * 0.2).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
+	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * 0.2 * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 
 func _process(delta):
 	$SubViewport.size = get_viewport().size
@@ -70,8 +70,8 @@ func _process(delta):
 	CameraRotation -= StickAngle * 2.5 * delta
 	
 	# Transform camera
-	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift * 5, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * 0.2)
-	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated_local($KatamariBody.position * 0.2).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
+	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * 0.2 * $"..".scale)
+	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * 0.2 * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
 	
 	# Update debug info
 	$Debug/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
