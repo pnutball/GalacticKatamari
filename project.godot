@@ -173,5 +173,4 @@ jolt_3d/continuous_cd/max_penetration=0.0
 [rendering]
 
 renderer/rendering_method="mobile"
-renderer/rendering_method.mobile="gl_compatibility"
 anti_aliasing/quality/msaa_3d=2
