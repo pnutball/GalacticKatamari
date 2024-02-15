@@ -19,6 +19,7 @@ var MinimumSize:float = Size
 ## Determines if movement is currently enabled.
 ## Should usually be TRUE unless control of the katamari is lost (e.g. getting slammed into, quick turning, etc.)
 var MovementEnabled:bool = true
+var CameraMovementEnabled:bool = true
 #endregion
 #region Camera
 @export_group("Camera")
@@ -73,6 +74,10 @@ var DashDir:int = 0:
 		DashDir = signi(newDir)
 	get:
 		return DashDir
+## Can the katamari dash?
+@export var CanDash:bool = true
+## Can the katamari quick turn?
+@export var CanQuickTurn:bool = true
 #endregion
 #endregion
 
@@ -90,21 +95,25 @@ func _process(delta):
 	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * 0.2 * $"..".scale)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * 0.2 * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
 	
-	# Discharge / recharge dash
-	if DashCharge < 0:
-		DashCharge += 20 * delta
-	elif DashCharge < 25:
-		DashCharge = clamp(DashCharge - (delta * 20) * int(MovementEnabled), 0, 100)
-	elif DashCharge < 100 and not is_equal_approx(DashCharge, 100):
-		MovementEnabled = false
-		DashCharge += delta * 25
-	
-	if is_equal_approx(DashCharge, 0): DashDir = 0
-	
-	if (Input.is_action_just_pressed("LS Dash Down") and DashDir < 1) or (Input.is_action_just_pressed("LS Dash Up") and DashDir > -1):
-		DashCharge += 5
-		if Input.is_action_just_pressed("LS Dash Down"): DashDir = 1
-		if Input.is_action_just_pressed("LS Dash Up"): DashDir = -1
+	if CanDash:
+		# Discharge / recharge dash
+		if DashCharge < 0:
+			DashCharge += 15 * delta
+		elif DashCharge < 25:
+			DashCharge = clamp(DashCharge - (delta * 20) * int(MovementEnabled), 0, 100)
+		elif DashCharge < 100 and not is_equal_approx(DashCharge, 100):
+			if MovementEnabled:
+				MovementEnabled = false
+				$KatamariDashAudio.stream = preload("res://sounds/game/dash_charge.mp3")
+				$KatamariDashAudio.play()
+			DashCharge += delta * 25
+		
+		if DashCharge <= 0: DashDir = 0
+		
+		if DashCharge >= 0 and ((Input.is_action_just_pressed("LS Dash Down") and DashDir < 1) or (Input.is_action_just_pressed("LS Dash Up") and DashDir > -1)):
+			DashCharge += 4.5
+			if Input.is_action_just_pressed("LS Dash Down"): DashDir = 1
+			if Input.is_action_just_pressed("LS Dash Up"): DashDir = -1
 	
 	# Update debug info
 	$Debug/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
@@ -119,11 +128,11 @@ func _process(delta):
 
 func _physics_process(delta):
 	# Handle movement inputs
-	LeftStick = Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5) * int(MovementEnabled)
-	RightStick = Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5) * int(MovementEnabled)
-	StickMidpoint = (LeftStick + Vector2.LEFT).lerp(RightStick + Vector2.RIGHT, 0.5)
+	LeftStick = Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5)
+	RightStick = Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5)
+	StickMidpoint = (LeftStick + Vector2.LEFT).lerp(RightStick + Vector2.RIGHT, 0.5) * int(MovementEnabled)
 	if StickMidpoint.length() <= 0.501: StickMidpoint = Vector2.ZERO
-	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle()
+	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle() * int(CameraMovementEnabled)
 	
 	# DEBUG: Adjust size
 	if Input.is_action_pressed("DEBUG Bigger"): Size += delta
@@ -170,26 +179,30 @@ func _physics_process(delta):
 	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y)
 	
 	# Create dash movement/force
-	if DashCharge < 100 and DashCharge >= 25 and not is_equal_approx(DashCharge, 100):
-		var zRotDash:float = (24 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) / Size
-		var xRotDash:float = (-24 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) / Size
-		$KatamariBody/KatamariMeshPivot.rotate_z(zRotDash)
-		$KatamariBody/KatamariMeshPivot.rotate_x(xRotDash)
-		
-		# Rotate object collision
-		for collider:Node3D in $KatamariBody.get_children():
-			if collider is CollisionShape3D and collider.name != "KatamariBaseCollision":
-				#collider.rotate_z(zRot)
-				#collider.rotate_x(zRot)
-				collider.transform = collider.transform.rotated(Vector3(0,0,1), zRotDash).rotated(Vector3(1,0,0), xRotDash)
-	elif DashCharge > 99:
-		$KatamariBody.apply_central_impulse(Vector3(
-			(Speed * -350 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) / Size,
-			0,
-			(Speed * -350 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) / Size
-		))
-		DashCharge = -10
-		MovementEnabled = true
+	if CanDash:
+		if DashCharge < 100 and DashCharge >= 25 and not is_equal_approx(DashCharge, 100):
+			var zRotDash:float = (24 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) / Size
+			var xRotDash:float = (-24 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) / Size
+			$KatamariBody/KatamariMeshPivot.rotate_z(zRotDash)
+			$KatamariBody/KatamariMeshPivot.rotate_x(xRotDash)
+			
+			# Rotate object collision
+			for collider:Node3D in $KatamariBody.get_children():
+				if collider is CollisionShape3D and collider.name != "KatamariBaseCollision":
+					#collider.rotate_z(zRot)
+					#collider.rotate_x(zRot)
+					collider.transform = collider.transform.rotated(Vector3(0,0,1), zRotDash).rotated(Vector3(1,0,0), xRotDash)
+		elif DashCharge > 99:
+			$KatamariDashAudio.stop()
+			$KatamariDashAudio.stream = preload("res://sounds/game/dash_release.mp3")
+			$KatamariDashAudio.play()
+			$KatamariBody.apply_central_impulse(Vector3(
+				(Speed * -400 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) / Size,
+				0,
+				(Speed * -400 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) / Size
+			))
+			DashCharge = -10
+			MovementEnabled = true
 	
 	# Detect size/camera area changes
 	if Size < CurrentZoneBounds.x and CurrentZone > 0:
@@ -198,7 +211,7 @@ func _physics_process(delta):
 		changeCamArea(CurrentZone + 1) # Decrease camera area
 	
 	# Detect quick turn
-	if Input.is_action_just_pressed("Quick Turn Left") and Input.is_action_just_pressed("Quick Turn Right"):
+	if Input.is_action_just_pressed("Quick Turn Left") and Input.is_action_just_pressed("Quick Turn Right") and CanQuickTurn:
 		doQuickTurn()
 
 
@@ -230,6 +243,7 @@ func changeCamArea(index:int, skipAnimation:bool = false):
 func doQuickTurn():
 	if MovementEnabled:
 		MovementEnabled = false
+		CameraMovementEnabled = false
 		# put the quick turn code here
 		var QTTiltTween = get_tree().create_tween()
 		var QTRotTween = get_tree().create_tween()
@@ -242,3 +256,4 @@ func doQuickTurn():
 		await get_tree().create_timer(0.4).timeout
 		CameraSmoothing = 0.85
 		MovementEnabled = true
+		CameraMovementEnabled = true

@@ -333,6 +333,9 @@ bus = &"SFX"
 [node name="KatamariQTAudio" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"
 
+[node name="KatamariDashAudio" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
 [node name="ViewportRect" type="TextureRect" parent="."]
 unique_name_in_owner = true
 z_index = -10
