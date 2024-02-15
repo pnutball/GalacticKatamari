@@ -64,7 +64,7 @@ var StickAngle:float = ((RightStick + Vector2(4,0))-LeftStick).angle()
 ## The amount of charge for the Dash.
 var DashCharge:float = 0:
 	set(newCharge):
-		DashCharge = clampf(newCharge, 0, 100)
+		DashCharge = clampf(newCharge, -10, 100)
 	get:
 		return DashCharge
 ## The current dash direction.
@@ -91,8 +91,10 @@ func _process(delta):
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * 0.2 * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
 	
 	# Discharge / recharge dash
-	if DashCharge < 25 and MovementEnabled:
-		DashCharge -= delta * 20
+	if DashCharge < 0:
+		DashCharge += 20 * delta
+	elif DashCharge < 25:
+		DashCharge = clamp(DashCharge - (delta * 20) * int(MovementEnabled), 0, 100)
 	elif DashCharge < 100 and not is_equal_approx(DashCharge, 100):
 		MovementEnabled = false
 		DashCharge += delta * 25
@@ -163,10 +165,31 @@ func _physics_process(delta):
 	# Calculate movement vector (old method)
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
 	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * sqrt(Size) * Speed + ((tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement) / pow(Speed, 1.0/3))
-
 	
 	# Create movement force
 	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y)
+	
+	# Create dash movement/force
+	if DashCharge < 100 and DashCharge >= 25 and not is_equal_approx(DashCharge, 100):
+		var zRotDash:float = (24 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) / Size
+		var xRotDash:float = (-24 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) / Size
+		$KatamariBody/KatamariMeshPivot.rotate_z(zRotDash)
+		$KatamariBody/KatamariMeshPivot.rotate_x(xRotDash)
+		
+		# Rotate object collision
+		for collider:Node3D in $KatamariBody.get_children():
+			if collider is CollisionShape3D and collider.name != "KatamariBaseCollision":
+				#collider.rotate_z(zRot)
+				#collider.rotate_x(zRot)
+				collider.transform = collider.transform.rotated(Vector3(0,0,1), zRotDash).rotated(Vector3(1,0,0), xRotDash)
+	elif DashCharge > 99:
+		$KatamariBody.apply_central_impulse(Vector3(
+			(Speed * -350 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) / Size,
+			0,
+			(Speed * -350 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) / Size
+		))
+		DashCharge = -10
+		MovementEnabled = true
 	
 	# Detect size/camera area changes
 	if Size < CurrentZoneBounds.x and CurrentZone > 0:

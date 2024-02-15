@@ -143,6 +143,7 @@ physics_material_override = SubResource("PhysicsMaterial_tecj2")
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -1, 0)
 can_sleep = false
+lock_rotation = true
 continuous_cd = true
 linear_damp_mode = 1
 linear_damp = 1.1
