@@ -14,7 +14,7 @@ config/name="Galactic Katamari"
 config/name_localized={
 "ja": "銀河系塊魂"
 }
-run/main_scene="res://scenes/game/testing.tscn"
+run/main_scene="res://scenes/debug_menu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Pnutball/GalacticKatamari"
 config/features=PackedStringArray("4.2", "Mobile")
