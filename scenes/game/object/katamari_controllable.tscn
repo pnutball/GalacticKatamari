@@ -310,6 +310,21 @@ focus_mode = 0
 text = "Play Zoom Anim"
 script = SubResource("GDScript_4llql")
 
+[node name="ProgressBar" type="ProgressBar" parent="Debug"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 124.0
+offset_top = -138.4
+offset_right = 451.0
+offset_bottom = -81.4
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 38
+
 [node name="KatamariZoomAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 bus = &"SFX"

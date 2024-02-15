@@ -1,6 +1,7 @@
 @icon("res://KatamariObject.svg")
 extends Node3D
 #region Variables
+#region Size
 ## Sets the size of the katamari, in meters.
 @export_range(0.01, 0, 0.001, "or_greater", "hide_slider", "suffix:m") var Size:float = 1
 var MinimumSize:float = Size
@@ -8,7 +9,8 @@ var MinimumSize:float = Size
 ##
 ## 1 gives the full amount of size, 0 gives none.
 @export_range(0, 1) var GrowthMultiplier:float = 1
-
+#endregion
+#region Physics
 @export_group("Physics")
 ## Sets the katamari's speed relative to a size of 1m. This also affects the max speed.
 @export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 1
@@ -17,7 +19,8 @@ var MinimumSize:float = Size
 ## Determines if movement is currently enabled.
 ## Should usually be TRUE unless control of the katamari is lost (e.g. getting slammed into, quick turning, etc.)
 var MovementEnabled:bool = true
-
+#endregion
+#region Camera
 @export_group("Camera")
 ## The camera's scale, relative to a size of 1m.
 var CameraScale: float = 1
@@ -48,7 +51,8 @@ var CurrentZone:int = 0
 var HighestZone := CurrentZone
 ## The amount of camera smoothing.
 var CameraSmoothing:float = 0.85
-
+#endregion
+#region Input
 ## The input vector for the left stick.
 var LeftStick:Vector2 = Vector2(0, 0)
 ## The input vector for the right stick.
@@ -57,6 +61,19 @@ var RightStick:Vector2 = Vector2(0, 0)
 var StickMidpoint:Vector2 = LeftStick.lerp(RightStick, 0.5)
 ## The angle of the line between both sticks, in radians.
 var StickAngle:float = ((RightStick + Vector2(4,0))-LeftStick).angle()
+## The amount of charge for the Dash.
+var DashCharge:float = 0:
+	set(newCharge):
+		DashCharge = clampf(newCharge, 0, 100)
+	get:
+		return DashCharge
+## The current dash direction.
+var DashDir:int = 0:
+	set (newDir):
+		DashDir = signi(newDir)
+	get:
+		return DashDir
+#endregion
 #endregion
 
 func _ready():
@@ -73,6 +90,20 @@ func _process(delta):
 	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * 0.2 * $"..".scale)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * 0.2 * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
 	
+	# Discharge / recharge dash
+	if DashCharge < 25 and MovementEnabled:
+		DashCharge -= delta * 20
+	elif DashCharge < 100 and not is_equal_approx(DashCharge, 100):
+		MovementEnabled = false
+		DashCharge += delta * 25
+	
+	if is_equal_approx(DashCharge, 0): DashDir = 0
+	
+	if (Input.is_action_just_pressed("LS Dash Down") and DashDir < 1) or (Input.is_action_just_pressed("LS Dash Up") and DashDir > -1):
+		DashCharge += 5
+		if Input.is_action_just_pressed("LS Dash Down"): DashDir = 1
+		if Input.is_action_just_pressed("LS Dash Up"): DashDir = -1
+	
 	# Update debug info
 	$Debug/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
 	$Debug/PanelR/StickR.set_position(Vector2(25, 25) + (25 * RightStick))
@@ -82,6 +113,7 @@ func _process(delta):
 	$Debug/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
 	$Debug/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f\nVr:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z, ($KatamariBody.linear_velocity*Vector3(1,0,1)).length()]
 	$Debug/Label4.text = "size:%dm%02dcm%01dmm\ndamp:%f" % [floori(Size), floori(Size * 100) % 100, floori(Size * 1000) % 10, $KatamariBody.linear_damp]
+	$Debug/ProgressBar.value = DashCharge
 
 func _physics_process(delta):
 	# Handle movement inputs
