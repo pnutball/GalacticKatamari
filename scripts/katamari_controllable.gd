@@ -95,25 +95,29 @@ func _process(delta):
 	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * 0.2 * $"..".scale)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * 0.2 * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
 	
-	if CanDash:
-		# Discharge / recharge dash
-		if DashCharge < 0:
-			DashCharge += 15 * delta
-		elif DashCharge < 25:
-			DashCharge = clamp(DashCharge - (delta * 20) * int(MovementEnabled), 0, 100)
-		elif DashCharge < 100 and not is_equal_approx(DashCharge, 100):
-			if MovementEnabled:
-				MovementEnabled = false
-				$KatamariDashAudio.stream = preload("res://sounds/game/dash_charge.mp3")
-				$KatamariDashAudio.play()
-			DashCharge += delta * 25
-		
-		if DashCharge <= 0: DashDir = 0
-		
-		if DashCharge >= 0 and ((Input.is_action_just_pressed("LS Dash Down") and DashDir < 1) or (Input.is_action_just_pressed("LS Dash Up") and DashDir > -1)):
-			DashCharge += 4.5
-			if Input.is_action_just_pressed("LS Dash Down"): DashDir = 1
-			if Input.is_action_just_pressed("LS Dash Up"): DashDir = -1
+
+	# Discharge / recharge dash
+	if DashCharge < 0:
+		DashCharge += 15 * delta
+	elif DashCharge < 25:
+		DashCharge = clamp(DashCharge - (delta * 20) * int(MovementEnabled), 0, 100)
+	elif DashCharge < 100 and not is_equal_approx(DashCharge, 100):
+		if MovementEnabled:
+			MovementEnabled = false
+			$KatamariDashAudio.stream = preload("res://sounds/game/dash_charge.mp3")
+			$KatamariDashAudio.play()
+		DashCharge += delta * 25
+	if DashCharge <= 0 or not CanDash: DashDir = 0
+	if CanDash and MovementEnabled and DashCharge >= 0 and ((Input.is_action_just_pressed("LS Dash Down") and DashDir < 1) or (Input.is_action_just_pressed("LS Dash Up") and DashDir > -1)):
+		DashCharge += 4.5
+		if Input.is_action_just_pressed("LS Dash Down"): DashDir = 1
+		if Input.is_action_just_pressed("LS Dash Up"): DashDir = -1
+	
+	%KatamariDashEfPivot.scale = Vector3.ONE * Size * 1.15
+	%KatamariDashEfPivot.rotation.y = %KatamariCameraPivot.rotation.y
+	%KatamariDashEfPivot.rotation.x -= (4*PI) * delta
+	%KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-25, 0, 30) / 30)), 0.2)
+	%KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-55, 0, 30) / 30)), 0.2)
 	
 	# Update debug info
 	$Debug/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
@@ -173,7 +177,7 @@ func _physics_process(delta):
 	
 	# Calculate movement vector (old method)
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
-	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * sqrt(Size) * Speed + ((tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement) / pow(Speed, 1.0/3))
+	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * sqrt(Size) * Speed + ((tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement) / pow(Speed, 1.0/3) * pow($KatamariBody.gravity_scale, 3))
 	
 	# Create movement force
 	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y)
@@ -181,8 +185,8 @@ func _physics_process(delta):
 	# Create dash movement/force
 	if CanDash:
 		if DashCharge < 100 and DashCharge >= 25 and not is_equal_approx(DashCharge, 100):
-			var zRotDash:float = (24 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) / Size
-			var xRotDash:float = (-24 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) / Size
+			var zRotDash:float = (24 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y))
+			var xRotDash:float = (-24 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y))
 			$KatamariBody/KatamariMeshPivot.rotate_z(zRotDash)
 			$KatamariBody/KatamariMeshPivot.rotate_x(xRotDash)
 			
@@ -197,9 +201,9 @@ func _physics_process(delta):
 			$KatamariDashAudio.stream = preload("res://sounds/game/dash_release.mp3")
 			$KatamariDashAudio.play()
 			$KatamariBody.apply_central_impulse(Vector3(
-				(Speed * -400 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) / Size,
+				(Speed * -400 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) * Size,
 				0,
-				(Speed * -400 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) / Size
+				(Speed * -400 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) * Size
 			))
 			DashCharge = -10
 			MovementEnabled = true
@@ -213,7 +217,6 @@ func _physics_process(delta):
 	# Detect quick turn
 	if Input.is_action_just_pressed("Quick Turn Left") and Input.is_action_just_pressed("Quick Turn Right") and CanQuickTurn:
 		doQuickTurn()
-
 
 ## Changes the current camera zone to CameraZones[index].
 func changeCamArea(index:int, skipAnimation:bool = false):
@@ -238,7 +241,6 @@ func changeCamArea(index:int, skipAnimation:bool = false):
 		CameraTween.parallel().tween_property(self, "CameraScale", CameraZones[CurrentZone].Scale, 1)
 		CameraTween.parallel().tween_property(self, "CameraTilt", deg_to_rad(CameraZones[CurrentZone].Tilt), 1)
 		CameraTween.parallel().tween_property(self, "CameraShift", CameraZones[CurrentZone].Shift, 1)
-	
 
 func doQuickTurn():
 	if MovementEnabled:

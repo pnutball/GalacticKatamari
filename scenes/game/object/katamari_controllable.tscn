@@ -1,11 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=24 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
 [ext_resource type="AudioStream" uid="uid://wmfgl0sojypp" path="res://sounds/game/scale_up.mp3" id="5_2kyss"]
 [ext_resource type="ArrayMesh" uid="uid://b3d1u1ws4oeus" path="res://models/core/core_generic.obj" id="5_mqsmu"]
+[ext_resource type="Texture2D" uid="uid://dg5j6njuk2bjb" path="res://textures/effect/dash_A.png" id="6_8pgql"]
 [ext_resource type="Shader" path="res://misc/KDZoom.gdshader" id="6_rnc8v"]
 [ext_resource type="Texture2D" uid="uid://dh11xmfpvorbh" path="res://textures/core/core_test.png" id="6_s083g"]
+[ext_resource type="Texture2D" uid="uid://bxcxru2mxjxbs" path="res://textures/effect/dash_B.png" id="7_kpo2d"]
 
 [sub_resource type="Animation" id="Animation_vc1w8"]
 resource_name = "CameraZoom"
@@ -69,6 +71,26 @@ texture_filter = 2
 grow_amount = 0.881
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5e5bl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7w1i5"]
+blend_mode = 1
+depth_draw_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 1.2, 2, 1)
+albedo_texture = ExtResource("6_8pgql")
+
+[sub_resource type="SphereMesh" id="SphereMesh_78fgn"]
+radius = 0.56
+height = 1.12
+radial_segments = 32
+rings = 16
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0uvt6"]
+blend_mode = 1
+depth_draw_mode = 2
+shading_mode = 0
+albedo_color = Color(1, 1.2, 2, 1)
+albedo_texture = ExtResource("7_kpo2d")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmoml"]
 bg_color = Color(0.12549, 0.160784, 0.258824, 1)
@@ -158,6 +180,18 @@ surface_material_override/0 = SubResource("StandardMaterial3D_h62m0")
 
 [node name="KatamariBaseCollision" type="CollisionShape3D" parent="KatamariBody"]
 shape = SubResource("SphereShape3D_5e5bl")
+
+[node name="KatamariDashEfPivot" type="Node3D" parent="KatamariBody"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="KatamariDashEfA" type="MeshInstance3D" parent="KatamariBody/KatamariDashEfPivot"]
+material_override = SubResource("StandardMaterial3D_7w1i5")
+mesh = SubResource("SphereMesh_78fgn")
+
+[node name="KatamariDashEfB" type="MeshInstance3D" parent="KatamariBody/KatamariDashEfPivot"]
+material_override = SubResource("StandardMaterial3D_0uvt6")
+mesh = SubResource("SphereMesh_78fgn")
 
 [node name="Debug" type="Control" parent="."]
 layout_mode = 3
@@ -340,6 +374,7 @@ bus = &"SFX"
 unique_name_in_owner = true
 z_index = -10
 material = SubResource("ShaderMaterial_hau7w")
+clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
