@@ -108,7 +108,7 @@ func _process(delta):
 			$KatamariDashAudio.play()
 		DashCharge += delta * 25
 	if DashCharge <= 0 or not CanDash: DashDir = 0
-	if CanDash and MovementEnabled and DashCharge >= 0 and ((Input.is_action_just_pressed("LS Dash Down") and DashDir < 1) or (Input.is_action_just_pressed("LS Dash Up") and DashDir > -1)):
+	if CanDash and (MovementEnabled and DashCharge >= 25) and DashCharge >= 0 and ((Input.is_action_just_pressed("LS Dash Down") and DashDir < 1) or (Input.is_action_just_pressed("LS Dash Up") and DashDir > -1)):
 		DashCharge += 4.5
 		if Input.is_action_just_pressed("LS Dash Down"): DashDir = 1
 		if Input.is_action_just_pressed("LS Dash Up"): DashDir = -1
