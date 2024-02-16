@@ -76,7 +76,7 @@ grow_amount = 0.881
 blend_mode = 1
 depth_draw_mode = 2
 shading_mode = 0
-albedo_color = Color(1, 1.2, 2, 1)
+albedo_color = Color(0, 0, 0, 1)
 albedo_texture = ExtResource("6_8pgql")
 
 [sub_resource type="SphereMesh" id="SphereMesh_78fgn"]
@@ -89,7 +89,7 @@ rings = 16
 blend_mode = 1
 depth_draw_mode = 2
 shading_mode = 0
-albedo_color = Color(1, 1.2, 2, 1)
+albedo_color = Color(0, 0, 0, 1)
 albedo_texture = ExtResource("7_kpo2d")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmoml"]
