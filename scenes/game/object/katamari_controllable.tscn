@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=25 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
@@ -120,6 +120,15 @@ script/source = "extends Button
 
 func _pressed():
 	%\"KatamariCamera/KatamariCameraZoom\".play(\"CameraZoom\")
+"
+
+[sub_resource type="GDScript" id="GDScript_46fb8"]
+resource_name = "ResetSceneScript"
+script/source = "extends Button
+
+
+func _on_pressed():
+	get_tree().reload_current_scene()
 "
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hau7w"]
@@ -345,6 +354,23 @@ focus_mode = 0
 text = "Play Zoom Anim"
 script = SubResource("GDScript_4llql")
 
+[node name="Button2" type="Button" parent="Debug"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 736.0
+offset_top = -31.4
+offset_right = 837.0
+offset_bottom = -0.400024
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+text = "Reset Scene"
+script = SubResource("GDScript_46fb8")
+
 [node name="ProgressBar" type="ProgressBar" parent="Debug"]
 layout_mode = 1
 anchors_preset = 7
@@ -382,3 +408,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("ViewportTexture_l3wab")
+
+[connection signal="pressed" from="Debug/Button2" to="Debug/Button2" method="_on_pressed"]
