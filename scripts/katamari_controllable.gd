@@ -79,9 +79,14 @@ var DashDir:int = 0:
 ## Can the katamari quick turn?
 @export var CanQuickTurn:bool = true
 #endregion
+#region Visual
+@export_file("*.obj") var CoreModel:String = "res://models/core/core_generic.obj"
+@export_file("*.png") var CoreTexture:String = "res://textures/core/core_test.png"
+#endregion
 #endregion
 
 func _ready():
+	loadCore(CoreTexture, CoreModel)
 	changeCamArea(0, true)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * 0.2 * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 
@@ -259,3 +264,7 @@ func doQuickTurn():
 		CameraSmoothing = 0.85
 		MovementEnabled = true
 		CameraMovementEnabled = true
+
+func loadCore(texture:String = "res://textures/core/core_test.png", model:String = "res://models/core/core_generic.obj"):
+	$KatamariBody/KatamariMeshPivot/KatamariMesh.mesh = load(model)
+	$KatamariBody/KatamariMeshPivot/KatamariMesh.material_override.albedo_texture = load(texture)

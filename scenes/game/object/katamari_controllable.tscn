@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=24 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
@@ -6,7 +6,6 @@
 [ext_resource type="ArrayMesh" uid="uid://b3d1u1ws4oeus" path="res://models/core/core_generic.obj" id="5_mqsmu"]
 [ext_resource type="Texture2D" uid="uid://dg5j6njuk2bjb" path="res://textures/effect/dash_A.png" id="6_8pgql"]
 [ext_resource type="Shader" path="res://misc/KDZoom.gdshader" id="6_rnc8v"]
-[ext_resource type="Texture2D" uid="uid://dh11xmfpvorbh" path="res://textures/core/core_test.png" id="6_s083g"]
 [ext_resource type="Texture2D" uid="uid://bxcxru2mxjxbs" path="res://textures/effect/dash_B.png" id="7_kpo2d"]
 
 [sub_resource type="Animation" id="Animation_vc1w8"]
@@ -65,10 +64,8 @@ _data = {
 friction = 0.08
 bounce = 0.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h62m0"]
-albedo_texture = ExtResource("6_s083g")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xaky2"]
 texture_filter = 2
-grow_amount = 0.881
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5e5bl"]
 
@@ -183,9 +180,9 @@ linear_damp = 1.1
 
 [node name="KatamariMesh" type="MeshInstance3D" parent="KatamariBody/KatamariMeshPivot"]
 transform = Transform3D(1.125, 0, 0, 0, 1.125, 0, 0, 0, 1.125, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_xaky2")
 mesh = ExtResource("5_mqsmu")
 skeleton = NodePath("../../../..")
-surface_material_override/0 = SubResource("StandardMaterial3D_h62m0")
 
 [node name="KatamariBaseCollision" type="CollisionShape3D" parent="KatamariBody"]
 shape = SubResource("SphereShape3D_5e5bl")
