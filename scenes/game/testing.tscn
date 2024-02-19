@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c820wfua0imkw"]
+[gd_scene load_steps=9 format=3 uid="uid://c820wfua0imkw"]
 
 [ext_resource type="PackedScene" uid="uid://ck346mxns8kjs" path="res://models/map/map_test.tscn" id="1_n67c0"]
 [ext_resource type="PackedScene" uid="uid://cwxpkbdnvlvw0" path="res://models/ouji/OUJI_HOLDER.glb" id="2_6kreb"]
@@ -7,23 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://x1kxsldubvww" path="res://music/result.ogg" id="5_4hene"]
 [ext_resource type="PackedScene" uid="uid://bp5gmy06yifpu" path="res://scenes/ui/king_moya.tscn" id="6_0kg0s"]
 [ext_resource type="PackedScene" uid="uid://r5b6h4jwf6gn" path="res://scenes/ui/timer_normal.tscn" id="7_kyiyc"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xv6rd"]
-sky_top_color = Color(0.239216, 0.635294, 1, 1)
-sky_horizon_color = Color(0.611765, 0.827451, 1, 1)
-ground_bottom_color = Color(0.611765, 0.827451, 1, 1)
-ground_horizon_color = Color(0.611765, 0.827451, 1, 1)
-
-[sub_resource type="Sky" id="Sky_dvqvd"]
-sky_material = SubResource("ProceduralSkyMaterial_xv6rd")
-
-[sub_resource type="Environment" id="Environment_h6sqg"]
-background_mode = 2
-background_color = Color(0, 0.560784, 0.988235, 1)
-sky = SubResource("Sky_dvqvd")
-ambient_light_source = 2
-ambient_light_color = Color(0.486275, 0.517647, 0.560784, 1)
-reflected_light_source = 1
+[ext_resource type="PackedScene" uid="uid://dx4skkxtb28gf" path="res://scenes/environment/env_day.tscn" id="8_ax4vo"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -35,13 +19,6 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0.3, 0)
 [node name="OUJI_HOLDER2" parent="." instance=ExtResource("2_6kreb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.3)
 
-[node name="WorldEnv" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_h6sqg")
-
-[node name="WorldSun" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.707107, 0.683013, 0.183013, 0, -0.258819, 0.965926, 0.707107, -0.683013, -0.183013, 0, 3, 0)
-directional_shadow_mode = 0
-
 [node name="RollableObject3D" parent="." instance=ExtResource("4_rr44q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, -1)
 
@@ -51,3 +28,5 @@ stream = ExtResource("5_4hene")
 [node name="KingMoya" parent="." instance=ExtResource("6_0kg0s")]
 
 [node name="TimerNormal" parent="." instance=ExtResource("7_kyiyc")]
+
+[node name="EnvDay" parent="." instance=ExtResource("8_ax4vo")]
