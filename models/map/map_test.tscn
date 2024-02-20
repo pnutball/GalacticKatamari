@@ -14,7 +14,7 @@ data = PackedVector3Array(0.3, 0, 1.5, 0.3, 0, 2, -0.5, 0, 2, -0.5, 0, -2, -0.5,
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e4jke"]
 render_priority = 0
 shader = ExtResource("7_5dbwr")
-shader_parameter/water_depth = 0.1
+shader_parameter/water_depth = 0.5
 shader_parameter/water_color = Vector3(0, 92, 136)
 shader_parameter/shore_color = Vector3(44, 163, 211)
 shader_parameter/steps = 3
@@ -24,6 +24,7 @@ size = Vector2(1.1, 4.1)
 orientation = 1
 
 [node name="map_test" type="MeshInstance3D"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 mesh = ExtResource("1_s7u0d")
 surface_material_override/0 = ExtResource("2_ttjmk")
 surface_material_override/1 = ExtResource("3_l2lab")
