@@ -62,7 +62,7 @@ _data = {
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tecj2"]
 friction = 0.08
-bounce = 0.5
+bounce = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xaky2"]
 texture_filter = 2

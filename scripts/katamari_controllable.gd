@@ -13,7 +13,7 @@ var MinimumSize:float = Size
 #region Physics
 @export_group("Physics")
 ## Sets the katamari's speed relative to a size of 1m. This also affects the max speed.
-@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 1
+@export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 5
 ## Sets how much the katamari's acceleration/top speed is multiplied.
 @export var InclineSpeedMultiplier:Curve
 ## Determines if movement is currently enabled.
@@ -88,7 +88,7 @@ var DashDir:int = 0:
 func _ready():
 	loadCore(CoreTexture, CoreModel)
 	changeCamArea(0, true)
-	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * 0.2 * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
+	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 
 func _process(delta):
 	$SubViewport.size = get_viewport().size
@@ -97,8 +97,8 @@ func _process(delta):
 	CameraRotation -= StickAngle * 2.5 * delta
 	
 	# Transform camera
-	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * 0.2 * $"..".scale)
-	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * 0.2 * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
+	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * $"..".scale)
+	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
 	
 
 	# Discharge / recharge dash
@@ -154,8 +154,8 @@ func _physics_process(delta):
 	$KatamariBody.center_of_mass = Vector3(0, -Size, 0)
 	
 	# Rotate katamari model (including objects and collision when that's implemented)
-	var zRot:float = ($KatamariBody.linear_velocity.x * -8.1 / $"..".scale.x * delta) / Size
-	var xRot:float = ($KatamariBody.linear_velocity.z * 8.1 / $"..".scale.z * delta) / Size
+	var zRot:float = ($KatamariBody.linear_velocity.x * -1.62 / $"..".scale.x * delta) / Size
+	var xRot:float = ($KatamariBody.linear_velocity.z * 1.62 / $"..".scale.z * delta) / Size
 	$KatamariBody/KatamariMeshPivot.rotate_z(zRot)
 	$KatamariBody/KatamariMeshPivot.rotate_x(xRot)
 	
@@ -182,7 +182,7 @@ func _physics_process(delta):
 	
 	# Calculate movement vector (old method)
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
-	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * sqrt(Size) * Speed + ((tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement) / pow(Speed, 1.0/3) * pow($KatamariBody.gravity_scale, 3))
+	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * sqrt(Size) * Speed + ((tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement) * 5 / pow(Speed/5, 1.0/3) * pow($KatamariBody.gravity_scale, 3))
 	
 	# Create movement force
 	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y)

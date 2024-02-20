@@ -3,17 +3,19 @@
 [ext_resource type="Script" path="res://scripts/rollable_object.gd" id="1_mpgf7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o41y8"]
-size = Vector3(0.1, 0.1, 0.1)
+margin = 0.2
+size = Vector3(0.25, 0.25, 0.25)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ou3l4"]
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yu0ib"]
 margin = 0.0
-size = Vector3(0.1, 0.1, 0.1)
+size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig0x8"]
-size = Vector3(0.11, 0.11, 0.11)
+margin = 0.2
+size = Vector3(0.55, 0.55, 0.55)
 
 [node name="RollableObject3D" type="AnimatableBody3D"]
 collision_layer = 2
