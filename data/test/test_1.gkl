@@ -12,6 +12,10 @@
 					"name": {
 						"en": "Normal"
 					},
+					"music": {
+						"default": "",
+						"force_default": true
+					},
 					"pre_dialogue": {
 						"en": ["Dummy"]
 					},
@@ -40,12 +44,12 @@
 								"res://scenes/environment/env_day.tscn"
 							],
 							"objects": [
-								{"id":"debug_cube", "position":[0,0.1,1], "rotation":[0,0,0], "scale":1 "behavior":"static", "sub_objects":[], "unload_size":-1}
+								{"id":"debug_cube", "position":[0,0.1,1], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1}
 							]
 						}
 					],
 					"cam_zones": [
-						{"bound":0,"scale":1.5,"tilt":-15,"shift":0.25,"attributes":"res://misc/attr_test_00.tres"}
+						{"bound":0,"scale":1.5,"tilt":-15,"shift":0.25,"dof":"10"}
 					],
 					"katamari": {
 						"size": 1,
@@ -57,7 +61,7 @@
 						"speed": 1,
 						"canDash": true,
 						"canTurn": true
-					}
+					},
 					"goal_type": "none",
 					"goal": 0,
 					"time": 0
