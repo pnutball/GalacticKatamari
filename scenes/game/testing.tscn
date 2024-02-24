@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cwxpkbdnvlvw0" path="res://models/ouji/OUJI_HOLDER.glb" id="2_6kreb"]
 [ext_resource type="PackedScene" uid="uid://b71c6sh4m0f5e" path="res://scenes/game/object/katamari_controllable.tscn" id="2_tifuw"]
 [ext_resource type="PackedScene" uid="uid://b7ohty8xjjwlv" path="res://scenes/game/object/rollable_object_3d.tscn" id="4_rr44q"]
-[ext_resource type="AudioStream" uid="uid://x1kxsldubvww" path="res://music/result.ogg" id="5_4hene"]
+[ext_resource type="AudioStream" uid="uid://dlaq63l2i5jv8" path="res://music/king.ogg" id="5_5oha2"]
 [ext_resource type="PackedScene" uid="uid://bp5gmy06yifpu" path="res://scenes/ui/king_moya.tscn" id="6_0kg0s"]
 [ext_resource type="PackedScene" uid="uid://r5b6h4jwf6gn" path="res://scenes/ui/timer_normal.tscn" id="7_kyiyc"]
 [ext_resource type="PackedScene" uid="uid://dx4skkxtb28gf" path="res://scenes/environment/env_day.tscn" id="8_ax4vo"]
@@ -30,7 +30,7 @@ transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 0, 0, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5)
 
 [node name="TestMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_4hene")
+stream = ExtResource("5_5oha2")
 
 [node name="KingMoya" parent="." instance=ExtResource("6_0kg0s")]
 
