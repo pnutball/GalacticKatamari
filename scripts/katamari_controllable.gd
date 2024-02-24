@@ -41,8 +41,8 @@ var CameraScale: float = 1
 ## Scale determines the camera scale relative to the World3D (NOT the katamari!).
 ## Tilt determines the camera's tilt in radians.
 ## Shift determines the camera's vertical shift, relative to the World3D.
-## Attributes, if available, determines the camera attributes file used by the camera when reaching the size area.
-@export var CameraZones:Array[Dictionary] = [{Bound = 0, Scale = 1.5, Tilt = -15, Shift = .25, Attributes = load("res://misc/attr_test_00.tres")}]
+## DOF determines the depth-of-field distance, in meters (relative to World3D). 0 disables Depth Of Field.
+@export var CameraZones:Array[Dictionary] = [{Bound = 0, Scale = 1.5, Tilt = -15, Shift = .25, DOF = 10}]
 ## The bounds of the current camera zone.
 ## Automatically set when changing CurrentZone.
 var CurrentZoneBounds:Vector2
@@ -235,17 +235,21 @@ func changeCamArea(index:int, skipAnimation:bool = false):
 	if CameraZones.size() - 1 > CurrentZone: nextBound = CameraZones[CurrentZone+1].Bound
 	CurrentZoneBounds = Vector2(CameraZones[CurrentZone].Bound, nextBound)
 	print(CurrentZoneBounds.y)
-	if CameraZones[CurrentZone].Attributes: 
-		%KatamariCamera.attributes = CameraZones[CurrentZone].Attributes
 	if skipAnimation:
 		CameraScale = CameraZones[CurrentZone].Scale
 		CameraTilt = deg_to_rad(CameraZones[CurrentZone].Tilt)
 		CameraShift = CameraZones[CurrentZone].Shift
+		if CameraZones[CurrentZone].DOF: 
+			%KatamariCamera.attributes.dof_blur_far_distance = CameraZones[CurrentZone].DOF
+			%KatamariCamera.attributes.dof_blur_amount = 0.0 if is_equal_approx(CameraZones[CurrentZone].DOF, 0) else 0.3
 	else:
 		var CameraTween = get_tree().create_tween()
 		CameraTween.parallel().tween_property(self, "CameraScale", CameraZones[CurrentZone].Scale, 1)
 		CameraTween.parallel().tween_property(self, "CameraTilt", deg_to_rad(CameraZones[CurrentZone].Tilt), 1)
 		CameraTween.parallel().tween_property(self, "CameraShift", CameraZones[CurrentZone].Shift, 1)
+		if CameraZones[CurrentZone].DOF: 
+			CameraTween.parallel().tween_property(%KatamariCamera.attributes, "dof_blur_far_distance", CameraZones[CurrentZone].DOF, 1)
+			CameraTween.parallel().tween_property(%KatamariCamera.attributes, "dof_blur_amount", 0.0 if is_equal_approx(CameraZones[CurrentZone].DOF, 0) else 0.3, 1)
 
 func doQuickTurn():
 	if MovementEnabled:

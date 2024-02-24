@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=25 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
@@ -7,6 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://dg5j6njuk2bjb" path="res://textures/effect/dash_A.png" id="6_8pgql"]
 [ext_resource type="Shader" path="res://misc/KDZoom.gdshader" id="6_rnc8v"]
 [ext_resource type="Texture2D" uid="uid://bxcxru2mxjxbs" path="res://textures/effect/dash_B.png" id="7_kpo2d"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qviqp"]
+dof_blur_far_enabled = true
+dof_blur_far_distance = 20.0
+dof_blur_amount = 0.3
 
 [sub_resource type="Animation" id="Animation_vc1w8"]
 resource_name = "CameraZoom"
@@ -151,6 +156,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="KatamariCamera" type="Camera3D" parent="SubViewport/KatamariCameraPivot"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+attributes = SubResource("CameraAttributesPractical_qviqp")
 current = true
 
 [node name="KatamariCameraZoom" type="AnimationPlayer" parent="SubViewport/KatamariCameraPivot/KatamariCamera"]
