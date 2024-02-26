@@ -275,6 +275,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
 [node name="Line2D" type="Line2D" parent="Debug"]
 points = PackedVector2Array(50, 50, 150, 50)
 width = 5.0
+antialiased = true
 
 [node name="StickM" type="Panel" parent="Debug"]
 z_index = 3
