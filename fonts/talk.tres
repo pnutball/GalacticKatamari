@@ -1,8 +1,0 @@
-[gd_resource type="FontVariation" load_steps=3 format=3 uid="uid://vhegr7fkhs42"]
-
-[ext_resource type="FontFile" uid="uid://dvjh8wmwfwvgn" path="res://fonts/talk.ttf" id="1_qsarp"]
-[ext_resource type="FontFile" uid="uid://cjwn3db3spkyo" path="res://fonts/talk_ja.ttf" id="2_3inov"]
-
-[resource]
-fallbacks = Array[Font]([ExtResource("2_3inov")])
-base_font = ExtResource("1_qsarp")
