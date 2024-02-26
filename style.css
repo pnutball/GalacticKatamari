@@ -1,0 +1,54 @@
+body {
+	margin: 0;
+	background: radial-gradient(circle at center, black 10%, #020F44 10%, #020F44 20%, black 20%, black 30%, #020F44 30%, #020F44 40%, black 40%, black 50%, #020F44 50%, #020F44 60%, black 60%, black 70%, #020F44 70%, #020F44 80%, black 80%, black 90%, #020F44 90%);
+	color: white;
+}
+header {
+	display: block;
+	display: none;
+    position: fixed;
+    top: 0;
+    width: calc(100% - 2rem);
+	height: 3rem;
+    background: linear-gradient(#8FAFE8, #D8E3F7);
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border-radius: 50rem;
+}
+content {
+	height: calc(100% - 27.968752145767212rem);
+    display: block;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10rem;
+    font-size: 2rem;
+}
+footer {
+    margin: auto;
+    width: fit-content;
+	display: flex;
+}
+#header-logo {
+	height: 3rem;
+}
+#pnutball-logo {
+	height: 6rem;
+}
+
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-bold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.jua-regular {
+  font-family: "Jua", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
