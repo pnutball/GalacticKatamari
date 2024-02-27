@@ -3,9 +3,12 @@
 		"debug_cube": {
 			"view_mesh": "res://models/object/debug_cube_view.tres",
 			"collision_mesh": "res://models/object/debug_cube.shape",
+			"name": {
+				"en": "Debug Cube"
+			},
 			"bump_sound": "",
 			"roll_sound": "",
-			"animations_prefix": ""
+			"animations_prefix": "",
 			"collection_category": ""
 		}
 	}
