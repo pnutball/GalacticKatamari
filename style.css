@@ -28,6 +28,11 @@ footer {
     width: fit-content;
 	display: flex;
 }
+
+footer * {
+    user-select: none;
+}
+
 #header-logo {
 	height: 3rem;
 }
