@@ -22,6 +22,8 @@ content {
     vertical-align: middle;
     padding: 10rem;
     font-size: 2rem;
+	padding-top: 20rem;
+    padding-bottom: 0rem;
 }
 footer {
     margin: auto;
