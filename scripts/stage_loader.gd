@@ -1,8 +1,13 @@
 extends Node
 
+signal stage_loaded
+signal stage_instantiated
+
 var objectList:Dictionary = preload("res://data/objects.json").data
-var RollableObject3D:PackedScene = preload("res://scenes/game/object/rollable_object_3d.tscn")
 var currentStage:Dictionary
+
+var RollableObject3D:PackedScene = preload("res://scenes/game/object/rollable_object_3d.tscn")
+var KatamariControllable:PackedScene = preload("res://scenes/game/object/katamari_controllable.tscn")
 
 func _init():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -25,6 +30,9 @@ func loadStage(path:String, name:String):
 			currentStage = json.data.levels.get(name)
 		else:
 			return ERR_FILE_CANT_READ
+	
+	stage_loaded.emit()
+	return OK
 
 ## Instantiates the currently loaded stage.
 ##
@@ -64,4 +72,20 @@ func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
 		
 		num += 1
 	
-	# INSTANTIATE KATAMARI HERE
+	var katamari:Node = KatamariControllable.instantiate()
+	katamari.Size = currentStage.modes.get(mode).katamari.size
+	katamari.CoreModel = currentStage.modes.get(mode).katamari.model
+	katamari.CoreTexture = currentStage.modes.get(mode).katamari.texture
+	katamari.position = Vector3(currentStage.modes.get(mode).katamari.position[0],currentStage.modes.get(mode).katamari.position[1],currentStage.modes.get(mode).katamari.position[2])
+	katamari.Speed = currentStage.modes.get(mode).katamari.speed
+	katamari.CanDash = currentStage.modes.get(mode).katamari.can_dash
+	katamari.CanQuickTurn = currentStage.modes.get(mode).katamari.can_turn
+	katamari.CameraRotation = currentStage.modes.get(mode).katamari.cam_rotation
+	
+	katamari.CameraZones = currentStage.modes.get(mode).cam_zones
+	stageRoot.add_child(katamari)
+	
+	# INSTANTIATE TIMER HERE
+	
+	parent.add_child(stageRoot)
+	stage_instantiated.emit()

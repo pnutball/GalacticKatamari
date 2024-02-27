@@ -42,7 +42,7 @@ var CameraScale: float = 1
 ## Tilt determines the camera's tilt in radians.
 ## Shift determines the camera's vertical shift, relative to the World3D.
 ## DOF determines the depth-of-field distance, in meters (relative to World3D). 0 disables Depth Of Field.
-@export var CameraZones:Array[Dictionary] = [{Bound = 0, Scale = 1.5, Tilt = -15, Shift = .25, DOF = 10}]
+@export var CameraZones:Array = [{Bound = 0, Scale = 1.5, Tilt = -15, Shift = .25, DOF = 10}]
 ## The bounds of the current camera zone.
 ## Automatically set when changing CurrentZone.
 var CurrentZoneBounds:Vector2

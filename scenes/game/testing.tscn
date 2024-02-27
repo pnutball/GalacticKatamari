@@ -15,13 +15,13 @@
 
 [node name="KatamariControllable" parent="." instance=ExtResource("2_tifuw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-CameraZones = Array[Dictionary]([{
+CameraZones = [{
 "Bound": 0,
 "DOF": 20,
 "Scale": 1.5,
 "Shift": 0.25,
 "Tilt": -15
-}])
+}]
 
 [node name="OUJI_HOLDER2" parent="." instance=ExtResource("2_6kreb")]
 transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 0, 0, -1.5)

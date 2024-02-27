@@ -33,7 +33,11 @@ script/source = "extends Button
 
 
 func _on_pressed():
-	StageLoader.loadStage(\"res://data/test/test_1.gkl.json\", \"test_1\")
+	await StageLoader.loadStage(\"res://data/test/test_1.gkl.json\", \"test_1\")
+	$\"..\".visible = false
+	$\"../../Load\".visible = true
+	await StageLoader.instantiateStage(\"normal\")
+	$\"../..\".queue_free()
 "
 
 [node name="DebugMenu" type="Control"]
@@ -44,25 +48,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LogoRect" type="TextureRect" parent="."]
+[node name="Menu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+
+[node name="LogoRect" type="TextureRect" parent="Menu"]
 clip_children = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -656.0
-offset_top = -297.0
-offset_right = -32.0
-offset_bottom = -32.0
+offset_left = 1223.71
+offset_top = 743.0
+offset_right = 1848.0
+offset_bottom = 1008.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("1_wyfqe")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="LogoColor" type="ColorRect" parent="LogoRect"]
+[node name="LogoColor" type="ColorRect" parent="Menu/LogoRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,17 +75,17 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.301961)
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 32.0
 offset_top = 32.0
-offset_right = 72.0
-offset_bottom = 55.0
+offset_right = 269.0
+offset_bottom = 77.0
 text = "CLOVER DEBUG"
 label_settings = ExtResource("2_g5ven")
 
-[node name="EditorButton" type="Button" parent="."]
+[node name="EditorButton" type="Button" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 32.0
@@ -90,7 +94,7 @@ offset_right = 113.0
 offset_bottom = 127.0
 text = "GK Editor"
 
-[node name="DebugMapButton" type="Button" parent="."]
+[node name="DebugMapButton" type="Button" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 32.0
@@ -100,14 +104,12 @@ offset_bottom = 167.0
 text = "Debug Map (old loading)"
 script = SubResource("GDScript_tdnow")
 
-[node name="LanguageBox" type="ItemList" parent="."]
+[node name="LanguageBox" type="ItemList" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -232.0
+offset_left = 1648.0
 offset_top = 64.0
-offset_right = -32.0
+offset_right = 1848.0
 offset_bottom = 290.0
 grow_horizontal = 0
 item_count = 2
@@ -115,28 +117,58 @@ item_0/text = "English"
 item_1/text = "Japanese"
 script = SubResource("GDScript_lnotj")
 
-[node name="LanguageLabel" type="Label" parent="."]
+[node name="LanguageLabel" type="Label" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -107.0
+offset_left = 1773.0
 offset_top = 32.0
-offset_right = -32.0
+offset_right = 1848.0
 offset_bottom = 55.0
 grow_horizontal = 0
 text = "Language"
 
-[node name="TestButton" type="Button" parent="."]
+[node name="TestButton" type="Button" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 32.0
 offset_top = 176.0
-offset_right = 40.0
-offset_bottom = 184.0
+offset_right = 177.0
+offset_bottom = 207.0
 text = "Test JSON loading"
 script = SubResource("GDScript_l7xm2")
 
-[connection signal="pressed" from="DebugMapButton" to="DebugMapButton" method="_on_pressed"]
-[connection signal="item_selected" from="LanguageBox" to="LanguageBox" method="_on_item_selected"]
-[connection signal="pressed" from="TestButton" to="TestButton" method="_on_pressed"]
+[node name="Load" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Load"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -333.0
+offset_top = -66.0
+offset_right = 333.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[font_size=96px][wave amp=100.0 freq=-5.0 connected=1][rainbow freq=0.5 sat=0.5 val=1]Now loading...[/rainbow][/wave][/font_size]"
+fit_content = true
+
+[connection signal="pressed" from="Menu/DebugMapButton" to="Menu/DebugMapButton" method="_on_pressed"]
+[connection signal="item_selected" from="Menu/LanguageBox" to="Menu/LanguageBox" method="_on_item_selected"]
+[connection signal="pressed" from="Menu/TestButton" to="Menu/TestButton" method="_on_pressed"]

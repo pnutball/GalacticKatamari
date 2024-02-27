@@ -42,6 +42,7 @@
 								"res://models/map/map_test.tscn",
 								"res://scenes/environment/env_day.tscn"
 							],
+							"map_geom": "res://models/map/map_test.tscn",
 							"objects": [
 								{"id":"debug_cube", "position":[-2,0.5,-5], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1},
 								{"id":"debug_cube", "position":[-1,0.5,-5], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1},
@@ -67,18 +68,17 @@
 						}
 					],
 					"cam_zones": [
-						{"bound":0,"scale":1.5,"tilt":-15,"shift":0.25,"dof":"10"}
+						{"Bound":0,"Scale":1.5,"Tilt":-15,"Shift":0.25,"DOF":20}
 					],
 					"katamari": {
 						"size": 1,
 						"model": "res://models/core/core_generic.obj",
 						"texture": "res://textures/core/core_test.png",
 						"position": [0, 0.3, 0],
-						"scale": 0.2,
-						"rotation_y": 0,
-						"speed": 1,
-						"canDash": true,
-						"canTurn": true
+						"speed": 5,
+						"can_dash": true,
+						"can_turn": true,
+						"cam_rotation": 0
 					},
 					"goal_type": "none",
 					"goal": 0,
