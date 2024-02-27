@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmk0arvkvr00a"]
+[gd_scene load_steps=6 format=3 uid="uid://dmk0arvkvr00a"]
 
 [ext_resource type="Texture2D" uid="uid://b5jgxbegq7pvk" path="res://textures/logo/logo_text.png" id="1_wyfqe"]
 [ext_resource type="LabelSettings" uid="uid://crgqwsrfg0lj3" path="res://misc/debug_menu_label.tres" id="2_g5ven"]
@@ -24,6 +24,16 @@ func _on_item_selected(index):
 		1:
 			TranslationServer.set_locale(\"ja\")
 			print_debug(\"Set language to Japanese.\")
+"
+
+[sub_resource type="GDScript" id="GDScript_l7xm2"]
+resource_name = "TestButtonScript"
+script/source = "extends Button
+
+
+
+func _on_pressed():
+	StageLoader.loadStage(\"res://data/test/test_1.gkl.json\", \"test_1\")
 "
 
 [node name="DebugMenu" type="Control"]
@@ -117,5 +127,16 @@ offset_bottom = 55.0
 grow_horizontal = 0
 text = "Language"
 
+[node name="TestButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 32.0
+offset_top = 176.0
+offset_right = 40.0
+offset_bottom = 184.0
+text = "Test JSON loading"
+script = SubResource("GDScript_l7xm2")
+
 [connection signal="pressed" from="DebugMapButton" to="DebugMapButton" method="_on_pressed"]
 [connection signal="item_selected" from="LanguageBox" to="LanguageBox" method="_on_item_selected"]
+[connection signal="pressed" from="TestButton" to="TestButton" method="_on_pressed"]

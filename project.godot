@@ -24,6 +24,10 @@ config/icon="res://icon.svg"
 
 driver/driver=""
 
+[autoload]
+
+StageLoader="*res://scripts/stage_loader.gd"
+
 [display]
 
 window/size/viewport_width=1920
