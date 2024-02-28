@@ -179,7 +179,14 @@ common/max_physics_steps_per_frame=16
 3d/solver/solver_iterations=32
 jolt_3d/sleep/enabled=false
 jolt_3d/continuous_cd/max_penetration=0.0
+jolt_3d/limits/max_linear_velocity=1000.0
+jolt_3d/limits/max_temporary_memory=64
 
 [rendering]
 
 renderer/rendering_method="mobile"
+reflections/sky_reflections/texture_array_reflections=false
+reflections/sky_reflections/ggx_samples=8
+camera/depth_of_field/depth_of_field_bokeh_shape=0
+camera/depth_of_field/depth_of_field_bokeh_quality=0
+camera/depth_of_field/depth_of_field_use_jitter=true
