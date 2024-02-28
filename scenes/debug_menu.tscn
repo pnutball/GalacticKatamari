@@ -50,16 +50,24 @@ grow_vertical = 2
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="LogoRect" type="TextureRect" parent="Menu"]
 clip_children = 1
 layout_mode = 1
 anchors_preset = -1
-offset_left = 1223.71
-offset_top = 743.0
-offset_right = 1848.0
-offset_bottom = 1008.0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -672.0
+offset_top = -329.0
+offset_right = -80.0
+offset_bottom = -64.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("1_wyfqe")
@@ -107,10 +115,12 @@ script = SubResource("GDScript_tdnow")
 [node name="LanguageBox" type="ItemList" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 1648.0
-offset_top = 64.0
-offset_right = 1848.0
-offset_bottom = 290.0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -280.0
+offset_top = 80.0
+offset_right = -80.0
+offset_bottom = 306.0
 grow_horizontal = 0
 item_count = 2
 item_0/text = "English"
@@ -120,12 +130,15 @@ script = SubResource("GDScript_lnotj")
 [node name="LanguageLabel" type="Label" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
-offset_left = 1773.0
-offset_top = 32.0
-offset_right = 1848.0
-offset_bottom = 55.0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -155.0
+offset_top = 48.0
+offset_right = -80.0
+offset_bottom = 23.0
 grow_horizontal = 0
 text = "Language"
+horizontal_alignment = 2
 
 [node name="TestButton" type="Button" parent="Menu"]
 layout_mode = 1
