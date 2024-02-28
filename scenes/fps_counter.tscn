@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dx7u03ef7pu3r"]
+
+[ext_resource type="FontVariation" uid="uid://vhegr7fkhs42" path="res://fonts/talk.tres" id="1_8i07c"]
+
+[sub_resource type="GDScript" id="GDScript_4516w"]
+resource_name = "FPSCounterScript"
+script/source = "extends RichTextLabel
+
+func _process(_a):
+	text = \"[right][font_size=32]%d FPS\" % [Engine.get_frames_per_second()]
+"
+
+[node name="FPSCounterLabel" type="RichTextLabel"]
+process_mode = 3
+top_level = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -219.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 64.0
+grow_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("1_8i07c")
+bbcode_enabled = true
+text = "[right][font_size=32]13 FPS"
+fit_content = true
+script = SubResource("GDScript_4516w")

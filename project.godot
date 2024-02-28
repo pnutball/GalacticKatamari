@@ -18,7 +18,7 @@ run/main_scene="res://scenes/debug_menu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Pnutball/GalacticKatamari"
 config/features=PackedStringArray("4.2", "Mobile")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [audio]
 
@@ -27,6 +27,7 @@ driver/driver=""
 [autoload]
 
 StageLoader="*res://scripts/stage_loader.gd"
+FPSCounter="res://scenes/fps_counter.tscn"
 
 [display]
 
@@ -162,6 +163,11 @@ locale/translation_remaps={
 "res://textures/logo/logo_star_B.png": PackedStringArray("res://i12n/logo/logo_jp_star_B.png:ja"),
 "res://textures/logo/logo_text.png": PackedStringArray("res://i12n/logo/logo_jp_text.png:ja")
 }
+
+[layer_names]
+
+3d_render/layer_19="Level Geom Back"
+3d_render/layer_20="Level Geometry"
 
 [physics]
 
