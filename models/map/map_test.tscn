@@ -25,6 +25,7 @@ orientation = 1
 
 [node name="map_test" type="MeshInstance3D"]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+layers = 524288
 mesh = ExtResource("1_s7u0d")
 surface_material_override/0 = ExtResource("2_ttjmk")
 surface_material_override/1 = ExtResource("3_l2lab")
