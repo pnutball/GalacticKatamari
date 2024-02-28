@@ -16,7 +16,7 @@ func _init():
 ##
 ## path: The path to the .gkl.json file containing the level.
 ## name: The level's internal name.
-func loadStage(path:String, name:String):
+func loadStage(path:String, stage_name:String):
 	if not path.ends_with(".gkl.json"):
 		return ERR_FILE_BAD_PATH
 	ResourceLoader.load_threaded_request(path)
@@ -26,8 +26,8 @@ func loadStage(path:String, name:String):
 		return ERR_FILE_CANT_OPEN
 	else:
 		var json = ResourceLoader.load_threaded_get(path)
-		if "levels" in json.data and name in json.data.levels:
-			currentStage = json.data.levels.get(name)
+		if "levels" in json.data and stage_name in json.data.levels:
+			currentStage = json.data.levels.get(stage_name)
 		else:
 			return ERR_FILE_CANT_READ
 	
