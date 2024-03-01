@@ -1,7 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmk0arvkvr00a"]
+[gd_scene load_steps=7 format=3 uid="uid://dmk0arvkvr00a"]
 
 [ext_resource type="Texture2D" uid="uid://b5jgxbegq7pvk" path="res://textures/logo/logo_text.png" id="1_wyfqe"]
 [ext_resource type="LabelSettings" uid="uid://crgqwsrfg0lj3" path="res://misc/debug_menu_label.tres" id="2_g5ven"]
+
+[sub_resource type="GDScript" id="GDScript_k8lqt"]
+resource_name = "EditorButtonScript"
+script/source = "extends Button
+
+
+func _on_pressed():
+	get_tree().change_scene_to_file(\"res://editor/editor.tscn\")
+"
 
 [sub_resource type="GDScript" id="GDScript_tdnow"]
 resource_name = "DbgMapBtnScript"
@@ -101,6 +110,7 @@ offset_top = 96.0
 offset_right = 113.0
 offset_bottom = 127.0
 text = "GK Editor"
+script = SubResource("GDScript_k8lqt")
 
 [node name="DebugMapButton" type="Button" parent="Menu"]
 layout_mode = 1
@@ -182,6 +192,7 @@ bbcode_enabled = true
 text = "[font_size=96px][wave amp=100.0 freq=-5.0 connected=1][rainbow freq=0.5 sat=0.5 val=1]Now loading...[/rainbow][/wave][/font_size]"
 fit_content = true
 
+[connection signal="pressed" from="Menu/EditorButton" to="Menu/EditorButton" method="_on_pressed"]
 [connection signal="pressed" from="Menu/DebugMapButton" to="Menu/DebugMapButton" method="_on_pressed"]
 [connection signal="item_selected" from="Menu/LanguageBox" to="Menu/LanguageBox" method="_on_item_selected"]
 [connection signal="pressed" from="Menu/TestButton" to="Menu/TestButton" method="_on_pressed"]
