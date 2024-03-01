@@ -26,4 +26,5 @@ func _on_katamari_entered(_rid, body, shape, _locshape):
 		get_node(InstanceName + "_C").queue_free()
 		get_node(InstanceName + "_K").reparent(body, true)
 		get_node(InstanceName + "_M").reparent(body.get_node("KatamariMeshPivot"))
+		body.get_parent().playRollSound()
 		queue_free()

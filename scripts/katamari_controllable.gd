@@ -83,6 +83,15 @@ var DashDir:int = 0:
 @export_file("*.obj") var CoreModel:String = "res://models/core/core_generic.obj"
 @export_file("*.png") var CoreTexture:String = "res://textures/core/core_test.png"
 #endregion
+
+const RollSounds = {
+	"XS": [preload("res://sounds/game/grab_XS_00.mp3"), preload("res://sounds/game/grab_XS_01.mp3"), preload("res://sounds/game/grab_XS_02.mp3")],
+	"S": [preload("res://sounds/game/grab_S_00.mp3"), preload("res://sounds/game/grab_S_01.mp3"), preload("res://sounds/game/grab_S_02.mp3")],
+	"M": [preload("res://sounds/game/grab_M_00.mp3"), preload("res://sounds/game/grab_M_01.mp3"), preload("res://sounds/game/grab_M_02.mp3")],
+	"L": [preload("res://sounds/game/grab_L_00.mp3"), preload("res://sounds/game/grab_L_01.mp3"), preload("res://sounds/game/grab_L_02.mp3")],
+	"XL": [preload("res://sounds/game/grab_XL_00.mp3"), preload("res://sounds/game/grab_XL_01.mp3"), preload("res://sounds/game/grab_XL_02.mp3")],
+	"C": [preload("res://sounds/game/grab_C_00.mp3"), preload("res://sounds/game/grab_C_01.mp3"), preload("res://sounds/game/grab_C_02.mp3")]
+}
 #endregion
 
 func _ready():
@@ -272,3 +281,17 @@ func doQuickTurn():
 func loadCore(texture:String = "res://textures/core/core_test.png", model:String = "res://models/core/core_generic.obj"):
 	$KatamariBody/KatamariMeshPivot/KatamariMesh.mesh = load(model)
 	$KatamariBody/KatamariMeshPivot/KatamariMesh.material_override.albedo_texture = load(texture)
+
+func playRollSound():
+	var soundNum:int = randi_range(0,2)
+	var sizeCat:String = "M"
+	
+	var audioPlayer: AudioStreamPlayer = AudioStreamPlayer.new()
+	#audioPlayer.attenuation_model = AudioStreamPlayer3D.ATTENUATION_DISABLED
+	audioPlayer.bus = "SFX"
+	audioPlayer.stream = RollSounds.get(sizeCat)[soundNum]
+	audioPlayer.volume_db = -2
+	$KatamariBody/KatamariMeshPivot.add_child(audioPlayer)
+	audioPlayer.play()
+	await audioPlayer.finished
+	audioPlayer.queue_free()
