@@ -5,7 +5,7 @@
 [ext_resource type="BoxMesh" uid="uid://vaqb01utfnc0" path="res://models/object/debug_cube_view.tres" id="3_xibpy"]
 
 [node name="RollableObject3D" type="AnimatableBody3D"]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_mpgf7")
 
@@ -23,7 +23,6 @@ shape = ExtResource("2_643b8")
 collision_layer = 2
 
 [node name="RollableObjectAttachCollision" type="CollisionShape3D" parent="ObjectAttachArea"]
-transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
 shape = ExtResource("2_643b8")
 
 [connection signal="body_shape_entered" from="ObjectAttachArea" to="." method="_on_katamari_entered"]
