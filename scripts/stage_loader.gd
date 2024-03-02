@@ -12,6 +12,22 @@ var KatamariControllable:PackedScene = preload("res://scenes/game/object/katamar
 func _init():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
+## Returns an array of stage names located in the file at path, or an Error.
+func getStages(path:String):
+	if not path.ends_with(".gkl.json"):
+		return ERR_FILE_BAD_PATH
+	ResourceLoader.load_threaded_request(path)
+	while ResourceLoader.load_threaded_get_status(path) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		await get_tree().create_timer(0.1).timeout
+	if ResourceLoader.load_threaded_get_status(path) != ResourceLoader.THREAD_LOAD_LOADED:
+		return ERR_FILE_CANT_OPEN
+	else:
+		var json = ResourceLoader.load_threaded_get(path)
+		if "levels" in json.data:
+			return json.data.levels.keys()
+		else:
+			return ERR_FILE_CANT_READ
+
 ## Loads a stage's JSON data into currentStage.
 ##
 ## path: The path to the .gkl.json file containing the level.
@@ -33,6 +49,10 @@ func loadStage(path:String, stage_name:String):
 	
 	stage_loaded.emit()
 	return OK
+
+## Get the currently loaded stage's modes.
+func getModes():
+	return currentStage.modes.keys()
 
 ## Instantiates the currently loaded stage.
 ##

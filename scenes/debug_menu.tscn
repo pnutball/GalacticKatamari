@@ -3,6 +3,50 @@
 [ext_resource type="Texture2D" uid="uid://b5jgxbegq7pvk" path="res://textures/logo/logo_text.png" id="1_wyfqe"]
 [ext_resource type="LabelSettings" uid="uid://crgqwsrfg0lj3" path="res://misc/debug_menu_label.tres" id="2_g5ven"]
 
+[sub_resource type="GDScript" id="GDScript_3r0od"]
+resource_name = "DebugMenuScript"
+script/source = "extends Control
+
+var selectedStage:String = \"\"
+var selectedLevel:String = \"\"
+var selectedMode:String = \"\"
+
+func _on_stage_list_item_selected(index):
+	selectedStage = $StageList.get_item_text(index)
+	$LevelList.clear()
+	for stage in await StageLoader.getStages(selectedStage):
+		$LevelList.add_item(stage)
+	
+	$InfoContainer/LoadButton.disabled = true
+	$InfoContainer/LevelInfo.text = \"Select a level...\"
+
+func _on_level_list_item_selected(index):
+	selectedLevel = $LevelList.get_item_text(index)
+	$ModeList.clear()
+	await StageLoader.loadStage(selectedStage, selectedLevel)
+	for mode in StageLoader.getModes():
+		$ModeList.add_item(mode)
+	
+	$InfoContainer/LoadButton.disabled = true
+	$InfoContainer/LevelInfo.text = \"Select a level...\"
+
+func _on_mode_list_item_selected(index):
+	selectedMode = $ModeList.get_item_text(index)
+	
+	$InfoContainer/LoadButton.disabled = false
+	$InfoContainer/LevelInfo.text = \"[b]%s[/b]\\n[i]%s[/i]\\n\\n%s\" % [
+		StageLoader.currentStage.name.en,
+		StageLoader.currentStage.modes.get(selectedMode).name.en,
+		StageLoader.currentStage.description.en]
+
+
+func _on_load_button_pressed():
+	visible = false
+	$\"../Load\".visible = true
+	await StageLoader.instantiateStage(selectedMode)
+	$\"..\".queue_free()
+"
+
 [sub_resource type="GDScript" id="GDScript_k8lqt"]
 resource_name = "EditorButtonScript"
 script/source = "extends Button
@@ -35,20 +79,6 @@ func _on_item_selected(index):
 			print_debug(\"Set language to Japanese.\")
 "
 
-[sub_resource type="GDScript" id="GDScript_l7xm2"]
-resource_name = "TestButtonScript"
-script/source = "extends Button
-
-
-
-func _on_pressed():
-	await StageLoader.loadStage(\"res://data/test/test_1.gkl.json\", \"test_1\")
-	$\"..\".visible = false
-	$\"../../Load\".visible = true
-	await StageLoader.instantiateStage(\"normal\")
-	$\"../..\".queue_free()
-"
-
 [node name="DebugMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -64,6 +94,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = SubResource("GDScript_3r0od")
 
 [node name="LogoRect" type="TextureRect" parent="Menu"]
 clip_children = 1
@@ -150,15 +181,70 @@ grow_horizontal = 0
 text = "Language"
 horizontal_alignment = 2
 
-[node name="TestButton" type="Button" parent="Menu"]
+[node name="Label2" type="Label" parent="Menu"]
 layout_mode = 1
-anchors_preset = -1
 offset_left = 32.0
-offset_top = 176.0
-offset_right = 177.0
-offset_bottom = 207.0
-text = "Test JSON loading"
-script = SubResource("GDScript_l7xm2")
+offset_top = 242.0
+offset_right = 72.0
+offset_bottom = 268.0
+text = "Stage files"
+
+[node name="StageList" type="ItemList" parent="Menu"]
+layout_mode = 2
+offset_left = 32.0
+offset_top = 272.0
+offset_right = 274.0
+offset_bottom = 962.0
+item_count = 1
+item_0/text = "res://data/test/test_1.gkl.json"
+
+[node name="Label3" type="Label" parent="Menu"]
+layout_mode = 1
+offset_left = 288.0
+offset_top = 242.0
+offset_right = 367.0
+offset_bottom = 268.0
+text = "Levels"
+
+[node name="LevelList" type="ItemList" parent="Menu"]
+layout_mode = 2
+offset_left = 288.0
+offset_top = 272.0
+offset_right = 562.0
+offset_bottom = 428.0
+
+[node name="Label4" type="Label" parent="Menu"]
+layout_mode = 1
+offset_left = 288.0
+offset_top = 436.0
+offset_right = 367.0
+offset_bottom = 462.0
+text = "Modes"
+
+[node name="ModeList" type="ItemList" parent="Menu"]
+layout_mode = 2
+offset_left = 288.0
+offset_top = 466.0
+offset_right = 562.0
+offset_bottom = 622.0
+
+[node name="InfoContainer" type="VBoxContainer" parent="Menu"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 640.0
+offset_right = 562.0
+offset_bottom = 959.0
+
+[node name="LevelInfo" type="RichTextLabel" parent="Menu/InfoContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "Select a level..."
+
+[node name="LoadButton" type="Button" parent="Menu/InfoContainer"]
+layout_mode = 2
+disabled = true
+text = "Play"
 
 [node name="Load" type="Control" parent="."]
 visible = false
@@ -195,4 +281,7 @@ fit_content = true
 [connection signal="pressed" from="Menu/EditorButton" to="Menu/EditorButton" method="_on_pressed"]
 [connection signal="pressed" from="Menu/DebugMapButton" to="Menu/DebugMapButton" method="_on_pressed"]
 [connection signal="item_selected" from="Menu/LanguageBox" to="Menu/LanguageBox" method="_on_item_selected"]
-[connection signal="pressed" from="Menu/TestButton" to="Menu/TestButton" method="_on_pressed"]
+[connection signal="item_selected" from="Menu/StageList" to="Menu" method="_on_stage_list_item_selected"]
+[connection signal="item_selected" from="Menu/LevelList" to="Menu" method="_on_level_list_item_selected"]
+[connection signal="item_selected" from="Menu/ModeList" to="Menu" method="_on_mode_list_item_selected"]
+[connection signal="pressed" from="Menu/InfoContainer/LoadButton" to="Menu" method="_on_load_button_pressed"]
