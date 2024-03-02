@@ -211,27 +211,27 @@ layout_mode = 2
 offset_left = 288.0
 offset_top = 272.0
 offset_right = 562.0
-offset_bottom = 428.0
+offset_bottom = 586.0
 
 [node name="Label4" type="Label" parent="Menu"]
 layout_mode = 1
 offset_left = 288.0
-offset_top = 436.0
+offset_top = 591.0
 offset_right = 367.0
-offset_bottom = 462.0
+offset_bottom = 617.0
 text = "Modes"
 
 [node name="ModeList" type="ItemList" parent="Menu"]
 layout_mode = 2
 offset_left = 288.0
-offset_top = 466.0
+offset_top = 621.0
 offset_right = 562.0
-offset_bottom = 622.0
+offset_bottom = 777.0
 
 [node name="InfoContainer" type="VBoxContainer" parent="Menu"]
 layout_mode = 0
 offset_left = 288.0
-offset_top = 640.0
+offset_top = 784.0
 offset_right = 562.0
 offset_bottom = 959.0
 
