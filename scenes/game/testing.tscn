@@ -27,83 +27,83 @@ CameraZones = [{
 transform = Transform3D(-2.18557e-07, 0, 5, 0, 5, 0, -5, 0, -2.18557e-07, 0, 0, -1.5)
 
 [node name="RollableObject3D" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -5)
 InstanceName = &"0"
 
 [node name="RollableObject3D2" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.15, -5)
 InstanceName = &"1"
 
 [node name="RollableObject3D3" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.15, -5)
 InstanceName = &"2"
 
 [node name="RollableObject3D4" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.15, -5)
 InstanceName = &"3"
 
 [node name="RollableObject3D5" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -5)
 InstanceName = &"4"
 
 [node name="RollableObject3D6" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -6)
 InstanceName = &"5"
 
 [node name="RollableObject3D7" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.15, -6)
 InstanceName = &"6"
 
 [node name="RollableObject3D8" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.15, -6)
 InstanceName = &"7"
 
 [node name="RollableObject3D9" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.15, -6)
 InstanceName = &"8"
 
 [node name="RollableObject3D10" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -6)
 InstanceName = &"9"
 
 [node name="RollableObject3D11" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -7)
 InstanceName = &"10"
 
 [node name="RollableObject3D12" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.15, -7)
 InstanceName = &"11"
 
 [node name="RollableObject3D13" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.15, -7)
 InstanceName = &"12"
 
 [node name="RollableObject3D14" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.15, -7)
 InstanceName = &"13"
 
 [node name="RollableObject3D15" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -7)
 InstanceName = &"14"
 
 [node name="RollableObject3D16" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -8)
 InstanceName = &"15"
 
 [node name="RollableObject3D17" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.5, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.15, -8)
 InstanceName = &"16"
 
 [node name="RollableObject3D18" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.5, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.15, -8)
 InstanceName = &"17"
 
 [node name="RollableObject3D19" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.15, -8)
 InstanceName = &"18"
 
 [node name="RollableObject3D20" parent="." instance=ExtResource("4_rr44q")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.15, -8)
 InstanceName = &"19"
 
 [node name="TestMusic" type="AudioStreamPlayer" parent="."]
