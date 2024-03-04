@@ -11,6 +11,20 @@ var selectedStage:String = \"\"
 var selectedLevel:String = \"\"
 var selectedMode:String = \"\"
 
+func _ready():
+	var levelDir = DirAccess.open(\"res://data/levels\")
+	for file in levelDir.get_files():
+		if file.ends_with(\".gkl.json\"):
+			$StageList.add_item(\"res://data/levels/\" + file)
+	$StageList.set_item_disabled($StageList.add_item(\"External (user://)\"), true)
+	if (DirAccess.dir_exists_absolute(\"user://levels\")):
+		levelDir = DirAccess.open(\"user://levels\")
+		for file in levelDir.get_files():
+			if file.ends_with(\".gkl.json\"):
+				$StageList.add_item(\"user://levels/\" + file)
+	else:
+		$StageList.set_item_disabled($StageList.add_item(\"GK user directory not found.\"), true)
+
 func _on_stage_list_item_selected(index):
 	selectedStage = $StageList.get_item_text(index)
 	$LevelList.clear()
@@ -35,9 +49,9 @@ func _on_mode_list_item_selected(index):
 	
 	$InfoContainer/LoadButton.disabled = false
 	$InfoContainer/LevelInfo.text = \"[b]%s[/b]\\n[i]%s[/i]\\n\\n%s\" % [
-		StageLoader.currentStage.name.en,
-		StageLoader.currentStage.modes.get(selectedMode).name.en,
-		StageLoader.currentStage.description.en]
+		StageLoader.currentStage.name.get(TranslationServer.get_locale().get_slice(\"_\", 0), StageLoader.currentStage.name.get(\"en\", \"MISSING STRING!\")),
+		StageLoader.currentStage.modes.get(selectedMode).name.get(TranslationServer.get_locale().get_slice(\"_\", 0), StageLoader.currentStage.modes.get(selectedMode).name.get(\"en\", \"MISSING STRING!\")),
+		StageLoader.currentStage.description.get(TranslationServer.get_locale().get_slice(\"_\", 0), StageLoader.currentStage.description.get(\"en\", \"MISSING STRING!\"))]
 
 
 func _on_load_button_pressed():
@@ -193,46 +207,48 @@ text = "Stage files"
 layout_mode = 2
 offset_left = 32.0
 offset_top = 272.0
-offset_right = 274.0
+offset_right = 318.0
 offset_bottom = 962.0
 item_count = 1
-item_0/text = "res://data/test/test_1.gkl.json"
+item_0/text = "Built-in (res://)"
+item_0/selectable = false
+item_0/disabled = true
 
 [node name="Label3" type="Label" parent="Menu"]
 layout_mode = 1
-offset_left = 288.0
+offset_left = 328.0
 offset_top = 242.0
-offset_right = 367.0
+offset_right = 407.0
 offset_bottom = 268.0
 text = "Levels"
 
 [node name="LevelList" type="ItemList" parent="Menu"]
 layout_mode = 2
-offset_left = 288.0
+offset_left = 328.0
 offset_top = 272.0
-offset_right = 562.0
+offset_right = 602.0
 offset_bottom = 586.0
 
 [node name="Label4" type="Label" parent="Menu"]
 layout_mode = 1
-offset_left = 288.0
+offset_left = 328.0
 offset_top = 591.0
-offset_right = 367.0
+offset_right = 407.0
 offset_bottom = 617.0
 text = "Modes"
 
 [node name="ModeList" type="ItemList" parent="Menu"]
 layout_mode = 2
-offset_left = 288.0
+offset_left = 328.0
 offset_top = 621.0
-offset_right = 562.0
+offset_right = 602.0
 offset_bottom = 777.0
 
 [node name="InfoContainer" type="VBoxContainer" parent="Menu"]
 layout_mode = 0
-offset_left = 288.0
+offset_left = 328.0
 offset_top = 784.0
-offset_right = 562.0
+offset_right = 602.0
 offset_bottom = 959.0
 
 [node name="LevelInfo" type="RichTextLabel" parent="Menu/InfoContainer"]

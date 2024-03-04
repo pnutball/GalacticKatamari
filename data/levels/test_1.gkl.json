@@ -5,7 +5,8 @@
 				"en": "Test Level 1"
 			},
 			"description": {
-				"en": "IS YOUR TUMMY PURE MUSCLE?\n[ ACCEPT ] [ DECLINE ]"
+				"en": "IS YOUR TUMMY PURE MUSCLE?\n[ ACCEPT ] [ DECLINE ]",
+				"ja": "あなたのお腹は純粋な筋肉ですか？\n[ はい ] [ いいえ ]"
 			},
 			"modes": {
 				"normal": {
