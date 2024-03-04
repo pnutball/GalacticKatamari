@@ -1,21 +1,136 @@
-[gd_scene format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=11 format=3 uid="uid://y5lpvpv88asc"]
 
-[node name="Control" type="Control"]
+[ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
+[ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
+[ext_resource type="Texture2D" uid="uid://cbqjcyus6yral" path="res://editor/icons/new.png" id="3_cwtj4"]
+[ext_resource type="Texture2D" uid="uid://cv3w0qdsqth32" path="res://editor/icons/open.png" id="4_3ruc7"]
+[ext_resource type="Texture2D" uid="uid://c2v2hc46fab3t" path="res://editor/icons/save.png" id="5_77brx"]
+[ext_resource type="Texture2D" uid="uid://dgbg7616xc1ew" path="res://editor/icons/saveas.png" id="6_n0kn2"]
+[ext_resource type="Texture2D" uid="uid://b4j1xn0ars0bo" path="res://editor/icons/x.png" id="7_1llq7"]
+[ext_resource type="Texture2D" uid="uid://cov51s4vk66f" path="res://editor/icons/quitdesktop.png" id="8_8f7ae"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmqy0"]
+bg_color = Color(0.00784314, 0.0705882, 0.329412, 1)
+
+[sub_resource type="GDScript" id="GDScript_h7luh"]
+resource_name = "LevelTreeScript"
+script/source = "extends Tree
+
+func _ready():
+	var root = create_item()
+	root.set_text(0, \"New File\")
+	root.set_icon(0, load(\"res://editor/icons/document.png\"))
+	
+"
+
+[node name="EditorRoot" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_vupi4")
+script = ExtResource("1_ifg2b")
 
-[node name="MenuBar" type="MenuBar" parent="."]
+[node name="BGPanel" type="Panel" parent="."]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = 47.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gmqy0")
 
-[node name="File" type="PopupMenu" parent="MenuBar"]
+[node name="EditorVBox" type="VBoxContainer" parent="BGPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="EditorMenuBar" type="MenuBar" parent="BGPanel/EditorVBox"]
+layout_mode = 2
+flat = true
+
+[node name="File" type="PopupMenu" parent="BGPanel/EditorVBox/EditorMenuBar"]
+transparent_bg = true
+position = Vector2i(0, 42)
+size = Vector2i(184, 212)
+item_count = 7
+item_0/text = "New"
+item_0/icon = ExtResource("3_cwtj4")
+item_0/id = 0
+item_1/text = "Open"
+item_1/icon = ExtResource("4_3ruc7")
+item_1/id = 1
+item_2/text = "Save"
+item_2/icon = ExtResource("5_77brx")
+item_2/id = 2
+item_3/text = "Save as..."
+item_3/icon = ExtResource("6_n0kn2")
+item_3/id = 3
+item_4/text = ""
+item_4/id = 4
+item_4/separator = true
+item_5/text = "Quit to Debug"
+item_5/icon = ExtResource("7_1llq7")
+item_5/id = 5
+item_6/text = "Quit to Desktop"
+item_6/icon = ExtResource("8_8f7ae")
+item_6/id = 6
+
+[node name="Create" type="PopupMenu" parent="BGPanel/EditorVBox/EditorMenuBar"]
+transparent_bg = true
+position = Vector2i(48, 42)
+item_count = 2
+item_0/text = "Level"
+item_0/id = 0
+item_1/text = "Object"
+item_1/id = 1
+
+[node name="HSplitContainerLeft" type="HSplitContainer" parent="BGPanel/EditorVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 300
+
+[node name="LevelTree" type="Tree" parent="BGPanel/EditorVBox/HSplitContainerLeft"]
+layout_mode = 2
+size_flags_vertical = 3
+script = SubResource("GDScript_h7luh")
+
+[node name="HSplitContainerLeft2" type="HSplitContainer" parent="BGPanel/EditorVBox/HSplitContainerLeft"]
+layout_mode = 2
+size_flags_vertical = 3
+split_offset = 1296
+
+[node name="MiddleVBox" type="VBoxContainer" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2"]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2/MiddleVBox"]
+layout_mode = 2
+text = "Play"
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2/MiddleVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2/MiddleVBox/SubViewportContainer"]
+size = Vector2i(1296, 1000)
+
+[node name="PropertiesPanelBG" type="Panel" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PropertiesScroll" type="ScrollContainer" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2/PropertiesPanelBG"]
+layout_mode = 2
+offset_right = 300.0
+offset_bottom = 1042.0
+
+[node name="PropertiesPanel" type="VBoxContainer" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2/PropertiesPanelBG/PropertiesScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

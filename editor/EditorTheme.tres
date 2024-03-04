@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://do4xoe6jr3w32"]
+
+[ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://fonts/hud.tres" id="1_b77oh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arbd4"]
+bg_color = Color(0.0156863, 0.113725, 0.411765, 1)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[resource]
+default_font = ExtResource("1_b77oh")
+default_font_size = 20
+PopupMenu/styles/panel = SubResource("StyleBoxFlat_arbd4")
+SplitContainer/constants/autohide = 0
