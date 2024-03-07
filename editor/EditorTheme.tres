@@ -1,14 +1,34 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://do4xoe6jr3w32"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://do4xoe6jr3w32"]
 
+[ext_resource type="StyleBox" uid="uid://bq6mf2slb4ls3" path="res://editor/themebox_scroll.tres" id="1_3x3ng"]
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://fonts/hud.tres" id="1_b77oh"]
+[ext_resource type="StyleBox" uid="uid://b3d60wstg4tyc" path="res://editor/themebox_scroll_highlight.tres" id="2_eeju6"]
+[ext_resource type="StyleBox" uid="uid://omnli1my0qvm" path="res://editor/themebox_scroll_pressed.tres" id="3_nmu8p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arbd4"]
 bg_color = Color(0.0156863, 0.113725, 0.411765, 1)
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_8yx1h"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+color = Color(1, 1, 1, 0.501961)
+grow_begin = -8.0
+grow_end = -8.0
+
 [resource]
 default_font = ExtResource("1_b77oh")
 default_font_size = 20
+HScrollBar/styles/grabber = ExtResource("1_3x3ng")
+HScrollBar/styles/grabber_highlight = ExtResource("2_eeju6")
+HScrollBar/styles/grabber_pressed = ExtResource("3_nmu8p")
+PopupMenu/colors/font_disabled_color = Color(1, 1, 1, 0.501961)
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_arbd4")
+PopupMenu/styles/separator = SubResource("StyleBoxLine_8yx1h")
 SplitContainer/constants/autohide = 0
+VScrollBar/styles/grabber = ExtResource("1_3x3ng")
+VScrollBar/styles/grabber_highlight = ExtResource("2_eeju6")
+VScrollBar/styles/grabber_pressed = ExtResource("3_nmu8p")
