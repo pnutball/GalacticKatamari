@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=21 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -15,9 +15,15 @@
 [ext_resource type="Texture2D" uid="uid://d1c07jxwmy0mv" path="res://editor/icons/object.png" id="13_6bjig"]
 [ext_resource type="Script" path="res://editor/tree_and_properties.gd" id="14_u1q5m"]
 [ext_resource type="Texture2D" uid="uid://b2qhh8vl7dqd" path="res://editor/icons/play.png" id="14_y8cnk"]
+[ext_resource type="PackedScene" uid="uid://b3wmjsg4rk68c" path="res://editor/property_vector3.tscn" id="15_vh5xr"]
+[ext_resource type="PackedScene" uid="uid://bj6j5t3hlhx6h" path="res://editor/property_number.tscn" id="16_2qm8x"]
+[ext_resource type="PackedScene" uid="uid://bge7d7ufu3ffl" path="res://editor/property_string.tscn" id="17_pngu0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmqy0"]
 bg_color = Color(0.00784314, 0.0705882, 0.329412, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lu7td"]
+bg_color = Color(0, 0, 0, 0.439216)
 
 [node name="EditorRoot" type="Control"]
 layout_mode = 3
@@ -127,29 +133,30 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PropertiesPanelBG" type="Panel" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft"]
+[node name="PropertiesScroll" type="ScrollContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft"]
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="PropertiesScroll" type="ScrollContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesPanelBG"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lu7td")
 follow_focus = true
 vertical_scroll_mode = 0
 
-[node name="PropertiesPanel" type="VBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesPanelBG/PropertiesScroll"]
+[node name="PropertiesMargin" type="MarginContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="PropertiesPanel" type="VBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 16
 
-[node name="NoneSelectedLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesPanelBG/PropertiesScroll/PropertiesPanel"]
+[node name="NoneSelectedLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.501961)
@@ -158,6 +165,15 @@ text = "Select an item from the tree
 to view its properties."
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Vector3Property" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel" instance=ExtResource("15_vh5xr")]
+layout_mode = 2
+
+[node name="NumberProperty" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel" instance=ExtResource("16_2qm8x")]
+layout_mode = 2
+
+[node name="StringProperty" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel" instance=ExtResource("17_pngu0")]
+layout_mode = 2
 
 [node name="SplitRight" type="VSplitContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain"]
 custom_minimum_size = Vector2(480, 0)
@@ -170,7 +186,19 @@ split_offset = -128
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="GameView" type="SubViewportContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
+[node name="GameView" type="Window" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
+unique_name_in_owner = true
+position = Vector2i(486, 46)
+size = Vector2i(1426, 814)
+visible = false
+transient = true
+unresizable = true
+borderless = true
+content_scale_size = Vector2i(1920, 1080)
+content_scale_mode = 1
+content_scale_aspect = 3
+
+[node name="EditorView" type="SubViewportContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
 unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(480, 270)
@@ -178,14 +206,10 @@ layout_mode = 2
 size_flags_vertical = 3
 stretch = true
 
-[node name="GameViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/GameView"]
+[node name="EditorViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
+handle_input_locally = false
 size = Vector2i(1426, 814)
 render_target_update_mode = 4
-
-[node name="Window" type="Window" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/GameView"]
-visible = false
-transient = true
-borderless = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
 layout_mode = 2

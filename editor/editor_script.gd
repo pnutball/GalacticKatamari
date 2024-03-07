@@ -12,10 +12,13 @@ func _ready():
 
 func _process(delta):
 	%StatusBar/FPSLabel.text = "%d FPS" % [Engine.get_frames_per_second()]
+	%GameView.position = Vector2i(%EditorView.get_global_rect().position)
+	%GameView.size = Vector2i(%EditorView.size)
 
 func returnToDebug():
 	if confirmQuit():
 		get_tree().change_scene_to_file("res://editor/debug_menu.tscn")
+		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 
 func returnToDesktop():
 	if confirmQuit():
@@ -27,6 +30,7 @@ func confirmQuit():
 func _on_play_button_pressed():
 	PlayMode = not PlayMode
 	OS.low_processor_usage_mode = not PlayMode
+	%GameView.visible = PlayMode
 	$BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft.visible = not PlayMode
 	if PlayMode:
 		%PlayButton.text = "Stop"
@@ -34,11 +38,16 @@ func _on_play_button_pressed():
 		%PlayButton.release_focus()
 		var play = Node.new()
 		play.name = "EditorPlay"
-		%GameView/GameViewport.add_child(play)
-		StageLoader.instantiateStage("normal", %GameView/GameViewport/EditorPlay)
-		# put play view in the Window so scaling can apply
+		%GameView.add_child(play)
+		StageLoader.instantiateStage("normal", %GameView/EditorPlay)
 	else:
 		%PlayButton.text = "Play"
 		%PlayButton.icon = preload("res://editor/icons/play.png")
-		if %GameView/GameViewport.get_node_or_null("EditorPlay") != null:
-			%GameView/GameViewport/EditorPlay.queue_free()
+		if %GameView.get_node_or_null("EditorPlay") != null:
+			%GameView/EditorPlay.queue_free()
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if PlayMode:
+			_on_play_button_pressed()
+		returnToDesktop()

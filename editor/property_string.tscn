@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bge7d7ufu3ffl"]
+
+[node name="StringProperty" type="HBoxContainer"]
+theme_override_constants/separation = 8
+
+[node name="PropertyName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Property"
+
+[node name="PropertyBox" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Text"
+context_menu_enabled = false
+middle_mouse_paste_enabled = false
+draw_control_chars = true
+select_all_on_focus = true
