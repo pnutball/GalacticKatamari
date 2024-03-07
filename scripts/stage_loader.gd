@@ -31,7 +31,7 @@ func getStages(path:String):
 ## Loads a stage's JSON data into currentStage.
 ##
 ## path: The path to the .gkl.json file containing the level.
-## name: The level's internal name.
+## stage_name: The level's internal name.
 func loadStage(path:String, stage_name:String):
 	if not path.ends_with(".gkl.json"):
 		return ERR_FILE_BAD_PATH
