@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=17 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -8,20 +8,16 @@
 [ext_resource type="Texture2D" uid="uid://dgbg7616xc1ew" path="res://editor/icons/saveas.png" id="6_n0kn2"]
 [ext_resource type="Texture2D" uid="uid://b4j1xn0ars0bo" path="res://editor/icons/x.png" id="7_1llq7"]
 [ext_resource type="Texture2D" uid="uid://cov51s4vk66f" path="res://editor/icons/quitdesktop.png" id="8_8f7ae"]
+[ext_resource type="Texture2D" uid="uid://fa5m7kpc0aqm" path="res://editor/icons/level.png" id="9_pxij5"]
+[ext_resource type="Texture2D" uid="uid://dpp4c3oy3jujq" path="res://editor/icons/mode.png" id="10_w5pyd"]
+[ext_resource type="Texture2D" uid="uid://c4u8cngbpv7h6" path="res://editor/icons/area.png" id="11_uidgk"]
+[ext_resource type="Texture2D" uid="uid://bnrbn1uth24k3" path="res://editor/icons/static.png" id="12_06xcr"]
+[ext_resource type="Texture2D" uid="uid://d1c07jxwmy0mv" path="res://editor/icons/object.png" id="13_6bjig"]
+[ext_resource type="Script" path="res://editor/tree_and_properties.gd" id="14_u1q5m"]
+[ext_resource type="Texture2D" uid="uid://b2qhh8vl7dqd" path="res://editor/icons/play.png" id="14_y8cnk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmqy0"]
 bg_color = Color(0.00784314, 0.0705882, 0.329412, 1)
-
-[sub_resource type="GDScript" id="GDScript_h7luh"]
-resource_name = "LevelTreeScript"
-script/source = "extends Tree
-
-func _ready():
-	var root = create_item()
-	root.set_text(0, \"New File\")
-	root.set_icon(0, load(\"res://editor/icons/document.png\"))
-	
-"
 
 [node name="EditorRoot" type="Control"]
 layout_mode = 3
@@ -42,38 +38,45 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_gmqy0")
 
-[node name="EditorVBox" type="VBoxContainer" parent="BGPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="BGPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="EditorVBox" type="VBoxContainer" parent="BGPanel/MarginContainer"]
+layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="EditorMenuBar" type="MenuBar" parent="BGPanel/EditorVBox"]
+[node name="EditorMenuBar" type="MenuBar" parent="BGPanel/MarginContainer/EditorVBox"]
 layout_mode = 2
 flat = true
 
-[node name="File" type="PopupMenu" parent="BGPanel/EditorVBox/EditorMenuBar"]
+[node name="File" type="PopupMenu" parent="BGPanel/MarginContainer/EditorVBox/EditorMenuBar"]
 transparent_bg = true
 position = Vector2i(0, 42)
 size = Vector2i(184, 212)
 item_count = 7
 item_0/text = "New"
 item_0/icon = ExtResource("3_cwtj4")
-item_0/id = 0
+item_0/id = 1
 item_1/text = "Open"
 item_1/icon = ExtResource("4_3ruc7")
-item_1/id = 1
+item_1/id = 2
 item_2/text = "Save"
 item_2/icon = ExtResource("5_77brx")
-item_2/id = 2
+item_2/id = 3
 item_3/text = "Save as..."
 item_3/icon = ExtResource("6_n0kn2")
-item_3/id = 3
+item_3/id = 4
 item_4/text = ""
-item_4/id = 4
+item_4/id = 0
 item_4/separator = true
 item_5/text = "Quit to Debug"
 item_5/icon = ExtResource("7_1llq7")
@@ -82,55 +85,144 @@ item_6/text = "Quit to Desktop"
 item_6/icon = ExtResource("8_8f7ae")
 item_6/id = 6
 
-[node name="Create" type="PopupMenu" parent="BGPanel/EditorVBox/EditorMenuBar"]
+[node name="Create" type="PopupMenu" parent="BGPanel/MarginContainer/EditorVBox/EditorMenuBar"]
 transparent_bg = true
 position = Vector2i(48, 42)
-item_count = 2
+size = Vector2i(103, 170)
+item_count = 5
 item_0/text = "Level"
+item_0/icon = ExtResource("9_pxij5")
 item_0/id = 0
-item_1/text = "Object"
+item_1/text = "Mode"
+item_1/icon = ExtResource("10_w5pyd")
 item_1/id = 1
+item_1/disabled = true
+item_2/text = "Area"
+item_2/icon = ExtResource("11_uidgk")
+item_2/id = 2
+item_2/disabled = true
+item_3/text = "Static"
+item_3/icon = ExtResource("12_06xcr")
+item_3/id = 3
+item_3/disabled = true
+item_4/text = "Object"
+item_4/icon = ExtResource("13_6bjig")
+item_4/id = 4
+item_4/disabled = true
 
-[node name="HSplitContainerLeft" type="HSplitContainer" parent="BGPanel/EditorVBox"]
+[node name="SplitMain" type="HSplitContainer" parent="BGPanel/MarginContainer/EditorVBox"]
 layout_mode = 2
 size_flags_vertical = 3
-split_offset = 300
+split_offset = -480
 
-[node name="LevelTree" type="Tree" parent="BGPanel/EditorVBox/HSplitContainerLeft"]
+[node name="SplitLeft" type="VSplitContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("14_u1q5m")
+
+[node name="LevelTree" type="Tree" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
-script = SubResource("GDScript_h7luh")
 
-[node name="HSplitContainerLeft2" type="HSplitContainer" parent="BGPanel/EditorVBox/HSplitContainerLeft"]
+[node name="PropertiesPanelBG" type="Panel" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PropertiesScroll" type="ScrollContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesPanelBG"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+vertical_scroll_mode = 0
+
+[node name="PropertiesPanel" type="VBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesPanelBG/PropertiesScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NoneSelectedLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesPanelBG/PropertiesScroll/PropertiesPanel"]
 layout_mode = 2
 size_flags_vertical = 3
-split_offset = 1296
+theme_override_colors/font_color = Color(1, 1, 1, 0.501961)
+theme_override_constants/line_spacing = 0
+text = "Select an item from the tree
+to view its properties."
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="MiddleVBox" type="VBoxContainer" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2"]
+[node name="SplitRight" type="VSplitContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain"]
+custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offset = -128
 
-[node name="PlayButton" type="Button" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2/MiddleVBox"]
+[node name="MiddleVBox" type="VBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight"]
 layout_mode = 2
-text = "Play"
+size_flags_vertical = 3
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2/MiddleVBox"]
+[node name="GameView" type="SubViewportContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
+unique_name_in_owner = true
+clip_contents = true
+custom_minimum_size = Vector2(480, 270)
 layout_mode = 2
 size_flags_vertical = 3
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2/MiddleVBox/SubViewportContainer"]
-size = Vector2i(1296, 1000)
+[node name="GameViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/GameView"]
+size = Vector2i(1426, 814)
+render_target_update_mode = 4
 
-[node name="PropertiesPanelBG" type="Panel" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2"]
+[node name="Window" type="Window" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/GameView"]
+visible = false
+transient = true
+borderless = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Play"
+icon = ExtResource("14_y8cnk")
+
+[node name="Output" type="TextEdit" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+text = "GK Editor loaded."
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+
+[node name="StatusBar" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="StatusLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/StatusBar"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 0.592157)
+text = "GK Editor"
 
-[node name="PropertiesScroll" type="ScrollContainer" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2/PropertiesPanelBG"]
+[node name="FPSLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/StatusBar"]
 layout_mode = 2
-offset_right = 300.0
-offset_bottom = 1042.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.592157)
+text = "60 FPS"
 
-[node name="PropertiesPanel" type="VBoxContainer" parent="BGPanel/EditorVBox/HSplitContainerLeft/HSplitContainerLeft2/PropertiesPanelBG/PropertiesScroll"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
