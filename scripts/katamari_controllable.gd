@@ -186,15 +186,19 @@ func _physics_process(delta):
 	if floorCollision: 
 		floorAngle = floorCollision.get_normal(0)
 		for col in floorCollision.get_collision_count():
-			if floorCollision.get_angle(col) < PI/2:
+			if floorCollision.get_angle(col) < 3 * PI/8:
 				floorAngle = floorAngle.slerp(floorCollision.get_normal(col), 0.5)
 	
 	# Calculate movement vector (old method)
 	var tempMovement:Vector2 = StickMidpoint.rotated(CameraRotation * -1)
-	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * sqrt(Size) * Speed + ((tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement) * 5 / pow(Speed/5, 1.0/3) * pow($KatamariBody.gravity_scale, 3))
-	
+	# Final movement (old method)
+	#var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * sqrt(Size) * Speed + ((tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement) * 5 / pow(Speed/5, 1.0/3) * pow($KatamariBody.gravity_scale, 3))
 	# Create movement force
-	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y)
+	#$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y)
+	
+	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x, $"..".scale.z) * sqrt(Size) * Speed + ((tempMovement * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) - tempMovement) * 5 / pow(Speed/5, 1.0/3) * pow($KatamariBody.gravity_scale, 3))
+	# Create movement force
+	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y).rotated(Vector3(1,0,0), Vector2(floorAngle.y, floorAngle.x).angle()).rotated(Vector3(0,0,1), Vector2(floorAngle.y, floorAngle.z).angle())
 	
 	# Create dash movement/force
 	if CanDash:
