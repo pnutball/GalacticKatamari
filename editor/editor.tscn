@@ -249,4 +249,5 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.592157)
 text = "60 FPS"
 
+[connection signal="child_order_changed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_properties_list_changed"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
