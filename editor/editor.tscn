@@ -122,9 +122,8 @@ size_flags_vertical = 3
 split_offset = -480
 
 [node name="SplitLeft" type="VSplitContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain"]
-custom_minimum_size = Vector2(256, 0)
+custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 script = ExtResource("14_u1q5m")
 
 [node name="LevelTree" type="Tree" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft"]
@@ -148,14 +147,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_right = 8
 
-[node name="PropertiesPanel" type="VBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 16
-
-[node name="NoneSelectedLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel"]
+[node name="NoneSelectedLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin"]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
@@ -165,6 +157,13 @@ text = "Select an item from the tree
 to view its properties."
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PropertiesPanel" type="VBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
 
 [node name="Vector3Property" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel" instance=ExtResource("15_vh5xr")]
 layout_mode = 2
@@ -208,7 +207,7 @@ stretch = true
 
 [node name="EditorViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
 handle_input_locally = false
-size = Vector2i(1426, 814)
+size = Vector2i(1622, 814)
 render_target_update_mode = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]

@@ -31,7 +31,8 @@ func _on_play_button_pressed():
 	PlayMode = not PlayMode
 	OS.low_processor_usage_mode = not PlayMode
 	%GameView.visible = PlayMode
-	$BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft.visible = not PlayMode
+	$BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft.custom_minimum_size.x = 0 if PlayMode else 270
+	$BGPanel/MarginContainer/EditorVBox/SplitMain.collapsed = PlayMode
 	if PlayMode:
 		%PlayButton.text = "Stop"
 		%PlayButton.icon = preload("res://editor/icons/stop.png")
