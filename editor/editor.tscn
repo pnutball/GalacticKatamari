@@ -92,6 +92,7 @@ item_6/icon = ExtResource("8_8f7ae")
 item_6/id = 6
 
 [node name="Create" type="PopupMenu" parent="BGPanel/MarginContainer/EditorVBox/EditorMenuBar"]
+unique_name_in_owner = true
 transparent_bg = true
 position = Vector2i(48, 42)
 size = Vector2i(103, 170)
@@ -248,5 +249,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.592157)
 text = "60 FPS"
 
+[connection signal="id_pressed" from="BGPanel/MarginContainer/EditorVBox/EditorMenuBar/Create" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed"]
+[connection signal="item_selected" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/LevelTree" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_level_tree_item_selected"]
 [connection signal="child_order_changed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_properties_list_changed"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

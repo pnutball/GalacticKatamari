@@ -10,7 +10,7 @@ func _ready():
 	get_tree().root.get_node("FPSCounter").visible = false
 	StageLoader.loadStage("res://data/levels/test_1.gkl.json", "test_1")
 
-func _process(delta):
+func _process(_delta):
 	%StatusBar/FPSLabel.text = "%d FPS" % [Engine.get_frames_per_second()]
 	%GameView.position = Vector2i(%EditorView.get_global_rect().position)
 	%GameView.size = Vector2i(%EditorView.size)
