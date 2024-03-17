@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=22 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cov51s4vk66f" path="res://editor/icons/quitdesktop.png" id="8_8f7ae"]
 [ext_resource type="Texture2D" uid="uid://fa5m7kpc0aqm" path="res://editor/icons/level.png" id="9_pxij5"]
 [ext_resource type="Texture2D" uid="uid://dpp4c3oy3jujq" path="res://editor/icons/mode.png" id="10_w5pyd"]
+[ext_resource type="Texture2D" uid="uid://cm48g27fba1v0" path="res://editor/icons/camerazone.png" id="11_bbgvd"]
 [ext_resource type="Texture2D" uid="uid://c4u8cngbpv7h6" path="res://editor/icons/area.png" id="11_uidgk"]
 [ext_resource type="Texture2D" uid="uid://bnrbn1uth24k3" path="res://editor/icons/static.png" id="12_06xcr"]
 [ext_resource type="Texture2D" uid="uid://d1c07jxwmy0mv" path="res://editor/icons/object.png" id="13_6bjig"]
@@ -96,7 +97,7 @@ unique_name_in_owner = true
 transparent_bg = true
 position = Vector2i(48, 42)
 size = Vector2i(103, 170)
-item_count = 5
+item_count = 6
 item_0/text = "Level"
 item_0/icon = ExtResource("9_pxij5")
 item_0/id = 0
@@ -104,18 +105,22 @@ item_1/text = "Mode"
 item_1/icon = ExtResource("10_w5pyd")
 item_1/id = 1
 item_1/disabled = true
-item_2/text = "Area"
-item_2/icon = ExtResource("11_uidgk")
+item_2/text = "Camera Area"
+item_2/icon = ExtResource("11_bbgvd")
 item_2/id = 2
 item_2/disabled = true
-item_3/text = "Static"
-item_3/icon = ExtResource("12_06xcr")
+item_3/text = "Size Area"
+item_3/icon = ExtResource("11_uidgk")
 item_3/id = 3
 item_3/disabled = true
-item_4/text = "Object"
-item_4/icon = ExtResource("13_6bjig")
+item_4/text = "Static"
+item_4/icon = ExtResource("12_06xcr")
 item_4/id = 4
 item_4/disabled = true
+item_5/text = "Object"
+item_5/icon = ExtResource("13_6bjig")
+item_5/id = 5
+item_5/disabled = true
 
 [node name="SplitMain" type="HSplitContainer" parent="BGPanel/MarginContainer/EditorVBox"]
 layout_mode = 2
@@ -222,11 +227,12 @@ text = "Play"
 icon = ExtResource("14_y8cnk")
 
 [node name="Output" type="TextEdit" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
+theme_override_constants/line_spacing = 0
 text = "GK Editor loaded."
 editable = false
-context_menu_enabled = false
 shortcut_keys_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
