@@ -43,7 +43,6 @@
 								"res://models/map/map_test.tscn",
 								"res://scenes/environment/env_day.tscn"
 							],
-							"map_geom": "res://models/map/map_test.tscn",
 							"objects": [
 								{"id":"debug_cube", "position":[-2,0.15,-5], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1},
 								{"id":"debug_cube", "position":[-1,0.15,-5], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1},
@@ -66,7 +65,7 @@
 								{"id":"debug_cube", "position":[1,0.15,-8], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1},
 								{"id":"debug_cube", "position":[2,0.15,-8], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1},
 							],
-							"respawn_positions": [[0, 0.3, 0]]
+							"spawn_positions": [[0, 0.3, 0]]
 						}
 					],
 					"cam_zones": [
@@ -76,7 +75,6 @@
 						"size": 1,
 						"model": "res://models/core/core_generic.obj",
 						"texture": "res://textures/core/core_test.png",
-						"start_positions": [[0, 0.3, 0]],
 						"speed": 5,
 						"can_dash": true,
 						"can_turn": true,
