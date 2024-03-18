@@ -36,17 +36,19 @@ const TemplateCamZone:Dictionary = {"Bound":0,"Scale":1.5,"Tilt":-15,"Shift":0.2
 const TemplateSizeArea:Dictionary = {
 							"advance_size": -1,
 							"preload_size": -1,
+							"scale": 1,
 							"static": [],
 							"objects": [],
 							"spawn_positions": []
 						}
 
-const TemplateSpawn:Array = [0, 0.3, 0]
+const TemplateSpawn:Array = [0, 0, 0]
 
-const TemplateObject:Dictionary = {"id":"debug_cube", "position":[2,0.15,-8], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1}
+const TemplateObject:Dictionary = {"id":"debug_cube", "position":[0,0,0], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1}
 
 var lastSelectedLevel:TreeItem
 var lastSelectedMode:TreeItem
+var lastSelectedArea:TreeItem
 
 @onready var LevelTreeRoot:TreeItem = %LevelTree.create_item()
 var InternalLevelTree:Dictionary = {}
@@ -114,9 +116,14 @@ func addSizeArea(mode:TreeItem, auto:bool = false):
 	var zonesRoot:Array = InternalLevelTree[lastSelectedLevel.get_text(0)].modes[lastSelectedMode.get_text(0)].map_zones
 	zonesRoot.push_back(TemplateSizeArea.duplicate())
 	NewZone.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
-	if not auto: NewZone.select(0)
+	if not auto: NewZone.select(0) 
+	else: 
+		lastSelectedArea = NewZone
+		lastSelectedMode = mode
+		lastSelectedLevel = mode.get_parent()
 	NewZone.create_child().set_text(0, "Static")
 	NewZone.create_child().set_text(0, "Objects")
+	NewZone.create_child().set_text(0, "Spawnpoints")
 	
 	# Add function call for creating a spawn point
 	output_print("Created new size area in mode \"%s\"."%[mode.get_text(0)])
@@ -134,12 +141,19 @@ func _on_create_id_pressed(id):
 
 func _on_level_tree_item_selected():
 	var item:TreeItem = %LevelTree.get_selected()
-	match item.get_meta(&"type"):
-		"level": 
-			lastSelectedLevel = item
-		"mode": 
-			lastSelectedMode = item
-			lastSelectedLevel = item.get_parent()
+	if item.has_meta(&"type"):
+		match item.get_meta(&"type", null):
+			"level": 
+				lastSelectedLevel = item
+			"mode": 
+				lastSelectedMode = item
+				lastSelectedLevel = item.get_parent()
+			"area":
+				lastSelectedArea = item
+				lastSelectedMode = item.get_parent().get_parent()
+				lastSelectedLevel = item.get_parent().get_parent().get_parent()
+		
+	
 
 func output_print(printed:Variant):
 	if printed as String != null:

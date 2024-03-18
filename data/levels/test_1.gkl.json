@@ -39,6 +39,7 @@
 						{
 							"advance_size": -1,
 							"preload_size": -1,
+							"scale": 1,
 							"static": [
 								"res://models/map/map_test.tscn",
 								"res://scenes/environment/env_day.tscn"
