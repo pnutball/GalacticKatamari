@@ -1,21 +1,10 @@
-[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://bdjdq1sus7b7g"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bdjdq1sus7b7g"]
 
-[ext_resource type="Shader" path="res://misc/KDTerrainBack.gdshader" id="1_8rocw"]
 [ext_resource type="Texture2D" uid="uid://b3css3bachfk1" path="res://textures/material/ground00d.png" id="1_lo4py"]
-[ext_resource type="Texture2D" uid="uid://dbroq1e6326ig" path="res://textures/cutout/cut_star.png" id="2_1504t"]
 [ext_resource type="Shader" path="res://misc/KDTerrainFront.gdshader" id="4_bhcme"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2dj76"]
-render_priority = 0
-shader = ExtResource("1_8rocw")
-shader_parameter/uv1_scale = Vector3(1, 1, 1)
-shader_parameter/uv1_offset = null
-shader_parameter/texture_albedo = ExtResource("1_lo4py")
-shader_parameter/cutout_texture = ExtResource("2_1504t")
 
 [resource]
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_2dj76")
 shader = ExtResource("4_bhcme")
 shader_parameter/uv1_scale = Vector3(1, 1, 1)
 shader_parameter/uv1_offset = null
