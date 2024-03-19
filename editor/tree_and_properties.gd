@@ -60,6 +60,7 @@ const StringProperty:PackedScene = preload("res://editor/property_string.tscn")
 func _ready():
 	LevelTreeRoot.set_text(0, "New File")
 	LevelTreeRoot.set_icon(0, load("res://editor/icons/document.png"))
+	LevelTreeRoot.set_selectable(0, false)
 
 ## Adds a level to the tree.
 func addLevel():
@@ -86,14 +87,14 @@ func addMode(level:TreeItem, auto:bool = false):
 	NewMode.set_meta(&"path", level.get_meta(&"path").modes[NewMode.get_text(0)])
 	NewMode.create_child().set_text(0, "Camera Areas")
 	NewMode.create_child().set_text(0, "Size Areas")
+	for child in NewMode.get_children(): child.set_selectable(0,false)
 	if not auto: NewMode.select(0) 
-	else: 
-		lastSelectedMode = NewMode
-		lastSelectedLevel = level
+	else: lastSelectedMode = NewMode
 	%Create/CamArea.disabled = false
 	%Create/SizeArea.disabled = false
 	output_print("Created new mode in level \"%s\"."%[level.get_text(0)])
-	addCameraZone(NewMode)
+	addCameraZone(NewMode, true)
+	addSizeArea(NewMode, true)
 
 ## Adds a camera zone to the tree.
 func addCameraZone(mode:TreeItem, auto:bool = false):
@@ -102,7 +103,7 @@ func addCameraZone(mode:TreeItem, auto:bool = false):
 	NewZone.set_meta(&"type", "cam_zone")
 	NewZone.set_text(0, "Cam. Area %d" % NewZone.get_index())
 	var zonesRoot:Array = lastSelectedMode.get_meta(&"path").cam_zones
-	zonesRoot.push_back(TemplateCamZone.duplicate())
+	zonesRoot.push_back(TemplateCamZone.duplicate(true))
 	NewZone.set_meta(&"path", zonesRoot[NewZone.get_index()])
 	if not auto: NewZone.select(0)
 	output_print("Created new cam. area in mode \"%s\"."%[mode.get_text(0)])
@@ -114,16 +115,14 @@ func addSizeArea(mode:TreeItem, auto:bool = false):
 	NewZone.set_meta(&"type", "area")
 	NewZone.set_text(0, "Size Area %d" % NewZone.get_index())
 	var zonesRoot:Array = lastSelectedMode.get_meta(&"path").map_zones
-	zonesRoot.push_back(TemplateSizeArea.duplicate())
+	zonesRoot.push_back(TemplateSizeArea.duplicate(true))
 	NewZone.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
 	if not auto: NewZone.select(0) 
-	else: 
-		lastSelectedArea = NewZone
-		lastSelectedMode = mode
-		lastSelectedLevel = mode.get_parent()
+	else: lastSelectedArea = NewZone
 	NewZone.create_child().set_text(0, "Static")
 	NewZone.create_child().set_text(0, "Objects")
 	NewZone.create_child().set_text(0, "Spawnpoints")
+	for child in NewZone.get_children(): child.set_selectable(0,false)
 	
 	%Create/Spawn.disabled = false
 	%Create/Static.disabled = false
@@ -147,7 +146,7 @@ func addStatic(area:TreeItem):
 	output_print("Created new static in area \"%d\"."%[area.get_index()])
 
 ## Adds an object to the tree.
-func addObject(area:TreeItem, type:String = "debug_cube", position:Vector3 = Vector3.ZERO):
+func addObject(area:TreeItem, type:String = "debug_cube", obj_position:Vector3 = Vector3.ZERO):
 	var NewObject:TreeItem = area.get_child(1).create_child()
 	NewObject.set_icon(0, load("res://editor/icons/object.png"))
 	NewObject.set_meta(&"type", "object")
@@ -156,7 +155,7 @@ func addObject(area:TreeItem, type:String = "debug_cube", position:Vector3 = Vec
 	zonesRoot.push_back(TemplateObject.duplicate(true))
 	NewObject.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
 	NewObject.get_meta(&"path").id = type
-	NewObject.get_meta(&"path").position = [position.x, position.y, position.z]
+	NewObject.get_meta(&"path").position = [obj_position.x, obj_position.y, obj_position.z]
 	NewObject.select(0)
 	
 	output_print("Created a new %s in area \"%d\"."%[type, area.get_index()])
@@ -167,7 +166,7 @@ func addSpawn(area:TreeItem, auto:bool = false):
 	NewSpawn.set_meta(&"type", "spawn")
 	NewSpawn.set_text(0, "Spawn %d" % NewSpawn.get_index())
 	var zonesRoot:Array = lastSelectedArea.get_meta(&"path").spawn_positions
-	zonesRoot.push_back(TemplateSpawn.duplicate())
+	zonesRoot.push_back(TemplateSpawn.duplicate(true))
 	NewSpawn.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
 	if not auto: NewSpawn.select(0)
 	
@@ -203,7 +202,6 @@ func _on_level_tree_item_selected():
 				lastSelectedMode = item.get_parent().get_parent()
 				lastSelectedLevel = item.get_parent().get_parent().get_parent()
 		
-	
 
 func output_print(printed:Variant):
 	if printed as String != null:
