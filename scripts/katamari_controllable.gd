@@ -9,6 +9,10 @@ var MinimumSize:float = Size
 ##
 ## 1 gives the full amount of size, 0 gives none.
 @export_range(0, 1) var GrowthMultiplier:float = 1
+## Sets which sound set is used by this katamari.
+@export var SoundSize:String = "M"
+## Sets the spawn points this katamari can choose.
+@export var SpawnPoints:Array = [Vector3.ZERO]
 #endregion
 #region Physics
 @export_group("Physics")
@@ -16,6 +20,8 @@ var MinimumSize:float = Size
 @export_range(0, 0, 0.01, "or_greater", "hide_slider", "suffix:m/s²/m") var Speed:float = 5
 ## Sets how much the katamari's acceleration/top speed is multiplied.
 @export var InclineSpeedMultiplier:Curve
+## Sets the height at which a Royal Warp is triggered.
+@export var RoyalWarpHeight:float = -10
 ## Determines if movement is currently enabled.
 ## Should usually be TRUE unless control of the katamari is lost (e.g. getting slammed into, quick turning, etc.)
 var MovementEnabled:bool = true
@@ -98,6 +104,7 @@ func _ready():
 	loadCore(CoreTexture, CoreModel)
 	changeCamArea(0, true)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
+	respawn(true)
 
 func _process(delta):
 	$SubViewport.size = get_viewport().size
@@ -235,6 +242,10 @@ func _physics_process(delta):
 	# Detect quick turn
 	if Input.is_action_just_pressed("Quick Turn Left") and Input.is_action_just_pressed("Quick Turn Right") and CanQuickTurn:
 		doQuickTurn()
+	
+	# Detect royal warp
+	if $KatamariBody.position.y <= RoyalWarpHeight:
+		respawn()
 
 ## Changes the current camera zone to CameraZones[index].
 func changeCamArea(index:int, skipAnimation:bool = false):
@@ -288,14 +299,26 @@ func loadCore(texture:String = "res://textures/core/core_test.png", model:String
 
 func playRollSound():
 	var soundNum:int = randi_range(0,2)
-	var sizeCat:String = "M"
 	
 	var audioPlayer: AudioStreamPlayer = AudioStreamPlayer.new()
 	#audioPlayer.attenuation_model = AudioStreamPlayer3D.ATTENUATION_DISABLED
 	audioPlayer.bus = "SFX"
-	audioPlayer.stream = RollSounds.get(sizeCat)[soundNum]
+	audioPlayer.stream = RollSounds.get(SoundSize)[soundNum]
 	audioPlayer.volume_db = -2
 	$KatamariBody/KatamariMeshPivot.add_child(audioPlayer)
 	audioPlayer.play()
 	await audioPlayer.finished
 	audioPlayer.queue_free()
+
+func respawn(noAnimation:bool = false):
+	if not noAnimation:
+		# DO A TRANSITION HERE (UNIMPLEMENTED I GUESS)
+		CameraSmoothing = 1
+		pass
+	CameraSmoothing = 0
+	$KatamariBody.linear_velocity = Vector3.ZERO
+	$KatamariBody.position = SpawnPoints.pick_random() + Vector3(0,Size / 2,0)
+	await get_tree().process_frame
+	await get_tree().process_frame
+	CameraSmoothing = 0.85
+	
