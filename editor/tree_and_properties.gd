@@ -71,7 +71,7 @@ func addLevel():
 	InternalLevelTree[NewLevel.get_text(0)] = TemplateLevel.duplicate(true)
 	NewLevel.set_meta(&"path", InternalLevelTree[NewLevel.get_text(0)])
 	NewLevel.select(0)
-	%Create.set_item_disabled(1, false)
+	%Create/Mode.disabled = false
 	output_print("Created new level.")
 	addMode(NewLevel,true)
 
@@ -90,8 +90,8 @@ func addMode(level:TreeItem, auto:bool = false):
 	else: 
 		lastSelectedMode = NewMode
 		lastSelectedLevel = level
-	%Create.set_item_disabled(2, false)
-	%Create.set_item_disabled(3, false)
+	%Create/CamArea.disabled = false
+	%Create/SizeArea.disabled = false
 	output_print("Created new mode in level \"%s\"."%[level.get_text(0)])
 	addCameraZone(NewMode)
 
@@ -125,9 +125,8 @@ func addSizeArea(mode:TreeItem, auto:bool = false):
 	NewZone.create_child().set_text(0, "Objects")
 	NewZone.create_child().set_text(0, "Spawnpoints")
 	
-	%Create.set_item_disabled(4, false)
-	%Create.set_item_disabled(5, false)
-	%Create.set_item_disabled(6, false)
+	%Create/Spawn.disabled = false
+	%Create/Static.disabled = false
 	
 	addSpawn(NewZone, true)
 	

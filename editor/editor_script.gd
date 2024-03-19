@@ -1,6 +1,7 @@
 extends Control
 
 var PlayMode:bool = false
+var changed:bool = false
 
 func _ready():
 	OS.low_processor_usage_mode = true

@@ -94,40 +94,6 @@ item_6/text = "Quit to Desktop"
 item_6/icon = ExtResource("8_8f7ae")
 item_6/id = 6
 
-[node name="Create" type="PopupMenu" parent="BGPanel/MarginContainer/EditorVBox/EditorMenuBar"]
-unique_name_in_owner = true
-transparent_bg = true
-position = Vector2i(48, 42)
-size = Vector2i(103, 170)
-item_count = 7
-item_0/text = "Level"
-item_0/icon = ExtResource("9_pxij5")
-item_0/id = 0
-item_1/text = "Mode"
-item_1/icon = ExtResource("10_w5pyd")
-item_1/id = 1
-item_1/disabled = true
-item_2/text = "Camera Area"
-item_2/icon = ExtResource("11_bbgvd")
-item_2/id = 2
-item_2/disabled = true
-item_3/text = "Size Area"
-item_3/icon = ExtResource("11_uidgk")
-item_3/id = 3
-item_3/disabled = true
-item_4/text = "Static"
-item_4/icon = ExtResource("12_06xcr")
-item_4/id = 4
-item_4/disabled = true
-item_5/text = "Object"
-item_5/icon = ExtResource("13_6bjig")
-item_5/id = 5
-item_5/disabled = true
-item_6/text = "Spawn Point"
-item_6/icon = ExtResource("15_1x486")
-item_6/id = 6
-item_6/disabled = true
-
 [node name="SplitMain" type="HSplitContainer" parent="BGPanel/MarginContainer/EditorVBox"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -138,11 +104,59 @@ custom_minimum_size = Vector2(270, 0)
 layout_mode = 2
 script = ExtResource("14_u1q5m")
 
-[node name="LevelTree" type="Tree" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft"]
+[node name="TreePanel" type="VBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LevelTree" type="Tree" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="Create" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="Level" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create"]
+layout_mode = 2
+tooltip_text = "Create Level"
+icon = ExtResource("9_pxij5")
+
+[node name="Mode" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create"]
+layout_mode = 2
+tooltip_text = "Create Mode"
+disabled = true
+icon = ExtResource("10_w5pyd")
+
+[node name="CamArea" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create"]
+layout_mode = 2
+tooltip_text = "Create Camera Area"
+disabled = true
+icon = ExtResource("11_bbgvd")
+
+[node name="SizeArea" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create"]
+layout_mode = 2
+tooltip_text = "Create Size Area"
+disabled = true
+icon = ExtResource("11_uidgk")
+
+[node name="Spawn" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create"]
+layout_mode = 2
+tooltip_text = "Create Spawn Point"
+disabled = true
+icon = ExtResource("15_1x486")
+
+[node name="Static" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create"]
+layout_mode = 2
+tooltip_text = "Create Static Node"
+disabled = true
+icon = ExtResource("12_06xcr")
+
+[node name="Object" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create"]
+layout_mode = 2
+icon = ExtResource("13_6bjig")
 
 [node name="PropertiesScroll" type="ScrollContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft"]
 custom_minimum_size = Vector2(0, 64)
@@ -263,7 +277,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.592157)
 text = "60 FPS"
 
-[connection signal="id_pressed" from="BGPanel/MarginContainer/EditorVBox/EditorMenuBar/Create" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed"]
-[connection signal="item_selected" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/LevelTree" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_level_tree_item_selected"]
+[connection signal="item_selected" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/LevelTree" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_level_tree_item_selected"]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Level" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [0]]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Mode" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [1]]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/CamArea" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [2]]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/SizeArea" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [3]]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Spawn" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [6]]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Static" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [4]]
 [connection signal="child_order_changed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_properties_list_changed"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
