@@ -8,13 +8,18 @@ var currentStage:Dictionary
 var currentMode:String
 var currentArea:int = 0
 var stageRoot:Node3D
+var preloadRoot:Node3D = Node3D.new()
 var currentKatamari
+var loadFinished:bool = true
 
 const RollableObject3D:PackedScene = preload("res://scenes/game/object/rollable_object_3d.tscn")
 const KatamariControllable:PackedScene = preload("res://scenes/game/object/katamari_controllable.tscn")
 
 func _init():
 	process_mode = Node.PROCESS_MODE_ALWAYS
+
+func _ready():
+	preloadRoot.process_mode = Node.PROCESS_MODE_DISABLED
 
 ## Returns an array of stage names located in the file at path, or an Error.
 func getStages(path:String):
@@ -75,6 +80,7 @@ func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
 	currentKatamari.CameraRotation = currentStage.modes.get(currentMode).katamari.cam_rotation
 	currentKatamari.CameraZones = currentStage.modes.get(currentMode).cam_zones
 	
+	preloadArea(0)
 	await instantiateArea(0)
 	
 	stageRoot.add_child(currentKatamari)
@@ -84,24 +90,27 @@ func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
 	parent.add_child(stageRoot)
 	stage_instantiated.emit()
 
-func instantiateArea(area:int = currentArea + 1):
-	currentArea = area
-	if not (stageRoot.get_node_or_null("static") == null):
-		stageRoot.static.queue_free()
+## Preloads an area, without adding it to the stage root.
+func preloadArea(area:int = currentArea + 1):
+	loadFinished = false
+	
+	for child in preloadRoot.get_children():
+		child.queue_free()
 	
 	var currentStatics := Node3D.new()
-	currentStatics.name = "static"
-	stageRoot.add_child(currentStatics)
+	currentStatics.name = "static_%d"%[area]
+	preloadRoot.add_child(currentStatics)
 	
-	for scene in currentStage.modes.get(currentMode).map_zones[currentArea].static:
+	for scene in currentStage.modes.get(currentMode).map_zones[area].static:
 		ResourceLoader.load_threaded_request(scene)
 		while ResourceLoader.load_threaded_get_status(scene) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 			await get_tree().create_timer(0.1).timeout
 		var instantiated:Node = ResourceLoader.load_threaded_get(scene).instantiate()
+		instantiated.set_script(null)
 		currentStatics.add_child(instantiated)
 	
 	var num:int = 0
-	for object in currentStage.modes.get(currentMode).map_zones[currentArea].objects:
+	for object in currentStage.modes.get(currentMode).map_zones[area].objects:
 		var instantiated:Node = RollableObject3D.instantiate()
 		
 		ResourceLoader.load_threaded_request(objectList.objects.get(object.id).view_mesh)
@@ -111,7 +120,7 @@ func instantiateArea(area:int = currentArea + 1):
 		while ResourceLoader.load_threaded_get_status(objectList.objects.get(object.id).collision_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 			await get_tree().create_timer(0.1).timeout
 		
-		instantiated.InstanceName = str(currentArea) + "_" + str(num)
+		instantiated.InstanceName = str(area) + "_" + str(num)
 		instantiated.ObjectName = objectList.objects.get(object.id).name.en
 		instantiated.ObjectMesh = ResourceLoader.load_threaded_get(objectList.objects.get(object.id).view_mesh)
 		instantiated.ObjectCol = ResourceLoader.load_threaded_get(objectList.objects.get(object.id).collision_mesh)
@@ -119,9 +128,28 @@ func instantiateArea(area:int = currentArea + 1):
 		instantiated.rotation = Vector3(object.rotation[0], object.rotation[1], object.rotation[2])
 		instantiated.scale = Vector3(object.scale, object.scale, object.scale)
 		
-		stageRoot.add_child(instantiated)
+		preloadRoot.add_child(instantiated)
 		
 		num += 1
+	loadFinished = true
+
+## Instantiates a size area into the stage root.
+func instantiateArea(area:int = currentArea + 1):
+	if area != currentArea:
+		currentArea = area
+		await preloadArea(area)
+	while not loadFinished:
+		await get_tree().create_timer(0.1).timeout
+
+	for child in preloadRoot.get_children():
+		preloadRoot.remove_child(child)
+		stageRoot.add_child(child)
+	
+	if stageRoot.get_node_or_null("static_%d"%[area-1]) != null:
+		stageRoot.get_node("static_%d"%[area-1]).queue_free()
+	
+	var newScale = currentStage.modes.get(currentMode).map_zones[currentArea].scale
+	stageRoot.scale = Vector3(newScale, newScale, newScale)
 	
 	currentKatamari.RoyalWarpHeight = currentStage.modes.get(currentMode).map_zones[currentArea].warp_height
 	currentKatamari.SpawnPoints = currentStage.modes.get(currentMode).map_zones[currentArea].spawn_positions.map(func(pos): return Vector3(pos[0], pos[1], pos[2]))
