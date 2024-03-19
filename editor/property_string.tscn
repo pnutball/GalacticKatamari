@@ -1,7 +1,10 @@
-[gd_scene format=3 uid="uid://bge7d7ufu3ffl"]
+[gd_scene load_steps=2 format=3 uid="uid://bge7d7ufu3ffl"]
+
+[ext_resource type="Script" path="res://editor/stringproperty_script.gd" id="1_a5jfa"]
 
 [node name="StringProperty" type="HBoxContainer"]
 theme_override_constants/separation = 8
+script = ExtResource("1_a5jfa")
 
 [node name="PropertyName" type="Label" parent="."]
 layout_mode = 2

@@ -1,25 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://b3wmjsg4rk68c"]
 
-[sub_resource type="GDScript" id="GDScript_tcx8y"]
-resource_name = "vec3property_script"
-script/source = "extends Node
-
-func _ready():
-	$PropertyName.text = get_meta(&\"name\", \"Property\")
-	$PropertyHBox/Xbox.value = get_meta(&\"path\", [0,0,0])[0]
-	$PropertyHBox/Ybox.value = get_meta(&\"path\", [0,0,0])[1]
-	$PropertyHBox/Zbox.value = get_meta(&\"path\", [0,0,0])[2]
-	for box:SpinBox in $PropertyHBox.get_children():
-		box.value_changed.connect(_on_value_change)
-
-func _on_value_change(_value):
-	get_meta(&\"path\")[0] = $PropertyHBox/Xbox.value
-	get_meta(&\"path\")[1] = $PropertyHBox/Ybox.value
-	get_meta(&\"path\")[2] = $PropertyHBox/Zbox.value
-"
+[ext_resource type="Script" path="res://editor/vec3property_script.gd" id="1_gv5ke"]
 
 [node name="Vector3Property" type="VBoxContainer"]
-script = SubResource("GDScript_tcx8y")
+script = ExtResource("1_gv5ke")
 
 [node name="PropertyName" type="Label" parent="."]
 layout_mode = 2

@@ -1,14 +1,17 @@
 extends Node
 
+var P_Path
+var P_Name = "Property"
+
 func _ready():
-	$PropertyName.text = get_meta(&"name", "Property")
-	$PropertyHBox/Xbox.value = get_meta(&"path", [0,0,0])[0]
-	$PropertyHBox/Ybox.value = get_meta(&"path", [0,0,0])[1]
-	$PropertyHBox/Zbox.value = get_meta(&"path", [0,0,0])[2]
+	$PropertyName.text = P_Name
+	$PropertyHBox/Xbox.value = P_Path[0]
+	$PropertyHBox/Ybox.value = P_Path[1]
+	$PropertyHBox/Zbox.value = P_Path[2]
 	for box:SpinBox in $PropertyHBox.get_children():
 		box.value_changed.connect(_on_value_change)
 
 func _on_value_change(_value):
-	get_meta(&"path")[0] = $PropertyHBox/Xbox.value
-	get_meta(&"path")[1] = $PropertyHBox/Ybox.value
-	get_meta(&"path")[2] = $PropertyHBox/Zbox.value
+	P_Path[0] = $PropertyHBox/Xbox.value
+	P_Path[1] = $PropertyHBox/Ybox.value
+	P_Path[2] = $PropertyHBox/Zbox.value
