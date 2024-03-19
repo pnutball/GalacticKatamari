@@ -83,7 +83,7 @@ func addMode(level:TreeItem, auto:bool = false):
 	NewMode.set_editable(0, true)
 	NewMode.set_text(0, "mode_%d"%InternalLevelTree[level.get_text(0)].modes.size() if not auto else "normal")
 	InternalLevelTree[level.get_text(0)].modes[NewMode.get_text(0)] = TemplateMode.duplicate(true)
-	NewMode.set_meta(&"path", InternalLevelTree[level.get_text(0)].modes[NewMode.get_text(0)])
+	NewMode.set_meta(&"path", level.get_meta(&"path").modes[NewMode.get_text(0)])
 	NewMode.create_child().set_text(0, "Camera Areas")
 	NewMode.create_child().set_text(0, "Size Areas")
 	if not auto: NewMode.select(0) 
@@ -101,7 +101,7 @@ func addCameraZone(mode:TreeItem, auto:bool = false):
 	NewZone.set_icon(0, load("res://editor/icons/camerazone.png"))
 	NewZone.set_meta(&"type", "cam_zone")
 	NewZone.set_text(0, "Cam. Area %d" % NewZone.get_index())
-	var zonesRoot:Array = InternalLevelTree[lastSelectedLevel.get_text(0)].modes[lastSelectedMode.get_text(0)].cam_zones
+	var zonesRoot:Array = lastSelectedMode.get_meta(&"path").cam_zones
 	zonesRoot.push_back(TemplateCamZone.duplicate())
 	NewZone.set_meta(&"path", zonesRoot[NewZone.get_index()])
 	if not auto: NewZone.select(0)
@@ -113,7 +113,7 @@ func addSizeArea(mode:TreeItem, auto:bool = false):
 	NewZone.set_icon(0, load("res://editor/icons/area.png"))
 	NewZone.set_meta(&"type", "area")
 	NewZone.set_text(0, "Size Area %d" % NewZone.get_index())
-	var zonesRoot:Array = InternalLevelTree[lastSelectedLevel.get_text(0)].modes[lastSelectedMode.get_text(0)].map_zones
+	var zonesRoot:Array = lastSelectedMode.get_meta(&"path").map_zones
 	zonesRoot.push_back(TemplateSizeArea.duplicate())
 	NewZone.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
 	if not auto: NewZone.select(0) 
@@ -125,8 +125,54 @@ func addSizeArea(mode:TreeItem, auto:bool = false):
 	NewZone.create_child().set_text(0, "Objects")
 	NewZone.create_child().set_text(0, "Spawnpoints")
 	
+	%Create.set_item_disabled(4, false)
+	%Create.set_item_disabled(5, false)
+	%Create.set_item_disabled(6, false)
+	
+	addSpawn(NewZone, true)
+	
 	# Add function call for creating a spawn point
 	output_print("Created new size area in mode \"%s\"."%[mode.get_text(0)])
+
+## Adds a static node to the tree.
+func addStatic(area:TreeItem):
+	var NewStatic:TreeItem = area.get_child(0).create_child()
+	NewStatic.set_icon(0, load("res://editor/icons/static.png"))
+	NewStatic.set_meta(&"type", "static")
+	NewStatic.set_text(0, "Static %d" % NewStatic.get_index())
+	var zonesRoot:Array = lastSelectedArea.get_meta(&"path").static
+	zonesRoot.push_back("")
+	NewStatic.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
+	NewStatic.select(0)
+	
+	output_print("Created new static in area \"%d\"."%[area.get_index()])
+
+## Adds an object to the tree.
+func addObject(area:TreeItem, type:String = "debug_cube", position:Vector3 = Vector3.ZERO):
+	var NewObject:TreeItem = area.get_child(1).create_child()
+	NewObject.set_icon(0, load("res://editor/icons/object.png"))
+	NewObject.set_meta(&"type", "object")
+	NewObject.set_text(0, "Object %d" % NewObject.get_index())
+	var zonesRoot:Array = lastSelectedArea.get_meta(&"path").objects
+	zonesRoot.push_back(TemplateObject.duplicate(true))
+	NewObject.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
+	NewObject.get_meta(&"path").id = type
+	NewObject.get_meta(&"path").position = [position.x, position.y, position.z]
+	NewObject.select(0)
+	
+	output_print("Created a new %s in area \"%d\"."%[type, area.get_index()])
+
+func addSpawn(area:TreeItem, auto:bool = false):
+	var NewSpawn:TreeItem = area.get_child(2).create_child()
+	NewSpawn.set_icon(0, load("res://editor/icons/spawn.png"))
+	NewSpawn.set_meta(&"type", "spawn")
+	NewSpawn.set_text(0, "Spawn %d" % NewSpawn.get_index())
+	var zonesRoot:Array = lastSelectedArea.get_meta(&"path").spawn_positions
+	zonesRoot.push_back(TemplateSpawn.duplicate())
+	NewSpawn.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
+	if not auto: NewSpawn.select(0)
+	
+	output_print("Created new spawn in area \"%d\"."%[area.get_index()])
 
 func _on_properties_list_changed():
 	if %PropertiesPanel:
@@ -138,11 +184,16 @@ func _on_create_id_pressed(id):
 		1: addMode(lastSelectedLevel)
 		2: addCameraZone(lastSelectedMode)
 		3: addSizeArea(lastSelectedMode)
+		4: addStatic(lastSelectedArea)
+		5: addObject(lastSelectedArea)
+		6: addSpawn(lastSelectedArea)
 
 func _on_level_tree_item_selected():
 	var item:TreeItem = %LevelTree.get_selected()
 	if item.has_meta(&"type"):
 		match item.get_meta(&"type", null):
+			null:
+				return
 			"level": 
 				lastSelectedLevel = item
 			"mode": 

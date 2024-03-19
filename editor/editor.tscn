@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=24 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -16,9 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://d1c07jxwmy0mv" path="res://editor/icons/object.png" id="13_6bjig"]
 [ext_resource type="Script" path="res://editor/tree_and_properties.gd" id="14_u1q5m"]
 [ext_resource type="Texture2D" uid="uid://b2qhh8vl7dqd" path="res://editor/icons/play.png" id="14_y8cnk"]
+[ext_resource type="Texture2D" uid="uid://cnuiorigx0n65" path="res://editor/icons/spawn.png" id="15_1x486"]
 [ext_resource type="PackedScene" uid="uid://b3wmjsg4rk68c" path="res://editor/property_vector3.tscn" id="15_vh5xr"]
 [ext_resource type="PackedScene" uid="uid://bj6j5t3hlhx6h" path="res://editor/property_number.tscn" id="16_2qm8x"]
 [ext_resource type="PackedScene" uid="uid://bge7d7ufu3ffl" path="res://editor/property_string.tscn" id="17_pngu0"]
+[ext_resource type="PackedScene" uid="uid://qycjbftl6aql" path="res://editor/property_drop.tscn" id="20_itg5q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmqy0"]
 bg_color = Color(0.00784314, 0.0705882, 0.329412, 1)
@@ -97,7 +99,7 @@ unique_name_in_owner = true
 transparent_bg = true
 position = Vector2i(48, 42)
 size = Vector2i(103, 170)
-item_count = 6
+item_count = 7
 item_0/text = "Level"
 item_0/icon = ExtResource("9_pxij5")
 item_0/id = 0
@@ -121,6 +123,10 @@ item_5/text = "Object"
 item_5/icon = ExtResource("13_6bjig")
 item_5/id = 5
 item_5/disabled = true
+item_6/text = "Spawn Point"
+item_6/icon = ExtResource("15_1x486")
+item_6/id = 6
+item_6/disabled = true
 
 [node name="SplitMain" type="HSplitContainer" parent="BGPanel/MarginContainer/EditorVBox"]
 layout_mode = 2
@@ -159,8 +165,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.501961)
 theme_override_constants/line_spacing = 0
-text = "Select an item from the tree
-to view its properties."
+text = "This item has no properties."
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -178,6 +183,9 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="StringProperty" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel" instance=ExtResource("17_pngu0")]
+layout_mode = 2
+
+[node name="DropdownProperty" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin/PropertiesPanel" instance=ExtResource("20_itg5q")]
 layout_mode = 2
 
 [node name="SplitRight" type="VSplitContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain"]

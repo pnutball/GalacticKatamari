@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://qycjbftl6aql"]
+
+[node name="DropdownProperty" type="HBoxContainer"]
+theme_override_constants/separation = 8
+
+[node name="PropertyName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Property"
+
+[node name="PropertyBox" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
