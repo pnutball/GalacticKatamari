@@ -40,6 +40,10 @@
 							"advance_size": -1,
 							"preload_size": -1,
 							"scale": 1,
+							"warp_height": -6,
+							"audio_size": "M",
+							"core_model": "res://models/core/core_generic.obj",
+							"core_texture": "res://textures/core/core_test.png",
 							"static": [
 								"res://models/map/map_test.tscn",
 								"res://scenes/environment/env_day.tscn"
@@ -74,8 +78,6 @@
 					],
 					"katamari": {
 						"size": 1,
-						"model": "res://models/core/core_generic.obj",
-						"texture": "res://textures/core/core_test.png",
 						"speed": 5,
 						"can_dash": true,
 						"can_turn": true,
