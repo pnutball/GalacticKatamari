@@ -1,5 +1,7 @@
 extends VSplitContainer
 
+signal ChangeMade
+
 enum PropertyType{NUMBER, VECTOR3, STRING, DROPDOWN, BOOLEAN}
 
 const TemplateLevel:Dictionary = {
@@ -61,10 +63,25 @@ const StringProperty:PackedScene = preload("res://editor/property_string.tscn")
 const DropdownProperty:PackedScene = preload("res://editor/property_drop.tscn")
 const BooleanProperty:PackedScene = preload("res://editor/property_boolean.tscn")
 
+func resetTree():
+	for item in LevelTreeRoot.get_children():
+		LevelTreeRoot.remove_child(item)
+	LevelTreeRoot.set_text(0, "New File")
+	for child in %PropertiesPanel.get_children():
+		child.queue_free()
+	$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = true
+	%TreePanel/Create/Mode.disabled = true
+	%TreePanel/Create/CamArea.disabled = true
+	%TreePanel/Create/SizeArea.disabled = true
+	%TreePanel/Create/Spawn.disabled = true
+	%TreePanel/Create/Static.disabled = true
+	InternalLevelTree = {}
+
 func _ready():
 	LevelTreeRoot.set_text(0, "New File")
 	LevelTreeRoot.set_icon(0, load("res://editor/icons/document.png"))
 	LevelTreeRoot.set_selectable(0, false)
+	
 
 ## Adds a level to the tree.
 func addLevel():
@@ -76,7 +93,6 @@ func addLevel():
 	NewLevel.set_meta(&"path", InternalLevelTree[NewLevel.get_text(0)])
 	NewLevel.select(0)
 	%Create/Mode.disabled = false
-	output_print("Created new level.")
 	addMode(NewLevel,true)
 
 ## Adds a mode to the tree. If set to auto, will autogenerate the name "normal"
@@ -94,7 +110,6 @@ func addMode(level:TreeItem, auto:bool = false):
 	else: lastSelectedMode = NewMode
 	%Create/CamArea.disabled = false
 	%Create/SizeArea.disabled = false
-	output_print("Created new mode in level \"%s\"."%[level.get_text(0)])
 	addCameraZone(NewMode, true)
 	addSizeArea(NewMode, true)
 
@@ -108,7 +123,6 @@ func addCameraZone(mode:TreeItem, auto:bool = false):
 	zonesRoot.push_back(TemplateCamZone.duplicate(true))
 	NewZone.set_meta(&"path", zonesRoot[NewZone.get_index()])
 	if not auto: NewZone.select(0)
-	output_print("Created new cam. area in mode \"%s\"."%[mode.get_text(0)])
 
 ## Adds a size area to the tree.
 func addSizeArea(mode:TreeItem, auto:bool = false):
@@ -130,9 +144,6 @@ func addSizeArea(mode:TreeItem, auto:bool = false):
 	%Create/Static.disabled = false
 	
 	addSpawn(NewZone, true)
-	
-	# Add function call for creating a spawn point
-	output_print("Created new size area in mode \"%s\"."%[mode.get_text(0)])
 
 ## Adds a static node to the tree.
 func addStatic(area:TreeItem):
@@ -144,8 +155,6 @@ func addStatic(area:TreeItem):
 	zonesRoot.push_back("")
 	NewStatic.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
 	NewStatic.select(0)
-	
-	output_print("Created new static in area \"%d\"."%[area.get_index()])
 
 ## Adds an object to the tree.
 func addObject(area:TreeItem, type:String = "debug_cube", obj_position:Vector3 = Vector3.ZERO):
@@ -159,8 +168,6 @@ func addObject(area:TreeItem, type:String = "debug_cube", obj_position:Vector3 =
 	NewObject.get_meta(&"path").id = type
 	NewObject.get_meta(&"path").position = [obj_position.x, obj_position.y, obj_position.z]
 	NewObject.select(0)
-	
-	output_print("Created a new %s in area \"%d\"."%[type, area.get_index()])
 
 func addSpawn(area:TreeItem, auto:bool = false):
 	var NewSpawn:TreeItem = area.get_child(2).create_child()
@@ -171,10 +178,9 @@ func addSpawn(area:TreeItem, auto:bool = false):
 	zonesRoot.push_back(TemplateSpawn.duplicate(true))
 	NewSpawn.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
 	if not auto: NewSpawn.select(0)
-	
-	output_print("Created new spawn in area \"%d\"."%[area.get_index()])
 
 func _on_create_id_pressed(id):
+	ChangeMade.emit()
 	match id:
 		0: addLevel()
 		1: addMode(lastSelectedLevel)
@@ -240,8 +246,5 @@ func create_property(item:TreeItem, propertyPath:String, type:PropertyType, name
 	else:
 		PropertyNode.P_Path = item.get_meta(&"path")[propertyPath]
 	if type == PropertyType.DROPDOWN: PropertyNode.P_Items = dropdownItems
+	PropertyNode.ChangeMade.connect(func(): ChangeMade.emit())
 	%PropertiesPanel.add_child(PropertyNode)
-
-func output_print(printed:Variant):
-	if printed as String != null:
-		%Output.text += "\n" + printed as String
