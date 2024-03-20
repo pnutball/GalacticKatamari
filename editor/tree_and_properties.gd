@@ -41,6 +41,10 @@ const TemplateSizeArea:Dictionary = {
 							"advance_size": -1,
 							"preload_size": -1,
 							"scale": 1,
+							"warp_height": 0,
+							"audio_size": "M",
+							"core_model": "res://models/core/core_generic.obj",
+							"core_texture": "res://textures/core/core_test.png",
 							"static": [],
 							"objects": [],
 							"spawn_positions": []

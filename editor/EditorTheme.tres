@@ -1,9 +1,16 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://do4xoe6jr3w32"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://do4xoe6jr3w32"]
 
 [ext_resource type="StyleBox" uid="uid://bq6mf2slb4ls3" path="res://editor/themebox_scroll.tres" id="1_3x3ng"]
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://fonts/hud.tres" id="1_b77oh"]
 [ext_resource type="StyleBox" uid="uid://b3d60wstg4tyc" path="res://editor/themebox_scroll_highlight.tres" id="2_eeju6"]
 [ext_resource type="StyleBox" uid="uid://omnli1my0qvm" path="res://editor/themebox_scroll_pressed.tres" id="3_nmu8p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llnth"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0156863, 0.113725, 0.411765, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_arbd4"]
 bg_color = Color(0.0156863, 0.113725, 0.411765, 1)
@@ -21,9 +28,24 @@ grow_end = -8.0
 
 [sub_resource type="ImageTexture" id="ImageTexture_yucrq"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1gmw"]
+bg_color = Color(0.0156863, 0.113725, 0.411765, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 8.0
+expand_margin_top = 36.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
 [resource]
 default_font = ExtResource("1_b77oh")
 default_font_size = 20
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_llnth")
 HScrollBar/styles/grabber = ExtResource("1_3x3ng")
 HScrollBar/styles/grabber_highlight = ExtResource("2_eeju6")
 HScrollBar/styles/grabber_pressed = ExtResource("3_nmu8p")
@@ -35,3 +57,4 @@ SplitContainer/constants/autohide = 0
 VScrollBar/styles/grabber = ExtResource("1_3x3ng")
 VScrollBar/styles/grabber_highlight = ExtResource("2_eeju6")
 VScrollBar/styles/grabber_pressed = ExtResource("3_nmu8p")
+Window/styles/embedded_border = SubResource("StyleBoxFlat_l1gmw")

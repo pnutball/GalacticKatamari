@@ -7,7 +7,7 @@ var currentFile:String = ""
 signal SavePanelResponse(response:int)
 signal FileDialogResponse(response:String)
 
-func emitFileResponse(path:String = ""):
+func emitFileResponse(path:String):
 	FileDialogResponse.emit(path)
 
 func _ready():
@@ -27,19 +27,28 @@ func _process(_delta):
 	get_window().title = "%s%s - GK Editor (%s)" % ["*" if changed else "", 
 	currentFile.get_slice("/", currentFile.get_slice_count("/") - 1) if currentFile != "" else "New File", 
 	Engine.get_architecture_name()]
+	if %SplitLeft.LevelTreeRoot.get_text(0) != currentFile.get_slice("/", currentFile.get_slice_count("/") - 1) if currentFile != "" else "New File":
+		%SplitLeft.LevelTreeRoot.set_text(0, currentFile.get_slice("/", currentFile.get_slice_count("/") - 1) if currentFile != "" else "New File")
 
 func returnToDebug():
 	if await confirmQuit() == true:
 		get_tree().change_scene_to_file("res://editor/debug_menu.tscn")
 		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	else: 
+		$BlockingOverlay.visible = false
+		$BlockingOverlay/SaveWindow.visible = false
 
 func returnToDesktop():
 	if await confirmQuit() == true:
 		get_tree().quit()
+	else: 
+		$BlockingOverlay.visible = false
+		$BlockingOverlay/SaveWindow.visible = false
 
 func confirmQuit():
 	if not changed: return true
-	$SavePanel.visible = true
+	$BlockingOverlay.visible = true
+	$BlockingOverlay/SaveWindow.visible = true
 	%CancelButton.grab_focus()
 	var response:int = await SavePanelResponse
 	match response:
@@ -49,35 +58,64 @@ func confirmQuit():
 
 ## Saves the current file, opening a file explorer if necessary.
 func saveFile():
+	$BlockingOverlay/SaveWindow.visible = false
+	$BlockingOverlay.visible = true
 	if currentFile == "": return await saveFileAs()
 	else:
-		var file = FileAccess.open("currentFile", FileAccess.WRITE)
+		var file = FileAccess.open(currentFile, FileAccess.WRITE)
 		if file != null:
-			file.store_string(JSON.stringify(%SplitLeft.InternalLevelTree, "\t", false))
+			file.store_string(JSON.stringify({"levels": %SplitLeft.InternalLevelTree}, "" , false))
 			file.close()
+		$BlockingOverlay/SaveWindow.visible = false
+		$BlockingOverlay.visible = false
+		if file != null: changed = false
 		return file != null
 
 ## Saves the current file to a new location.
 func saveFileAs():
+	$BlockingOverlay/SaveWindow.visible = false
+	$BlockingOverlay.visible = true
+	await get_tree().process_frame
+	await get_tree().process_frame
 	%FileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
+	%FileDialog.title = "Save"
 	%FileDialog.visible = true
-	var newPath = await FileDialogResponse
-	if newPath != "": 
+	var newPath:String = await FileDialogResponse
+	%FileDialog.visible = false
+	if newPath.length() > 0: 
 		currentFile = newPath
+		return await saveFile()
+	else:
+		$BlockingOverlay/SaveWindow.visible = false
+		$BlockingOverlay.visible = false
 		return false
-	return await saveFile()
 
 func openFile():
 	if await confirmQuit() == true:
-		# CODE GOES HERE
-		pass
+		$BlockingOverlay/SaveWindow.visible = false
+		%FileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+		%FileDialog.title = "Open"
+		%FileDialog.visible = true
+		var newPath:String = await FileDialogResponse
+		%FileDialog.visible = false
+		if newPath.length() > 0: 
+			currentFile = newPath
+			# CODE GOES HERE
+		else:
+			$BlockingOverlay/SaveWindow.visible = false
+			$BlockingOverlay.visible = false
+			return false
+	else: 
+		$BlockingOverlay.visible = false
+		$BlockingOverlay/SaveWindow.visible = false
 
 func newFile():
 	if await confirmQuit() == true:
 		%SplitLeft.resetTree()
 		changed = false
 		currentFile = ""
-	
+	$BlockingOverlay.visible = false
+	$BlockingOverlay/SaveWindow.visible = false
 
 func _on_play_button_pressed():
 	PlayMode = not PlayMode
@@ -109,3 +147,13 @@ func _notification(what):
 
 func _on_treeprop_change_made():
 	changed = true
+
+func _on_file_menu_id_pressed(id):
+	if not $BlockingOverlay.visible:
+		match id:
+			1: newFile()
+			2: openFile()
+			3: saveFile()
+			4: saveFileAs()
+			5: returnToDebug()
+			6: returnToDesktop()

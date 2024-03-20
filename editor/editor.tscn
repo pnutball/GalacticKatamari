@@ -76,7 +76,6 @@ flat = true
 transparent_bg = true
 position = Vector2i(0, 42)
 size = Vector2i(184, 212)
-visible = true
 item_count = 7
 item_0/text = "New"
 item_0/icon = ExtResource("3_cwtj4")
@@ -249,7 +248,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_constants/line_spacing = 0
-text = "GK Editor loaded."
+text = "PLACEHOLDER -- replace with Object Browser when possible"
 editable = false
 shortcut_keys_enabled = false
 deselect_on_focus_loss_enabled = false
@@ -274,7 +273,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.592157)
 text = "60 FPS"
 
-[node name="SavePanel" type="PanelContainer" parent="."]
+[node name="BlockingOverlay" type="PanelContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -285,36 +284,36 @@ grow_vertical = 2
 mouse_force_pass_scroll_events = false
 theme_override_styles/panel = SubResource("StyleBoxFlat_7xk6o")
 
-[node name="SaveWindow" type="PanelContainer" parent="SavePanel"]
+[node name="SaveWindow" type="PanelContainer" parent="BlockingOverlay"]
 custom_minimum_size = Vector2(380, 16)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_sdbpu")
 
-[node name="MarginContainer" type="MarginContainer" parent="SavePanel/SaveWindow"]
+[node name="MarginContainer" type="MarginContainer" parent="BlockingOverlay/SaveWindow"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SavePanel/SaveWindow/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BlockingOverlay/SaveWindow/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="ConfirmText" type="Label" parent="SavePanel/SaveWindow/MarginContainer/VBoxContainer"]
+[node name="ConfirmText" type="Label" parent="BlockingOverlay/SaveWindow/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "The current file has unsaved changes.
 Would you like to save?"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonContainer" type="HBoxContainer" parent="SavePanel/SaveWindow/MarginContainer/VBoxContainer"]
+[node name="ButtonContainer" type="HBoxContainer" parent="BlockingOverlay/SaveWindow/MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="SaveButton" type="Button" parent="SavePanel/SaveWindow/MarginContainer/VBoxContainer/ButtonContainer"]
+[node name="SaveButton" type="Button" parent="BlockingOverlay/SaveWindow/MarginContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -326,7 +325,7 @@ focus_next = NodePath("../DiscardButton")
 focus_previous = NodePath("../CancelButton")
 text = "Yes"
 
-[node name="DiscardButton" type="Button" parent="SavePanel/SaveWindow/MarginContainer/VBoxContainer/ButtonContainer"]
+[node name="DiscardButton" type="Button" parent="BlockingOverlay/SaveWindow/MarginContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -338,7 +337,7 @@ focus_next = NodePath("../CancelButton")
 focus_previous = NodePath("../SaveButton")
 text = "No"
 
-[node name="CancelButton" type="Button" parent="SavePanel/SaveWindow/MarginContainer/VBoxContainer/ButtonContainer"]
+[node name="CancelButton" type="Button" parent="BlockingOverlay/SaveWindow/MarginContainer/VBoxContainer/ButtonContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -352,12 +351,15 @@ text = "Cancel"
 
 [node name="FileDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true
+title = "Save"
 position = Vector2i(0, 36)
 size = Vector2i(640, 480)
+theme = ExtResource("1_vupi4")
+mode_overrides_title = false
 access = 2
 filters = PackedStringArray("*.gkl.json; GK Level")
-use_native_dialog = true
 
+[connection signal="id_pressed" from="BGPanel/MarginContainer/EditorVBox/EditorMenuBar/File" to="." method="_on_file_menu_id_pressed"]
 [connection signal="ChangeMade" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" to="." method="_on_treeprop_change_made"]
 [connection signal="item_selected" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/LevelTree" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_level_tree_item_selected"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Level" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [0]]
@@ -367,5 +369,5 @@ use_native_dialog = true
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Spawn" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [6]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Static" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [4]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="canceled" from="FileDialog" to="." method="emitFileResponse"]
+[connection signal="canceled" from="FileDialog" to="." method="emitFileResponse" binds= [""]]
 [connection signal="file_selected" from="FileDialog" to="." method="emitFileResponse"]
