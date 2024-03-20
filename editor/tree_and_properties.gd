@@ -84,7 +84,6 @@ func addMode(level:TreeItem, auto:bool = false):
 	var NewMode:TreeItem = level.create_child()
 	NewMode.set_icon(0, load("res://editor/icons/mode.png"))
 	NewMode.set_meta(&"type", "mode")
-	NewMode.set_editable(0, true)
 	NewMode.set_text(0, "mode_%d"%InternalLevelTree[level.get_text(0)].modes.size() if not auto else "normal")
 	InternalLevelTree[level.get_text(0)].modes[NewMode.get_text(0)] = TemplateMode.duplicate(true)
 	NewMode.set_meta(&"path", level.get_meta(&"path").modes[NewMode.get_text(0)])
@@ -188,6 +187,7 @@ func _on_create_id_pressed(id):
 func _on_level_tree_item_selected():
 	for child in %PropertiesPanel.get_children():
 		child.queue_free()
+	$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = true
 	var item:TreeItem = %LevelTree.get_selected()
 	if item.has_meta(&"type"):
 		match item.get_meta(&"type"):
@@ -207,6 +207,7 @@ func _on_level_tree_item_selected():
 				
 				
 			"cam_zone":
+				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				create_property(item, "Bound", PropertyType.NUMBER, "Lower Bound", "The size (meters) at which the camera goes to this camera area.")
 				create_property(item, "Scale", PropertyType.NUMBER, "Scale", "The distance between the camera and katamari (in meters).")
 				create_property(item, "Tilt", PropertyType.NUMBER, "Tilt", "The tilt of the camera (in degrees).")
@@ -218,7 +219,7 @@ func _on_level_tree_item_selected():
 				pass
 			"spawn":
 				pass
-	$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = %PropertiesPanel.get_child_count() == 0
+	
 	
 
 @warning_ignore("shadowed_variable_base_class")
