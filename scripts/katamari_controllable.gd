@@ -1,7 +1,7 @@
 @icon("res://KatamariObject.svg")
 extends Node3D
 #region Variables
-#region Size
+#region Size and Position
 ## Sets the size of the katamari, in meters.
 @export_range(0.01, 0, 0.001, "or_greater", "hide_slider", "suffix:m") var Size:float = 1
 var MinimumSize:float = Size
@@ -12,7 +12,7 @@ var MinimumSize:float = Size
 ## Sets which sound set is used by this katamari.
 @export var SoundSize:String = "M"
 ## Sets the spawn points this katamari can choose.
-@export var SpawnPoints:Array = [Vector3.ZERO]
+@export var SpawnPoints:Array = [Vector4.ZERO]
 #endregion
 #region Physics
 @export_group("Physics")
@@ -317,7 +317,9 @@ func respawn(noAnimation:bool = false):
 		pass
 	CameraSmoothing = 0
 	$KatamariBody.linear_velocity = Vector3.ZERO
-	$KatamariBody.position = SpawnPoints.pick_random() + Vector3(0,Size / 2,0)
+	var randomSpawn:Vector4 = SpawnPoints.pick_random()
+	$KatamariBody.position = Vector3(randomSpawn.x, randomSpawn.y, randomSpawn.z) + Vector3(0,Size / 2,0)
+	CameraRotation = randomSpawn.w
 	await get_tree().process_frame
 	await get_tree().process_frame
 	CameraSmoothing = 0.85

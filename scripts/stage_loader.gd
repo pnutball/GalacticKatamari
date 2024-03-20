@@ -77,7 +77,6 @@ func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
 	currentKatamari.Speed = currentStage.modes.get(currentMode).katamari.speed
 	currentKatamari.CanDash = currentStage.modes.get(currentMode).katamari.can_dash
 	currentKatamari.CanQuickTurn = currentStage.modes.get(currentMode).katamari.can_turn
-	currentKatamari.CameraRotation = currentStage.modes.get(currentMode).katamari.cam_rotation
 	currentKatamari.CameraZones = currentStage.modes.get(currentMode).cam_zones
 	
 	preloadArea(0)
@@ -152,7 +151,7 @@ func instantiateArea(area:int = currentArea + 1):
 	stageRoot.scale = Vector3(newScale, newScale, newScale)
 	
 	currentKatamari.RoyalWarpHeight = currentStage.modes.get(currentMode).map_zones[currentArea].warp_height
-	currentKatamari.SpawnPoints = currentStage.modes.get(currentMode).map_zones[currentArea].spawn_positions.map(func(pos): return Vector3(pos[0], pos[1], pos[2]))
+	currentKatamari.SpawnPoints = currentStage.modes.get(currentMode).map_zones[currentArea].spawn_positions.map(func(pos): return Vector4(pos[0], pos[1], pos[2], pos[3]))
 	currentKatamari.SoundSize = currentStage.modes.get(currentMode).map_zones[currentArea].audio_size
 	currentKatamari.CoreModel = currentStage.modes.get(currentMode).map_zones[currentArea].core_model
 	currentKatamari.CoreTexture = currentStage.modes.get(currentMode).map_zones[currentArea].core_texture
