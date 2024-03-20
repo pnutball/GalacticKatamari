@@ -2,6 +2,7 @@ extends Node
 
 var P_Path
 var P_Name = "Property"
+var P_Tooltip:String = ""
 
 func _ready():
 	$PropertyName.text = P_Name
@@ -10,6 +11,7 @@ func _ready():
 	$PropertyHBox/Zbox.value = P_Path[2]
 	for box:SpinBox in $PropertyHBox.get_children():
 		box.value_changed.connect(_on_value_change)
+	$PropertyName.tooltip_text = P_Tooltip
 
 func _on_value_change(_value):
 	P_Path[0] = $PropertyHBox/Xbox.value

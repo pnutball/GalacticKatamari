@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmbwarxas4tvk"]
+
+[ext_resource type="Script" path="res://editor/booleanproperty_script.gd" id="1_rmjrk"]
+
+[node name="BooleanProperty" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_rmjrk")
+
+[node name="PropertyButton" type="CheckButton" parent="."]
+layout_mode = 2
+text = "Property"
+text_overrun_behavior = 3

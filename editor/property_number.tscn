@@ -9,7 +9,9 @@ script = ExtResource("1_3iv83")
 [node name="PropertyName" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 0
 text = "Property"
+text_overrun_behavior = 3
 
 [node name="PropertyBox" type="SpinBox" parent="."]
 layout_mode = 2

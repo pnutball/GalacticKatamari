@@ -7,7 +7,9 @@ script = ExtResource("1_gv5ke")
 
 [node name="PropertyName" type="Label" parent="."]
 layout_mode = 2
+mouse_filter = 0
 text = "Property"
+text_overrun_behavior = 3
 
 [node name="PropertyHBox" type="HBoxContainer" parent="."]
 layout_mode = 2

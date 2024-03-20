@@ -9,7 +9,9 @@ script = ExtResource("1_a5jfa")
 [node name="PropertyName" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 0
 text = "Property"
+text_overrun_behavior = 3
 
 [node name="PropertyBox" type="LineEdit" parent="."]
 layout_mode = 2

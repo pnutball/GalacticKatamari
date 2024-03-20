@@ -323,4 +323,3 @@ func respawn(noAnimation:bool = false):
 	await get_tree().process_frame
 	await get_tree().process_frame
 	CameraSmoothing = 0.85
-	

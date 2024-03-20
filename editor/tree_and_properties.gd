@@ -1,5 +1,7 @@
 extends VSplitContainer
 
+enum PropertyType{NUMBER, VECTOR3, STRING, DROPDOWN, BOOLEAN}
+
 const TemplateLevel:Dictionary = {
 	"name": {"en": "New level"},
 	"description": {"en": "Enter a description here"},
@@ -56,6 +58,8 @@ var InternalLevelTree:Dictionary = {}
 const Vector3Property:PackedScene = preload("res://editor/property_vector3.tscn")
 const NumberProperty:PackedScene = preload("res://editor/property_number.tscn")
 const StringProperty:PackedScene = preload("res://editor/property_string.tscn")
+const DropdownProperty:PackedScene = preload("res://editor/property_drop.tscn")
+const BooleanProperty:PackedScene = preload("res://editor/property_boolean.tscn")
 
 func _ready():
 	LevelTreeRoot.set_text(0, "New File")
@@ -67,7 +71,6 @@ func addLevel():
 	var NewLevel:TreeItem = LevelTreeRoot.create_child()
 	NewLevel.set_icon(0, load("res://editor/icons/level.png"))
 	NewLevel.set_meta(&"type", "level")
-	NewLevel.set_editable(0, true)
 	NewLevel.set_text(0, "level_%d"%InternalLevelTree.size())
 	InternalLevelTree[NewLevel.get_text(0)] = TemplateLevel.duplicate(true)
 	NewLevel.set_meta(&"path", InternalLevelTree[NewLevel.get_text(0)])
@@ -172,10 +175,6 @@ func addSpawn(area:TreeItem, auto:bool = false):
 	
 	output_print("Created new spawn in area \"%d\"."%[area.get_index()])
 
-func _on_properties_list_changed():
-	if %PropertiesPanel:
-		$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = %PropertiesPanel.get_child_count() == 0
-
 func _on_create_id_pressed(id):
 	match id:
 		0: addLevel()
@@ -187,21 +186,60 @@ func _on_create_id_pressed(id):
 		6: addSpawn(lastSelectedArea)
 
 func _on_level_tree_item_selected():
+	for child in %PropertiesPanel.get_children():
+		child.queue_free()
 	var item:TreeItem = %LevelTree.get_selected()
 	if item.has_meta(&"type"):
-		match item.get_meta(&"type", null):
-			null:
-				return
+		match item.get_meta(&"type"):
 			"level": 
 				lastSelectedLevel = item
+				
+				
 			"mode": 
 				lastSelectedMode = item
 				lastSelectedLevel = item.get_parent()
+				
+				
 			"area":
 				lastSelectedArea = item
 				lastSelectedMode = item.get_parent().get_parent()
 				lastSelectedLevel = item.get_parent().get_parent().get_parent()
-		
+				
+				
+			"cam_zone":
+				create_property(item, "Bound", PropertyType.NUMBER, "Lower Bound", "The size (meters) at which the camera goes to this camera area.")
+				create_property(item, "Scale", PropertyType.NUMBER, "Scale", "The distance between the camera and katamari (in meters).")
+				create_property(item, "Tilt", PropertyType.NUMBER, "Tilt", "The tilt of the camera (in degrees).")
+				create_property(item, "Shift", PropertyType.NUMBER, "Vert. Shift", "The vertical shift of the camera.\nPositive values move the camera upwards.")
+				create_property(item, "DOF", PropertyType.NUMBER, "DOF", "The depth-of-field distance (in meters).\n-1 disables DOF.")
+			"static":
+				pass
+			"object":
+				pass
+			"spawn":
+				pass
+	$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = %PropertiesPanel.get_child_count() == 0
+	
+
+@warning_ignore("shadowed_variable_base_class")
+func create_property(item:TreeItem, propertyPath:String, type:PropertyType, name:String = "Property", tooltip:String = "", dropdownItems:Array[String] = [""]):
+	if not item.has_meta(&"path"): return ERR_INVALID_PARAMETER
+	var PropertyNode:Control
+	match type:
+		PropertyType.NUMBER: PropertyNode = NumberProperty.instantiate()
+		PropertyType.STRING: PropertyNode = StringProperty.instantiate()
+		PropertyType.VECTOR3: PropertyNode = Vector3Property.instantiate()
+		PropertyType.DROPDOWN: PropertyNode = DropdownProperty.instantiate()
+		PropertyType.BOOLEAN: PropertyNode = BooleanProperty.instantiate()
+	PropertyNode.P_Name = name
+	PropertyNode.P_Tooltip = tooltip
+	if type != PropertyType.VECTOR3:
+		PropertyNode.P_Path = item.get_meta(&"path")
+		PropertyNode.P_Property = propertyPath
+	else:
+		PropertyNode.P_Path = item.get_meta(&"path")[propertyPath]
+	if type == PropertyType.DROPDOWN: PropertyNode.P_Items = dropdownItems
+	%PropertiesPanel.add_child(PropertyNode)
 
 func output_print(printed:Variant):
 	if printed as String != null:
