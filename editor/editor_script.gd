@@ -7,18 +7,17 @@ var currentFile:String = ""
 signal SavePanelResponse(response:int)
 signal FileDialogResponse(response:String)
 
-func emitFileResponse(path:String):
-	FileDialogResponse.emit(path)
+func emitFileResponse(path:String): FileDialogResponse.emit(path)
+
+func emitSaveResponse(id:int = 0): SavePanelResponse.emit(id)
 
 func _ready():
 	OS.low_processor_usage_mode = true
+	get_tree().auto_accept_quit = false
 	%StatusBar/StatusLabel.text = "GK Editor (%s, on %s)" % [Engine.get_architecture_name(), OS.get_name()]
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	get_tree().root.get_node("FPSCounter").visible = false
-	%SaveButton.pressed.connect(func(): SavePanelResponse.emit(0))
-	%DiscardButton.pressed.connect(func(): SavePanelResponse.emit(1))
-	%CancelButton.pressed.connect(func(): SavePanelResponse.emit(2))
-	StageLoader.loadStage("res://data/levels/test_1.gkl.json", "test_1")
+	%SaveDialog.add_button("Yes", false, "")
 
 func _process(_delta):
 	%StatusBar/FPSLabel.text = "%d FPS" % [Engine.get_frames_per_second()]
@@ -32,24 +31,23 @@ func _process(_delta):
 
 func returnToDebug():
 	if await confirmQuit() == true:
-		get_tree().change_scene_to_file("res://editor/debug_menu.tscn")
 		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+		get_tree().auto_accept_quit = false
+		get_tree().change_scene_to_file("res://editor/debug_menu.tscn")
 	else: 
 		$BlockingOverlay.visible = false
-		$BlockingOverlay/SaveWindow.visible = false
 
 func returnToDesktop():
 	if await confirmQuit() == true:
 		get_tree().quit()
 	else: 
 		$BlockingOverlay.visible = false
-		$BlockingOverlay/SaveWindow.visible = false
 
 func confirmQuit():
 	if not changed: return true
 	$BlockingOverlay.visible = true
-	$BlockingOverlay/SaveWindow.visible = true
-	%CancelButton.grab_focus()
+	%SaveDialog.visible = true
+	%SaveDialog.get_cancel_button().grab_focus()
 	var response:int = await SavePanelResponse
 	match response:
 		0: return await saveFile()
@@ -58,7 +56,6 @@ func confirmQuit():
 
 ## Saves the current file, opening a file explorer if necessary.
 func saveFile():
-	$BlockingOverlay/SaveWindow.visible = false
 	$BlockingOverlay.visible = true
 	if currentFile == "": return await saveFileAs()
 	else:
@@ -66,19 +63,18 @@ func saveFile():
 		if file != null:
 			file.store_string(JSON.stringify({"levels": %SplitLeft.InternalLevelTree}, "" , false))
 			file.close()
-		$BlockingOverlay/SaveWindow.visible = false
 		$BlockingOverlay.visible = false
 		if file != null: changed = false
 		return file != null
 
 ## Saves the current file to a new location.
 func saveFileAs():
-	$BlockingOverlay/SaveWindow.visible = false
 	$BlockingOverlay.visible = true
 	await get_tree().process_frame
 	await get_tree().process_frame
 	%FileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
-	%FileDialog.title = "Save"
+	%FileDialog.title = "Save As..."
+	%FileDialog.ok_button_text = "Save"
 	%FileDialog.visible = true
 	var newPath:String = await FileDialogResponse
 	%FileDialog.visible = false
@@ -86,28 +82,32 @@ func saveFileAs():
 		currentFile = newPath
 		return await saveFile()
 	else:
-		$BlockingOverlay/SaveWindow.visible = false
 		$BlockingOverlay.visible = false
 		return false
 
 func openFile():
 	if await confirmQuit() == true:
-		$BlockingOverlay/SaveWindow.visible = false
 		%FileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 		%FileDialog.title = "Open"
+		%FileDialog.ok_button_text = "Open"
 		%FileDialog.visible = true
 		var newPath:String = await FileDialogResponse
 		%FileDialog.visible = false
 		if newPath.length() > 0: 
+			changed = false
 			currentFile = newPath
-			# CODE GOES HERE
+			var file = FileAccess.open(currentFile, FileAccess.READ)
+			if file != null:
+				var fileJson = JSON.parse_string(file.get_as_text())
+				if fileJson != null and "levels" in fileJson:
+					%SplitLeft.openDict(fileJson.levels)
+			$BlockingOverlay.visible = false
+			return true
 		else:
-			$BlockingOverlay/SaveWindow.visible = false
 			$BlockingOverlay.visible = false
 			return false
 	else: 
 		$BlockingOverlay.visible = false
-		$BlockingOverlay/SaveWindow.visible = false
 
 func newFile():
 	if await confirmQuit() == true:
@@ -115,9 +115,9 @@ func newFile():
 		changed = false
 		currentFile = ""
 	$BlockingOverlay.visible = false
-	$BlockingOverlay/SaveWindow.visible = false
 
 func _on_play_button_pressed():
+	await StageLoader.loadStagefromDict({"levels": %SplitLeft.InternalLevelTree}, %SplitLeft.lastSelectedLevel.get_text(0))
 	PlayMode = not PlayMode
 	OS.low_processor_usage_mode = not PlayMode
 	%GameView.visible = PlayMode
@@ -132,7 +132,7 @@ func _on_play_button_pressed():
 		var play = Node.new()
 		play.name = "EditorPlay"
 		%GameView.add_child(play)
-		StageLoader.instantiateStage("normal", %GameView/EditorPlay)
+		StageLoader.instantiateStage(%SplitLeft.lastSelectedMode.get_text(0), %GameView/EditorPlay)
 	else:
 		%PlayButton.text = "Play"
 		%PlayButton.icon = preload("res://editor/icons/play.png")

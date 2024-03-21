@@ -84,7 +84,17 @@
 					},
 					"goal_type": "none",
 					"goal": 0,
-					"time": 0
+					"end_at_goal": false,
+					"time": 0,
+					"point_items": [],
+					"point_name": {
+						"en": ["pt{plural}."]
+					},
+					"ranking": {
+						"goal_super": -1,
+						"time_super": -1,
+						"point_super": -1
+					}
 				}
 			}
 		}

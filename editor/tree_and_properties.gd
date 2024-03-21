@@ -24,7 +24,6 @@ const TemplateMode:Dictionary = {
 		"size": 1,
 		"model": "res://models/core/core_generic.obj",
 		"texture": "res://textures/core/core_test.png",
-		"start_positions": [[0, 0.3, 0]],
 		"speed": 5,
 		"can_dash": true,
 		"can_turn": true,
@@ -32,8 +31,17 @@ const TemplateMode:Dictionary = {
 	},
 	"goal_type": "none",
 	"goal": 0,
-	"time": 0
-	}
+	"end_at_goal": false,
+	"time": 0,
+	"point_items": [],
+	"point_name": {
+		"en": ["pt{plural}."]
+	},
+	"ranking": {
+		"goal_super": -1,
+		"time_super": -1,
+		"point_super": -1
+	}}
 
 const TemplateCamZone:Dictionary = {"Bound":0,"Scale":1.5,"Tilt":-15,"Shift":0.25,"DOF":20}
 
@@ -50,7 +58,7 @@ const TemplateSizeArea:Dictionary = {
 							"spawn_positions": []
 						}
 
-const TemplateSpawn:Array = [0, 0, 0]
+const TemplateSpawn:Array = [0, 0, 0, 0]
 
 const TemplateObject:Dictionary = {"id":"debug_cube", "position":[0,0,0], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1}
 
@@ -74,11 +82,11 @@ func resetTree():
 	for child in %PropertiesPanel.get_children():
 		child.queue_free()
 	$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = true
-	%TreePanel/Create/Mode.disabled = true
-	%TreePanel/Create/CamArea.disabled = true
-	%TreePanel/Create/SizeArea.disabled = true
-	%TreePanel/Create/Spawn.disabled = true
-	%TreePanel/Create/Static.disabled = true
+	%Create/Mode.disabled = true
+	%Create/CamArea.disabled = true
+	%Create/SizeArea.disabled = true
+	%Create/Spawn.disabled = true
+	%Create/Static.disabled = true
 	InternalLevelTree = {}
 
 func _ready():
@@ -229,8 +237,83 @@ func _on_level_tree_item_selected():
 				pass
 			"spawn":
 				pass
-	
-	
+
+func openDict(dict:Dictionary):
+	resetTree()
+	lastSelectedLevel = null
+	lastSelectedMode = null
+	lastSelectedArea = null
+	InternalLevelTree = dict.duplicate()
+	for levelKey in InternalLevelTree.keys():
+		#region Level TreeItem init
+		var NewLevel:TreeItem = LevelTreeRoot.create_child()
+		NewLevel.set_icon(0, load("res://editor/icons/level.png"))
+		NewLevel.set_meta(&"type", "level")
+		NewLevel.set_text(0, levelKey)
+		NewLevel.set_meta(&"path", InternalLevelTree[levelKey])
+		if lastSelectedLevel == null: lastSelectedLevel = NewLevel
+		#endregion
+		%Create/Mode.disabled = false
+		for modeKey in InternalLevelTree[levelKey].modes.keys():
+			#region Mode TreeItem init
+			var NewMode:TreeItem = NewLevel.create_child()
+			NewMode.set_icon(0, load("res://editor/icons/mode.png"))
+			NewMode.set_meta(&"type", "mode")
+			NewMode.set_text(0, modeKey)
+			NewMode.set_meta(&"path", InternalLevelTree[levelKey].modes[modeKey])
+			NewMode.create_child().set_text(0, "Camera Areas")
+			NewMode.create_child().set_text(0, "Size Areas")
+			for child in NewMode.get_children(): child.set_selectable(0,false)
+			if lastSelectedMode == null: lastSelectedMode = NewMode
+			#endregion
+			%Create/CamArea.disabled = false
+			%Create/SizeArea.disabled = false
+			
+			for camIndex in InternalLevelTree[levelKey].modes[modeKey].cam_zones.size():
+				#region Cam Area TreeItem init
+				var NewZone:TreeItem = NewMode.get_child(1).create_child()
+				NewZone.set_icon(0, load("res://editor/icons/camerazone.png"))
+				NewZone.set_meta(&"type", "cam_zone")
+				NewZone.set_text(0, "Cam. Area %d" % camIndex)
+				NewZone.set_meta(&"path", InternalLevelTree[levelKey].modes[modeKey].cam_zones[camIndex])
+				#endregion
+			
+			for areaIndex in InternalLevelTree[levelKey].modes[modeKey].map_zones.size():
+				#region Sizw Area TreeItem init
+				var NewZone:TreeItem = NewMode.get_child(1).create_child()
+				NewZone.set_icon(0, load("res://editor/icons/area.png"))
+				NewZone.set_meta(&"type", "area")
+				NewZone.set_text(0, "Size Area %d" % areaIndex)
+				NewZone.set_meta(&"path", InternalLevelTree[levelKey].modes[modeKey].map_zones[areaIndex])
+				NewZone.create_child().set_text(0, "Static")
+				NewZone.create_child().set_text(0, "Objects")
+				NewZone.create_child().set_text(0, "Spawnpoints")
+				for child in NewZone.get_children(): child.set_selectable(0,false)
+				if lastSelectedArea == null: lastSelectedArea = NewZone
+				#endregion
+				%Create/Spawn.disabled = false
+				%Create/Static.disabled = false
+				
+				for staticIndex in InternalLevelTree[levelKey].modes[modeKey].map_zones[areaIndex].static.size():
+					var NewStatic:TreeItem = NewZone.get_child(0).create_child()
+					NewStatic.set_icon(0, load("res://editor/icons/static.png"))
+					NewStatic.set_meta(&"type", "static")
+					NewStatic.set_text(0, "Static %d" % staticIndex)
+					NewStatic.set_meta(&"path", InternalLevelTree[levelKey].modes[modeKey].map_zones[areaIndex].static[staticIndex])
+				
+				for objectIndex in InternalLevelTree[levelKey].modes[modeKey].map_zones[areaIndex].objects.size():
+					var NewObject:TreeItem = NewZone.get_child(1).create_child()
+					NewObject.set_icon(0, load("res://editor/icons/object.png"))
+					NewObject.set_meta(&"type", "object")
+					NewObject.set_text(0, "Object %d" % objectIndex)
+					NewObject.set_meta(&"path", InternalLevelTree[levelKey].modes[modeKey].map_zones[areaIndex].objects[objectIndex])
+				
+				for spawnIndex in InternalLevelTree[levelKey].modes[modeKey].map_zones[areaIndex].spawn_positions.size():
+					var NewSpawn:TreeItem = NewZone.get_child(2).create_child()
+					NewSpawn.set_icon(0, load("res://editor/icons/spawn.png"))
+					NewSpawn.set_meta(&"type", "spawn")
+					NewSpawn.set_text(0, "Spawn %d" % spawnIndex)
+					NewSpawn.set_meta(&"path", InternalLevelTree[levelKey].modes[modeKey].map_zones[areaIndex].spawn_positions[spawnIndex])
 
 @warning_ignore("shadowed_variable_base_class")
 func create_property(item:TreeItem, propertyPath:String, type:PropertyType, name:String = "Property", tooltip:String = "", dropdownItems:Array[String] = [""]):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=20 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -25,13 +25,6 @@ bg_color = Color(0, 0, 0, 0.439216)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xk6o"]
 bg_color = Color(0.00784314, 0.0705882, 0.329412, 0.501961)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdbpu"]
-bg_color = Color(0.00784314, 0.0705882, 0.329412, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
 
 [node name="EditorRoot" type="Control"]
 layout_mode = 3
@@ -190,6 +183,7 @@ text = "Select an item to view its properties."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
+clip_text = true
 
 [node name="PropertiesPanel" type="VBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin"]
 unique_name_in_owner = true
@@ -284,80 +278,29 @@ grow_vertical = 2
 mouse_force_pass_scroll_events = false
 theme_override_styles/panel = SubResource("StyleBoxFlat_7xk6o")
 
-[node name="SaveWindow" type="PanelContainer" parent="BlockingOverlay"]
-custom_minimum_size = Vector2(380, 16)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/panel = SubResource("StyleBoxFlat_sdbpu")
-
-[node name="MarginContainer" type="MarginContainer" parent="BlockingOverlay/SaveWindow"]
-layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
-
-[node name="VBoxContainer" type="VBoxContainer" parent="BlockingOverlay/SaveWindow/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 12
-
-[node name="ConfirmText" type="Label" parent="BlockingOverlay/SaveWindow/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "The current file has unsaved changes.
-Would you like to save?"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ButtonContainer" type="HBoxContainer" parent="BlockingOverlay/SaveWindow/MarginContainer/VBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="SaveButton" type="Button" parent="BlockingOverlay/SaveWindow/MarginContainer/VBoxContainer/ButtonContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-focus_neighbor_left = NodePath("../CancelButton")
-focus_neighbor_top = NodePath("../CancelButton")
-focus_neighbor_right = NodePath("../DiscardButton")
-focus_neighbor_bottom = NodePath("../DiscardButton")
-focus_next = NodePath("../DiscardButton")
-focus_previous = NodePath("../CancelButton")
-text = "Yes"
-
-[node name="DiscardButton" type="Button" parent="BlockingOverlay/SaveWindow/MarginContainer/VBoxContainer/ButtonContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-focus_neighbor_left = NodePath("../SaveButton")
-focus_neighbor_top = NodePath("../SaveButton")
-focus_neighbor_right = NodePath("../CancelButton")
-focus_neighbor_bottom = NodePath("../CancelButton")
-focus_next = NodePath("../CancelButton")
-focus_previous = NodePath("../SaveButton")
-text = "No"
-
-[node name="CancelButton" type="Button" parent="BlockingOverlay/SaveWindow/MarginContainer/VBoxContainer/ButtonContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-focus_neighbor_left = NodePath("../DiscardButton")
-focus_neighbor_top = NodePath("../DiscardButton")
-focus_neighbor_right = NodePath("../SaveButton")
-focus_neighbor_bottom = NodePath("../SaveButton")
-focus_next = NodePath("../SaveButton")
-focus_previous = NodePath("../DiscardButton")
-text = "Cancel"
-
 [node name="FileDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true
+transparent_bg = true
 title = "Save"
-position = Vector2i(0, 36)
+initial_position = 4
 size = Vector2i(640, 480)
+transparent = true
 theme = ExtResource("1_vupi4")
+ok_button_text = "Save"
 mode_overrides_title = false
 access = 2
 filters = PackedStringArray("*.gkl.json; GK Level")
+
+[node name="SaveDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+initial_position = 4
+size = Vector2i(348, 127)
+transparent = true
+theme = ExtResource("1_vupi4")
+ok_button_text = "No"
+dialog_text = "The current file has unsaved changes.
+Would you like to save?"
 
 [connection signal="id_pressed" from="BGPanel/MarginContainer/EditorVBox/EditorMenuBar/File" to="." method="_on_file_menu_id_pressed"]
 [connection signal="ChangeMade" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" to="." method="_on_treeprop_change_made"]
@@ -371,3 +314,6 @@ filters = PackedStringArray("*.gkl.json; GK Level")
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="canceled" from="FileDialog" to="." method="emitFileResponse" binds= [""]]
 [connection signal="file_selected" from="FileDialog" to="." method="emitFileResponse"]
+[connection signal="canceled" from="SaveDialog" to="." method="emitSaveResponse" binds= [2]]
+[connection signal="confirmed" from="SaveDialog" to="." method="emitSaveResponse" binds= [1]]
+[connection signal="custom_action" from="SaveDialog" to="." method="emitSaveResponse" unbinds=1]

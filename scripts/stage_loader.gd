@@ -59,6 +59,14 @@ func loadStage(path:String, stage_name:String):
 	stage_loaded.emit()
 	return OK
 
+func loadStagefromDict(dict:Dictionary, stage_name:String):
+	if "levels" in dict and stage_name in dict.levels:
+			currentStage = dict.levels.get(stage_name)
+	else: return ERR_INVALID_PARAMETER
+	stage_loaded.emit()
+	return OK
+	
+
 ## Get the currently loaded stage's modes.
 func getModes():
 	return currentStage.modes.keys()
