@@ -271,7 +271,6 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
 
 [node name="Line2D" type="Line2D" parent="Debug/StickDisplay"]
-position = Vector2(0, 2)
 points = PackedVector2Array(50, 50, 150, 50)
 width = 5.0
 antialiased = true
