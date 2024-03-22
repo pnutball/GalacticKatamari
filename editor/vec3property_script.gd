@@ -15,7 +15,7 @@ func _ready():
 	$PropertyName.tooltip_text = P_Tooltip
 
 func _on_value_change(_value):
-	ChangeMade.emit()
 	P_Path[0] = $PropertyHBox/Xbox.value
 	P_Path[1] = $PropertyHBox/Ybox.value
 	P_Path[2] = $PropertyHBox/Zbox.value
+	ChangeMade.emit()

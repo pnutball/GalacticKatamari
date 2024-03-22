@@ -13,6 +13,7 @@ func _ready():
 	$PropertyButton.tooltip_text = P_Tooltip
 
 func _on_value_change(value):
-	ChangeMade.emit()
-	if P_Path is Dictionary: P_Path[P_Property] = value
+	@warning_ignore("incompatible_ternary")
+	if P_Path is Dictionary or P_Path is Array: P_Path[P_Property.to_int() if P_Path is Array else P_Property] = value
 	else: P_Path.set(P_Property, value)
+	ChangeMade.emit()
