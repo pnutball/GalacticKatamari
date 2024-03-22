@@ -141,15 +141,15 @@ func _process(delta):
 	%KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-55, 0, 30) / 30)), 0.2)
 	
 	# Update debug info
-	$Debug/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
-	$Debug/PanelR/StickR.set_position(Vector2(25, 25) + (25 * RightStick))
-	$Debug/StickM.set_position(Vector2(95, 45) + (25 * StickMidpoint))
-	$Debug/Line2D.points = [Vector2(50, 50) + (25 * LeftStick), Vector2(150, 50) + (25 * RightStick)]
-	$Debug/Label.rotation = StickAngle + (PI/2)
-	$Debug/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
+	$Debug/StickDisplay/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
+	$Debug/StickDisplay/PanelR/StickR.set_position(Vector2(25, 25) + (25 * RightStick))
+	$Debug/StickDisplay/StickM.set_position(Vector2(95, 45) + (25 * StickMidpoint))
+	$Debug/StickDisplay/Line2D.points = [Vector2(50, 50) + (25 * LeftStick), Vector2(150, 50) + (25 * RightStick)]
+	$Debug/StickDisplay/Label.rotation = StickAngle + (PI/2)
+	$Debug/StickDisplay/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
 	$Debug/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f\nVr:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z, ($KatamariBody.linear_velocity*Vector3(1,0,1)).length()]
 	$Debug/Label4.text = "size:%dm%02dcm%01dmm\ndamp:%f" % [floori(Size), floori(Size * 100) % 100, floori(Size * 1000) % 10, $KatamariBody.linear_damp]
-	$Debug/ProgressBar.value = DashCharge
+	$Debug/StickDisplay/ProgressBar.value = DashCharge
 
 func _physics_process(delta):
 	# Handle movement inputs

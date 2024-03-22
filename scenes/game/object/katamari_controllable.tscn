@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=24 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://misc/katamari_physics_curve.tres" id="2_dth00"]
@@ -124,15 +124,6 @@ func _pressed():
 	%\"KatamariCamera/KatamariCameraZoom\".play(\"CameraZoom\")
 "
 
-[sub_resource type="GDScript" id="GDScript_46fb8"]
-resource_name = "ResetSceneScript"
-script/source = "extends Button
-
-
-func _on_pressed():
-	get_tree().reload_current_scene()
-"
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hau7w"]
 shader = ExtResource("6_rnc8v")
 shader_parameter/zoom_amount = 0.0
@@ -207,6 +198,14 @@ mesh = SubResource("SphereMesh_78fgn")
 
 [node name="Debug" type="Control" parent="."]
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StickDisplay" type="Control" parent="Debug"]
+layout_mode = 1
 anchor_left = 0.5
 anchor_top = 0.98
 anchor_right = 0.5
@@ -214,10 +213,8 @@ anchor_bottom = 0.98
 offset_left = -100.0
 offset_top = -100.0
 offset_right = 100.0
-grow_horizontal = 2
-grow_vertical = 0
 
-[node name="PanelL" type="Panel" parent="Debug"]
+[node name="PanelL" type="Panel" parent="Debug/StickDisplay"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -227,7 +224,7 @@ offset_right = 100.0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qmoml")
 
-[node name="StickL" type="Panel" parent="Debug/PanelL"]
+[node name="StickL" type="Panel" parent="Debug/StickDisplay/PanelL"]
 z_index = 2
 layout_mode = 1
 anchors_preset = 8
@@ -243,7 +240,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
 
-[node name="PanelR" type="Panel" parent="Debug"]
+[node name="PanelR" type="Panel" parent="Debug/StickDisplay"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -256,7 +253,7 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qmoml")
 
-[node name="StickR" type="Panel" parent="Debug/PanelR"]
+[node name="StickR" type="Panel" parent="Debug/StickDisplay/PanelR"]
 z_index = 2
 layout_mode = 1
 anchors_preset = 8
@@ -272,12 +269,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
 
-[node name="Line2D" type="Line2D" parent="Debug"]
+[node name="Line2D" type="Line2D" parent="Debug/StickDisplay"]
+position = Vector2(0, 2)
 points = PackedVector2Array(50, 50, 150, 50)
 width = 5.0
 antialiased = true
 
-[node name="StickM" type="Panel" parent="Debug"]
+[node name="StickM" type="Panel" parent="Debug/StickDisplay"]
 z_index = 3
 layout_mode = 1
 anchors_preset = 8
@@ -286,21 +284,26 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -5.0
-offset_top = -5.0
+offset_top = -3.0
 offset_right = 4.99999
-offset_bottom = 5.0
+offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2q56b")
 
-[node name="Label" type="Label" parent="Debug"]
+[node name="Label" type="Label" parent="Debug/StickDisplay"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = -22.0
-offset_right = -40.0
-grow_horizontal = 2
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -50.0
+offset_right = -104.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 2
 rotation = 1.5708
 pivot_offset = Vector2(40, 22)
 text = "<="
@@ -308,23 +311,56 @@ label_settings = SubResource("LabelSettings_8467r")
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="Debug"]
+[node name="Label2" type="Label" parent="Debug/StickDisplay"]
 layout_mode = 0
 offset_left = 224.0
-offset_top = 28.6
+offset_top = 30.6
 offset_right = 499.0
-offset_bottom = 73.6
+offset_bottom = 75.6
 pivot_offset = Vector2(40, 22)
 text = "a: XXrad (XXdeg)"
 label_settings = SubResource("LabelSettings_8467r")
 vertical_alignment = 1
 
+[node name="ProgressBar" type="ProgressBar" parent="Debug/StickDisplay"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 124.0
+offset_top = -136.4
+offset_right = 451.0
+offset_bottom = -79.4
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 38
+
+[node name="Button" type="Button" parent="Debug/StickDisplay"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.1
+anchor_top = 0.5
+anchor_right = -0.1
+anchor_bottom = 0.5
+offset_left = -134.0
+offset_bottom = 31.0
+grow_horizontal = 0
+focus_mode = 0
+text = "Play Zoom Anim"
+script = SubResource("GDScript_4llql")
+
 [node name="Label3" type="Label" parent="Debug"]
-layout_mode = 0
-offset_left = -848.0
-offset_top = -226.4
-offset_right = -573.0
-offset_bottom = 106.6
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -365.0
+offset_right = 307.0
+offset_bottom = -32.0
+grow_vertical = 0
 pivot_offset = Vector2(40, 22)
 text = "x:
 y:
@@ -334,61 +370,19 @@ Vy:
 Vz:
 Vr:"
 label_settings = SubResource("LabelSettings_8467r")
-vertical_alignment = 1
+vertical_alignment = 2
 
 [node name="Label4" type="Label" parent="Debug"]
-layout_mode = 0
-offset_left = -851.0
-offset_top = -945.4
-offset_right = -576.0
-offset_bottom = -852.4
+layout_mode = 1
+anchors_preset = -1
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 307.0
+offset_bottom = 125.0
 pivot_offset = Vector2(40, 22)
 text = "size: 
 damp:"
 label_settings = SubResource("LabelSettings_8467r")
-vertical_alignment = 1
-
-[node name="Button" type="Button" parent="Debug"]
-layout_mode = 0
-offset_left = -159.0
-offset_top = 64.6
-offset_right = -25.0
-offset_bottom = 95.6
-focus_mode = 0
-text = "Play Zoom Anim"
-script = SubResource("GDScript_4llql")
-
-[node name="Button2" type="Button" parent="Debug"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 736.0
-offset_top = -31.4
-offset_right = 837.0
-offset_bottom = -0.400024
-grow_horizontal = 0
-grow_vertical = 0
-focus_mode = 0
-text = "Reset Scene"
-script = SubResource("GDScript_46fb8")
-
-[node name="ProgressBar" type="ProgressBar" parent="Debug"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 124.0
-offset_top = -138.4
-offset_right = 451.0
-offset_bottom = -81.4
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 38
 
 [node name="KatamariZoomAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
@@ -412,5 +406,3 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("ViewportTexture_l3wab")
-
-[connection signal="pressed" from="Debug/Button2" to="Debug/Button2" method="_on_pressed"]
