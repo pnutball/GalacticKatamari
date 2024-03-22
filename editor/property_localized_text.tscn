@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccwl0adhkvebv"]
+
+[ext_resource type="Script" path="res://editor/loctextproperty_script.gd" id="1_wdwlk"]
+[ext_resource type="Texture2D" uid="uid://b6umlml5fbrbc" path="res://editor/icons/expand.png" id="2_yh5rh"]
+[ext_resource type="Texture2D" uid="uid://vmmd66b7dp8s" path="res://editor/icons/add.png" id="3_tusnp"]
+
+[node name="LocalizedTextProperty" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_wdwlk")
+
+[node name="PropertyHeader" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PropertyName" type="Label" parent="PropertyHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Property"
+text_overrun_behavior = 3
+
+[node name="CollapseButton" type="Button" parent="PropertyHeader"]
+layout_mode = 2
+icon = ExtResource("2_yh5rh")
+
+[node name="PropertyMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+
+[node name="PropertyTexts" type="VBoxContainer" parent="PropertyMargin"]
+layout_mode = 2
+
+[node name="PropertyAdd" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PropertyBox" type="LineEdit" parent="PropertyAdd"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Lang. code"
+context_menu_enabled = false
+middle_mouse_paste_enabled = false
+draw_control_chars = true
+select_all_on_focus = true
+
+[node name="AddButton" type="Button" parent="PropertyAdd"]
+layout_mode = 2
+icon = ExtResource("3_tusnp")

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bkvng8gv5ta5a"]
+
+[node name="LocalizedTextSubProperty" type="HBoxContainer"]
+offset_right = 104.0
+offset_bottom = 31.0
+
+[node name="SubPropertyLang" type="Label" parent="."]
+layout_mode = 2
+text = "lang"
+
+[node name="SubPropertyBox" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "No text, will not be saved"
+context_menu_enabled = false
+middle_mouse_paste_enabled = false
+draw_control_chars = true
+select_all_on_focus = true
