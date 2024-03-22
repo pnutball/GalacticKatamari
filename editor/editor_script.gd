@@ -24,10 +24,10 @@ func _process(_delta):
 	%GameView.position = Vector2i(%EditorView.get_global_rect().position)
 	%GameView.size = Vector2i(%EditorView.size)
 	get_window().title = "%s%s - GK Editor (%s)" % ["*" if changed else "", 
-	currentFile.get_slice("/", currentFile.get_slice_count("/") - 1) if currentFile != "" else "New File", 
+	currentFile.get_file() if currentFile != "" else "New File", 
 	Engine.get_architecture_name()]
-	if %SplitLeft.LevelTreeRoot.get_text(0) != currentFile.get_slice("/", currentFile.get_slice_count("/") - 1) if currentFile != "" else "New File":
-		%SplitLeft.LevelTreeRoot.set_text(0, currentFile.get_slice("/", currentFile.get_slice_count("/") - 1) if currentFile != "" else "New File")
+	if %SplitLeft.LevelTreeRoot.get_text(0) != currentFile.get_file() if currentFile != "" else "New File":
+		%SplitLeft.LevelTreeRoot.set_text(0, currentFile.get_file() if currentFile != "" else "New File")
 
 func returnToDebug():
 	if await confirmQuit() == true:

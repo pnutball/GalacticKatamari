@@ -15,14 +15,17 @@ layout_mode = 2
 [node name="PropertyName" type="Label" parent="PropertyHeader"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 0
 text = "Property"
 text_overrun_behavior = 3
 
 [node name="CollapseButton" type="Button" parent="PropertyHeader"]
 layout_mode = 2
+tooltip_text = "Expand list"
 icon = ExtResource("2_yh5rh")
 
 [node name="PropertyMargin" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 
@@ -30,6 +33,7 @@ theme_override_constants/margin_left = 8
 layout_mode = 2
 
 [node name="PropertyAdd" type="HBoxContainer" parent="."]
+visible = false
 layout_mode = 2
 
 [node name="PropertyBox" type="LineEdit" parent="PropertyAdd"]
