@@ -164,7 +164,7 @@ func addStatic(area:TreeItem):
 	NewStatic.set_meta(&"type", "static")
 	NewStatic.set_text(0, "Static %d" % NewStatic.get_index())
 	var zonesRoot:Array = lastSelectedArea.get_meta(&"path").static
-	zonesRoot.push_back("")
+	zonesRoot.push_back([""])
 	NewStatic.set_meta(&"path", zonesRoot[zonesRoot.size() - 1])
 	NewStatic.select(0)
 

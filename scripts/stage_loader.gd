@@ -3,7 +3,7 @@ extends Node
 signal stage_loaded
 signal stage_instantiated
 
-var objectList:Dictionary = preload("res://data/objects.json").data
+var objectList:Dictionary = load("res://data/objects.json").data
 var currentStage:Dictionary
 var currentMode:String
 var currentArea:int = 0
@@ -109,10 +109,10 @@ func preloadArea(area:int = currentArea + 1):
 	preloadRoot.add_child(currentStatics)
 	
 	for scene in currentStage.modes.get(currentMode).map_zones[area].static:
-		ResourceLoader.load_threaded_request(scene)
-		while ResourceLoader.load_threaded_get_status(scene) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		ResourceLoader.load_threaded_request(scene[0])
+		while ResourceLoader.load_threaded_get_status(scene[0]) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 			await get_tree().create_timer(0.1).timeout
-		var instantiated:Node = ResourceLoader.load_threaded_get(scene).instantiate()
+		var instantiated:Node = ResourceLoader.load_threaded_get(scene[0]).instantiate()
 		instantiated.set_script(null)
 		currentStatics.add_child(instantiated)
 	
@@ -128,12 +128,12 @@ func preloadArea(area:int = currentArea + 1):
 			await get_tree().create_timer(0.1).timeout
 		
 		instantiated.InstanceName = str(area) + "_" + str(num)
-		instantiated.ObjectName = objectList.objects.get(object.id).name.en
-		instantiated.ObjectMesh = ResourceLoader.load_threaded_get(objectList.objects.get(object.id).view_mesh)
-		instantiated.ObjectCol = ResourceLoader.load_threaded_get(objectList.objects.get(object.id).collision_mesh)
+		instantiated.ObjectName = objectList.objects.get(object.id, "debug_cube").name.get(TranslationServer.get_locale().get_slice("_", 0), objectList.objects.get(object.id, "debug_cube").name.get("en", "MISSING STRING!"))
+		instantiated.ObjectMesh = ResourceLoader.load_threaded_get(objectList.objects.get(object.id, "debug_cube").view_mesh)
+		instantiated.ObjectCol = ResourceLoader.load_threaded_get(objectList.objects.get(object.id, "debug_cube").collision_mesh)
 		instantiated.position = Vector3(object.position[0], object.position[1], object.position[2])
 		instantiated.rotation = Vector3(object.rotation[0], object.rotation[1], object.rotation[2])
-		instantiated.scale = Vector3(object.scale, object.scale, object.scale)
+		instantiated.scale = Vector3(objectList.objects.get(object.id, "debug_cube").scale, objectList.objects.get(object.id, "debug_cube").scale, objectList.objects.get(object.id, "debug_cube").scale)
 		
 		preloadRoot.add_child(instantiated)
 		
