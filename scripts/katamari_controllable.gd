@@ -167,7 +167,7 @@ func _physics_process(delta):
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size * 1.15
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size
-	$KatamariBody.center_of_mass = Vector3(0, -Size, 0)
+	$KatamariBody.center_of_mass = Vector3(0, -Size/2, 0)
 	
 	# Rotate katamari model
 	var zRot:float = ($KatamariBody.linear_velocity.x * -PI / $"..".scale.x * delta) / (Size * 1.15)
