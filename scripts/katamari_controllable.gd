@@ -93,12 +93,12 @@ var DashDir:int = 0:
 #endregion
 
 const RollSounds = {
-	"XS": [preload("res://sounds/game/grab_XS_00.mp3"), preload("res://sounds/game/grab_XS_01.mp3"), preload("res://sounds/game/grab_XS_02.mp3")],
-	"S": [preload("res://sounds/game/grab_S_00.mp3"), preload("res://sounds/game/grab_S_01.mp3"), preload("res://sounds/game/grab_S_02.mp3")],
-	"M": [preload("res://sounds/game/grab_M_00.mp3"), preload("res://sounds/game/grab_M_01.mp3"), preload("res://sounds/game/grab_M_02.mp3")],
-	"L": [preload("res://sounds/game/grab_L_00.mp3"), preload("res://sounds/game/grab_L_01.mp3"), preload("res://sounds/game/grab_L_02.mp3")],
-	"XL": [preload("res://sounds/game/grab_XL_00.mp3"), preload("res://sounds/game/grab_XL_01.mp3"), preload("res://sounds/game/grab_XL_02.mp3")],
-	"C": [preload("res://sounds/game/grab_C_00.mp3"), preload("res://sounds/game/grab_C_01.mp3"), preload("res://sounds/game/grab_C_02.mp3")]
+	"XS": [preload("res://assets/sounds/game/grab_XS_00.mp3"), preload("res://assets/sounds/game/grab_XS_01.mp3"), preload("res://assets/sounds/game/grab_XS_02.mp3")],
+	"S": [preload("res://assets/sounds/game/grab_S_00.mp3"), preload("res://assets/sounds/game/grab_S_01.mp3"), preload("res://assets/sounds/game/grab_S_02.mp3")],
+	"M": [preload("res://assets/sounds/game/grab_M_00.mp3"), preload("res://assets/sounds/game/grab_M_01.mp3"), preload("res://assets/sounds/game/grab_M_02.mp3")],
+	"L": [preload("res://assets/sounds/game/grab_L_00.mp3"), preload("res://assets/sounds/game/grab_L_01.mp3"), preload("res://assets/sounds/game/grab_L_02.mp3")],
+	"XL": [preload("res://assets/sounds/game/grab_XL_00.mp3"), preload("res://assets/sounds/game/grab_XL_01.mp3"), preload("res://assets/sounds/game/grab_XL_02.mp3")],
+	"C": [preload("res://assets/sounds/game/grab_C_00.mp3"), preload("res://assets/sounds/game/grab_C_01.mp3"), preload("res://assets/sounds/game/grab_C_02.mp3")]
 }
 #endregion
 
@@ -127,7 +127,7 @@ func _process(delta):
 	elif DashCharge < 100 and not is_equal_approx(DashCharge, 100):
 		if MovementEnabled:
 			MovementEnabled = false
-			$KatamariDashAudio.stream = preload("res://sounds/game/dash_charge.mp3")
+			$KatamariDashAudio.stream = preload("res://assets/sounds/game/dash_charge.mp3")
 			$KatamariDashAudio.play()
 		DashCharge += delta * 25
 	if DashCharge <= 0 or not CanDash: DashDir = 0
@@ -225,7 +225,7 @@ func _physics_process(delta):
 					collider.transform = collider.transform.rotated(Vector3(0,0,1), zRotDash).rotated(Vector3(1,0,0), xRotDash)
 		elif DashCharge > 99:
 			$KatamariDashAudio.stop()
-			$KatamariDashAudio.stream = preload("res://sounds/game/dash_release.mp3")
+			$KatamariDashAudio.stream = preload("res://assets/sounds/game/dash_release.mp3")
 			$KatamariDashAudio.play()
 			$KatamariBody.apply_central_impulse(Vector3(
 				(Speed * -400 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) * Size,
@@ -285,7 +285,7 @@ func doQuickTurn():
 		var QTTiltTween = get_tree().create_tween()
 		var QTRotTween = get_tree().create_tween()
 		CameraSmoothing = 0.1
-		$KatamariQTAudio.stream = preload("res://sounds/game/quick_turn.mp3")
+		$KatamariQTAudio.stream = preload("res://assets/sounds/game/quick_turn.mp3")
 		$KatamariQTAudio.play()
 		QTRotTween.tween_property(self, "CameraRotation", CameraRotation + PI, 0.4).set_trans(Tween.TRANS_LINEAR)
 		QTTiltTween.tween_property(self, "CameraTilt", ((-16 * PI) / 32), 0.2).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)

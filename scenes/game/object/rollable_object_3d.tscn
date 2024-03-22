@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b7ohty8xjjwlv"]
 
 [ext_resource type="Script" path="res://scripts/rollable_object.gd" id="1_mpgf7"]
-[ext_resource type="Shape3D" uid="uid://dhu88w3dxj0q6" path="res://models/object/debug_cube.shape" id="2_643b8"]
-[ext_resource type="BoxMesh" uid="uid://vaqb01utfnc0" path="res://models/object/debug_cube_view.tres" id="3_xibpy"]
+[ext_resource type="Shape3D" uid="uid://dhu88w3dxj0q6" path="res://assets/models/object/debug_cube.shape" id="2_643b8"]
+[ext_resource type="BoxMesh" uid="uid://vaqb01utfnc0" path="res://assets/models/object/debug_cube_view.tres" id="3_xibpy"]
 
 [node name="RollableObject3D" type="AnimatableBody3D"]
 collision_layer = 2

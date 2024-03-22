@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmk0arvkvr00a"]
+[gd_scene load_steps=6 format=3 uid="uid://dmk0arvkvr00a"]
 
-[ext_resource type="Texture2D" uid="uid://b5jgxbegq7pvk" path="res://textures/logo/logo_text.png" id="1_wyfqe"]
-[ext_resource type="LabelSettings" uid="uid://crgqwsrfg0lj3" path="res://misc/debug_menu_label.tres" id="2_g5ven"]
+[ext_resource type="Texture2D" uid="uid://b5jgxbegq7pvk" path="res://assets/textures/logo/logo_text.png" id="1_wyfqe"]
 
 [sub_resource type="GDScript" id="GDScript_3r0od"]
 resource_name = "DebugMenuScript"
@@ -144,8 +143,8 @@ offset_left = 32.0
 offset_top = 32.0
 offset_right = 269.0
 offset_bottom = 77.0
+theme_override_font_sizes/font_size = 32
 text = "CLOVER DEBUG"
-label_settings = ExtResource("2_g5ven")
 
 [node name="EditorButton" type="Button" parent="Menu"]
 layout_mode = 1

@@ -42,10 +42,10 @@
 							"scale": 1,
 							"warp_height": -6,
 							"audio_size": "M",
-							"core_model": "res://models/core/core_generic.obj",
-							"core_texture": "res://textures/core/core_test.png",
+							"core_model": "res://assets/models/core/core_generic.obj",
+							"core_texture": "res://assets/textures/core/core_test.png",
 							"static": [
-								["res://models/map/map_test.tscn"],
+								["res://assets/models/map/map_test.tscn"],
 								["res://scenes/environment/env_day.tscn"]
 							],
 							"objects": [

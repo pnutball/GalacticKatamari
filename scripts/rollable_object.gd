@@ -5,8 +5,8 @@ var Katamari
 @export var ObjectID:StringName = &"debug_cube"
 @export var InstanceName:StringName = &"XX"
 @export var ObjectName:String = "Debug Cube"
-@export var ObjectMesh:Mesh = load("res://models/object/debug_cube_view.tres")
-@export var ObjectCol:Shape3D = load("res://models/object/debug_cube.shape")
+@export var ObjectMesh:Mesh = load("res://assets/models/object/debug_cube_view.tres")
+@export var ObjectCol:Shape3D = load("res://assets/models/object/debug_cube.shape")
 @export var ObjectKnockSize:float = 0
 @export var ObjectRollSize:float = 0
 @export var ObjectGrowSize:float = 0

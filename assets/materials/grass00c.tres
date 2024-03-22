@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dgk08iqdw5opg"]
+
+[ext_resource type="Texture2D" uid="uid://d2671vwgdohmr" path="res://assets/textures/material/grass00c.png" id="1_dl1w6"]
+[ext_resource type="Shader" path="res://assets/materials/shaders/KDTerrain.gdshader" id="4_l44m7"]
+
+[resource]
+resource_name = "grass00c_a"
+render_priority = 0
+shader = ExtResource("4_l44m7")
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("1_dl1w6")
