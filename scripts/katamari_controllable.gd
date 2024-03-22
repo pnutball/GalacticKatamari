@@ -13,6 +13,8 @@ var MinimumSize:float = Size
 @export var SoundSize:String = "M"
 ## Sets the spawn points this katamari can choose.
 @export var SpawnPoints:Array = [Vector4.ZERO]
+
+var ObjectQueue:Array[StringName] = []
 #endregion
 #region Physics
 @export_group("Physics")
@@ -323,3 +325,7 @@ func respawn(noAnimation:bool = false):
 	await get_tree().process_frame
 	await get_tree().process_frame
 	CameraSmoothing = 0.85
+
+func grabObject(ObjectSize:float, ObjectID:StringName):
+	ObjectQueue.push_back(ObjectID)
+	Size += ObjectSize * GrowthMultiplier

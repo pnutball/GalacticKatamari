@@ -1,10 +1,15 @@
 @icon("res://Rollable3D.svg")
 extends AnimatableBody3D
 
-@export var InstanceName:StringName = "XX"
+var Katamari
+@export var ObjectID:StringName = &"debug_cube"
+@export var InstanceName:StringName = &"XX"
 @export var ObjectName:String = "Debug Cube"
 @export var ObjectMesh:Mesh = load("res://models/object/debug_cube_view.tres")
 @export var ObjectCol:Shape3D = load("res://models/object/debug_cube.shape")
+@export var ObjectKnockSize:float = 0
+@export var ObjectRollSize:float = 0
+@export var ObjectGrowSize:float = 0
 
 func _ready():
 	$RollableObjectMesh.mesh = ObjectMesh
@@ -19,12 +24,19 @@ func _ready():
 	$ObjectAttachArea/RollableObjectAttachCollision.name = InstanceName + "_AC"
 	$ObjectAttachArea.name = InstanceName + "_A"
 
+func _process(_delta):
+	collision_layer = 2 if Katamari.Size < ObjectKnockSize else 0
+
 func _on_katamari_entered(_rid, body, shape, _locshape):
-	print(body)
-	print(shape)
-	if body.name == "KatamariBody" and shape == 0:
-		get_node(InstanceName + "_C").queue_free()
-		get_node(InstanceName + "_K").reparent(body, true)
-		get_node(InstanceName + "_M").reparent(body.get_node("KatamariMeshPivot"))
-		body.get_parent().playRollSound()
-		queue_free()
+	print_debug(body.to_string() + "'s shape %d collided with %s (instance %s)."%[shape, ObjectID, InstanceName])
+	if body == Katamari.get_node("KatamariBody") and shape == 0:
+		if Katamari.Size >= ObjectRollSize:
+			Katamari.grabObject(ObjectGrowSize, ObjectID)
+			get_node(InstanceName + "_C").queue_free()
+			get_node(InstanceName + "_K").reparent(body, true)
+			get_node(InstanceName + "_M").reparent(body.get_node("KatamariMeshPivot"))
+			body.get_parent().playRollSound()
+			queue_free()
+			return
+		if Katamari.Size >= ObjectKnockSize:
+			return
