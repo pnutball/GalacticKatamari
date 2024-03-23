@@ -237,11 +237,17 @@ func _on_level_tree_item_selected():
 				create_property(item, "Shift", PropertyType.NUMBER, "Vert. Shift", "The vertical shift of the camera.\nPositive values move the camera upwards.")
 				create_property(item, "DOF", PropertyType.NUMBER, "DOF", "The depth-of-field distance (in meters).\n-1 disables DOF.")
 			"static":
-				pass
+				create_property(item, "0", PropertyType.STRING, "File Path", "The path to the resource (.tscn) used by this Static.")
 			"object":
-				pass
+				create_property(item, "id", PropertyType.STRING, "Object Type", "The object ID used by this object.")
+				create_property(item, "position", PropertyType.VECTOR3, "Position", "The object's position.")
+				create_property(item, "rotation", PropertyType.VECTOR3, "Rotation", "The object's rotation (in degrees).")
+				create_property(item, "behavior", PropertyType.DROPDOWN, "Behavior", "The object's behavior.", ["static", "physics", "path", "roam"])
+				create_property(item, "unload_size", PropertyType.NUMBER, "Unload Size", "The size, in meters, at which the object permanently despawns.")
 			"spawn":
-				pass
+				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
+				create_property(item, "", PropertyType.VECTOR3, "Position", "The spawn position, relative to the bottom of the katamari.")
+				create_property(item, "3", PropertyType.NUMBER, "Scale", "The camera rotation used when the katamari is spawned here (in degrees).")
 
 func openDict(dict:Dictionary):
 	resetTree()
@@ -337,7 +343,9 @@ func create_property(item:TreeItem, propertyPath:String, type:PropertyType, name
 		PropertyNode.P_Path = item.get_meta(&"path")
 		PropertyNode.P_Property = propertyPath
 	else:
-		PropertyNode.P_Path = item.get_meta(&"path")[propertyPath]
+		if propertyPath == "": PropertyNode.P_Path = item.get_meta(&"path") 
+		else: PropertyNode.P_Path = item.get_meta(&"path")[propertyPath]
+		
 	if type == PropertyType.DROPDOWN: PropertyNode.P_Items = dropdownItems
 	PropertyNode.ChangeMade.connect(func(): ChangeMade.emit())
 	%PropertiesPanel.add_child(PropertyNode)

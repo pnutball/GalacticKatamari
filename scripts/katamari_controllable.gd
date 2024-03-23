@@ -321,7 +321,7 @@ func respawn(noAnimation:bool = false):
 	$KatamariBody.linear_velocity = Vector3.ZERO
 	var randomSpawn:Vector4 = SpawnPoints.pick_random()
 	$KatamariBody.position = Vector3(randomSpawn.x, randomSpawn.y, randomSpawn.z) + Vector3(0,Size / 2,0)
-	CameraRotation = randomSpawn.w
+	CameraRotation = deg_to_rad(randomSpawn.w)
 	await get_tree().process_frame
 	await get_tree().process_frame
 	CameraSmoothing = 0.85

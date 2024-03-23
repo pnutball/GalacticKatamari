@@ -136,7 +136,7 @@ func preloadArea(area:int = currentArea + 1):
 		instantiated.ObjectGrowSize = objectList.objects.get(object.id, "debug_cube").pickup_size
 		instantiated.Katamari = currentKatamari
 		instantiated.position = Vector3(object.position[0], object.position[1], object.position[2])
-		instantiated.rotation = Vector3(object.rotation[0], object.rotation[1], object.rotation[2])
+		instantiated.rotation = Vector3(object.rotation[0], object.rotation[1], object.rotation[2]) * (PI/180)
 		instantiated.scale = Vector3(objectList.objects.get(object.id, "debug_cube").scale, objectList.objects.get(object.id, "debug_cube").scale, objectList.objects.get(object.id, "debug_cube").scale)
 		
 		preloadRoot.add_child(instantiated)

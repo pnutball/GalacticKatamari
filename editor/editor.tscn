@@ -226,7 +226,7 @@ stretch = true
 
 [node name="EditorViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
 handle_input_locally = false
-size = Vector2i(1622, 814)
+size = Vector2i(480, 270)
 render_target_update_mode = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]

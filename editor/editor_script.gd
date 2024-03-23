@@ -64,7 +64,7 @@ func saveFile():
 	else:
 		var file = FileAccess.open(currentFile, FileAccess.WRITE)
 		if file != null:
-			file.store_string(JSON.stringify({"levels": %SplitLeft.InternalLevelTree}, "" , false))
+			file.store_string(JSON.stringify({"levels": %SplitLeft.InternalLevelTree}, "\t" , false))
 			file.close()
 		$BlockingOverlay.visible = false
 		if file != null: changed = false
