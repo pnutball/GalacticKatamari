@@ -21,21 +21,21 @@ func _on_value_change(_value):
 	for entry in $PropertyMargin/PropertyTexts.get_children():
 		if entry.get_node("SubPropertyBox").text != "" or entry.get_node("SubPropertyLang").text.to_lower() == "en":
 			Texts[entry.get_node("SubPropertyLang").text.to_lower()] = entry.get_node("SubPropertyBox").text
-	P_Path.set(P_Property, Texts)
+	P_Path[P_Property] = Texts
 	ChangeMade.emit()
 func addLanguage(language:String, unremovable:bool = false):
-	if language in TranslationServer.get_all_languages() and not $PropertyMargin/PropertyTexts.has_node(language):
+	if TranslationServer.get_all_languages().has(language) and not $PropertyMargin/PropertyTexts.has_node(language):
 		var LocText = StringBox.instantiate()
 		LocText.name = language
 		LocText.get_node("SubPropertyLang").text = language
 		LocText.get_node("SubPropertyLang").tooltip_text = TranslationServer.get_language_name(language)
-		LocText.get_node("SubPropertyBox").text = P_Path.get(P_Property).get(StringName(language), "")
+		LocText.get_node("SubPropertyBox").text = P_Path.get(P_Property).get(StringName(language), "").json_escape()
 		LocText.get_node("SubPropertyBox").text_changed.connect(_on_value_change)
 		if unremovable: LocText.get_node("SubPropertyBox").placeholder_text = "Blank text"
 		$PropertyMargin/PropertyTexts.add_child(LocText)
 func toggleShown():
 	var vis:bool = $PropertyMargin.visible
-	$PropertyHeader/CollapseButton.icon = preload("res://editor/icons/expand.png") if not vis else preload("res://editor/icons/collapse.png")
+	$PropertyHeader/CollapseButton.icon = preload("res://editor/icons/expand.png") if vis else preload("res://editor/icons/collapse.png")
 	$PropertyMargin.visible = not vis
 	$PropertyAdd.visible = not vis
 	$PropertyHeader/CollapseButton.tooltip_text = "Collapse list" if vis else "Expand list"

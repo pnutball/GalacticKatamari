@@ -31,9 +31,12 @@ func _process(_delta):
 
 func returnToDebug():
 	if await confirmQuit() == true:
+		OS.low_processor_usage_mode = false
+		get_tree().auto_accept_quit = true
+		%StatusBar/StatusLabel.text = "Galactic Katamari"
 		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
-		get_tree().auto_accept_quit = false
-		get_tree().change_scene_to_file("res://editor/debug_menu.tscn")
+		get_tree().root.get_node("FPSCounter").visible = true
+		get_tree().change_scene_to_file("res://scenes/debug_menu.tscn")
 	else: 
 		$BlockingOverlay.visible = false
 

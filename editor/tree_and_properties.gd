@@ -2,7 +2,7 @@ extends VSplitContainer
 
 signal ChangeMade
 
-enum PropertyType{NUMBER, VECTOR3, STRING, DROPDOWN, BOOLEAN}
+enum PropertyType{NUMBER, VECTOR3, STRING, DROPDOWN, BOOLEAN, LOCALIZED}
 
 const TemplateLevel:Dictionary = {
 	"name": {"en": "New level"},
@@ -74,6 +74,7 @@ const NumberProperty:PackedScene = preload("res://editor/property_number.tscn")
 const StringProperty:PackedScene = preload("res://editor/property_string.tscn")
 const DropdownProperty:PackedScene = preload("res://editor/property_drop.tscn")
 const BooleanProperty:PackedScene = preload("res://editor/property_boolean.tscn")
+const LocalizedTextProperty:PackedScene = preload("res://editor/property_localized_text.tscn")
 
 func resetTree():
 	for item in LevelTreeRoot.get_children():
@@ -210,15 +211,19 @@ func _on_level_tree_item_selected():
 	if item.has_meta(&"type"):
 		match item.get_meta(&"type"):
 			"level": 
+				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				lastSelectedLevel = item
-				
+				create_property(item, "name", PropertyType.LOCALIZED, "Name", "The level's name.")
+				create_property(item, "description", PropertyType.LOCALIZED, "Description", "The level's description.")
 				
 			"mode": 
+				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				lastSelectedMode = item
 				lastSelectedLevel = item.get_parent()
 				
 				
 			"area":
+				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				lastSelectedArea = item
 				lastSelectedMode = item.get_parent().get_parent()
 				lastSelectedLevel = item.get_parent().get_parent().get_parent()
@@ -325,6 +330,7 @@ func create_property(item:TreeItem, propertyPath:String, type:PropertyType, name
 		PropertyType.VECTOR3: PropertyNode = Vector3Property.instantiate()
 		PropertyType.DROPDOWN: PropertyNode = DropdownProperty.instantiate()
 		PropertyType.BOOLEAN: PropertyNode = BooleanProperty.instantiate()
+		PropertyType.LOCALIZED: PropertyNode = LocalizedTextProperty.instantiate()
 	PropertyNode.P_Name = name
 	PropertyNode.P_Tooltip = tooltip
 	if type != PropertyType.VECTOR3:
