@@ -227,7 +227,13 @@ func _on_level_tree_item_selected():
 				lastSelectedArea = item
 				lastSelectedMode = item.get_parent().get_parent()
 				lastSelectedLevel = item.get_parent().get_parent().get_parent()
-				
+				create_property(item, "preload_size", PropertyType.NUMBER, "Preload Size", "The size at which the next area begins loading in the background.\n-1 disables preloading.")
+				create_property(item, "advance_size", PropertyType.NUMBER, "Advance Size", "The size at which the katamari advances to the next area.\n-1 disables loading further areas.")
+				# scale
+				# warp_height
+				# audio_size (Dropdown [XS, S, M, L, XL, C]
+				# core_model
+				# core_texture
 				
 			"cam_zone":
 				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
