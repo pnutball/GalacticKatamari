@@ -15,9 +15,9 @@ const TemplateMode:Dictionary = {
 	"pre_dialogue": {"en": ["Put Our dialogue here..."]},
 	"start_dialogue": {"en": ["Put Our dialogue here."]},
 	"retry_dialogue": {"en": ["Put Our dialogue here."]},
-	"end_dialogue": {"en": ["Put Our dialogue here!"]},
+	"win_dialogue": {"en": ["Put Our dialogue here!"]},
 	"fail_dialogue": {"en": ["PUT OUR DIALOGUE HERE!!!"]},
-	"post_dialogue": {"en": ["Put Our dialogue here."]},
+	"result_dialogue": {"en": ["Put Our dialogue here."]},
 	"map_zones": [],
 	"cam_zones": [],
 	"katamari": {
@@ -37,6 +37,7 @@ const TemplateMode:Dictionary = {
 	},
 	"time": 0,
 	"ranking": {
+		"skip_results": false,
 		"goal_super": -1,
 		"time_super": -1,
 		"point_super": -1
@@ -220,7 +221,29 @@ func _on_level_tree_item_selected():
 				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				lastSelectedMode = item
 				lastSelectedLevel = item.get_parent()
+				# try adding a show/hide thing like you have with the localized strings
 				
+				# katamari/size NUMBER
+				# katamari/speed NUMBER
+				# katamari/can_dash BOOLEAN
+				# katamari/can_turn BOOLEAN
+				%PropertiesPanel.add_child(HSeparator.new())
+				# time NUMBER
+				# ranking/time_super NUMBER
+				# goal/type DROPDOWN
+				# goal/goal NUMBER
+				# ranking/goal_super NUMBER
+				# goal/end_at_goal BOOLEAN
+				# goal/point_objects OBJECTARRAYTYPETHATWEDONOTHAVEYET
+				# goal/point_name LOCALIZED
+				# ranking/point_super NUMBER
+				%PropertiesPanel.add_child(HSeparator.new())
+				# pre_dialogue DIALOGUE
+				# start_dialogue DIALOGUE
+				# retry_dialogue DIALOGUE
+				# win_dialogue DIALOGUE
+				# fail_dialogue DIALOGUE
+				# result_dialogue DIALOGUE
 				
 			"area":
 				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
@@ -235,8 +258,11 @@ func _on_level_tree_item_selected():
 				create_property(item, "audio_size", PropertyType.DROPDOWN, "Size Audio", 
 				"The set of sounds used when in this area. In order:\nXS - Extra small, eraser sized\nS - Small, people sized\nM - Medium, building sized\nL - Large, island sized\nXL - Extra large, country sized\nC - Cosmic, planet sized")
 				# core_model
+				create_property(item, "core_model", PropertyType.STRING, "Katamari Model", "The model used by the katamari in this size area.")
 				# core_texture
+				create_property(item, "core_texture", PropertyType.STRING, "Katamari Texture", "The texture used by the katamari in this size area.")
 				# time_bonus
+				create_property(item, "time_bonus", PropertyType.NUMBER, "Time Bonus", "The amount of time added when entering this area.")
 				
 			"cam_zone":
 				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false

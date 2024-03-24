@@ -33,7 +33,7 @@
 							"Dummy"
 						]
 					},
-					"end_dialogue": {
+					"win_dialogue": {
 						"en": [
 							"Dummy"
 						]
@@ -43,7 +43,7 @@
 							"Dummy"
 						]
 					},
-					"post_dialogue": {
+					"result_dialogue": {
 						"en": [
 							"Dummy"
 						]
@@ -424,6 +424,7 @@
 					},
 					"time": 0,
 					"ranking": {
+						"skip_results": false,
 						"goal_super": -1,
 						"time_super": -1,
 						"point_super": -1
