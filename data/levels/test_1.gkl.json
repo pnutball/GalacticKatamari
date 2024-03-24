@@ -57,6 +57,7 @@
 							"audio_size": "M",
 							"core_model": "res://assets/models/core/core_generic.obj",
 							"core_texture": "res://assets/textures/core/core_test.png",
+							"time_bonus": 0,
 							"static": [
 								[
 									"res://assets/models/map/map_test.tscn"
@@ -412,16 +413,16 @@
 						"can_dash": true,
 						"can_turn": true
 					},
-					"goal_type": "none",
-					"goal": 0,
-					"end_at_goal": false,
-					"time": 0,
-					"point_items": [],
-					"point_name": {
-						"en": [
-							"pt{plural}."
-						]
+					"goal": {
+						"type": "none",
+						"goal": 0,
+						"end_at_goal": false,
+						"point_objects": [],
+						"point_name": {
+							"en": "pt{plural}."
+						},
 					},
+					"time": 0,
 					"ranking": {
 						"goal_super": -1,
 						"time_super": -1,

@@ -22,21 +22,20 @@ const TemplateMode:Dictionary = {
 	"cam_zones": [],
 	"katamari": {
 		"size": 1,
-		"model": "res://models/core/core_generic.obj",
-		"texture": "res://textures/core/core_test.png",
 		"speed": 5,
 		"can_dash": true,
-		"can_turn": true,
-		"cam_rotation": 0
+		"can_turn": true
 	},
-	"goal_type": "none",
-	"goal": 0,
-	"end_at_goal": false,
+	"goal": {
+		"type": "none",
+		"goal": 0,
+		"end_at_goal": false,
+		"point_objects": [],
+		"point_name": {
+			"en": "pt{plural}."
+		},
+	},
 	"time": 0,
-	"point_items": [],
-	"point_name": {
-		"en": ["pt{plural}."]
-	},
 	"ranking": {
 		"goal_super": -1,
 		"time_super": -1,
@@ -53,6 +52,7 @@ const TemplateSizeArea:Dictionary = {
 							"audio_size": "M",
 							"core_model": "res://models/core/core_generic.obj",
 							"core_texture": "res://textures/core/core_test.png",
+							"time_bonus": 0,
 							"static": [],
 							"objects": [],
 							"spawn_positions": []
@@ -236,6 +236,7 @@ func _on_level_tree_item_selected():
 				"The set of sounds used when in this area. In order:\nXS - Extra small, eraser sized\nS - Small, people sized\nM - Medium, building sized\nL - Large, island sized\nXL - Extra large, country sized\nC - Cosmic, planet sized")
 				# core_model
 				# core_texture
+				# time_bonus
 				
 			"cam_zone":
 				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
