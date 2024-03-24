@@ -229,9 +229,11 @@ func _on_level_tree_item_selected():
 				lastSelectedLevel = item.get_parent().get_parent().get_parent()
 				create_property(item, "preload_size", PropertyType.NUMBER, "Preload Size", "The size at which the next area begins loading in the background.\n-1 disables preloading.")
 				create_property(item, "advance_size", PropertyType.NUMBER, "Advance Size", "The size at which the katamari advances to the next area.\n-1 disables loading further areas.")
-				# scale
-				# warp_height
+				create_property(item, "scale", PropertyType.NUMBER, "Map Scale", "The map's global scale.\nThis should be set so the average katamari size multiplied by scale = 1.")
+				create_property(item, "warp_height", PropertyType.NUMBER, "Warp Height", "The height at which the Royal Warp is triggered.")
 				# audio_size (Dropdown [XS, S, M, L, XL, C]
+				create_property(item, "audio_size", PropertyType.DROPDOWN, "Size Audio", 
+				"The set of sounds used when in this area. In order:\nXS - Extra small, eraser sized\nS - Small, people sized\nM - Medium, building sized\nL - Large, island sized\nXL - Extra large, country sized\nC - Cosmic, planet sized")
 				# core_model
 				# core_texture
 				
