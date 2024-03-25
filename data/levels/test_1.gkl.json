@@ -417,7 +417,7 @@
 						"type": "none",
 						"goal": 0,
 						"end_at_goal": false,
-						"point_objects": [],
+						"point_objects": "",
 						"point_name": {
 							"en": "pt{plural}."
 						},
@@ -425,7 +425,7 @@
 					"time": 0,
 					"ranking": {
 						"skip_results": false,
-						"goal_super": -1,
+						"size_super": -1,
 						"time_super": -1,
 						"point_super": -1
 					}

@@ -30,7 +30,7 @@ const TemplateMode:Dictionary = {
 		"type": "none",
 		"goal": 0,
 		"end_at_goal": false,
-		"point_objects": [],
+		"point_objects": "",
 		"point_name": {
 			"en": "pt{plural}."
 		},
@@ -38,7 +38,7 @@ const TemplateMode:Dictionary = {
 	"time": 0,
 	"ranking": {
 		"skip_results": false,
-		"goal_super": -1,
+		"size_super": -1,
 		"time_super": -1,
 		"point_super": -1
 	}}
@@ -223,20 +223,20 @@ func _on_level_tree_item_selected():
 				lastSelectedLevel = item.get_parent()
 				# try adding a show/hide thing like you have with the localized strings
 				
-				# katamari/size NUMBER
-				# katamari/speed NUMBER
-				# katamari/can_dash BOOLEAN
-				# katamari/can_turn BOOLEAN
+				create_property(item, "katamari/size", PropertyType.NUMBER, "Katamari Size", "The katamari's starting size, in meters.")
+				create_property(item, "katamari/speed", PropertyType.NUMBER, "Katamari Speed", "The katamari's speed. 5 is the default.")
+				create_property(item, "katamari/can_dash", PropertyType.BOOLEAN, "Katamari can Dash", "Can the katamari do the Dash?")
+				create_property(item, "katamari/can_turn", PropertyType.BOOLEAN, "Katamari can Turn", "Can the katamari do the Quick Turn?")
 				%PropertiesPanel.add_child(HSeparator.new())
-				# time NUMBER
-				# ranking/time_super NUMBER
-				# goal/type DROPDOWN
-				# goal/goal NUMBER
-				# ranking/goal_super NUMBER
-				# goal/end_at_goal BOOLEAN
-				# goal/point_objects OBJECTARRAYTYPETHATWEDONOTHAVEYET
-				# goal/point_name LOCALIZED
-				# ranking/point_super NUMBER
+				create_property(item, "time", PropertyType.NUMBER, "Time", "The amount of time given to complete the stage.\n0 disables the timer.\n-1 uses the Time Attack timer.")
+				create_property(item, "ranking/time_super", PropertyType.NUMBER, "120 Time", "The target time for 120 pts.")
+				create_property(item, "goal/type", PropertyType.DROPDOWN, "Goal Type", "The goal type for this stage.\nReachSize - Standard Make a Star size goal.\nExactSize - Exact Size goal.\nReachPoints - Roll up a certain amount of point objects.\nExactPoints - Roll up the exact # of point objects.", ["ReachSize", "ExactSize", "ReachPoints", "ExactPoints"])
+				create_property(item, "goal/goal", PropertyType.NUMBER, "Goal", "The goal size/points for this stage.")
+				create_property(item, "ranking/size_super", PropertyType.NUMBER, "120 Goal", "The target size for 120 pts.")
+				create_property(item, "goal/end_at_goal", PropertyType.BOOLEAN, "End at Goal", "Does the stage immediately end when reaching the goal?")
+				create_property(item, "goal/point_objects", PropertyType.STRING, "Point Objects", "The objects/categories that give points.\n$name denotes an object \"name\".\n&name denotes a category \"name\".")
+				create_property(item, "goal/point_name", PropertyType.LOCALIZED, "Point Name", "The name used for points in the size indicator.\n{plural} is replaced with an 's' when the point count != 1.\n(e.g. \"point{plural}\" shows as either \"point\" or \"points\")")
+				create_property(item, "ranking/point_super", PropertyType.NUMBER, "120 Point Goal", "The target point count for 120 pts.")
 				%PropertiesPanel.add_child(HSeparator.new())
 				# pre_dialogue DIALOGUE
 				# start_dialogue DIALOGUE
@@ -256,7 +256,7 @@ func _on_level_tree_item_selected():
 				create_property(item, "warp_height", PropertyType.NUMBER, "Warp Height", "The height at which the Royal Warp is triggered.")
 				# audio_size (Dropdown [XS, S, M, L, XL, C]
 				create_property(item, "audio_size", PropertyType.DROPDOWN, "Size Audio", 
-				"The set of sounds used when in this area. In order:\nXS - Extra small, eraser sized\nS - Small, people sized\nM - Medium, building sized\nL - Large, island sized\nXL - Extra large, country sized\nC - Cosmic, planet sized")
+				"The set of sounds used when in this area. In order:\nXS - Extra small, eraser sized\nS - Small, people sized\nM - Medium, building sized\nL - Large, island sized\nXL - Extra large, country sized\nC - Cosmic, planet sized", ["XS", "S", "M", "L", "XL", "C"])
 				# core_model
 				create_property(item, "core_model", PropertyType.STRING, "Katamari Model", "The model used by the katamari in this size area.")
 				# core_texture
@@ -272,8 +272,10 @@ func _on_level_tree_item_selected():
 				create_property(item, "Shift", PropertyType.NUMBER, "Vert. Shift", "The vertical shift of the camera.\nPositive values move the camera upwards.")
 				create_property(item, "DOF", PropertyType.NUMBER, "DOF", "The depth-of-field distance (in meters).\n-1 disables DOF.")
 			"static":
+				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				create_property(item, "0", PropertyType.STRING, "File Path", "The path to the resource (.tscn) used by this Static.")
 			"object":
+				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				create_property(item, "id", PropertyType.STRING, "Object Type", "The object ID used by this object.")
 				create_property(item, "position", PropertyType.VECTOR3, "Position", "The object's position.")
 				create_property(item, "rotation", PropertyType.VECTOR3, "Rotation", "The object's rotation (in degrees).")
@@ -382,5 +384,5 @@ func create_property(item:TreeItem, propertyPath:String, type:PropertyType, name
 		else: PropertyNode.P_Path = item.get_meta(&"path")[propertyPath]
 		
 	if type == PropertyType.DROPDOWN: PropertyNode.P_Items = dropdownItems
-	PropertyNode.ChangeMade.connect(func(): ChangeMade.emit())
+	PropertyNode.ChangeMade.connect(func(): self.ChangeMade.emit())
 	%PropertiesPanel.add_child(PropertyNode)

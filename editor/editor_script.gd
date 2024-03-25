@@ -90,6 +90,7 @@ func saveFileAs():
 
 func openFile():
 	if await confirmQuit() == true:
+		$BlockingOverlay.visible = true
 		%FileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 		%FileDialog.title = "Open"
 		%FileDialog.ok_button_text = "Open"

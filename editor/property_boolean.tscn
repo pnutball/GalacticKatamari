@@ -7,7 +7,15 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_rmjrk")
 
+[node name="PropertyName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+mouse_filter = 0
+text = "Property"
+text_overrun_behavior = 3
+
 [node name="PropertyButton" type="CheckButton" parent="."]
 layout_mode = 2
-text = "Property"
+size_flags_stretch_ratio = 3.0
 text_overrun_behavior = 3

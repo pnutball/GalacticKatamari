@@ -9,6 +9,7 @@ script = ExtResource("1_q1a6b")
 [node name="PropertyName" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 mouse_filter = 0
 text = "Property"
 text_overrun_behavior = 3
@@ -16,6 +17,7 @@ text_overrun_behavior = 3
 [node name="PropertyBox" type="OptionButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 text_overrun_behavior = 3
 clip_text = true
 fit_to_longest_item = false

@@ -12,7 +12,7 @@ func _ready():
 	$PropertyHBox/Zbox.value = P_Path[2]
 	for box:SpinBox in $PropertyHBox.get_children():
 		box.value_changed.connect(_on_value_change)
-	$PropertyName.tooltip_text = P_Tooltip
+	$PropertyName.tooltip_text = P_Name + "\nVector3\n\n" + P_Tooltip
 
 func _on_value_change(_value):
 	P_Path[0] = $PropertyHBox/Xbox.value

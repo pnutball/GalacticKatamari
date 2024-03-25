@@ -14,7 +14,7 @@ func _ready():
 		$PropertyBox.add_item(item)
 		if item == P_Path.get(P_Property): $PropertyBox.selected = $PropertyBox.item_count - 1
 	$PropertyBox.item_selected.connect(_on_value_change)
-	$PropertyName.tooltip_text = P_Tooltip
+	$PropertyName.tooltip_text = P_Name + "\nDropdown\n\n" + P_Tooltip
 
 func _on_value_change(item):
 	@warning_ignore("incompatible_ternary")
@@ -28,5 +28,5 @@ func P_Property_Formatted():
 
 func Set_P_Path():
 	for slice in P_Property.get_slice_count("/") - 1:
-		if P_Path is Dictionary or P_Path is Array: P_Path = P_Path[slice]
-		else: P_Path = P_Path.get(slice)
+		if P_Path is Dictionary or P_Path is Array: P_Path = P_Path[P_Property.get_slice("/", slice)]
+		else: P_Path = P_Path.get(P_Property.get_slice("/", slice))
