@@ -216,7 +216,6 @@ func _on_level_tree_item_selected():
 				lastSelectedLevel = item
 				create_property(item, "name", PropertyType.LOCALIZED, "Name", "The level's name.")
 				create_property(item, "description", PropertyType.LOCALIZED, "Description", "The level's description.")
-				
 			"mode": 
 				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				lastSelectedMode = item
@@ -244,7 +243,6 @@ func _on_level_tree_item_selected():
 				# win_dialogue DIALOGUE
 				# fail_dialogue DIALOGUE
 				# result_dialogue DIALOGUE
-				
 			"area":
 				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				lastSelectedArea = item
@@ -263,7 +261,6 @@ func _on_level_tree_item_selected():
 				create_property(item, "core_texture", PropertyType.STRING, "Katamari Texture", "The texture used by the katamari in this size area.")
 				# time_bonus
 				create_property(item, "time_bonus", PropertyType.NUMBER, "Time Bonus", "The amount of time added when entering this area.")
-				
 			"cam_zone":
 				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				create_property(item, "Bound", PropertyType.NUMBER, "Lower Bound", "The size (meters) at which the camera goes to this camera area.")

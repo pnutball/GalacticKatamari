@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cwxpkbdnvlvw0"
-path="res://.godot/imported/OUJI_HOLDER.glb-f7e6684eb031ab631d30c98cd2e323bf.scn"
+uid="uid://7j4pm0imt5mr"
+path="res://.godot/imported/OUJI_01.glb-5b9e48c328a3fc4ac13a4592bae2caab.scn"
 
 [deps]
 
-source_file="res://assets/models/ouji/OUJI_HOLDER.glb"
-dest_files=["res://.godot/imported/OUJI_HOLDER.glb-f7e6684eb031ab631d30c98cd2e323bf.scn"]
+source_file="res://assets/ouji/OUJI_01.glb"
+dest_files=["res://.godot/imported/OUJI_01.glb-5b9e48c328a3fc4ac13a4592bae2caab.scn"]
 
 [params]
 
