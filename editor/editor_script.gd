@@ -14,10 +14,16 @@ func emitSaveResponse(id:int = 0): SavePanelResponse.emit(id)
 func _ready():
 	OS.low_processor_usage_mode = true
 	get_tree().auto_accept_quit = false
-	%StatusBar/StatusLabel.text = "GK Editor (%s, on %s)" % [Engine.get_architecture_name(), OS.get_name()]
+	%StatusBar/StatusLabel.text = "GK Editor (%s %s)" % ["64-bit" if "64" in Engine.get_architecture_name() else "32-bit", OS.get_name()]
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	get_tree().root.get_node("FPSCounter").visible = false
 	%SaveDialog.add_button("Yes", false, "")
+	%File.set_item_accelerator(0, (KEY_MASK_CTRL if OS.get_name() != "macOS" else KEY_MASK_META)|KEY_N )
+	%File.set_item_accelerator(1, (KEY_MASK_CTRL if OS.get_name() != "macOS" else KEY_MASK_META)|KEY_O)
+	%File.set_item_accelerator(2, (KEY_MASK_CTRL if OS.get_name() != "macOS" else KEY_MASK_META)|KEY_S)
+	%File.set_item_accelerator(3, (KEY_MASK_CTRL if OS.get_name() != "macOS" else KEY_MASK_META)|KEY_MASK_SHIFT|KEY_S)
+	%File.set_item_accelerator(6, (KEY_MASK_CTRL if OS.get_name() != "macOS" else KEY_MASK_META)|KEY_Q)
+	%File.set_item_accelerator(5, (KEY_MASK_CTRL if OS.get_name() != "macOS" else KEY_MASK_META)|KEY_MASK_SHIFT|KEY_Q)
 
 func _process(_delta):
 	%StatusBar/FPSLabel.text = "%d FPS" % [Engine.get_frames_per_second()]
@@ -33,7 +39,7 @@ func returnToDebug():
 	if await confirmQuit() == true:
 		OS.low_processor_usage_mode = false
 		get_tree().auto_accept_quit = true
-		%StatusBar/StatusLabel.text = "Galactic Katamari"
+		get_window().title = "Galactic Katamari"
 		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 		get_tree().root.get_node("FPSCounter").visible = true
 		get_tree().change_scene_to_file("res://scenes/debug_menu.tscn")

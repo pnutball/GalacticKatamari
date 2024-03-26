@@ -66,6 +66,7 @@ layout_mode = 2
 flat = true
 
 [node name="File" type="PopupMenu" parent="BGPanel/MarginContainer/EditorVBox/EditorMenuBar"]
+unique_name_in_owner = true
 transparent_bg = true
 position = Vector2i(0, 42)
 size = Vector2i(184, 212)
@@ -175,7 +176,6 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 
 [node name="NoneSelectedLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/PropertiesMargin"]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(1, 1, 1, 0.501961)
@@ -234,6 +234,7 @@ alignment = 1
 [node name="PlayButton" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+disabled = true
 text = "Play"
 icon = ExtResource("14_y8cnk")
 

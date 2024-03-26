@@ -51,8 +51,8 @@ const TemplateSizeArea:Dictionary = {
 							"scale": 1,
 							"warp_height": 0,
 							"audio_size": "M",
-							"core_model": "res://models/core/core_generic.obj",
-							"core_texture": "res://textures/core/core_test.png",
+							"core_model": "res://assets/models/core/core_generic.obj",
+							"core_texture": "res://assets/textures/core/core_test.png",
 							"time_bonus": 0,
 							"static": [],
 							"objects": [],
@@ -89,6 +89,7 @@ func resetTree():
 	%Create/SizeArea.disabled = true
 	%Create/Spawn.disabled = true
 	%Create/Static.disabled = true
+	%PlayButton.disabled = true
 	InternalLevelTree = {}
 
 func _ready():
@@ -124,6 +125,7 @@ func addMode(level:TreeItem, auto:bool = false):
 	else: lastSelectedMode = NewMode
 	%Create/CamArea.disabled = false
 	%Create/SizeArea.disabled = false
+	%PlayButton.disabled = false
 	addCameraZone(NewMode, true)
 	addSizeArea(NewMode, true)
 
@@ -381,5 +383,7 @@ func create_property(item:TreeItem, propertyPath:String, type:PropertyType, name
 		else: PropertyNode.P_Path = item.get_meta(&"path")[propertyPath]
 		
 	if type == PropertyType.DROPDOWN: PropertyNode.P_Items = dropdownItems
-	PropertyNode.ChangeMade.connect(func(): self.ChangeMade.emit())
+	PropertyNode.ChangeMade.connect(emitChange)
 	%PropertiesPanel.add_child(PropertyNode)
+
+func emitChange(): ChangeMade.emit()

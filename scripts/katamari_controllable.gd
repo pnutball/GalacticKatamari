@@ -295,7 +295,7 @@ func doQuickTurn():
 		MovementEnabled = true
 		CameraMovementEnabled = true
 
-func loadCore(texture:String = "res://textures/core/core_test.png", model:String = "res://models/core/core_generic.obj"):
+func loadCore(texture:String = "res://assets/textures/core/core_test.png", model:String = "res://assets/models/core/core_generic.obj"):
 	$KatamariBody/KatamariMeshPivot/KatamariMesh.mesh = load(model)
 	$KatamariBody/KatamariMeshPivot/KatamariMesh.material_override.albedo_texture = load(texture)
 
