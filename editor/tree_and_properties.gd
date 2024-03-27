@@ -2,7 +2,7 @@ extends VSplitContainer
 
 signal ChangeMade
 
-enum PropertyType{NUMBER, VECTOR3, STRING, DROPDOWN, BOOLEAN, LOCALIZED}
+enum PropertyType{NUMBER, VECTOR3, STRING, DROPDOWN, BOOLEAN, LOCALIZED, DIALOGUE}
 
 const TemplateLevel:Dictionary = {
 	"name": {"en": "New level"},
@@ -12,12 +12,12 @@ const TemplateLevel:Dictionary = {
 const TemplateMode:Dictionary = {
 	"name": {"en": "New mode"},
 	"music": {"default": "", "force_default": false},
-	"pre_dialogue": {"en": ["Put Our dialogue here..."]},
-	"start_dialogue": {"en": ["Put Our dialogue here."]},
-	"retry_dialogue": {"en": ["Put Our dialogue here."]},
-	"win_dialogue": {"en": ["Put Our dialogue here!"]},
-	"fail_dialogue": {"en": ["PUT OUR DIALOGUE HERE!!!"]},
-	"result_dialogue": {"en": ["Put Our dialogue here."]},
+	"pre_dialogue": {"en": "Put Our dialogue here..."},
+	"start_dialogue": {"en": "Put Our dialogue here."},
+	"retry_dialogue": {"en": "Put Our dialogue here."},
+	"win_dialogue": {"en": "Put Our dialogue here!"},
+	"fail_dialogue": {"en": "PUT OUR DIALOGUE HERE!!!"},
+	"result_dialogue": {"en": "Put Our dialogue here."},
 	"map_zones": [],
 	"cam_zones": [],
 	"katamari": {
@@ -76,6 +76,7 @@ const StringProperty:PackedScene = preload("res://editor/property_string.tscn")
 const DropdownProperty:PackedScene = preload("res://editor/property_drop.tscn")
 const BooleanProperty:PackedScene = preload("res://editor/property_boolean.tscn")
 const LocalizedTextProperty:PackedScene = preload("res://editor/property_localized_text.tscn")
+const DialogueProperty:PackedScene = preload("res://editor/property_dialogue.tscn")
 
 func resetTree():
 	for item in LevelTreeRoot.get_children():
@@ -240,11 +241,17 @@ func _on_level_tree_item_selected():
 				create_property(item, "ranking/point_super", PropertyType.NUMBER, "120 Point Goal", "The target point count for 120 pts.")
 				%PropertiesPanel.add_child(HSeparator.new())
 				# pre_dialogue DIALOGUE
+				create_property(item, "pre_dialogue", PropertyType.DIALOGUE, "Pre-stage Dialogue", "The dialogue displayed before loading the stage.")
 				# start_dialogue DIALOGUE
+				create_property(item, "start_dialogue", PropertyType.DIALOGUE, "Start Dialogue", "The dialogue displayed before the timer starts.")
 				# retry_dialogue DIALOGUE
+				create_property(item, "retry_dialogue", PropertyType.DIALOGUE, "Retry Dialogue", "The dialogue displayed after retrying the stage without returning to Cosmea Town.")
 				# win_dialogue DIALOGUE
+				create_property(item, "win_dialogue", PropertyType.DIALOGUE, "Win Dialogue", "The dialogue displayed after winning.")
 				# fail_dialogue DIALOGUE
+				create_property(item, "fail_dialogue", PropertyType.DIALOGUE, "Fail Dialogue", "The dialogue displayed after failing.")
 				# result_dialogue DIALOGUE
+				create_property(item, "result_dialogue", PropertyType.DIALOGUE, "Results Dialogue", "The dialogue displayed on the results screen.")
 			"area":
 				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				lastSelectedArea = item
@@ -373,6 +380,7 @@ func create_property(item:TreeItem, propertyPath:String, type:PropertyType, name
 		PropertyType.DROPDOWN: PropertyNode = DropdownProperty.instantiate()
 		PropertyType.BOOLEAN: PropertyNode = BooleanProperty.instantiate()
 		PropertyType.LOCALIZED: PropertyNode = LocalizedTextProperty.instantiate()
+		PropertyType.DIALOGUE: PropertyNode = DialogueProperty.instantiate()
 	PropertyNode.P_Name = name
 	PropertyNode.P_Tooltip = tooltip
 	if type != PropertyType.VECTOR3:

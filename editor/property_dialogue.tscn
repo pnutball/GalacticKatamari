@@ -1,0 +1,112 @@
+[gd_scene load_steps=7 format=3 uid="uid://dl20hhli4nscj"]
+
+[ext_resource type="Script" path="res://editor/dialogueproperty_script.gd" id="1_jygdf"]
+[ext_resource type="Texture2D" uid="uid://b6umlml5fbrbc" path="res://editor/icons/expand.png" id="2_rili2"]
+[ext_resource type="Texture2D" uid="uid://b4gqv4s05vetx" path="res://editor/icons/info.png" id="2_yp1sg"]
+[ext_resource type="Texture2D" uid="uid://vmmd66b7dp8s" path="res://editor/icons/add.png" id="3_vhdv4"]
+[ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="5_q226v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ldnjj"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0470588, 0.207843, 0.666667, 0.854902)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.2)
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[node name="DialogueProperty" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_jygdf")
+
+[node name="PropertyHeader" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PropertyName" type="Label" parent="PropertyHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 0
+text = "Property"
+text_overrun_behavior = 3
+
+[node name="InfoButton" type="Button" parent="PropertyHeader"]
+layout_mode = 2
+icon = ExtResource("2_yp1sg")
+
+[node name="CollapseButton" type="Button" parent="PropertyHeader"]
+layout_mode = 2
+tooltip_text = "Expand list"
+icon = ExtResource("2_rili2")
+
+[node name="PropertyMargin" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 8
+
+[node name="PropertyTexts" type="VBoxContainer" parent="PropertyMargin"]
+layout_mode = 2
+
+[node name="PropertyAdd" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="PropertyBox" type="LineEdit" parent="PropertyAdd"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Add language"
+max_length = 3
+context_menu_enabled = false
+middle_mouse_paste_enabled = false
+draw_control_chars = true
+select_all_on_focus = true
+
+[node name="AddButton" type="Button" parent="PropertyAdd"]
+layout_mode = 2
+icon = ExtResource("3_vhdv4")
+
+[node name="PopupPanel" type="PopupPanel" parent="."]
+transparent_bg = true
+initial_position = 4
+size = Vector2i(843, 474)
+transparent = true
+theme = ExtResource("5_q226v")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ldnjj")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PopupPanel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = -8.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Format code reference:
+
+Use Enter or \\n to add a line break.
+To add an extra dialogue box, use [break] on a new line.
+
+[color:#HEXCLR] - Change text color
+[bgcolor:#HEXCLR] - Change bubble color
+[hwave] - Wave text horizontally
+[vwave] - Wave text vertically
+[pulse] - Pulse text
+[rainbow] - Rainbow text
+[noeffect] - Clear text effects
+[face:Abc(S)] - Modify King's face:
+Abc is an expression - Ang is anger, Hap is happy, Neu is neutral, etc. Adding S to the end adds shocked eyes.
+[OUJI_#] - The name of Player #'s cousin (max 8)."
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+
+[connection signal="pressed" from="PropertyHeader/InfoButton" to="." method="Show_Help"]
+[connection signal="pressed" from="PropertyHeader/CollapseButton" to="." method="toggleShown"]
+[connection signal="pressed" from="PropertyAdd/AddButton" to="." method="appendNewLanguage"]

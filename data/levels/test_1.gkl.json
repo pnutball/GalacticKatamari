@@ -19,34 +19,22 @@
 						"force_default": true
 					},
 					"pre_dialogue": {
-						"en": [
-							"Dummy"
-						]
+						"en": "Dummy"
 					},
 					"start_dialogue": {
-						"en": [
-							"Dummy"
-						]
+						"en": "Dummy"
 					},
 					"retry_dialogue": {
-						"en": [
-							"Dummy"
-						]
+						"en": "Dummy"
 					},
 					"win_dialogue": {
-						"en": [
-							"Dummy"
-						]
+						"en": "Dummy"
 					},
 					"fail_dialogue": {
-						"en": [
-							"Dummy"
-						]
+						"en": "Dummy"
 					},
 					"result_dialogue": {
-						"en": [
-							"Dummy"
-						]
+						"en": "Dummy"
 					},
 					"map_zones": [
 						{
