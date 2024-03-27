@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddvym7hjeiewb"]
+[gd_scene load_steps=8 format=3 uid="uid://ddvym7hjeiewb"]
 
 [ext_resource type="Material" uid="uid://cgmb23el5rg2a" path="res://assets/materials/ouji/OUJI_01.tres" id="2_epv8j"]
+[ext_resource type="AnimationLibrary" uid="uid://bhwfupvw4lfhs" path="res://assets/animations/ouji.res" id="2_gnb6a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4txv5"]
 vertex_color_use_as_albedo = true
@@ -94,248 +95,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="Animation" id="Animation_0b7bk"]
-resource_name = "Ouji_Idle"
-length = 2.00001
-loop_mode = 1
-tracks/0/type = "rotation_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("OujiArmature/OujiSkeleton:OujiRigRoot")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.5, 1, -0.0436194, 0, 0, 0.999048, 1, 1, 1.30037e-09, 0, 0, 1, 1.5, 1, 0.0436194, 0, 0, 0.999048)
-tracks/1/type = "rotation_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("OujiArmature/OujiSkeleton:Torso")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, -0.0881125, 1.18746e-07, -1.05038e-08, 0.99611, 0.5, 1, -0.000960429, 1.1921e-07, -1.14425e-10, 1, 1, 1, -0.0881125, 1.18746e-07, -1.05038e-08, 0.99611, 1.5, 1, -0.174594, 1.17379e-07, -2.08132e-08, 0.984641)
-tracks/2/type = "rotation_3d"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("OujiArmature/OujiSkeleton:Head")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = PackedFloat32Array(0, 1, -0.0385859, -2.84415e-14, -9.19961e-09, 0.999255, 0.5, 1, -0.12553, -6.26682e-14, -2.99287e-08, 0.99209, 1, 1, -0.0385859, -2.84415e-14, -9.19961e-09, 0.999255, 1.5, 1, 0.0486518, -1.85627e-14, 1.15995e-08, 0.998816)
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("OujiArmature/OujiSkeleton/Ouji:blend_shapes/Bottom Lip")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [0.0, 0.23841, 0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("OujiArmature/OujiSkeleton/Ouji:blend_shapes/Jaw")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [0.0, 0.25166, 0.0]
-}
-tracks/5/type = "rotation_3d"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("OujiArmature/OujiSkeleton:R Arm")
-tracks/5/interp = 2
-tracks/5/loop_wrap = true
-tracks/5/keys = PackedFloat32Array(0, 1, -0.00835155, 0.0376714, 0.975569, 0.216279, 0.5, 1, -0.0291175, 0.121662, 0.977179, 0.171672, 1, 1, -0.00835155, 0.0376714, 0.975569, 0.216279, 1.5, 1, 0.0121633, -0.0470889, 0.983646, 0.173424)
-tracks/6/type = "rotation_3d"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("OujiArmature/OujiSkeleton:L Arm")
-tracks/6/interp = 2
-tracks/6/loop_wrap = true
-tracks/6/keys = PackedFloat32Array(0, 1, 0.0083513, 0.0376715, 0.975569, -0.216278, 0.5, 1, 0.0291173, 0.121662, 0.977179, -0.171671, 1, 1, 0.0083513, 0.0376715, 0.975569, -0.216278, 1.5, 1, -0.0121636, -0.0470888, 0.983646, -0.173424)
-
-[sub_resource type="Animation" id="Animation_7vnbr"]
-resource_name = "RESET"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("OujiArmature/OujiSkeleton/Ouji:blend_shapes/Bottom Lip")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("OujiArmature/OujiSkeleton/Ouji:blend_shapes/Eye Shift")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("OujiArmature/OujiSkeleton/Ouji:blend_shapes/Eye Size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("OujiArmature/OujiSkeleton/Ouji:blend_shapes/Eye Squint")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("OujiArmature/OujiSkeleton/Ouji:blend_shapes/Jaw")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("OujiArmature/OujiSkeleton/Ouji:blend_shapes/Show Smile")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("OujiArmature/OujiSkeleton/Ouji:blend_shapes/Top Lip")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/7/type = "rotation_3d"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("OujiArmature/OujiSkeleton:OujiRigRoot")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
-tracks/8/type = "rotation_3d"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("OujiArmature/OujiSkeleton:Torso")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = PackedFloat32Array(0, 1, -0.0881125, 1.18746e-07, -1.05038e-08, 0.996111)
-tracks/9/type = "rotation_3d"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("OujiArmature/OujiSkeleton:Chest")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = PackedFloat32Array(0, 1, 0.126483, 2.82041e-14, 3.01558e-08, 0.991969)
-tracks/10/type = "rotation_3d"
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/path = NodePath("OujiArmature/OujiSkeleton:R Arm")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/keys = PackedFloat32Array(0, 1, -0.0272845, 0.0272843, 0.70658, 0.70658)
-tracks/11/type = "rotation_3d"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("OujiArmature/OujiSkeleton:R Forearm")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = PackedFloat32Array(0, 1, 7.24704e-10, 4.22134e-09, 5.60486e-11, 1)
-tracks/12/type = "rotation_3d"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("OujiArmature/OujiSkeleton:R Hand")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = PackedFloat32Array(0, 1, -5.55112e-17, -7.10543e-15, 3.1469e-18, 1)
-tracks/13/type = "rotation_3d"
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/path = NodePath("OujiArmature/OujiSkeleton:Head")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/keys = PackedFloat32Array(0, 1, -0.0385859, -2.84429e-14, -9.19961e-09, 0.999255)
-tracks/14/type = "rotation_3d"
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/path = NodePath("OujiArmature/OujiSkeleton:L Arm")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/keys = PackedFloat32Array(0, 1, -0.0272843, -0.0272845, -0.70658, 0.70658)
-tracks/15/type = "rotation_3d"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("OujiArmature/OujiSkeleton:L Forearm")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = PackedFloat32Array(0, 1, -7.24704e-10, -4.22133e-09, 5.60486e-11, 1)
-tracks/16/type = "rotation_3d"
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/path = NodePath("OujiArmature/OujiSkeleton:L Hand")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/keys = PackedFloat32Array(0, 1, -5.55114e-17, 0, -3.21531e-19, 1)
-tracks/17/type = "rotation_3d"
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/path = NodePath("OujiArmature/OujiSkeleton:R Leg")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/keys = PackedFloat32Array(0, 1, -1.32704e-14, -1.14e-07, 3.65487e-21, 1)
-tracks/18/type = "rotation_3d"
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/path = NodePath("OujiArmature/OujiSkeleton:L Leg")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/keys = PackedFloat32Array(0, 1, -1.32704e-14, 1.14e-07, -3.65487e-21, 1)
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xy2ed"]
-_data = {
-"Ouji_Idle": SubResource("Animation_0b7bk"),
-"RESET": SubResource("Animation_7vnbr")
-}
-
 [node name="Ouji" type="Node3D"]
 metadata/OujiId = 1
 
@@ -376,7 +135,7 @@ bones/4/rest = Transform3D(1, -1.12097e-10, 8.44268e-09, 1.12097e-10, 1, -1.4494
 bones/4/enabled = true
 bones/4/position = Vector3(9.53218e-07, 2.05, 1.16351e-13)
 bones/4/rotation = Quaternion(7.24704e-10, 4.22134e-09, 5.60486e-11, 1)
-bones/4/scale = Vector3(1, 1, 1)
+bones/4/scale = Vector3(0.999999, 1, 1)
 bones/5/name = "R Hand"
 bones/5/parent = 4
 bones/5/rest = Transform3D(1, -6.2938e-18, -1.42109e-14, 6.2938e-18, 1, 1.11022e-16, 1.42109e-14, -1.11022e-16, 1, 9.53674e-07, 2.5875, 3.83402e-14)
@@ -404,20 +163,20 @@ bones/8/rest = Transform3D(1, -1.12097e-10, -8.44267e-09, 1.12097e-10, 1, 1.4494
 bones/8/enabled = true
 bones/8/position = Vector3(-4.56804e-10, 2.05, -1.0969e-13)
 bones/8/rotation = Quaternion(-7.24704e-10, -4.22133e-09, 5.60486e-11, 1)
-bones/8/scale = Vector3(1, 1, 1)
+bones/8/scale = Vector3(1, 1, 0.999999)
 bones/9/name = "L Hand"
 bones/9/parent = 8
 bones/9/rest = Transform3D(1, 6.43063e-19, 3.56973e-35, -6.43063e-19, 1, 1.11023e-16, 3.56973e-35, -1.11023e-16, 1, -8.88178e-15, 2.5875, -3.27141e-14)
 bones/9/enabled = true
 bones/9/position = Vector3(-8.88178e-15, 2.5875, -3.27141e-14)
 bones/9/rotation = Quaternion(-5.55114e-17, 1.08741e-42, -3.21531e-19, 1)
-bones/9/scale = Vector3(1, 1, 1)
+bones/9/scale = Vector3(1, 0.999998, 1)
 bones/10/name = "R Thigh"
 bones/10/parent = 0
 bones/10/rest = Transform3D(-1, 2.14204e-21, 1.61415e-07, 2.14204e-21, -1, 2.65409e-14, 1.61415e-07, 2.65409e-14, 1, -1.275, 6.2, 0)
 bones/10/enabled = true
 bones/10/position = Vector3(-1.275, 6.2, 0)
-bones/10/rotation = Quaternion(8.07073e-08, 1.32704e-14, 1, -2.0468e-29)
+bones/10/rotation = Quaternion(8.07073e-08, -5.73461e-22, 1, -7.10543e-15)
 bones/10/scale = Vector3(1, 1, 1)
 bones/11/name = "R Leg"
 bones/11/parent = 10
@@ -431,7 +190,7 @@ bones/12/parent = 0
 bones/12/rest = Transform3D(-1, -2.14204e-21, -1.61415e-07, -2.14204e-21, -1, 2.65409e-14, -1.61415e-07, 2.65409e-14, 1, 1.275, 6.2, 0)
 bones/12/enabled = true
 bones/12/position = Vector3(1.275, 6.2, 0)
-bones/12/rotation = Quaternion(-8.07073e-08, 1.32704e-14, 1, 2.0468e-29)
+bones/12/rotation = Quaternion(-8.07073e-08, -8.64391e-29, 1, 0)
 bones/12/scale = Vector3(1, 1, 1)
 bones/13/name = "L Leg"
 bones/13/parent = 12
@@ -469,6 +228,7 @@ blend_shapes/Jaw = 0.0
 surface_material_override/0 = ExtResource("2_epv8j")
 
 [node name="OujiAnimation" type="AnimationPlayer" parent="."]
+deterministic = true
 libraries = {
-"": SubResource("AnimationLibrary_xy2ed")
+"": ExtResource("2_gnb6a")
 }
