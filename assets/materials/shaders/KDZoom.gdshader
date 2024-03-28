@@ -1,6 +1,7 @@
 shader_type canvas_item;
 
 uniform float zoom_amount: hint_range(0.0, 0.065) = 0;
+uniform float fade: hint_range(-1.0, 1.0) = 0;
 
 /*
 	放射状ブラーエフェクト by あるる（きのもと　結衣） @arlez80
@@ -21,5 +22,5 @@ vec3 radial_blur(sampler2D tex, vec2 uv, vec2 blur_center, float blur_power, int
 }
 
 void fragment() {
-	COLOR = vec4(radial_blur(TEXTURE, UV, vec2(0.5), zoom_amount, 16), 1);
+	COLOR = vec4(clamp(mix(mix(radial_blur(TEXTURE, UV, vec2(0.5), zoom_amount, 16), vec3(1), clamp(fade, 0, 1)), vec3(0), clamp(fade * -1.0, 0, 1)), 0, 1), 1);
 }
