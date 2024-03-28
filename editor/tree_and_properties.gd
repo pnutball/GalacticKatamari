@@ -22,7 +22,7 @@ const TemplateMode:Dictionary = {
 	"cam_zones": [],
 	"katamari": {
 		"size": 1,
-		"speed": 5,
+		"speed": 4.5,
 		"can_dash": true,
 		"can_turn": true
 	},
