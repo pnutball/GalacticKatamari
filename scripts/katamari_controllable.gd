@@ -109,7 +109,7 @@ func _ready():
 	respawn(true)
 
 func _process(delta):
-	$SubViewport.size = get_viewport().size
+	$SubViewport.size = %ViewportRect.get_viewport_rect().size
 	
 	# Update camera angles
 	CameraRotation -= StickAngle * 2.5 * delta
@@ -118,7 +118,6 @@ func _process(delta):
 	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * $"..".scale)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
 	
-
 	# Discharge / recharge dash
 	if DashCharge < 0:
 		DashCharge += 15 * delta
