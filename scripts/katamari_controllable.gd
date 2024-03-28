@@ -105,6 +105,7 @@ const RollSounds = {
 func _ready():
 	loadCore(CoreTexture, CoreModel)
 	changeCamArea(0, true)
+	%OujiAnimTree.active = true
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 	respawn(true)
 
@@ -320,12 +321,13 @@ func respawn(noAnimation:bool = false):
 	if not noAnimation:
 		# DO A TRANSITION HERE (UNIMPLEMENTED I GUESS)
 		CameraSmoothing = 1
-		pass
+		await create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 1, 0.25).finished
 	CameraSmoothing = 0
 	$KatamariBody.linear_velocity = Vector3.ZERO
 	var randomSpawn:Vector4 = SpawnPoints.pick_random()
 	$KatamariBody.position = Vector3(randomSpawn.x, randomSpawn.y, randomSpawn.z) + Vector3(0,Size / 2,0)
 	CameraRotation = deg_to_rad(randomSpawn.w)
+	if not noAnimation: create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 0, 0.25)
 	await get_tree().process_frame
 	await get_tree().process_frame
 	CameraSmoothing = 0.85

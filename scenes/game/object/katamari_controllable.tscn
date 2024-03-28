@@ -131,6 +131,7 @@ func _pressed():
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hau7w"]
 shader = ExtResource("6_rnc8v")
 shader_parameter/zoom_amount = 0.0
+shader_parameter/fade = 4.75e-08
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_l3wab"]
 viewport_path = NodePath("SubViewport")
@@ -472,7 +473,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -640.0
-offset_top = -640.0
+offset_top = -1080.0
 grow_horizontal = 0
 grow_vertical = 0
 stretch = true
@@ -482,19 +483,20 @@ own_world_3d = true
 world_3d = SubResource("World3D_kidyq")
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(640, 640)
+size = Vector2i(640, 1080)
 render_target_update_mode = 4
 
 [node name="Ouji" parent="SubViewportContainer/SubViewport" instance=ExtResource("9_uov0o")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.05, -0.99, -1.51)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(0.848048, 0, 0.529919, 0, 1, 0, -0.529919, 0, 0.848048, 1.035, -0.135, 1.045)
+transform = Transform3D(0.848048, 0.0369653, 0.528628, 0, 0.997564, -0.0697565, -0.529919, 0.0591568, 0.845982, 1.915, 0.17, 2.415)
 fov = 41.0
 
 [node name="OujiAnimTree" type="AnimationTree" parent="SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
-root_node = NodePath("../Ouji")
+active = false
+root_node = NodePath("%OujiAnimTree/../Ouji")
 libraries = {
 "": ExtResource("10_li762")
 }
