@@ -142,6 +142,11 @@ func _process(delta):
 	%KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-25, 0, 30) / 30)), 0.2)
 	%KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-55, 0, 30) / 30)), 0.2)
 	
+	# Animate cousin model
+	%OujiAnimTree.set("parameters/WalkState/conditions/idle_speed_reached", $KatamariBody.linear_velocity.length() < (Size / 10))
+	%OujiAnimTree.set("parameters/WalkState/conditions/walk_speed_reached", $KatamariBody.linear_velocity.length() >= (Size / 10))
+	%OujiAnimTree.set("parameters/MovementScale/scale", Speed / 4.5)
+	
 	# Update debug info
 	$Debug/StickDisplay/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
 	$Debug/StickDisplay/PanelR/StickR.set_position(Vector2(25, 25) + (25 * RightStick))

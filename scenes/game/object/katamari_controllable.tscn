@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=37 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -7,6 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://dg5j6njuk2bjb" path="res://assets/textures/effect/dash_A.png" id="6_8pgql"]
 [ext_resource type="Shader" path="res://assets/materials/shaders/KDZoom.gdshader" id="6_rnc8v"]
 [ext_resource type="Texture2D" uid="uid://bxcxru2mxjxbs" path="res://assets/textures/effect/dash_B.png" id="7_kpo2d"]
+[ext_resource type="Texture2D" uid="uid://ddhgqxa1uojmq" path="res://assets/textures/ui/back_earth.png" id="8_un6lr"]
+[ext_resource type="PackedScene" uid="uid://ddvym7hjeiewb" path="res://assets/ouji/rig/Ouji01.tscn" id="9_uov0o"]
+[ext_resource type="AnimationLibrary" uid="uid://bhwfupvw4lfhs" path="res://assets/animations/ouji.res" id="10_li762"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qviqp"]
 dof_blur_far_enabled = true
@@ -131,6 +134,49 @@ shader_parameter/zoom_amount = 0.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_l3wab"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Environment" id="Environment_d2jpm"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="World3D" id="World3D_kidyq"]
+environment = SubResource("Environment_d2jpm")
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_7b822"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pqmwy"]
+animation = &"Ouji_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ppotg"]
+animation = &"Ouji_Roll_Forward"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5v8t0"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ifrk2"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"walk_speed_reached"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4dbdb"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"idle_speed_reached"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_lygbi"]
+states/Ouji_Idle/node = SubResource("AnimationNodeAnimation_pqmwy")
+states/Ouji_Idle/position = Vector2(312, 100)
+states/Ouji_Roll_Forward/node = SubResource("AnimationNodeAnimation_ppotg")
+states/Ouji_Roll_Forward/position = Vector2(510, 100)
+transitions = ["Start", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_5v8t0"), "Ouji_Idle", "Ouji_Roll_Forward", SubResource("AnimationNodeStateMachineTransition_ifrk2"), "Ouji_Roll_Forward", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_4dbdb")]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
+nodes/MovementScale/node = SubResource("AnimationNodeTimeScale_7b822")
+nodes/MovementScale/position = Vector2(620, 60)
+nodes/WalkState/node = SubResource("AnimationNodeStateMachine_lygbi")
+nodes/WalkState/position = Vector2(400, 100)
+nodes/output/position = Vector2(780, 60)
+node_connections = [&"MovementScale", 0, &"WalkState", &"output", 0, &"MovementScale"]
 
 [node name="KatamariControllable" type="Node3D"]
 editor_description = "An inherited scene for a player-controlled katamari. Only one should exist per-viewport; any more can cause issues with multiple active cameras."
@@ -406,3 +452,54 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = SubResource("ViewportTexture_l3wab")
+
+[node name="OujiView" type="TextureRect" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -384.0
+offset_top = -384.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("8_un6lr")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -640.0
+offset_top = -640.0
+grow_horizontal = 0
+grow_vertical = 0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+own_world_3d = true
+world_3d = SubResource("World3D_kidyq")
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(640, 640)
+render_target_update_mode = 4
+
+[node name="Ouji" parent="SubViewportContainer/SubViewport" instance=ExtResource("9_uov0o")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.05, -0.99, -1.51)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.848048, 0, 0.529919, 0, 1, 0, -0.529919, 0, 0.848048, 1.035, -0.135, 1.045)
+fov = 41.0
+
+[node name="OujiAnimTree" type="AnimationTree" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+root_node = NodePath("../Ouji")
+libraries = {
+"": ExtResource("10_li762")
+}
+tree_root = SubResource("AnimationNodeBlendTree_5ly86")
+anim_player = NodePath("../Ouji/OujiAnimation")
+parameters/MovementScale/scale = 1.0
+parameters/WalkState/conditions/idle_speed_reached = false
+parameters/WalkState/conditions/walk_speed_reached = false
