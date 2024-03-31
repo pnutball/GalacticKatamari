@@ -172,9 +172,9 @@ func _physics_process(delta):
 	
 	# Adjust physics settings
 	$KatamariBody.gravity_scale = $"..".scale.y
-	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size * 1.15
-	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size
-	$KatamariBody.center_of_mass = Vector3(0, -Size/2, 0)
+	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size * 1.15 * $"..".scale.y
+	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * $"..".scale.y
+	$KatamariBody.center_of_mass = Vector3(0, -Size/2, 0) * $"..".scale.y
 	
 	# Rotate katamari model
 	var zRot:float = ($KatamariBody.linear_velocity.x * -PI / $"..".scale.x * delta) / (Size * 1.15)
@@ -236,7 +236,7 @@ func _physics_process(delta):
 				(Speed * -400 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) * Size,
 				0,
 				(Speed * -400 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) * Size
-			))
+			) * $"..".scale.y)
 			DashCharge = -10
 			MovementEnabled = true
 	
@@ -323,10 +323,10 @@ func respawn(noAnimation:bool = false):
 		CameraSmoothing = 1
 		await create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 1, 0.25).finished
 	CameraSmoothing = 0
-	$KatamariBody.linear_velocity = Vector3.ZERO
 	var randomSpawn:Vector4 = SpawnPoints.pick_random()
 	$KatamariBody.position = Vector3(randomSpawn.x, randomSpawn.y, randomSpawn.z) + Vector3(0,Size / 2,0)
 	CameraRotation = deg_to_rad(randomSpawn.w)
+	$KatamariBody.linear_velocity = Vector3.ZERO
 	if not noAnimation: create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 0, 0.25)
 	await get_tree().process_frame
 	await get_tree().process_frame
