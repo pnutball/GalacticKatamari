@@ -136,7 +136,7 @@ func _process(delta):
 		if Input.is_action_just_pressed("LS Dash Down"): DashDir = 1
 		if Input.is_action_just_pressed("LS Dash Up"): DashDir = -1
 	
-	%KatamariDashEfPivot.scale = Vector3.ONE * Size * 1.15
+	%KatamariDashEfPivot.scale = Vector3.ONE * Size * 1.15 * $"..".scale.y
 	%KatamariDashEfPivot.rotation.y = %KatamariCameraPivot.rotation.y
 	%KatamariDashEfPivot.rotation.x -= (4*PI) * delta
 	%KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-25, 0, 30) / 30)), 0.2)
@@ -146,6 +146,7 @@ func _process(delta):
 	%OujiAnimTree.set("parameters/WalkState/conditions/idle_speed_reached", $KatamariBody.linear_velocity.length() < (Size / 10))
 	%OujiAnimTree.set("parameters/WalkState/conditions/walk_speed_reached", $KatamariBody.linear_velocity.length() >= (Size / 10))
 	%OujiAnimTree.set("parameters/MovementScale/scale", Speed / 4.5)
+	%OujiAnimTree.set("parameters/WalkState/Ouji_Roll_Space/blend_position", StickMidpoint)
 	
 	# Update debug info
 	$Debug/StickDisplay/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
