@@ -220,6 +220,12 @@ func _physics_process(delta):
 	# Create dash movement/force
 	if CanDash:
 		if DashCharge < 100 and DashCharge >= 25 and not is_equal_approx(DashCharge, 100):
+			$KatamariBody.apply_central_force(Vector3(
+				(Speed * -20 / $"..".scale.x * sin(%KatamariCamera.global_rotation.y)) * Size,
+				0,
+				(Speed * -20 / $"..".scale.z * cos(%KatamariCamera.global_rotation.y)) * Size
+			) * $"..".scale.y * delta)
+			
 			var zRotDash:float = (24 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y))
 			var xRotDash:float = (-24 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y))
 			$KatamariBody/KatamariMeshPivot.rotate_z(zRotDash)
