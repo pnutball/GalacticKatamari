@@ -242,9 +242,9 @@ func _physics_process(delta):
 			$KatamariDashAudio.stream = preload("res://assets/sounds/game/dash_release.mp3")
 			$KatamariDashAudio.play()
 			$KatamariBody.apply_central_impulse(Vector3(
-				(Speed * -400 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y)) * Size,
+				(Speed * -4.5 / $"..".scale.x * sin(%KatamariCamera.global_rotation.y)) * Size,
 				0,
-				(Speed * -400 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y)) * Size
+				(Speed * -4.5 / $"..".scale.z * cos(%KatamariCamera.global_rotation.y)) * Size
 			) * $"..".scale.y)
 			DashCharge = -10
 			MovementEnabled = true
