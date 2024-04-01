@@ -145,8 +145,10 @@ func _process(delta):
 	# Animate cousin model
 	%OujiAnimTree.set("parameters/WalkState/conditions/idle_speed_reached", $KatamariBody.linear_velocity.length() < (Size / 10))
 	%OujiAnimTree.set("parameters/WalkState/conditions/walk_speed_reached", $KatamariBody.linear_velocity.length() >= (Size / 10))
+	%OujiAnimTree.set("parameters/WalkState/Ouji_Walk/conditions/forward_condition", (StickMidpoint.angle_to(Vector2.UP) < (2.0*PI)/6.0) and (StickMidpoint.angle_to(Vector2.UP) > (-2.0*PI)/6.0))
+	%OujiAnimTree.set("parameters/WalkState/Ouji_Walk/conditions/backward_condition", (StickMidpoint.angle_to(Vector2.UP) > (4.0*PI)/6.0) or (StickMidpoint.angle_to(Vector2.UP) < (-4.0*PI)/6.0))
+	%OujiAnimTree.set("parameters/WalkState/Ouji_Walk/conditions/side_condition", (StickMidpoint.angle_to(Vector2.UP) > (2.0*PI)/6.0 and StickMidpoint.angle_to(Vector2.UP) < (4.0*PI)/6.0) or (StickMidpoint.angle_to(Vector2.UP) > (-4.0*PI)/6.0 and StickMidpoint.angle_to(Vector2.UP) < (-2.0*PI)/6.0))
 	%OujiAnimTree.set("parameters/MovementScale/scale", Speed / 4.5)
-	%OujiAnimTree.set("parameters/WalkState/Ouji_Roll_Space/blend_position", StickMidpoint)
 	
 	# Update debug info
 	$Debug/StickDisplay/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))

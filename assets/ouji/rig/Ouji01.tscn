@@ -198,7 +198,7 @@ bones/13/rest = Transform3D(1, 4.28409e-21, 2.28e-07, -1.03354e-20, 1, 2.65409e-
 bones/13/enabled = true
 bones/13/position = Vector3(0, 2.9, -4.6498e-15)
 bones/13/rotation = Quaternion(-1.32704e-14, 1.14e-07, -3.65487e-21, 1)
-bones/13/scale = Vector3(1, 1, 0.999999)
+bones/13/scale = Vector3(1, 1, 1)
 
 [node name="Ouji" type="MeshInstance3D" parent="OujiArmature/OujiSkeleton"]
 gi_mode = 0
