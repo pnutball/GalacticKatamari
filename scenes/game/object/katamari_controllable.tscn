@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=60 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -151,18 +151,30 @@ animation = &"Ouji_Idle"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1gu1e"]
 animation = &"Ouji_Roll_Backward"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x7jex"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6t0l6"]
 animation = &"Ouji_Roll_Forward"
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_56pxy"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_grhpb"]
+animation = &"Internal_OujiRootTurn"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tvb7u"]
+graph_offset = Vector2(-229.584, -160)
+nodes/Forward/node = SubResource("AnimationNodeAnimation_6t0l6")
+nodes/Forward/position = Vector2(-40, 140)
+nodes/OujiForwardAdd/node = SubResource("AnimationNodeAdd2_56pxy")
+nodes/OujiForwardAdd/position = Vector2(180, 180)
+nodes/Turn/node = SubResource("AnimationNodeAnimation_grhpb")
+nodes/Turn/position = Vector2(-100, 320)
+nodes/output/position = Vector2(380, 180)
+node_connections = [&"OujiForwardAdd", 0, &"Forward", &"OujiForwardAdd", 1, &"Turn", &"output", 0, &"OujiForwardAdd"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_33bl7"]
 animation = &"Ouji_Roll_Left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ipqxi"]
 animation = &"Ouji_Roll_Right"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bit2s"]
-advance_mode = 2
-advance_condition = &"forward_condition"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cxbke"]
 advance_mode = 2
@@ -177,28 +189,6 @@ advance_condition = &"backward_condition"
 advance_mode = 2
 advance_condition = &"side_condition"
 advance_expression = "StickMidpoint.x < 0"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hgfhx"]
-xfade_time = 0.2
-advance_mode = 2
-advance_condition = &"forward_condition"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uls4s"]
-xfade_time = 0.2
-advance_mode = 2
-advance_condition = &"side_condition"
-advance_expression = "StickMidpoint.x < 0"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wxehy"]
-xfade_time = 0.2
-advance_mode = 2
-advance_condition = &"side_condition"
-advance_expression = "StickMidpoint.x >= 0"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_t6jqm"]
-xfade_time = 0.2
-advance_mode = 2
-advance_condition = &"forward_condition"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tywnn"]
 xfade_time = 0.2
@@ -234,29 +224,56 @@ advance_mode = 2
 advance_condition = &"side_condition"
 advance_expression = "StickMidpoint.x >= 0"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8y1i3"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mr223"]
 xfade_time = 0.2
 advance_mode = 2
 advance_condition = &"forward_condition"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_il8x7"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yggki"]
 xfade_time = 0.2
 advance_mode = 2
 advance_condition = &"backward_condition"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ckqgm"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"forward_condition"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_il8yv"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"side_condition"
+advance_expression = "StickMidpoint.x >= 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rx1eu"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"forward_condition"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xk25a"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"side_condition"
+advance_expression = "StickMidpoint.x < 0"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xny26"]
+xfade_time = 0.2
+advance_mode = 2
+advance_condition = &"forward_condition"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_a1aq2"]
 states/Backward/node = SubResource("AnimationNodeAnimation_1gu1e")
 states/Backward/position = Vector2(606, 579)
 states/End/position = Vector2(1074, 47)
-states/Forward/node = SubResource("AnimationNodeAnimation_x7jex")
-states/Forward/position = Vector2(606, 126)
+states/Forward/node = SubResource("AnimationNodeBlendTree_tvb7u")
+states/Forward/position = Vector2(594, 54.0366)
 states/Left/node = SubResource("AnimationNodeAnimation_33bl7")
 states/Left/position = Vector2(260, 358)
 states/Right/node = SubResource("AnimationNodeAnimation_ipqxi")
 states/Right/position = Vector2(953, 345)
 states/Start/position = Vector2(699, 422)
-transitions = ["Start", "Forward", SubResource("AnimationNodeStateMachineTransition_bit2s"), "Start", "Right", SubResource("AnimationNodeStateMachineTransition_cxbke"), "Start", "Backward", SubResource("AnimationNodeStateMachineTransition_r0gw6"), "Start", "Left", SubResource("AnimationNodeStateMachineTransition_vy1ni"), "Left", "Forward", SubResource("AnimationNodeStateMachineTransition_hgfhx"), "Forward", "Left", SubResource("AnimationNodeStateMachineTransition_uls4s"), "Forward", "Right", SubResource("AnimationNodeStateMachineTransition_wxehy"), "Right", "Forward", SubResource("AnimationNodeStateMachineTransition_t6jqm"), "Backward", "Right", SubResource("AnimationNodeStateMachineTransition_tywnn"), "Right", "Backward", SubResource("AnimationNodeStateMachineTransition_gafef"), "Backward", "Left", SubResource("AnimationNodeStateMachineTransition_addj7"), "Left", "Backward", SubResource("AnimationNodeStateMachineTransition_nyvk3"), "Right", "Left", SubResource("AnimationNodeStateMachineTransition_7c1fb"), "Left", "Right", SubResource("AnimationNodeStateMachineTransition_y83c1"), "Backward", "Forward", SubResource("AnimationNodeStateMachineTransition_8y1i3"), "Forward", "Backward", SubResource("AnimationNodeStateMachineTransition_il8x7")]
-graph_offset = Vector2(0, 32.6628)
+transitions = ["Start", "Right", SubResource("AnimationNodeStateMachineTransition_cxbke"), "Start", "Backward", SubResource("AnimationNodeStateMachineTransition_r0gw6"), "Start", "Left", SubResource("AnimationNodeStateMachineTransition_vy1ni"), "Backward", "Right", SubResource("AnimationNodeStateMachineTransition_tywnn"), "Right", "Backward", SubResource("AnimationNodeStateMachineTransition_gafef"), "Backward", "Left", SubResource("AnimationNodeStateMachineTransition_addj7"), "Left", "Backward", SubResource("AnimationNodeStateMachineTransition_nyvk3"), "Right", "Left", SubResource("AnimationNodeStateMachineTransition_7c1fb"), "Left", "Right", SubResource("AnimationNodeStateMachineTransition_y83c1"), "Start", "Forward", SubResource("AnimationNodeStateMachineTransition_mr223"), "Forward", "Backward", SubResource("AnimationNodeStateMachineTransition_yggki"), "Backward", "Forward", SubResource("AnimationNodeStateMachineTransition_ckqgm"), "Forward", "Right", SubResource("AnimationNodeStateMachineTransition_il8yv"), "Right", "Forward", SubResource("AnimationNodeStateMachineTransition_rx1eu"), "Forward", "Left", SubResource("AnimationNodeStateMachineTransition_xk25a"), "Left", "Forward", SubResource("AnimationNodeStateMachineTransition_xny26")]
+graph_offset = Vector2(0, -134.963)
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5v8t0"]
 advance_mode = 2
@@ -275,12 +292,12 @@ advance_condition = &"idle_speed_reached"
 states/Ouji_Idle/node = SubResource("AnimationNodeAnimation_pqmwy")
 states/Ouji_Idle/position = Vector2(312, 100)
 states/Ouji_Walk/node = SubResource("AnimationNodeStateMachine_a1aq2")
-states/Ouji_Walk/position = Vector2(483.047, 83)
+states/Ouji_Walk/position = Vector2(518.047, 100)
 transitions = ["Start", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_5v8t0"), "Ouji_Idle", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_m8qfg"), "Ouji_Walk", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_27yf4")]
 graph_offset = Vector2(93.0474, 0)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
-graph_offset = Vector2(-312.999, 12.8802)
+graph_offset = Vector2(0, -213)
 nodes/MovementScale/node = SubResource("AnimationNodeTimeScale_7b822")
 nodes/MovementScale/position = Vector2(620, 60)
 nodes/WalkState/node = SubResource("AnimationNodeStateMachine_lygbi")
@@ -618,3 +635,4 @@ parameters/WalkState/conditions/walk_speed_reached = false
 parameters/WalkState/Ouji_Walk/conditions/backward_condition = false
 parameters/WalkState/Ouji_Walk/conditions/forward_condition = false
 parameters/WalkState/Ouji_Walk/conditions/side_condition = false
+parameters/WalkState/Ouji_Walk/Forward/OujiForwardAdd/add_amount = 0
