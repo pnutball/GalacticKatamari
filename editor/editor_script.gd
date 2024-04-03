@@ -131,7 +131,8 @@ func _on_play_button_pressed():
 	PlayMode = not PlayMode
 	OS.low_processor_usage_mode = not PlayMode
 	%GameView.visible = PlayMode
-	%SplitLeft.custom_minimum_size.x = 0 if PlayMode else 270
+	%SplitLeft.visible = not PlayMode
+	$BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer.visible = not PlayMode
 	$BGPanel/MarginContainer/EditorVBox/SplitMain.collapsed = PlayMode
 	%SplitLeft.dragger_visibility = SplitContainer.DRAGGER_HIDDEN if PlayMode else SplitContainer.DRAGGER_VISIBLE
 	%Create.visible = not PlayMode

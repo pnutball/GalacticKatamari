@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=23 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -16,12 +16,39 @@
 [ext_resource type="Script" path="res://editor/tree_and_properties.gd" id="14_u1q5m"]
 [ext_resource type="Texture2D" uid="uid://b2qhh8vl7dqd" path="res://editor/icons/play.png" id="14_y8cnk"]
 [ext_resource type="Texture2D" uid="uid://cnuiorigx0n65" path="res://editor/icons/spawn.png" id="15_1x486"]
+[ext_resource type="StyleBox" uid="uid://jodakrgo7o8c" path="res://editor/themebox_over.tres" id="16_77xsq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmqy0"]
 bg_color = Color(0.00784314, 0.0705882, 0.329412, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lu7td"]
-bg_color = Color(0, 0, 0, 0.439216)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ltkt"]
+content_margin_left = 4.0
+content_margin_top = 8.0
+content_margin_right = 4.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.431373)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sf08n"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.431373)
+corner_radius_top_left = 16
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rubcn"]
+bg_color = Color(0.560784, 0.686275, 0.909804, 0.509804)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xk6o"]
 bg_color = Color(0.00784314, 0.0705882, 0.329412, 0.501961)
@@ -113,6 +140,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_5ltkt")
 
 [node name="Create" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel"]
 unique_name_in_owner = true
@@ -164,7 +192,7 @@ icon = ExtResource("12_06xcr")
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_lu7td")
+theme_override_styles/panel = ExtResource("16_77xsq")
 follow_focus = true
 
 [node name="PropertiesMargin" type="MarginContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll"]
@@ -224,7 +252,7 @@ stretch = true
 
 [node name="EditorViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
 handle_input_locally = false
-size = Vector2i(1622, 814)
+size = Vector2i(1622, 766)
 render_target_update_mode = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
@@ -238,19 +266,72 @@ disabled = true
 text = "Play"
 icon = ExtResource("14_y8cnk")
 
-[node name="Output" type="TextEdit" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+[node name="BrowserContainer" type="PanelContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight"]
 layout_mode = 2
-theme_override_constants/line_spacing = 0
-text = "PLACEHOLDER -- replace with Object Browser when possible"
-editable = false
-shortcut_keys_enabled = false
-deselect_on_focus_loss_enabled = false
-drag_and_drop_selection_enabled = false
-virtual_keyboard_enabled = false
-middle_mouse_paste_enabled = false
-wrap_mode = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_sf08n")
+
+[node name="ObjectBrowser" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_rubcn")
+
+[node name="MarginContainer" type="MarginContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ScrollContainer" type="ScrollContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="FlowContainer" type="GridContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="IDLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
+layout_mode = 2
+text = "Object ID"
+
+[node name="IDEdit" type="LineEdit" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ViewLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
+layout_mode = 2
+text = "View Mesh"
+
+[node name="ViewEdit" type="LineEdit" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
+layout_mode = 2
+text = "Collision Mesh"
+
+[node name="ColEdit" type="LineEdit" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="StatusBar" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox"]
 unique_name_in_owner = true

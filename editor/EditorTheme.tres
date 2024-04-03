@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://do4xoe6jr3w32"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://do4xoe6jr3w32"]
 
 [ext_resource type="StyleBox" uid="uid://bq6mf2slb4ls3" path="res://editor/themebox_scroll.tres" id="1_3x3ng"]
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="1_b77oh"]
 [ext_resource type="StyleBox" uid="uid://b3d60wstg4tyc" path="res://editor/themebox_scroll_highlight.tres" id="2_eeju6"]
 [ext_resource type="StyleBox" uid="uid://omnli1my0qvm" path="res://editor/themebox_scroll_pressed.tres" id="3_nmu8p"]
+[ext_resource type="StyleBox" uid="uid://jodakrgo7o8c" path="res://editor/themebox_over.tres" id="4_2jgon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llnth"]
 content_margin_left = 8.0
@@ -82,6 +83,7 @@ AcceptDialog/styles/panel = SubResource("StyleBoxFlat_llnth")
 HScrollBar/styles/grabber = ExtResource("1_3x3ng")
 HScrollBar/styles/grabber_highlight = ExtResource("2_eeju6")
 HScrollBar/styles/grabber_pressed = ExtResource("3_nmu8p")
+Panel/styles/panel = ExtResource("4_2jgon")
 PopupMenu/colors/font_disabled_color = Color(1, 1, 1, 0.501961)
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_arbd4")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_8yx1h")
