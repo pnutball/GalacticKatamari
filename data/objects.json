@@ -7,18 +7,17 @@
 			"roll_size": 0.6,
 			"pickup_size": 0.05,
 			"scale": 1,
-			"texture": "",
-			"texture_rolledup": "",
+			"material": "",
+			"material_rolledup": "",
 			"name": {
 				"en": "Debug Cube"
 			},
+			"description": {
+				"en": "Dummy"
+			},
 			"bump_sound": "",
 			"roll_sound": "",
-			"animations": {
-				"walk": "",
-				"fear": "",
-				"rollup": ""
-			},
+			"animations": "",
 			"approach_behavior": "",
 			"collection_category": ""
 		}

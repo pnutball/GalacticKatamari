@@ -63,6 +63,28 @@ const TemplateSpawn:Array = [0, 0, 0, 0]
 
 const TemplateObject:Dictionary = {"id":"debug_cube", "position":[0,0,0], "rotation":[0,0,0], "scale":1, "behavior":"static", "sub_objects":[], "unload_size":-1}
 
+const TemplateObjDef:Dictionary = {
+			"view_mesh": "res://assets/models/object/debug_cube_view.tres",
+			"collision_mesh": "res://assets/models/object/debug_cube.shape",
+			"knock_size": 0.6,
+			"roll_size": 0.6,
+			"pickup_size": 0.05,
+			"scale": 1,
+			"material": "",
+			"material_rolledup": "",
+			"name": {
+				"en": "Debug Cube"
+			},
+			"description": {
+				"en": "Dummy"
+			},
+			"bump_sound": "",
+			"roll_sound": "",
+			"animations": "",
+			"approach_behavior": "",
+			"collection_category": ""
+		}
+
 var lastSelectedLevel:TreeItem
 var lastSelectedMode:TreeItem
 var lastSelectedArea:TreeItem
@@ -320,6 +342,7 @@ func openDict(dict:Dictionary):
 			for child in NewMode.get_children(): child.set_selectable(0,false)
 			if lastSelectedMode == null: lastSelectedMode = NewMode
 			#endregion
+			%PlayButton.disabled = false
 			%Create/CamArea.disabled = false
 			%Create/SizeArea.disabled = false
 			
