@@ -100,6 +100,16 @@ const RollSounds = {
 	"XL": [preload("res://assets/sounds/game/grab_XL_00.mp3"), preload("res://assets/sounds/game/grab_XL_01.mp3"), preload("res://assets/sounds/game/grab_XL_02.mp3")],
 	"C": [preload("res://assets/sounds/game/grab_C_00.mp3"), preload("res://assets/sounds/game/grab_C_01.mp3"), preload("res://assets/sounds/game/grab_C_02.mp3")]
 }
+
+# [0] - floor bounce, [1] - wall hit, [2] wall crumble
+const BumpSounds = {
+	"XS": [preload("res://assets/sounds/game/bound_S.mp3"), preload("res://assets/sounds/game/bump_XS.mp3"), preload("res://assets/sounds/game/crash_XS.mp3")],
+	"S": [preload("res://assets/sounds/game/bound_S.mp3"), preload("res://assets/sounds/game/bump_S.mp3"), preload("res://assets/sounds/game/crash_S.mp3")],
+	"M": [preload("res://assets/sounds/game/bound_M.mp3"), preload("res://assets/sounds/game/bump_M.mp3"), preload("res://assets/sounds/game/crash_M.mp3")],
+	"L": [preload("res://assets/sounds/game/bound_L.mp3"), preload("res://assets/sounds/game/bump_L.mp3"), preload("res://assets/sounds/game/crash_L.mp3")],
+	"XL": [preload("res://assets/sounds/game/bound_L.mp3"), preload("res://assets/sounds/game/bump_XL.mp3"), preload("res://assets/sounds/game/crash_XL.mp3")],
+	"C": [null, null, null]
+}
 #endregion
 
 func _ready():
@@ -327,6 +337,17 @@ func playRollSound():
 	await audioPlayer.finished
 	audioPlayer.queue_free()
 
+func playBumpSound(sound:int):
+	var audioPlayer: AudioStreamPlayer = AudioStreamPlayer.new()
+	#audioPlayer.attenuation_model = AudioStreamPlayer3D.ATTENUATION_DISABLED
+	audioPlayer.bus = "SFX"
+	audioPlayer.stream = BumpSounds.get(SoundSize)[sound]
+	audioPlayer.volume_db = -2
+	$KatamariBody/KatamariMeshPivot.add_child(audioPlayer)
+	audioPlayer.play()
+	await audioPlayer.finished
+	audioPlayer.queue_free()
+
 func respawn(noAnimation:bool = false):
 	if not noAnimation:
 		# DO A TRANSITION HERE (UNIMPLEMENTED I GUESS)
@@ -345,3 +366,12 @@ func respawn(noAnimation:bool = false):
 func grabObject(ObjectSize:float, ObjectID:StringName):
 	ObjectQueue.push_back(ObjectID)
 	Size += ObjectSize * GrowthMultiplier
+
+func _on_object_bump(body):
+	var colInfo:KinematicCollision3D = $KatamariBody.move_and_collide(Vector3.ZERO, true, 0.001, true)
+	if colInfo and (body.collision_layer | 2 or body.collision_layer | 32768):
+		if colInfo.get_collider() == body:
+			if colInfo.get_normal().angle_to(Vector3.UP) <= PI/4:
+				if $KatamariBody.linear_velocity.y <= -1 * Size * $KatamariBody.gravity_scale: playBumpSound(0)
+			elif colInfo.get_normal().angle_to(Vector3.UP) <= 2*PI/4:
+				if $KatamariBody.linear_velocity.length() > Size * 2: playBumpSound(1)

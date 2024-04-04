@@ -344,6 +344,8 @@ center_of_mass = Vector3(0, -1, 0)
 can_sleep = false
 lock_rotation = true
 continuous_cd = true
+max_contacts_reported = 4
+contact_monitor = true
 linear_damp_mode = 1
 linear_damp = 1.1
 
@@ -636,3 +638,5 @@ parameters/WalkState/Ouji_Walk/conditions/backward_condition = false
 parameters/WalkState/Ouji_Walk/conditions/forward_condition = false
 parameters/WalkState/Ouji_Walk/conditions/side_condition = false
 parameters/WalkState/Ouji_Walk/Forward/OujiForwardAdd/add_amount = 0
+
+[connection signal="body_entered" from="KatamariBody" to="." method="_on_object_bump"]
