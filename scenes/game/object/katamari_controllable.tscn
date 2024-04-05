@@ -22,7 +22,7 @@ length = 2.89
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%ViewportRect:material:shader_parameter/zoom_amount")
+tracks/0/path = NodePath("../../../ViewportRect:material:shader_parameter/zoom_amount")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -46,16 +46,40 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0)
 }
 tracks/1/use_blend = true
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = false
+tracks/2/path = NodePath("%ViewportRect:material:shader_parameter/FX_opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 1.3, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.9, 0.9, 0.0]
+}
 
 [sub_resource type="Animation" id="Animation_dopje"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("%ViewportRect:material:shader_parameter/zoom_amount")
+tracks/0/path = NodePath("../../../ViewportRect:material:shader_parameter/zoom_amount")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%ViewportRect:material:shader_parameter/FX_opacity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -128,10 +152,12 @@ func _pressed():
 	%\"KatamariCamera/KatamariCameraZoom\".play(\"CameraZoom\")
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hau7w"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y00kv"]
 shader = ExtResource("6_rnc8v")
 shader_parameter/zoom_amount = 0.0
-shader_parameter/fade = 4.75e-08
+shader_parameter/fade = 0.0
+shader_parameter/FX_opacity = 0.0
+shader_parameter/FX_zoom = 1.098
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_l3wab"]
 viewport_path = NodePath("SubViewport")
@@ -297,7 +323,6 @@ transitions = ["Start", "Ouji_Idle", SubResource("AnimationNodeStateMachineTrans
 graph_offset = Vector2(93.0474, 0)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
-graph_offset = Vector2(0, -213)
 nodes/MovementScale/node = SubResource("AnimationNodeTimeScale_7b822")
 nodes/MovementScale/position = Vector2(620, 60)
 nodes/WalkState/node = SubResource("AnimationNodeStateMachine_lygbi")
@@ -572,7 +597,7 @@ bus = &"SFX"
 [node name="ViewportRect" type="TextureRect" parent="."]
 unique_name_in_owner = true
 z_index = -10
-material = SubResource("ShaderMaterial_hau7w")
+material = SubResource("ShaderMaterial_y00kv")
 clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0

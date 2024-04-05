@@ -127,7 +127,8 @@ func _process(delta):
 	
 	# Transform camera
 	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * $"..".scale)
-	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform, CameraSmoothing)
+	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform,
+	 CameraSmoothing)
 	
 	# Discharge / recharge dash
 	if DashCharge < 0:
@@ -151,6 +152,11 @@ func _process(delta):
 	%KatamariDashEfPivot.rotation.x -= (4*PI) * delta
 	%KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-25, 0, 30) / 30)), 0.2)
 	%KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-55, 0, 30) / 30)), 0.2)
+	
+	# Adjust cam. shader parameters
+	if not is_zero_approx(%ViewportRect.material.get("shader_parameter/FX_opacity")):
+		%ViewportRect.set("shader_parameter/FX_zoom", delta+1)
+		%ViewportRect.material.set("shader_parameter/FX_overlay", ImageTexture.create_from_image(get_viewport().get_texture().get_image()))
 	
 	# Animate cousin model
 	%OujiAnimTree.set("parameters/WalkState/conditions/idle_speed_reached", $KatamariBody.linear_velocity.length() < (Size / 10))
