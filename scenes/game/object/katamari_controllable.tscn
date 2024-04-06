@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=61 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -21,7 +21,7 @@ resource_name = "CameraZoom"
 length = 2.89
 tracks/0/type = "value"
 tracks/0/imported = false
-tracks/0/enabled = true
+tracks/0/enabled = false
 tracks/0/path = NodePath("../../../ViewportRect:material:shader_parameter/zoom_amount")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
@@ -48,7 +48,7 @@ tracks/1/keys = {
 tracks/1/use_blend = true
 tracks/2/type = "value"
 tracks/2/imported = false
-tracks/2/enabled = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("%ViewportRect:material:shader_parameter/FX_opacity")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -152,12 +152,17 @@ func _pressed():
 	%\"KatamariCamera/KatamariCameraZoom\".play(\"CameraZoom\")
 "
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y00kv"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_g5e0a"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1i5w"]
+resource_local_to_scene = true
 shader = ExtResource("6_rnc8v")
 shader_parameter/zoom_amount = 0.0
 shader_parameter/fade = 0.0
 shader_parameter/FX_opacity = 0.0
 shader_parameter/FX_zoom = 1.098
+shader_parameter/FX_overlay = SubResource("ViewportTexture_g5e0a")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_l3wab"]
 viewport_path = NodePath("SubViewport")
@@ -597,7 +602,7 @@ bus = &"SFX"
 [node name="ViewportRect" type="TextureRect" parent="."]
 unique_name_in_owner = true
 z_index = -10
-material = SubResource("ShaderMaterial_y00kv")
+material = SubResource("ShaderMaterial_d1i5w")
 clip_contents = true
 anchors_preset = 15
 anchor_right = 1.0

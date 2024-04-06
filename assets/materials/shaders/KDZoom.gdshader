@@ -8,7 +8,7 @@ uniform float fade: hint_range(-1.0, 1.0) = 0;
 
 uniform float FX_opacity: hint_range(0.0, 1) = 0;
 uniform float FX_zoom: hint_range(1, 2) = 1;
-uniform sampler2D FX_overlay: /*hint_screen_texture,*/ filter_linear;
+uniform sampler2D FX_overlay: filter_linear;
 
 /*
 	放射状ブラーエフェクト by あるる（きのもと　結衣） @arlez80
@@ -33,8 +33,8 @@ vec2 uv_zoom(vec2 uv, float zoom) {
 }
 
 void fragment() {
-	vec3 screenColor = radial_blur(TEXTURE, UV, vec2(0.5), zoom_amount, 16);
-	//vec3 screenColor = mix(texture(TEXTURE, UV).xyz, texture(FX_overlay, uv_zoom(UV, FX_zoom)).xyz, FX_opacity);
+	//vec3 screenColor = radial_blur(TEXTURE, UV, vec2(0.5), zoom_amount, 16);
+	vec3 screenColor = mix(texture(TEXTURE, UV).xyz, texture(FX_overlay, uv_zoom(UV, FX_zoom)).xyz, FX_opacity);
 	COLOR = vec4(clamp(mix(mix(screenColor, vec3(1), clamp(fade, 0, 1)), vec3(0), clamp(fade * -1.0, 0, 1)), 0, 1), 1);
 	
 

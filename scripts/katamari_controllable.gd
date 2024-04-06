@@ -60,6 +60,8 @@ var CurrentZone:int = 0
 var HighestZone := CurrentZone
 ## The amount of camera smoothing.
 var CameraSmoothing:float = 0.85
+
+@onready var CameraFrame:ViewportTexture = get_viewport().get_texture()
 #endregion
 #region Input
 ## The input vector for the left stick.
@@ -156,7 +158,7 @@ func _process(delta):
 	# Adjust cam. shader parameters
 	if not is_zero_approx(%ViewportRect.material.get("shader_parameter/FX_opacity")):
 		%ViewportRect.set("shader_parameter/FX_zoom", delta+1)
-		%ViewportRect.material.set("shader_parameter/FX_overlay", ImageTexture.create_from_image(get_viewport().get_texture().get_image()))
+		%ViewportRect.material.set("shader_parameter/FX_overlay", ImageTexture.create_from_image(CameraFrame.get_image()))
 	
 	# Animate cousin model
 	%OujiAnimTree.set("parameters/WalkState/conditions/idle_speed_reached", $KatamariBody.linear_velocity.length() < (Size / 10))
