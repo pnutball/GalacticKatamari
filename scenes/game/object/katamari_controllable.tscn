@@ -1,7 +1,8 @@
-[gd_scene load_steps=61 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=62 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
+[ext_resource type="Script" path="res://scripts/Feedback.gd" id="4_ujqm4"]
 [ext_resource type="AudioStream" uid="uid://wmfgl0sojypp" path="res://assets/sounds/game/scale_up.mp3" id="5_2kyss"]
 [ext_resource type="ArrayMesh" uid="uid://b3d1u1ws4oeus" path="res://assets/models/core/core_generic.obj" id="5_mqsmu"]
 [ext_resource type="Texture2D" uid="uid://dg5j6njuk2bjb" path="res://assets/textures/effect/dash_A.png" id="6_8pgql"]
@@ -153,7 +154,7 @@ func _pressed():
 "
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_g5e0a"]
-viewport_path = NodePath("SubViewport")
+viewport_path = NodePath("SubViewportFeedback")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d1i5w"]
 resource_local_to_scene = true
@@ -359,6 +360,11 @@ current = true
 libraries = {
 "": SubResource("AnimationLibrary_hdva6")
 }
+
+[node name="SubViewportFeedback" type="SubViewport" parent="."]
+size = Vector2i(1237, 623)
+render_target_update_mode = 4
+script = ExtResource("4_ujqm4")
 
 [node name="KatamariBody" type="RigidBody3D" parent="."]
 process_mode = 1
