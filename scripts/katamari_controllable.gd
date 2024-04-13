@@ -194,6 +194,10 @@ func _physics_process(delta):
 	$KatamariBody.gravity_scale = $"..".scale.y
 	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size * 1.15 * $"..".scale.y
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * $"..".scale.y
+	$FloorBumpDetect/FloorBumpCollide.scale = Vector3.ONE * Size * $"..".scale.y
+	$FloorBumpDetect.position = $KatamariBody.position + (0.3 * Vector3.DOWN * Size * $"..".scale.y)
+	$WallBumpDetect/WallBumpCollide.scale = Vector3.ONE * Size * $"..".scale.y
+	$WallBumpDetect.position = $KatamariBody.position + (0.02222222222 * Speed * ($KatamariBody.linear_velocity*Vector3(1,0,1)) * $"..".scale.y)
 	$KatamariBody.center_of_mass = Vector3(0, -Size/2, 0) * $"..".scale.y
 	
 	# Rotate katamari model
@@ -374,3 +378,14 @@ func grabObject(ObjectSize:float, ObjectID:StringName):
 	Size += ObjectSize * GrowthMultiplier
 
 
+func _on_wall_bump(_body):
+	var vel:float = ($KatamariBody.linear_velocity * Vector3(1,0,1)).length()
+	if vel > (Speed * 2 * Size * $"..".scale.y):
+		# Random chance code would go here, but temporarily
+		# let's just play the crash sound no matter what
+		playBumpSound(2)
+	elif vel > (Speed * 0.33 * Size * $"..".scale.y): playBumpSound(1)
+
+
+func _on_floor_bump(_body):
+	if $KatamariBody.linear_velocity.y < (-3.5 * Size * $"..".scale.y * $KatamariBody.gravity_scale): playBumpSound(0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=63 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -122,6 +122,9 @@ depth_draw_mode = 2
 shading_mode = 0
 albedo_color = Color(0, 0, 0, 1)
 albedo_texture = ExtResource("7_kpo2d")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qrq08"]
+radius = 0.35
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmoml"]
 bg_color = Color(0.12549, 0.160784, 0.258824, 1)
@@ -362,7 +365,7 @@ libraries = {
 }
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
-size = Vector2i(2, 2)
+size = Vector2i(959, 448)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
@@ -407,6 +410,22 @@ mesh = SubResource("SphereMesh_78fgn")
 [node name="KatamariDashEfB" type="MeshInstance3D" parent="KatamariBody/KatamariDashEfPivot"]
 material_override = SubResource("StandardMaterial3D_0uvt6")
 mesh = SubResource("SphereMesh_78fgn")
+
+[node name="FloorBumpDetect" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+collision_layer = 0
+collision_mask = 32770
+
+[node name="FloorBumpCollide" type="CollisionShape3D" parent="FloorBumpDetect"]
+shape = SubResource("SphereShape3D_qrq08")
+
+[node name="WallBumpDetect" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+collision_layer = 0
+collision_mask = 32770
+
+[node name="WallBumpCollide" type="CollisionShape3D" parent="WallBumpDetect"]
+shape = SubResource("SphereShape3D_qrq08")
 
 [node name="Debug" type="Control" parent="."]
 layout_mode = 3
@@ -675,4 +694,5 @@ parameters/WalkState/Ouji_Walk/conditions/forward_condition = false
 parameters/WalkState/Ouji_Walk/conditions/side_condition = false
 parameters/WalkState/Ouji_Walk/Forward/OujiForwardAdd/add_amount = 0
 
-[connection signal="body_entered" from="KatamariBody" to="." method="_on_object_bump"]
+[connection signal="body_entered" from="FloorBumpDetect" to="." method="_on_floor_bump"]
+[connection signal="body_entered" from="WallBumpDetect" to="." method="_on_wall_bump"]
