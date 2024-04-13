@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
+[ext_resource type="AudioStream" uid="uid://cfvbie78fey30" path="res://assets/sounds/game/scale_up.wav" id="3_xj4r4"]
 [ext_resource type="Script" path="res://scripts/Feedback.gd" id="4_ujqm4"]
-[ext_resource type="AudioStream" uid="uid://wmfgl0sojypp" path="res://assets/sounds/game/scale_up.mp3" id="5_2kyss"]
 [ext_resource type="ArrayMesh" uid="uid://b3d1u1ws4oeus" path="res://assets/models/core/core_generic.obj" id="5_mqsmu"]
 [ext_resource type="Texture2D" uid="uid://dg5j6njuk2bjb" path="res://assets/textures/effect/dash_A.png" id="6_8pgql"]
 [ext_resource type="Shader" path="res://assets/materials/shaders/KDZoom.gdshader" id="6_rnc8v"]
@@ -42,7 +42,7 @@ tracks/1/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("5_2kyss")
+"stream": ExtResource("3_xj4r4")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -362,7 +362,7 @@ libraries = {
 }
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
-size = Vector2i(1237, 623)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
