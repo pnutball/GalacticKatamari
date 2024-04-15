@@ -5,10 +5,7 @@
 [ext_resource type="Material" uid="uid://cq4hj1hxfmyye" path="res://assets/materials/ground00a.tres" id="3_l2lab"]
 [ext_resource type="Material" uid="uid://bdjdq1sus7b7g" path="res://assets/materials/ground00d.tres" id="4_gw6rg"]
 [ext_resource type="Material" uid="uid://dqi5bobv0efki" path="res://assets/materials/wall00a.tres" id="5_54dv8"]
-<<<<<<< Updated upstream
 [ext_resource type="ArrayMesh" uid="uid://cxuy6ugwpor4f" path="res://assets/models/map/map_test_hit.tres" id="6_eic3s"]
-=======
->>>>>>> Stashed changes
 [ext_resource type="Shader" path="res://assets/materials/shaders/KDWater.gdshader" id="7_5dbwr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_e4jke"]
