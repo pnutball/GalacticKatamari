@@ -112,6 +112,7 @@ func resetTree():
 	%Create/SizeArea.disabled = true
 	%Create/Spawn.disabled = true
 	%Create/Static.disabled = true
+	%ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object.disabled = true
 	%PlayButton.disabled = true
 	InternalLevelTree = {}
 
@@ -181,6 +182,7 @@ func addSizeArea(mode:TreeItem, auto:bool = false):
 	
 	%Create/Spawn.disabled = false
 	%Create/Static.disabled = false
+	%ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object.disabled = false
 	
 	addSpawn(NewZone, true)
 
@@ -226,7 +228,7 @@ func _on_create_id_pressed(id):
 		2: addCameraZone(lastSelectedMode)
 		3: addSizeArea(lastSelectedMode)
 		4: addStatic(lastSelectedArea)
-		5: addObject(lastSelectedArea)
+		5: addObject(lastSelectedArea, %ObjectBrowser/ObjectScroll/ObjectList.get_item_text(%ObjectBrowser/ObjectScroll/ObjectList.get_selected_items()[0]))
 		6: addSpawn(lastSelectedArea)
 
 func _on_level_tree_item_selected():
@@ -370,6 +372,7 @@ func openDict(dict:Dictionary):
 				#endregion
 				%Create/Spawn.disabled = false
 				%Create/Static.disabled = false
+				%ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object.disabled = false
 				
 				for staticIndex in InternalLevelTree[levelKey].modes[modeKey].map_zones[areaIndex].static.size():
 					var NewStatic:TreeItem = NewZone.get_child(0).create_child()

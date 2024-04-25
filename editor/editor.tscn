@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=26 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -17,6 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://b2qhh8vl7dqd" path="res://editor/icons/play.png" id="14_y8cnk"]
 [ext_resource type="Texture2D" uid="uid://cnuiorigx0n65" path="res://editor/icons/spawn.png" id="15_1x486"]
 [ext_resource type="StyleBox" uid="uid://jodakrgo7o8c" path="res://editor/themebox_over.tres" id="16_77xsq"]
+[ext_resource type="Script" path="res://editor/objectbrowse_script.gd" id="18_vcg6u"]
+[ext_resource type="Texture2D" uid="uid://d1c07jxwmy0mv" path="res://editor/icons/object.png" id="19_2w5lp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmqy0"]
 bg_color = Color(0.00784314, 0.0705882, 0.329412, 1)
@@ -49,6 +51,8 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ej3r5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xk6o"]
 bg_color = Color(0.00784314, 0.0705882, 0.329412, 0.501961)
@@ -252,7 +256,7 @@ stretch = true
 
 [node name="EditorViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
 handle_input_locally = false
-size = Vector2i(1622, 766)
+size = Vector2i(1622, 726)
 render_target_update_mode = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
@@ -272,16 +276,17 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_sf08n")
 
 [node name="ObjectBrowser" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 160)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 8
+script = ExtResource("18_vcg6u")
 
-[node name="PanelContainer" type="PanelContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser"]
+[node name="InfoPanel" type="PanelContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser"]
+custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_rubcn")
 
-[node name="MarginContainer" type="MarginContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer"]
+[node name="InfoPanelMargin" type="MarginContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -290,48 +295,29 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="ScrollContainer" type="ScrollContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer"]
+[node name="InfoPanelVbox" type="VBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin"]
 layout_mode = 2
-horizontal_scroll_mode = 0
 
-[node name="FlowContainer" type="GridContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer"]
+[node name="Object" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-columns = 2
+tooltip_text = "Create Level"
+text = "Create"
+icon = ExtResource("19_2w5lp")
 
-[node name="IDLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
-layout_mode = 2
-text = "Object ID"
-
-[node name="IDEdit" type="LineEdit" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ViewLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
-layout_mode = 2
-text = "View Mesh"
-
-[node name="ViewEdit" type="LineEdit" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ColLabel" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
-layout_mode = 2
-text = "Collision Mesh"
-
-[node name="ColEdit" type="LineEdit" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/PanelContainer/MarginContainer/ScrollContainer/FlowContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser"]
+[node name="ObjectScroll" type="ScrollContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+follow_focus = true
+
+[node name="ObjectList" type="ItemList" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/ObjectScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ej3r5")
+auto_height = true
+max_columns = 0
+same_column_width = true
 
 [node name="StatusBar" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox"]
 unique_name_in_owner = true
@@ -394,6 +380,7 @@ Would you like to save?"
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Spawn" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [6]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Static" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [4]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [5]]
 [connection signal="canceled" from="FileDialog" to="." method="emitFileResponse" binds= [""]]
 [connection signal="file_selected" from="FileDialog" to="." method="emitFileResponse"]
 [connection signal="canceled" from="SaveDialog" to="." method="emitSaveResponse" binds= [2]]
