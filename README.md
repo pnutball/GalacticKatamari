@@ -16,6 +16,6 @@ This project is currently a _prototype_. Don't expect anything amazing yet.
     - [GitHub Desktop](https://desktop.github.com/): Press `File -> Clone repository...` and clone `pnutball/GalacticKatamari`. <br/>Alternatively, go into the main page and press `<> Code -> Open with GitHub Desktop`.
     - Visual Studio: Press `Clone a repository` and enter `https://github.com/pnutball/GalacticKatamari.git` as the repository location. Enter your GitHub credentials if necessary.
     - Git (command line): Run `git clone https://github.com/pnutball/GalacticKatamari.git [local directory]`. Enter your GitHub credentials if necessary.
-2. Open project.godot using [Godot 4.2.1 Standard](https://godotengine.org/download/archive/4.2.1-stable/).
+2. Open project.godot using [Godot 4.2.2 Standard](https://godotengine.org/download/archive/4.2.2-stable/).
 
 The Godot project can be built and edited (including GDScript code) through the Godot editor.
