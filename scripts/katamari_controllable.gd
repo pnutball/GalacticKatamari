@@ -197,7 +197,7 @@ func _physics_process(delta):
 	$FloorBumpDetect/FloorBumpCollide.scale = Vector3.ONE * Size * $"..".scale.y
 	$FloorBumpDetect.position = $KatamariBody.position + (0.3 * Vector3.DOWN * Size * $"..".scale.y)
 	$WallBumpDetect/WallBumpCollide.scale = Vector3.ONE * Size * $"..".scale.y
-	$WallBumpDetect.position = $KatamariBody.position + (0.02222222222 * Speed * ($KatamariBody.linear_velocity*Vector3(1,0,1)) * $"..".scale.y)
+	$WallBumpDetect.position = $KatamariBody.position + (0.3 * (($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() if $KatamariBody.linear_velocity.length() > 0 else Vector3.ZERO) * Size * $"..".scale.y)
 	$KatamariBody.center_of_mass = Vector3(0, -Size/2, 0) * $"..".scale.y
 	
 	# Rotate katamari model
