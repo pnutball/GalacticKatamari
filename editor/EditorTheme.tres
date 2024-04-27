@@ -78,7 +78,7 @@ shadow_offset = Vector2(0, 3)
 
 [resource]
 default_font = ExtResource("1_b77oh")
-default_font_size = 20
+default_font_size = 18
 AcceptDialog/styles/panel = SubResource("StyleBoxFlat_llnth")
 HScrollBar/styles/grabber = ExtResource("1_3x3ng")
 HScrollBar/styles/grabber_highlight = ExtResource("2_eeju6")
