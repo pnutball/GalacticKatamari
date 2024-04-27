@@ -24,6 +24,7 @@ func _on_value_change(item):
 
 func P_Property_Formatted(): 
 	var prop = P_Property.get_slice("/", P_Property.get_slice_count("/") - 1)
+	@warning_ignore("incompatible_ternary")
 	return prop.to_int() if P_Path is Array else prop
 
 func Set_P_Path():
