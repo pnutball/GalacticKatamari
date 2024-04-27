@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=29 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://b2qhh8vl7dqd" path="res://editor/icons/play.png" id="14_y8cnk"]
 [ext_resource type="Texture2D" uid="uid://cnuiorigx0n65" path="res://editor/icons/spawn.png" id="15_1x486"]
 [ext_resource type="StyleBox" uid="uid://jodakrgo7o8c" path="res://editor/themebox_over.tres" id="16_77xsq"]
+[ext_resource type="Script" path="res://editor/3dview_script.gd" id="17_qjlcr"]
 [ext_resource type="Script" path="res://editor/objectbrowse_script.gd" id="18_vcg6u"]
 [ext_resource type="Texture2D" uid="uid://d1c07jxwmy0mv" path="res://editor/icons/object.png" id="19_2w5lp"]
 [ext_resource type="PackedScene" uid="uid://dqojpyii1gskp" path="res://scenes/environment/env_preview.tscn" id="20_n41lb"]
@@ -257,11 +258,20 @@ custom_minimum_size = Vector2(480, 270)
 layout_mode = 2
 size_flags_vertical = 3
 stretch = true
+script = ExtResource("17_qjlcr")
 
 [node name="EditorViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
 handle_input_locally = false
 size = Vector2i(1622, 732)
 render_target_update_mode = 4
+
+[node name="EditorPrevRoot" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport"]
+
+[node name="statics" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/EditorPrevRoot"]
+
+[node name="objects" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/EditorPrevRoot"]
+
+[node name="spawns" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/EditorPrevRoot"]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
 layout_mode = 2
