@@ -8,4 +8,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$ObjectScroll/ObjectList.fixed_column_width = $ObjectScroll/ObjectList.size.x / int($ObjectScroll/ObjectList.size.x / 220)
+	var width:int = $ObjectScroll/ObjectList.size.x
+	$ObjectScroll/ObjectList.max_columns = int(width / 220)
+	$ObjectScroll/ObjectList.fixed_column_width = int(width / $ObjectScroll/ObjectList.max_columns) - 8
