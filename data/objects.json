@@ -7,8 +7,8 @@
 			"roll_size": 0.6,
 			"pickup_size": 0.05,
 			"scale": 1,
-			"material": "",
-			"material_rolledup": "",
+			"texture": "",
+			"texture_rolledup": "",
 			"name": {
 				"en": "Debug Cube"
 			},

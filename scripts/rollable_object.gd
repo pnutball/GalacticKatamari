@@ -7,15 +7,15 @@ var Katamari
 @export var ObjectName:String = "Debug Cube"
 @export var ObjectMesh:Mesh = load("res://assets/models/object/debug_cube_view.tres")
 @export var ObjectCol:Shape3D = load("res://assets/models/object/debug_cube.shape")
-@export var ObjectMat:Texture2D = null
-@export var ObjectMatRoll:Texture2D = null
+@export var ObjectTex:Texture2D = null
+@export var ObjectTexRoll:Texture2D = null
 @export var ObjectKnockSize:float = 0
 @export var ObjectRollSize:float = 0
 @export var ObjectGrowSize:float = 0
 
 func _ready():
 	$RollableObjectMesh.mesh = ObjectMesh
-	# $RollableObjectMesh.material = ObjectMat
+	$RollableObjectMesh.material_override.albedo_texture = ObjectTex
 	$RollableObjectCollision.shape = ObjectCol
 	$OnKatamariCollisionShape.shape = ObjectCol
 	$ObjectAttachArea/RollableObjectAttachCollision.shape = ObjectCol
@@ -35,7 +35,7 @@ func _on_katamari_entered(_rid, body, shape, _locshape):
 	if body == Katamari.get_node("KatamariBody") and shape == 0:
 		if Katamari.Size >= ObjectRollSize:
 			Katamari.grabObject(ObjectGrowSize, ObjectID)
-			# get_node(InstanceName + "_M").material = ObjectMatRoll
+			get_node(InstanceName + "_M").material_override.albedo_texture = ObjectTexRoll
 			get_node(InstanceName + "_C").queue_free()
 			get_node(InstanceName + "_K").reparent(body, true)
 			get_node(InstanceName + "_M").reparent(body.get_node("KatamariMeshPivot"))
