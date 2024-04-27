@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=28 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -19,6 +19,7 @@
 [ext_resource type="StyleBox" uid="uid://jodakrgo7o8c" path="res://editor/themebox_over.tres" id="16_77xsq"]
 [ext_resource type="Script" path="res://editor/objectbrowse_script.gd" id="18_vcg6u"]
 [ext_resource type="Texture2D" uid="uid://d1c07jxwmy0mv" path="res://editor/icons/object.png" id="19_2w5lp"]
+[ext_resource type="PackedScene" uid="uid://dqojpyii1gskp" path="res://scenes/environment/env_preview.tscn" id="20_n41lb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmqy0"]
 bg_color = Color(0.00784314, 0.0705882, 0.329412, 1)
@@ -51,6 +52,9 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0gkeu"]
+metallic_specular = 0.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ej3r5"]
 
@@ -256,7 +260,7 @@ stretch = true
 
 [node name="EditorViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
 handle_input_locally = false
-size = Vector2i(1622, 731)
+size = Vector2i(1622, 732)
 render_target_update_mode = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
@@ -303,6 +307,27 @@ layout_mode = 2
 tooltip_text = "Create Level"
 text = "Create"
 icon = ExtResource("19_2w5lp")
+
+[node name="ObjectPreviewContainer" type="SubViewportContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="PreviewViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/ObjectPreviewContainer"]
+unique_name_in_owner = true
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(144, 144)
+render_target_update_mode = 4
+
+[node name="EnvPreview" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/ObjectPreviewContainer/PreviewViewport" instance=ExtResource("20_n41lb")]
+
+[node name="MeshPreview" type="MeshInstance3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/ObjectPreviewContainer/PreviewViewport"]
+material_override = SubResource("StandardMaterial3D_0gkeu")
+
+[node name="Camera3D" type="Camera3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/ObjectPreviewContainer/PreviewViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0.25, 0.433013)
 
 [node name="ObjectScroll" type="ScrollContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser"]
 layout_mode = 2
@@ -381,6 +406,7 @@ Would you like to save?"
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Static" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [4]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [5]]
+[connection signal="item_selected" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/ObjectScroll/ObjectList" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser" method="_object_selected"]
 [connection signal="canceled" from="FileDialog" to="." method="emitFileResponse" binds= [""]]
 [connection signal="file_selected" from="FileDialog" to="." method="emitFileResponse"]
 [connection signal="canceled" from="SaveDialog" to="." method="emitSaveResponse" binds= [2]]

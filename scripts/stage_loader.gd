@@ -120,11 +120,17 @@ func preloadArea(area:int = currentArea + 1):
 	for object in currentStage.modes.get(currentMode).map_zones[area].objects:
 		var instantiated:Node = RollableObject3D.instantiate()
 		
-		ResourceLoader.load_threaded_request(objectList.objects.get(object.id).view_mesh)
-		while ResourceLoader.load_threaded_get_status(objectList.objects.get(object.id).view_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		ResourceLoader.load_threaded_request(objectList.objects.get(object.id, "debug_cube").view_mesh)
+		while ResourceLoader.load_threaded_get_status(objectList.objects.get(object.id, "debug_cube").view_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 			await get_tree().create_timer(0.1).timeout
-		ResourceLoader.load_threaded_request(objectList.objects.get(object.id).collision_mesh)
-		while ResourceLoader.load_threaded_get_status(objectList.objects.get(object.id).collision_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		ResourceLoader.load_threaded_request(objectList.objects.get(object.id, "debug_cube").collision_mesh)
+		while ResourceLoader.load_threaded_get_status(objectList.objects.get(object.id, "debug_cube").collision_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+			await get_tree().create_timer(0.1).timeout
+		ResourceLoader.load_threaded_request(objectList.objects.get(object.id, "debug_cube").texture)
+		while ResourceLoader.load_threaded_get_status(objectList.objects.get(object.id, "debug_cube").texture) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+			await get_tree().create_timer(0.1).timeout
+		ResourceLoader.load_threaded_request(objectList.objects.get(object.id, "debug_cube").texture_rolledup)
+		while ResourceLoader.load_threaded_get_status(objectList.objects.get(object.id, "debug_cube").texture_rolledup) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 			await get_tree().create_timer(0.1).timeout
 		
 		instantiated.InstanceName = str(area) + "_" + str(num)
@@ -135,6 +141,8 @@ func preloadArea(area:int = currentArea + 1):
 		instantiated.ObjectRollSize = objectList.objects.get(object.id, "debug_cube").roll_size
 		instantiated.ObjectGrowSize = objectList.objects.get(object.id, "debug_cube").pickup_size
 		instantiated.Katamari = currentKatamari
+		instantiated.ObjectTex = ResourceLoader.load_threaded_get(objectList.objects.get(object.id, "debug_cube").texture) if objectList.objects.get(object.id, "debug_cube").texture != "" else null
+		instantiated.ObjectTexRoll = ResourceLoader.load_threaded_get(objectList.objects.get(object.id, "debug_cube").texture_rolledup) if objectList.objects.get(object.id, "debug_cube").texture_rolledup != "" else instantiated.ObjectTex
 		instantiated.position = Vector3(object.position[0], object.position[1], object.position[2])
 		instantiated.rotation = Vector3(object.rotation[0], object.rotation[1], object.rotation[2]) * (PI/180)
 		instantiated.scale = Vector3(objectList.objects.get(object.id, "debug_cube").scale, objectList.objects.get(object.id, "debug_cube").scale, objectList.objects.get(object.id, "debug_cube").scale)
