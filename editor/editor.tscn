@@ -262,6 +262,7 @@ stretch = true
 script = ExtResource("17_qjlcr")
 
 [node name="EditorViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
+own_world_3d = true
 handle_input_locally = false
 size = Vector2i(1622, 732)
 render_target_update_mode = 4
@@ -274,10 +275,23 @@ render_target_update_mode = 4
 
 [node name="spawns" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/EditorPrevRoot"]
 
-[node name="Button" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport"]
-offset_right = 8.0
-offset_bottom = 8.0
-text = "TEST BUTTON"
+[node name="Camera3D" type="Camera3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/EditorPrevRoot"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer"]
+layout_mode = 2
+text = "Reload Statics"
+
+[node name="Button2" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer"]
+layout_mode = 2
+text = "Reload Objects"
+
+[node name="Button3" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer"]
+layout_mode = 2
+text = "Reload Spawns"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
 layout_mode = 2
@@ -420,7 +434,9 @@ Would you like to save?"
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/SizeArea" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [3]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Spawn" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [6]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Static" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [4]]
-[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/Button" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_spawns"]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer/Button" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_statics"]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer/Button2" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_objects"]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer/Button3" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_spawns"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [5]]
 [connection signal="item_selected" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/ObjectScroll/ObjectList" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser" method="_object_selected"]
