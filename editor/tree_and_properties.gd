@@ -350,7 +350,7 @@ func openDict(dict:Dictionary):
 			
 			for camIndex in InternalLevelTree[levelKey].modes[modeKey].cam_zones.size():
 				#region Cam Area TreeItem init
-				var NewZone:TreeItem = NewMode.get_child(1).create_child()
+				var NewZone:TreeItem = NewMode.get_child(0).create_child()
 				NewZone.set_icon(0, load("res://editor/icons/camerazone.png"))
 				NewZone.set_meta(&"type", "cam_zone")
 				NewZone.set_text(0, "Cam. Area %d" % camIndex)
