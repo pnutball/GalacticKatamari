@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyi44jgvj2uru"
-path.bptc="res://.godot/imported/ground01c.png-62bde04b901a4e3f61b3b268dfa11057.bptc.ctex"
+uid="uid://bc0i21yptk00r"
+path.bptc="res://.godot/imported/floor_64.png-0e8705fca1b419c8be58b340bd8bf014.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/material/ground01c.png"
-dest_files=["res://.godot/imported/ground01c.png-62bde04b901a4e3f61b3b268dfa11057.bptc.ctex"]
+source_file="res://assets/textures/material/dev/floor_64.png"
+dest_files=["res://.godot/imported/floor_64.png-0e8705fca1b419c8be58b340bd8bf014.bptc.ctex"]
 
 [params]
 

@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://c6jgvfn7ap2gl"]
+
+[ext_resource type="Shader" path="res://assets/materials/shaders/KDTerrain.gdshader" id="1_m1g3w"]
+[ext_resource type="Texture2D" uid="uid://3mlwar6uq2p7" path="res://assets/textures/material/ground00b.png" id="2_j5ckv"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_m1g3w")
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/texture_albedo = ExtResource("2_j5ckv")

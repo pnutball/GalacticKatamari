@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bj5a1yeup1fxy"]
+
+[ext_resource type="Shader" path="res://assets/materials/shaders/KDTerrain.gdshader" id="1_ulpxd"]
+[ext_resource type="Texture2D" uid="uid://bhvensx0nebjf" path="res://assets/textures/material/dev/slope_64.png" id="2_amf0x"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ulpxd")
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/texture_albedo = ExtResource("2_amf0x")

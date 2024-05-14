@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://r5caqxgno3i7"]
+
+[ext_resource type="Shader" path="res://assets/materials/shaders/KDTerrain.gdshader" id="1_2e85g"]
+[ext_resource type="Texture2D" uid="uid://d4anwbbg3vcy" path="res://assets/textures/material/dev/nocollide_64.png" id="2_ougqm"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_2e85g")
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/texture_albedo = ExtResource("2_ougqm")
