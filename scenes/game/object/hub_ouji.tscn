@@ -8,7 +8,7 @@ radius = 0.25
 height = 1.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_op5xx"]
-animation = &"Ouji_Roll_Forward"
+animation = &"Ouji_Walk_Forward"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8lyf8"]
 animation = &"Ouji_Idle"
