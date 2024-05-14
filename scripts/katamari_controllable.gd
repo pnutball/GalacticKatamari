@@ -129,7 +129,7 @@ func _process(delta):
 	# Transform camera
 	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * $"..".scale)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform,
-	 CameraSmoothing)
+	 (CameraSmoothing * 60)*delta)
 	
 	# Discharge / recharge dash
 	if DashCharge < 0:
