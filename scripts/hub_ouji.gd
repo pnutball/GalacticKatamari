@@ -6,6 +6,8 @@ var RightStick:Vector2 = Vector2(0, 0)
 ## The camera's X and Y rotations.
 ## X range: -35deg to 90deg
 var CamRotation:Vector2 = Vector2(0, 5)
+## Mouse velocity.
+var MouseVelocity:Vector2 = Vector2.ZERO
 ## Movement speed.
 const Speed:float = 240
 
@@ -19,9 +21,22 @@ func _physics_process(delta):
 		(30)*delta)
 	move_and_slide()
 
+func _input(event):
+	if event.is_action_pressed("Unlock Mouse"):
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	if event is InputEventMouseButton:
+		if event.pressed:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	elif event is InputEventMouseMotion:
+		MouseVelocity = event.relative
+	
+
 func _process(delta):
 	CamRotation += 80 * RightStick * delta #* Vector2(1,-1)
-	CamRotation.y = clampf(CamRotation.y, -35, 90)
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		CamRotation += 8 * MouseVelocity * delta * Vector2(-1, 1)
+		MouseVelocity = Vector2.ZERO
+	CamRotation.y = clampf(CamRotation.y, -28, 85)
 	$HubOujiCamPivot.rotation = lerp($HubOujiCamPivot.rotation, 
 	Vector3(deg_to_rad(CamRotation.y), deg_to_rad(CamRotation.x), 0),
 	(15)*delta)
