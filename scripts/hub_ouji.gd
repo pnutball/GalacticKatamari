@@ -20,6 +20,7 @@ func _physics_process(delta):
 		Vector2(velocity.z, velocity.x).angle(),
 		(30)*delta)
 	move_and_slide()
+	apply_floor_snap()
 
 func _input(event):
 	if event.is_action_pressed("Unlock Mouse"):
