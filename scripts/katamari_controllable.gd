@@ -115,7 +115,6 @@ const BumpSounds = {
 func _ready():
 	loadCore(CoreTexture, CoreModel)
 	changeCamArea(0, true)
-	%OujiAnimTree.active = true
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 	respawn(true)
 
@@ -157,15 +156,6 @@ func _process(delta):
 	# Adjust cam. shader parameters
 	if not is_zero_approx(%ViewportRect.material.get("shader_parameter/FX_opacity")):
 		%ViewportRect.set("shader_parameter/FX_zoom", delta+1)
-	
-	# Animate cousin model
-	%OujiAnimTree.set("parameters/WalkState/conditions/idle_speed_reached", $KatamariBody.linear_velocity.length() < (Size / 10))
-	%OujiAnimTree.set("parameters/WalkState/conditions/walk_speed_reached", $KatamariBody.linear_velocity.length() >= (Size / 10))
-	%OujiAnimTree.set("parameters/WalkState/Ouji_Walk/conditions/forward_condition", (StickMidpoint.angle_to(Vector2.UP) < (2.0*PI)/6.0) and (StickMidpoint.angle_to(Vector2.UP) > (-2.0*PI)/6.0))
-	%OujiAnimTree.set("parameters/WalkState/Ouji_Walk/conditions/backward_condition", (StickMidpoint.angle_to(Vector2.UP) > (4.0*PI)/6.0) or (StickMidpoint.angle_to(Vector2.UP) < (-4.0*PI)/6.0))
-	%OujiAnimTree.set("parameters/WalkState/Ouji_Walk/conditions/side_condition", (StickMidpoint.angle_to(Vector2.UP) > (2.0*PI)/6.0 and StickMidpoint.angle_to(Vector2.UP) < (4.0*PI)/6.0) or (StickMidpoint.angle_to(Vector2.UP) > (-4.0*PI)/6.0 and StickMidpoint.angle_to(Vector2.UP) < (-2.0*PI)/6.0))
-	%OujiAnimTree.set("parameters/WalkState/Ouji_Walk/Forward/OujiForwardAdd/add_amount", lerpf(%OujiAnimTree.get("parameters/WalkState/Ouji_Walk/Forward/OujiForwardAdd/add_amount"), StickAngle, 0.5))
-	%OujiAnimTree.set("parameters/MovementScale/scale", Speed / 4.5)
 	
 	# Update debug info
 	$Debug/StickDisplay/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
