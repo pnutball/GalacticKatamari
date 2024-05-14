@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://b01ud1q5jh38u"]
+
+[ext_resource type="Shader" path="res://assets/materials/shaders/KDTerrain.gdshader" id="1_tmfci"]
+[ext_resource type="Texture2D" uid="uid://bc0i21yptk00r" path="res://assets/textures/material/dev/floor_64.png" id="2_x8ovx"]
+[ext_resource type="PackedScene" uid="uid://didtwp35i5ed5" path="res://scenes/game/object/hub_ouji.tscn" id="3_h7q6a"]
+[ext_resource type="PackedScene" uid="uid://dx4skkxtb28gf" path="res://scenes/environment/env_day.tscn" id="4_1s7ex"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_glo4g"]
+render_priority = 0
+shader = ExtResource("1_tmfci")
+shader_parameter/uv1_scale = Vector3(10, 10, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/texture_albedo = ExtResource("2_x8ovx")
+
+[sub_resource type="QuadMesh" id="QuadMesh_hm7ws"]
+material = SubResource("ShaderMaterial_glo4g")
+size = Vector2(10, 10)
+orientation = 1
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_v2omh"]
+data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_hm7ws")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_v2omh")
+
+[node name="HubOuji" parent="." instance=ExtResource("3_h7q6a")]
+
+[node name="EnvDay" parent="." instance=ExtResource("4_1s7ex")]

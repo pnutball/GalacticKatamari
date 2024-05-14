@@ -74,7 +74,7 @@ resource_name = "DbgMapBtnScript"
 script/source = "extends Button
 
 func _on_pressed():
-	get_tree().change_scene_to_file(\"res://scenes/game/testing.tscn\")
+	get_tree().change_scene_to_file(\"res://scenes/game/hub.tscn\")
 "
 
 [sub_resource type="GDScript" id="GDScript_lnotj"]
@@ -156,14 +156,14 @@ offset_bottom = 127.0
 text = "GK Editor"
 script = SubResource("GDScript_k8lqt")
 
-[node name="DebugMapButton" type="Button" parent="Menu"]
+[node name="HubButton" type="Button" parent="Menu"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 32.0
 offset_top = 136.0
-offset_right = 228.0
+offset_right = 148.0
 offset_bottom = 167.0
-text = "Debug Map (old loading)"
+text = "Cosmea Town"
 script = SubResource("GDScript_tdnow")
 
 [node name="LanguageBox" type="ItemList" parent="Menu"]
@@ -294,7 +294,7 @@ text = "[font_size=96px][wave amp=100.0 freq=-5.0 connected=1][rainbow freq=0.5 
 fit_content = true
 
 [connection signal="pressed" from="Menu/EditorButton" to="Menu/EditorButton" method="_on_pressed"]
-[connection signal="pressed" from="Menu/DebugMapButton" to="Menu/DebugMapButton" method="_on_pressed"]
+[connection signal="pressed" from="Menu/HubButton" to="Menu/HubButton" method="_on_pressed"]
 [connection signal="item_selected" from="Menu/LanguageBox" to="Menu/LanguageBox" method="_on_item_selected"]
 [connection signal="item_selected" from="Menu/StageList" to="Menu" method="_on_stage_list_item_selected"]
 [connection signal="item_selected" from="Menu/LevelList" to="Menu" method="_on_level_list_item_selected"]

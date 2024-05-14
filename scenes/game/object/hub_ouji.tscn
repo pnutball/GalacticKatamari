@@ -1,0 +1,58 @@
+[gd_scene load_steps=10 format=3 uid="uid://didtwp35i5ed5"]
+
+[ext_resource type="Script" path="res://scripts/hub_ouji.gd" id="1_g1q3g"]
+[ext_resource type="PackedScene" uid="uid://ddvym7hjeiewb" path="res://assets/ouji/rig/Ouji01.tscn" id="1_n3efx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7yn54"]
+radius = 0.25
+height = 1.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_op5xx"]
+animation = &"Ouji_Roll_Forward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8lyf8"]
+animation = &"Ouji_Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_veb48"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u85fk"]
+xfade_time = 0.15
+advance_mode = 2
+advance_expression = "not is_zero_approx(Vector2(velocity.x, velocity.z).length())"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nwr8y"]
+xfade_time = 0.15
+advance_mode = 2
+advance_expression = "is_zero_approx(Vector2(velocity.x, velocity.z).length())"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_kxkjp"]
+states/Forward/node = SubResource("AnimationNodeAnimation_op5xx")
+states/Forward/position = Vector2(606.036, 119)
+states/Idle/node = SubResource("AnimationNodeAnimation_8lyf8")
+states/Idle/position = Vector2(363.036, 111)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_veb48"), "Idle", "Forward", SubResource("AnimationNodeStateMachineTransition_u85fk"), "Forward", "Idle", SubResource("AnimationNodeStateMachineTransition_nwr8y")]
+graph_offset = Vector2(115.036, 0)
+
+[node name="HubOuji" type="CharacterBody3D"]
+floor_snap_length = 99999.0
+script = ExtResource("1_g1q3g")
+
+[node name="Ouji" parent="." instance=ExtResource("1_n3efx")]
+transform = Transform3D(0.055, 0, 0, 0, 0.055, 0, 0, 0, 0.055, 0, 0, 0)
+
+[node name="HubOujiCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_7yn54")
+
+[node name="HubOujiCamPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.996194, -0.0871557, 0, 0.0871557, 0.996194, 0, 0.95, 0)
+
+[node name="HubOujiCam" type="Camera3D" parent="HubOujiCamPivot"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -2)
+
+[node name="HubOujiAnim" type="AnimationTree" parent="."]
+root_node = NodePath("../Ouji")
+tree_root = SubResource("AnimationNodeStateMachine_kxkjp")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../Ouji/OujiAnimation")
