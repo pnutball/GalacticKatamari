@@ -68,8 +68,9 @@ shape = SubResource("ConcavePolygonShape3D_v2omh")
 
 [node name="EnvDay" parent="." instance=ExtResource("4_1s7ex")]
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="HubMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_xtrex")
+autoplay = true
 bus = &"Music"
 
 [node name="test_interactable" parent="." instance=ExtResource("6_185yb")]
