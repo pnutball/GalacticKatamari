@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b01ud1q5jh38u"]
+[gd_scene load_steps=14 format=3 uid="uid://b01ud1q5jh38u"]
 
 [ext_resource type="Shader" path="res://assets/materials/shaders/KDTerrain.gdshader" id="1_tmfci"]
 [ext_resource type="Texture2D" uid="uid://bc0i21yptk00r" path="res://assets/textures/material/dev/floor_64.png" id="2_x8ovx"]
@@ -22,7 +22,7 @@ orientation = 1
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_v2omh"]
 data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d3t4j"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gr5c1"]
 render_priority = 0
 shader = ExtResource("1_tmfci")
 shader_parameter/uv1_scale = Vector3(2, 10, 1)
@@ -30,7 +30,19 @@ shader_parameter/uv1_offset = null
 shader_parameter/texture_albedo = ExtResource("2_x8ovx")
 
 [sub_resource type="QuadMesh" id="QuadMesh_l6lf1"]
-material = SubResource("ShaderMaterial_d3t4j")
+material = SubResource("ShaderMaterial_gr5c1")
+size = Vector2(10, 10)
+orientation = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_38w0x"]
+render_priority = 0
+shader = ExtResource("1_tmfci")
+shader_parameter/uv1_scale = Vector3(10, 10, 1)
+shader_parameter/uv1_offset = null
+shader_parameter/texture_albedo = ExtResource("2_x8ovx")
+
+[sub_resource type="QuadMesh" id="QuadMesh_qcuri"]
+material = SubResource("ShaderMaterial_38w0x")
 size = Vector2(10, 10)
 orientation = 1
 
@@ -55,8 +67,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_v2omh")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.00083, 0, 0, 0, 0.941939, -0.342837, 0, 0.342837, 0.941939, 0, -1.71669, 9.71193)
-mesh = SubResource("QuadMesh_l6lf1")
+transform = Transform3D(1, 0, 0, 0, 0.939693, -0.342019, 0, 0.342019, 0.939693, 0, -1.7101, 9.69846)
+mesh = SubResource("QuadMesh_qcuri")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
 
