@@ -7,15 +7,15 @@
 [ext_resource type="AudioStream" uid="uid://dlaq63l2i5jv8" path="res://assets/music/king.ogg" id="5_xtrex"]
 [ext_resource type="PackedScene" uid="uid://diaw2mn34xmsp" path="res://scenes/test/test_interactable.tscn" id="6_185yb"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_glo4g"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8kjt6"]
 render_priority = 0
 shader = ExtResource("1_tmfci")
-shader_parameter/uv1_scale = Vector3(10, 10, 1)
+shader_parameter/uv1_scale = Vector3(30, 30, 1)
 shader_parameter/uv1_offset = null
 shader_parameter/texture_albedo = ExtResource("2_x8ovx")
 
 [sub_resource type="QuadMesh" id="QuadMesh_hm7ws"]
-material = SubResource("ShaderMaterial_glo4g")
+material = SubResource("ShaderMaterial_8kjt6")
 size = Vector2(10, 10)
 orientation = 1
 
@@ -49,6 +49,7 @@ orientation = 1
 [node name="Node3D" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, -10)
 mesh = SubResource("QuadMesh_hm7ws")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -57,12 +58,22 @@ mesh = SubResource("QuadMesh_hm7ws")
 shape = SubResource("ConcavePolygonShape3D_v2omh")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.2, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, -4, 1.7101, -1.69846)
+transform = Transform3D(0.2, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, -14, 1.7101, -4.69846)
 mesh = SubResource("QuadMesh_l6lf1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_v2omh")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.2, -2.99003e-08, -8.21506e-08, 0, 0.939693, -0.34202, 1.74846e-08, -0.34202, -0.939693, -14, 1.71, -14.095)
+mesh = SubResource("QuadMesh_l6lf1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_v2omh")
 
