@@ -49,7 +49,7 @@ shape = SubResource("CapsuleShape3D_7yn54")
 transform = Transform3D(1, 0, 0, 0, 0.996194, -0.0871557, 0, 0.0871557, 0.996194, 0, 0.95, 0)
 
 [node name="HubOujiCam" type="Camera3D" parent="HubOujiCamPivot"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -2)
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, -2.94)
 
 [node name="HubOujiAnim" type="AnimationTree" parent="."]
 root_node = NodePath("../Ouji")

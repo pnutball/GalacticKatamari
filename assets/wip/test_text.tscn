@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctmwl726sbpk8"]
+
+[ext_resource type="Script" path="res://texttest3d.gd" id="1_yp0ve"]
+[ext_resource type="FontFile" uid="uid://dvjh8wmwfwvgn" path="res://assets/fonts/talk.ttf" id="2_nk6kr"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xpt2h"]
+viewport_path = NodePath("SubViewport2")
+
+[sub_resource type="LabelSettings" id="LabelSettings_otomm"]
+font = ExtResource("2_nk6kr")
+font_size = 36
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+
+[node name="test_text" type="Sprite3D"]
+transform = Transform3D(0.8, 0, 0, 0, 0.097368, 0, 0, 0, 1, 0, 0, 0)
+billboard = 1
+alpha_antialiasing_mode = 1
+texture_filter = 0
+texture = SubResource("ViewportTexture_xpt2h")
+region_enabled = true
+
+[node name="SubViewport2" type="SubViewport" parent="."]
+size = Vector2i(427, 52)
+script = ExtResource("1_yp0ve")
+
+[node name="Label" type="Label" parent="SubViewport2"]
+texture_repeat = 1
+offset_right = 433.0
+offset_bottom = 49.0
+text = "big fucking MAMMOTH bro"
+label_settings = SubResource("LabelSettings_otomm")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+text_overrun_behavior = 1

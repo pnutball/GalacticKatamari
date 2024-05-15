@@ -239,9 +239,9 @@ text = "Modes"
 [node name="ModeList" type="ItemList" parent="Menu"]
 layout_mode = 2
 offset_left = 328.0
-offset_top = 621.0
+offset_top = 620.0
 offset_right = 602.0
-offset_bottom = 777.0
+offset_bottom = 776.0
 
 [node name="InfoContainer" type="VBoxContainer" parent="Menu"]
 layout_mode = 0
