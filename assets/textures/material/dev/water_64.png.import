@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bhvensx0nebjf"
-path.bptc="res://.godot/imported/slope_64.png-f40e7a96dcac6c32d6297beff52c1bbd.bptc.ctex"
+path.bptc="res://.godot/imported/water_64.png-19852e1a8b4375de467d04bb01e492a0.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/material/dev/slope_64.png"
-dest_files=["res://.godot/imported/slope_64.png-f40e7a96dcac6c32d6297beff52c1bbd.bptc.ctex"]
+source_file="res://assets/textures/material/dev/water_64.png"
+dest_files=["res://.godot/imported/water_64.png-19852e1a8b4375de467d04bb01e492a0.bptc.ctex"]
 
 [params]
 
