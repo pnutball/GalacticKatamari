@@ -1,10 +1,10 @@
-extends SubViewportContainer
+extends Window
 
 func reload_statics():
-	for stat in $EditorViewport/EditorPrevRoot/statics.get_children():
+	for stat in $EditorPrevRoot/statics.get_children():
 		stat.queue_free()
 	for stat in %SplitLeft.lastSelectedArea.get_meta(&"path").static:
-		$EditorViewport/EditorPrevRoot/statics.add_child(load(stat[0]).instantiate())
+		$EditorPrevRoot/statics.add_child(load(stat[0]).instantiate())
 
 func reload_objects():
 	#$EditorViewport/EditorPrevRoot/objects

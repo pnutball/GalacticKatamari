@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://djk1u5try1dlp"]
+
+[ext_resource type="Script" path="res://editor/editor_3dview_camera_script.gd" id="1_8085p"]
+
+[node name="EditorCameraPivot" type="Node3D"]
+script = ExtResource("1_8085p")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+current = true
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+remote_path = NodePath("../..")

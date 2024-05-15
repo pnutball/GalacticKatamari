@@ -24,11 +24,14 @@ func _ready():
 	%File.set_item_accelerator(3, (KEY_MASK_CTRL if OS.get_name() != "macOS" else KEY_MASK_META)|KEY_MASK_SHIFT|KEY_S)
 	%File.set_item_accelerator(6, (KEY_MASK_CTRL if OS.get_name() != "macOS" else KEY_MASK_META)|KEY_Q)
 	%File.set_item_accelerator(5, (KEY_MASK_CTRL if OS.get_name() != "macOS" else KEY_MASK_META)|KEY_MASK_SHIFT|KEY_Q)
+	%EditorView.visible = true
 
 func _process(_delta):
 	%StatusBar/FPSLabel.text = "%d FPS" % [Engine.get_frames_per_second()]
-	%GameView.position = Vector2i(%EditorView.get_global_rect().position)
-	%GameView.size = Vector2i(%EditorView.size)
+	%EditorView.position = Vector2i(%ViewsPosHelper.get_global_rect().position)
+	%EditorView.size = Vector2i(%ViewsPosHelper.size)
+	%GameView.position = Vector2i(%ViewsPosHelper.get_global_rect().position)
+	%GameView.size = Vector2i(%ViewsPosHelper.size)
 	get_window().title = "%s%s - GK Editor (%s)" % ["*" if changed else "", 
 	currentFile.get_file() if currentFile != "" else "New File", 
 	Engine.get_architecture_name()]
@@ -130,8 +133,7 @@ func _on_play_button_pressed():
 	await StageLoader.loadStagefromDict({"levels": %SplitLeft.InternalLevelTree}, %SplitLeft.lastSelectedLevel.get_text(0))
 	PlayMode = not PlayMode
 	OS.low_processor_usage_mode = not PlayMode
-	%EditorView/EditorViewport.disable_3d = PlayMode
-	%GameView.visible = PlayMode
+	%EditorView.visible = not PlayMode
 	%SplitLeft.visible = not PlayMode
 	$BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer.visible = not PlayMode
 	$BGPanel/MarginContainer/EditorVBox/SplitMain.collapsed = PlayMode
@@ -144,8 +146,10 @@ func _on_play_button_pressed():
 		var play = Node.new()
 		play.name = "EditorPlay"
 		%GameView.add_child(play)
-		StageLoader.instantiateStage(%SplitLeft.lastSelectedMode.get_text(0), %GameView/EditorPlay)
+		await StageLoader.instantiateStage(%SplitLeft.lastSelectedMode.get_text(0), %GameView/EditorPlay)
+		%GameView.visible = PlayMode
 	else:
+		%GameView.visible = PlayMode
 		%PlayButton.text = "Play"
 		%PlayButton.icon = preload("res://editor/icons/play.png")
 		if %GameView.get_node_or_null("EditorPlay") != null:

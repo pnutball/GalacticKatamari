@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=30 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://cnuiorigx0n65" path="res://editor/icons/spawn.png" id="15_1x486"]
 [ext_resource type="StyleBox" uid="uid://jodakrgo7o8c" path="res://editor/themebox_over.tres" id="16_77xsq"]
 [ext_resource type="Script" path="res://editor/3dview_script.gd" id="17_qjlcr"]
+[ext_resource type="PackedScene" uid="uid://djk1u5try1dlp" path="res://editor/editor_3dview_camera.tscn" id="18_7cl8k"]
 [ext_resource type="Script" path="res://editor/objectbrowse_script.gd" id="18_vcg6u"]
 [ext_resource type="Texture2D" uid="uid://d1c07jxwmy0mv" path="res://editor/icons/object.png" id="19_2w5lp"]
 [ext_resource type="PackedScene" uid="uid://dqojpyii1gskp" path="res://scenes/environment/env_preview.tscn" id="20_n41lb"]
@@ -241,6 +242,7 @@ size_flags_vertical = 3
 
 [node name="GameView" type="Window" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
 unique_name_in_owner = true
+own_world_3d = true
 position = Vector2i(486, 46)
 size = Vector2i(1426, 814)
 visible = false
@@ -251,47 +253,68 @@ content_scale_size = Vector2i(1920, 1080)
 content_scale_mode = 1
 content_scale_aspect = 3
 
-[node name="EditorView" type="SubViewportContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
+[node name="EditorView" type="Window" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
+unique_name_in_owner = true
+own_world_3d = true
+position = Vector2i(486, 46)
+size = Vector2i(1426, 814)
+visible = false
+transient = true
+unresizable = true
+borderless = true
+content_scale_size = Vector2i(1920, 1080)
+script = ExtResource("17_qjlcr")
+
+[node name="EditorPrevRoot" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
+
+[node name="statics" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorPrevRoot"]
+
+[node name="objects" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorPrevRoot"]
+
+[node name="spawns" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorPrevRoot"]
+
+[node name="Camera3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorPrevRoot" instance=ExtResource("18_7cl8k")]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
+offset_right = 391.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/HBoxContainer"]
+layout_mode = 2
+text = "Reload Statics"
+
+[node name="Button2" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/HBoxContainer"]
+layout_mode = 2
+text = "Reload Objects"
+
+[node name="Button3" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/HBoxContainer"]
+layout_mode = 2
+text = "Reload Spawns"
+
+[node name="ViewsPosHelper" type="ColorRect" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
 unique_name_in_owner = true
 clip_contents = true
 custom_minimum_size = Vector2(480, 270)
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 0
-stretch = true
-script = ExtResource("17_qjlcr")
+color = Color(1, 1, 1, 0)
 
-[node name="EditorViewport" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
-own_world_3d = true
-handle_input_locally = false
-size = Vector2i(480, 270)
-render_target_update_mode = 4
+[node name="Label" type="Label" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/ViewsPosHelper"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.454902)
+theme_override_font_sizes/font_size = 20
+text = "Loading view...
 
-[node name="EditorPrevRoot" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport"]
-
-[node name="statics" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/EditorPrevRoot"]
-
-[node name="objects" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/EditorPrevRoot"]
-
-[node name="spawns" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/EditorPrevRoot"]
-
-[node name="Camera3D" type="Camera3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/EditorPrevRoot"]
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport"]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Button" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer"]
-layout_mode = 2
-text = "Reload Statics"
-
-[node name="Button2" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer"]
-layout_mode = 2
-text = "Reload Objects"
-
-[node name="Button3" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer"]
-layout_mode = 2
-text = "Reload Spawns"
+If you've been seeing this message for a while, 
+something might have gone wrong. 
+Try closing and reopening the editor."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
 layout_mode = 2
@@ -348,7 +371,7 @@ unique_name_in_owner = true
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(144, 144)
 render_target_update_mode = 4
 
 [node name="EnvPreview" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/ObjectPreviewContainer/PreviewViewport" instance=ExtResource("20_n41lb")]
@@ -434,9 +457,9 @@ Would you like to save?"
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/SizeArea" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [3]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Spawn" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [6]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Static" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [4]]
-[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer/Button" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_statics"]
-[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer/Button2" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_objects"]
-[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/EditorViewport/HBoxContainer/Button3" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_spawns"]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/HBoxContainer/Button" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_statics"]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/HBoxContainer/Button2" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_objects"]
+[connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/HBoxContainer/Button3" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_spawns"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [5]]
 [connection signal="item_selected" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/ObjectScroll/ObjectList" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser" method="_object_selected"]
