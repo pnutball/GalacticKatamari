@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://diaw2mn34xmsp"]
 
-[ext_resource type="Texture2D" uid="uid://2vv2r8yhmhhx" path="res://assets/textures/placeholder/DemITM05.png" id="1_nsuer"]
+[ext_resource type="Texture2D" uid="uid://2vv2r8yhmhhx" path="res://assets/textures/placeholder/DemITM05.png" id="1_4ndu6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gd6xm"]
 size = Vector3(2.73242, 2.3349, 2.58228)
@@ -14,4 +14,4 @@ shape = SubResource("BoxShape3D_gd6xm")
 [node name="test_MAMMOTH" type="Sprite3D" parent="."]
 billboard = 1
 texture_filter = 0
-texture = ExtResource("1_nsuer")
+texture = ExtResource("1_4ndu6")

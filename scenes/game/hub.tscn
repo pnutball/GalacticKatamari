@@ -58,6 +58,17 @@ mesh = SubResource("QuadMesh_l6lf1")
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_v2omh")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.00083, 0, 0, 0, 0.941939, -0.342837, 0, 0.342837, 0.941939, 0, -1.71669, 9.71193)
+mesh = SubResource("QuadMesh_l6lf1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_v2omh")
 
 [node name="HubOuji" parent="." instance=ExtResource("3_h7q6a")]
