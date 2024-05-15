@@ -38,7 +38,7 @@ orientation = 1
 resource_name = "playsong"
 script/source = "extends AudioStreamPlayer
 func _ready():
-	playing = false
+	playing = true
 "
 
 [node name="Node3D" type="Node3D"]
