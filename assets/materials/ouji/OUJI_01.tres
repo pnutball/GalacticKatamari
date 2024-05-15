@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cry8vjhf4bs7t" path="res://assets/ouji/OUJI_01.png" id="1_gmt30"]
 
 [resource]
+shading_mode = 0
 albedo_texture = ExtResource("1_gmt30")
-metallic_specular = 0.0
 texture_filter = 0
 distance_fade_max_distance = 2.0
