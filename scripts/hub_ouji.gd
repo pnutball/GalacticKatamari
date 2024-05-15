@@ -17,14 +17,19 @@ func _physics_process(delta):
 	velocity = Vector3(LeftStick.x, 0, LeftStick.y) * Speed
 	if Input.is_action_pressed("Hub Run"): 
 		velocity *= 2
-	var VelLength:float = velocity.length()
+	var VelLength:float = Vector2(velocity.x, velocity.z).length()
 	velocity *= delta
 	$HubOujiAnim.set("parameters/Move/Move/blend_amount", lerpf($HubOujiAnim.get("parameters/Move/Move/blend_amount"), clampf(VelLength - Speed, 0, Speed) / Speed, 15*delta))
 	$HubOujiAnim.set("parameters/Move/MoveSpeed/scale", VelLength / Speed)
-	if not is_zero_approx(Vector2(velocity.x, velocity.z).length()): 
+	
+	if is_zero_approx(VelLength):
+		if $WalkSound.playing: $WalkSound.stop()
+	else:
 		$Ouji.rotation.y = lerp_angle($Ouji.rotation.y,
 		Vector2(velocity.z, velocity.x).angle(),
 		(30)*delta)
+		if not $WalkSound.playing: $WalkSound.play()
+		$WalkSound.pitch_scale = ((VelLength / Speed) / 3) + 0.6666666
 	move_and_slide()
 	apply_floor_snap()
 

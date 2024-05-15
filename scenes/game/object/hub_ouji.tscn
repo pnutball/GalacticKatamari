@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://didtwp35i5ed5"]
+[gd_scene load_steps=15 format=3 uid="uid://didtwp35i5ed5"]
 
 [ext_resource type="Script" path="res://scripts/hub_ouji.gd" id="1_g1q3g"]
 [ext_resource type="PackedScene" uid="uid://ddvym7hjeiewb" path="res://assets/ouji/rig/Ouji01.tscn" id="1_n3efx"]
+[ext_resource type="AudioStream" uid="uid://botogs3voy01y" path="res://assets/sounds/hub/walk.wav" id="3_bm3xq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7yn54"]
 radius = 0.25
@@ -78,3 +79,7 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../Ouji/OujiAnimation")
 parameters/Move/Move/blend_amount = 0
 parameters/Move/MoveSpeed/scale = 1.0
+
+[node name="WalkSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_bm3xq")
+bus = &"SFX"
