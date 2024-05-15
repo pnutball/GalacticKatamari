@@ -21,17 +21,20 @@ func _physics_process(delta):
 	velocity *= delta
 	$HubOujiAnim.set("parameters/Move/Move/blend_amount", lerpf($HubOujiAnim.get("parameters/Move/Move/blend_amount"), clampf(VelLength - Speed, 0, Speed) / Speed, 15*delta))
 	$HubOujiAnim.set("parameters/Move/MoveSpeed/scale", VelLength / Speed)
-	
-	if is_zero_approx(VelLength):
-		if $WalkSound.playing: $WalkSound.stop()
-	else:
+	if not is_zero_approx(VelLength):
 		$Ouji.rotation.y = lerp_angle($Ouji.rotation.y,
 		Vector2(velocity.z, velocity.x).angle(),
 		(30)*delta)
-		if not $WalkSound.playing: $WalkSound.play()
-		$WalkSound.pitch_scale = ((VelLength / Speed) / 3) + 0.6666666
+	
 	move_and_slide()
 	apply_floor_snap()
+	
+	if is_zero_approx((get_real_velocity() * Vector3(1,0,1)).length()):
+		if $WalkSound.playing: $WalkSound.stop()
+	else:
+		if not $WalkSound.playing: $WalkSound.play()
+		$WalkSound.pitch_scale = ((VelLength / Speed) / 3) + 0.6666666
+	
 
 func _input(event):
 	if event.is_action_pressed("Unlock Mouse"):
