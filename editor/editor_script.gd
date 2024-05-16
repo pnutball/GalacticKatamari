@@ -28,10 +28,8 @@ func _ready():
 
 func _process(_delta):
 	%StatusBar/FPSLabel.text = "%d FPS" % [Engine.get_frames_per_second()]
-	%EditorView.position = Vector2i(%ViewsPosHelper.get_global_rect().position)
-	%EditorView.size = Vector2i(%ViewsPosHelper.size)
-	%GameView.position = Vector2i(%ViewsPosHelper.get_global_rect().position)
-	%GameView.size = Vector2i(%ViewsPosHelper.size)
+	%GameView.position = Vector2i(%EditorView.get_global_rect().position)
+	%GameView.size = Vector2i(%EditorView.size)
 	get_window().title = "%s%s - GK Editor (%s)" % ["*" if changed else "", 
 	currentFile.get_file() if currentFile != "" else "New File", 
 	Engine.get_architecture_name()]
@@ -133,7 +131,7 @@ func _on_play_button_pressed():
 	await StageLoader.loadStagefromDict({"levels": %SplitLeft.InternalLevelTree}, %SplitLeft.lastSelectedLevel.get_text(0))
 	PlayMode = not PlayMode
 	OS.low_processor_usage_mode = not PlayMode
-	%EditorView.visible = not PlayMode
+	%EditorView/ViewPort.disable_3d = PlayMode
 	%SplitLeft.visible = not PlayMode
 	$BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer.visible = not PlayMode
 	$BGPanel/MarginContainer/EditorVBox/SplitMain.collapsed = PlayMode
