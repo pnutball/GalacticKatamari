@@ -74,7 +74,7 @@ resource_name = "DbgMapBtnScript"
 script/source = "extends Button
 
 func _on_pressed():
-	get_tree().change_scene_to_file(\"res://scenes/game/hub.tscn\")
+	get_tree().change_scene_to_file(\"res://scenes/test/test_tutorial.tscn\")
 "
 
 [sub_resource type="GDScript" id="GDScript_lnotj"]
@@ -164,6 +164,16 @@ offset_top = 136.0
 offset_right = 148.0
 offset_bottom = 167.0
 text = "Cosmea Town"
+script = SubResource("GDScript_tdnow")
+
+[node name="TutorialButton" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 32.0
+offset_top = 176.0
+offset_right = 105.0
+offset_bottom = 207.0
+text = "Tutorial"
 script = SubResource("GDScript_tdnow")
 
 [node name="LanguageBox" type="ItemList" parent="Menu"]
@@ -295,6 +305,7 @@ fit_content = true
 
 [connection signal="pressed" from="Menu/EditorButton" to="Menu/EditorButton" method="_on_pressed"]
 [connection signal="pressed" from="Menu/HubButton" to="Menu/HubButton" method="_on_pressed"]
+[connection signal="pressed" from="Menu/TutorialButton" to="Menu/TutorialButton" method="_on_pressed"]
 [connection signal="item_selected" from="Menu/LanguageBox" to="Menu/LanguageBox" method="_on_item_selected"]
 [connection signal="item_selected" from="Menu/StageList" to="Menu" method="_on_stage_list_item_selected"]
 [connection signal="item_selected" from="Menu/LevelList" to="Menu" method="_on_level_list_item_selected"]

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bweuw540neg61"
+path="res://.godot/imported/tutorial placeholder.obj-0b1e92eb1d17048f795c0942fa2d4ba8.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tutorial placeholder.obj-0b1e92eb1d17048f795c0942fa2d4ba8.mesh"]
+
+source_file="res://assets/models/map/tutorial placeholder.obj"
+dest_files=["res://.godot/imported/tutorial placeholder.obj-0b1e92eb1d17048f795c0942fa2d4ba8.mesh", "res://.godot/imported/tutorial placeholder.obj-0b1e92eb1d17048f795c0942fa2d4ba8.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
