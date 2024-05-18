@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://c820wfua0imkw"]
 
 [ext_resource type="PackedScene" uid="uid://ck346mxns8kjs" path="res://assets/models/map/map_test.tscn" id="1_n67c0"]
-[ext_resource type="PackedScene" uid="uid://cwxpkbdnvlvw0" path="res://assets/models/ouji/OUJI_HOLDER.glb" id="2_6kreb"]
+[ext_resource type="PackedScene" uid="uid://cwxpkbdnvlvw0" path="res://assets/ouji/OUJI_HOLDER.glb" id="2_6kreb"]
 [ext_resource type="PackedScene" uid="uid://b71c6sh4m0f5e" path="res://scenes/game/object/katamari_controllable.tscn" id="2_tifuw"]
 [ext_resource type="PackedScene" uid="uid://b7ohty8xjjwlv" path="res://scenes/game/object/rollable_object_3d.tscn" id="4_rr44q"]
 [ext_resource type="AudioStream" uid="uid://dlaq63l2i5jv8" path="res://assets/music/king.ogg" id="5_5oha2"]

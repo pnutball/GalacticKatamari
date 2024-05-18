@@ -1,8 +1,8 @@
-[gd_scene load_steps=37 format=3 uid="uid://qcyfn5bquror"]
+[gd_scene load_steps=37 format=3 uid="uid://bfk4h2p6ortti"]
 
 [ext_resource type="PackedScene" uid="uid://ddvym7hjeiewb" path="res://assets/ouji/rig/Ouji01.tscn" id="1_7cd8r"]
 [ext_resource type="Script" path="res://scripts/ouji_view.gd" id="1_g71is"]
-[ext_resource type="Texture2D" uid="uid://ddhgqxa1uojmq" path="res://assets/textures/ui/back_earth.png" id="2_dr5vi"]
+[ext_resource type="Texture2D" uid="uid://dxiw044rvr1po" path="res://assets/textures/ui/earth.png" id="3_w4j5m"]
 
 [sub_resource type="Environment" id="Environment_d2jpm"]
 ambient_light_source = 2
@@ -182,6 +182,7 @@ grow_vertical = 2
 script = ExtResource("1_g71is")
 
 [node name="OujiViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -226,6 +227,7 @@ parameters/WalkState/Ouji_Walk/Forward/OujiForwardAdd/add_amount = 0
 
 [node name="OujiViewBG" type="TextureRect" parent="."]
 z_index = -1
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -236,4 +238,4 @@ offset_left = -384.0
 offset_top = -384.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("2_dr5vi")
+texture = ExtResource("3_w4j5m")
