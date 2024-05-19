@@ -1,0 +1,122 @@
+{
+	"levels": {
+		"level_0": {
+			"name": {
+				"en:": "Placeholder Tutorial"
+			},
+			"description": {
+				"en:": "marny's masics in meducation and mearning"
+			},
+			"modes": {
+				"normal": {
+					"name": {
+						"en": "New mode"
+					},
+					"music": {
+						"default": "",
+						"force_default": false
+					},
+					"pre_dialogue": {
+						"en": "Put Our dialogue here..."
+					},
+					"start_dialogue": {
+						"en": "Put Our dialogue here."
+					},
+					"retry_dialogue": {
+						"en": "Put Our dialogue here."
+					},
+					"win_dialogue": {
+						"en": "Put Our dialogue here!"
+					},
+					"fail_dialogue": {
+						"en": "PUT OUR DIALOGUE HERE!!!"
+					},
+					"result_dialogue": {
+						"en": "Put Our dialogue here."
+					},
+					"map_zones": [
+						{
+							"advance_size": -1,
+							"preload_size": -1,
+							"scale": 1,
+							"warp_height": 0,
+							"audio_size": "M",
+							"core_model": "res://assets/models/core/core_generic.obj",
+							"core_texture": "res://assets/textures/core/core_tut.png",
+							"time_bonus": 0,
+							"static": [
+								[
+									"res://scenes/environment/env_day.tscn"
+								],
+								[
+									"res://assets/models/map/map_tut_holder.tscn"
+								]
+							],
+							"objects": [],
+							"spawn_positions": [
+								[
+									0,
+									0,
+									0,
+									0
+								]
+							]
+						}
+					],
+					"cam_zones": [
+						{
+							"Bound": 0,
+							"Scale": 0.5,
+							"Tilt": -10,
+							"Shift": 0.5,
+							"DOF": 15
+						},
+						{
+							"Bound": 0.7,
+							"Scale": 0.8,
+							"Tilt": -15,
+							"Shift": 0.4,
+							"DOF": 20
+						},
+						{
+							"Bound": 1,
+							"Scale": 1.25,
+							"Tilt": -20,
+							"Shift": 0.325,
+							"DOF": 30
+						},
+						{
+							"Bound": 1.5,
+							"Scale": 2,
+							"Tilt": -35,
+							"Shift": 0.25,
+							"DOF": 45
+						}
+					],
+					"katamari": {
+						"size": 0.5,
+						"speed": 4.5,
+						"can_dash": true,
+						"can_turn": true
+					},
+					"goal": {
+						"type": "none",
+						"goal": 0,
+						"end_at_goal": false,
+						"point_objects": "",
+						"point_name": {
+							"en": "pt{plural}."
+						}
+					},
+					"time": 0,
+					"ranking": {
+						"skip_results": false,
+						"size_super": -1,
+						"time_super": -1,
+						"point_super": -1
+					}
+				}
+			}
+		}
+	}
+}
