@@ -99,7 +99,6 @@ friction = 0.08
 bounce = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xaky2"]
-shading_mode = 0
 texture_filter = 2
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_5e5bl"]
@@ -213,7 +212,7 @@ libraries = {
 }
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
-size = Vector2i(1348, 636)
+size = Vector2i(918, 448)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
