@@ -88,8 +88,8 @@ var DashDir:int = 0:
 @export var CanQuickTurn:bool = true
 #endregion
 #region Visual
-@export_file("*.obj") var CoreModel:String = "res://models/core/core_generic.obj"
-@export_file("*.png") var CoreTexture:String = "res://textures/core/core_test.png"
+@export_file("*.obj") var CoreModel:String = "res://assets/models/core/core_generic.obj"
+@export_file("*.png") var CoreTexture:String = "res://assets/textures/core/core_test.png"
 #endregion
 
 const RollSounds = {
