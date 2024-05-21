@@ -18,7 +18,10 @@ run/main_scene="res://scenes/debug_menu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Pnutball/GalacticKatamari"
 config/features=PackedStringArray("4.2", "Mobile")
+boot_splash/bg_color=Color(1, 1, 1, 1)
+boot_splash/image="res://assets/textures/logo/logo_splash.png"
 config/icon="res://icon.png"
+boot_splash/minimum_display_time=1500
 
 [audio]
 
@@ -188,6 +191,7 @@ import/fbx/enabled=false
 locale/translation_remaps={
 "res://assets/textures/logo/logo_full.png": PackedStringArray("res://i12n/logo/logo_jp_full.png:ja"),
 "res://assets/textures/logo/logo_shadow.png": PackedStringArray("res://i12n/logo/logo_jp_shadow.png:ja"),
+"res://assets/textures/logo/logo_splash.png": PackedStringArray("res://i12n/logo/logo_jp_splash.png:ja"),
 "res://assets/textures/logo/logo_star_A.png": PackedStringArray("res://i12n/logo/logo_jp_star_A.png:ja"),
 "res://assets/textures/logo/logo_star_B.png": PackedStringArray("res://i12n/logo/logo_jp_star_B.png:ja"),
 "res://assets/textures/logo/logo_text.png": PackedStringArray("res://i12n/logo/logo_jp_text.png:ja")
