@@ -21,7 +21,7 @@ func _on_value_change(_value):
 	var Texts:Dictionary = {}
 	for entry in $PropertyMargin/PropertyTexts.get_children():
 		if entry.get_node("SubPropertyBox").text != "" or entry.get_node("SubPropertyLang").text.to_lower() == "en":
-			Texts[entry.get_node("SubPropertyLang").text.to_lower()] = entry.get_node("SubPropertyBox").text
+			Texts[entry.get_node("SubPropertyLang").text.to_lower().trim_suffix(":")] = entry.get_node("SubPropertyBox").text
 	P_Path[P_Property] = Texts
 	ChangeMade.emit()
 func addLanguage(language:String, unremovable:bool = false):
