@@ -248,9 +248,12 @@ func _on_level_tree_item_selected():
 				lastSelectedMode = item
 				lastSelectedLevel = item.get_parent()
 				# try adding a show/hide thing like you have with the localized strings
-				
+				create_property(item, "name", PropertyType.LOCALIZED, "Name", "The mode's name.")
+				create_property(item, "music/default", PropertyType.STRING, "Default Music", "The ID of the mode's default music.")
+				create_property(item, "music/force_default", PropertyType.BOOLEAN, "Force Default Music", "Can the music be changed from the default (after the first playthrough)?")
+				%PropertiesPanel.add_child(HSeparator.new())
 				create_property(item, "katamari/size", PropertyType.NUMBER, "Katamari Size", "The katamari's starting size, in meters.")
-				create_property(item, "katamari/speed", PropertyType.NUMBER, "Katamari Speed", "The katamari's speed. 5 is the default.")
+				create_property(item, "katamari/speed", PropertyType.NUMBER, "Katamari Speed", "The katamari's speed. 4.5 is the default.")
 				create_property(item, "katamari/can_dash", PropertyType.BOOLEAN, "Katamari can Dash", "Can the katamari do the Dash?")
 				create_property(item, "katamari/can_turn", PropertyType.BOOLEAN, "Katamari can Turn", "Can the katamari do the Quick Turn?")
 				%PropertiesPanel.add_child(HSeparator.new())
@@ -263,6 +266,7 @@ func _on_level_tree_item_selected():
 				create_property(item, "goal/point_objects", PropertyType.STRING, "Point Objects", "The objects/categories that give points.\n$name denotes an object \"name\".\n&name denotes a category \"name\".")
 				create_property(item, "goal/point_name", PropertyType.LOCALIZED, "Point Name", "The name used for points in the size indicator.\n{plural} is replaced with an 's' when the point count != 1.\n(e.g. \"point{plural}\" shows as either \"point\" or \"points\")")
 				create_property(item, "ranking/point_super", PropertyType.NUMBER, "120 Point Goal", "The target point count for 120 pts.")
+				create_property(item, "ranking/skip_results", PropertyType.BOOLEAN, "Skip Results", "If true, the results screen is skipped and the player is sent directly back to Cosmea Town after the Royal Rainbow.")
 				%PropertiesPanel.add_child(HSeparator.new())
 				# pre_dialogue DIALOGUE
 				create_property(item, "pre_dialogue", PropertyType.DIALOGUE, "Pre-stage Dialogue", "The dialogue displayed before loading the stage.")
@@ -314,7 +318,7 @@ func _on_level_tree_item_selected():
 			"spawn":
 				$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 				create_property(item, "", PropertyType.VECTOR3, "Position", "The spawn position, relative to the bottom of the katamari.")
-				create_property(item, "3", PropertyType.NUMBER, "Scale", "The camera rotation used when the katamari is spawned here (in degrees).")
+				create_property(item, "3", PropertyType.NUMBER, "Rotation", "The camera rotation used when the katamari is spawned here (in degrees).")
 
 func openDict(dict:Dictionary):
 	resetTree()
