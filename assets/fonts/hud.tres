@@ -1,8 +1,8 @@
 [gd_resource type="FontVariation" load_steps=4 format=3 uid="uid://gfgnvtmg0njm"]
 
-[ext_resource type="FontFile" uid="uid://c23prmorm3rd2" path="res://fonts/hud.ttf" id="1_mljsn"]
-[ext_resource type="FontFile" uid="uid://upaik0fcu5xt" path="res://fonts/hud_ja.ttf" id="2_ghm28"]
-[ext_resource type="FontFile" uid="uid://bm3f2l6prvou2" path="res://fonts/hud_kr.ttf" id="3_xqwhx"]
+[ext_resource type="FontFile" uid="uid://c23prmorm3rd2" path="res://assets/fonts/hud.ttf" id="1_mljsn"]
+[ext_resource type="FontFile" uid="uid://upaik0fcu5xt" path="res://assets/fonts/hud_ja.ttf" id="2_ghm28"]
+[ext_resource type="FontFile" uid="uid://bm3f2l6prvou2" path="res://assets/fonts/hud_kr.ttf" id="3_xqwhx"]
 
 [resource]
 fallbacks = Array[Font]([ExtResource("2_ghm28"), ExtResource("3_xqwhx")])

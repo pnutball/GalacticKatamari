@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmk0arvkvr00a"]
+[gd_scene load_steps=7 format=3 uid="uid://dmk0arvkvr00a"]
 
 [ext_resource type="Texture2D" uid="uid://b5jgxbegq7pvk" path="res://assets/textures/logo/logo_text.png" id="1_wyfqe"]
 
@@ -75,6 +75,14 @@ script/source = "extends Button
 
 func _on_pressed():
 	get_tree().change_scene_to_file(\"res://scenes/game/hub.tscn\")
+"
+
+[sub_resource type="GDScript" id="GDScript_fsauo"]
+resource_name = "LogosButton"
+script/source = "extends Button
+
+func _on_pressed():
+	get_tree().change_scene_to_file(\"res://scenes/logos.tscn\")
 "
 
 [sub_resource type="GDScript" id="GDScript_lnotj"]
@@ -165,6 +173,16 @@ offset_right = 148.0
 offset_bottom = 167.0
 text = "Cosmea Town"
 script = SubResource("GDScript_tdnow")
+
+[node name="LogosButton" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 32.0
+offset_top = 175.0
+offset_right = 85.0
+offset_bottom = 206.0
+text = "Logo Screen"
+script = SubResource("GDScript_fsauo")
 
 [node name="LanguageBox" type="ItemList" parent="Menu"]
 layout_mode = 1
@@ -295,6 +313,7 @@ fit_content = true
 
 [connection signal="pressed" from="Menu/EditorButton" to="Menu/EditorButton" method="_on_pressed"]
 [connection signal="pressed" from="Menu/HubButton" to="Menu/HubButton" method="_on_pressed"]
+[connection signal="pressed" from="Menu/LogosButton" to="Menu/LogosButton" method="_on_pressed"]
 [connection signal="item_selected" from="Menu/LanguageBox" to="Menu/LanguageBox" method="_on_item_selected"]
 [connection signal="item_selected" from="Menu/StageList" to="Menu" method="_on_stage_list_item_selected"]
 [connection signal="item_selected" from="Menu/LevelList" to="Menu" method="_on_level_list_item_selected"]
