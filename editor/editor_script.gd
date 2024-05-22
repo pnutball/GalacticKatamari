@@ -82,6 +82,7 @@ func saveFileAs():
 	$BlockingOverlay.visible = true
 	await get_tree().process_frame
 	await get_tree().process_frame
+	%FileDialog.access = FileDialog.ACCESS_FILESYSTEM
 	%FileDialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
 	%FileDialog.title = "Save As..."
 	%FileDialog.ok_button_text = "Save"
@@ -98,6 +99,7 @@ func saveFileAs():
 func openFile():
 	if await confirmQuit() == true:
 		$BlockingOverlay.visible = true
+		%FileDialog.access = FileDialog.ACCESS_FILESYSTEM
 		%FileDialog.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 		%FileDialog.title = "Open"
 		%FileDialog.ok_button_text = "Open"

@@ -212,7 +212,7 @@ libraries = {
 }
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
-size = Vector2i(918, 448)
+size = Vector2i(918, 412)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 

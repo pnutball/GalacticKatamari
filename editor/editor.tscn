@@ -151,6 +151,7 @@ custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ltkt")
+hide_root = true
 
 [node name="Create" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel"]
 unique_name_in_owner = true

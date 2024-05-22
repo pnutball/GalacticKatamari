@@ -24,7 +24,8 @@ const TemplateMode:Dictionary = {
 		"size": 1,
 		"speed": 4.5,
 		"can_dash": true,
-		"can_turn": true
+		"can_turn": true,
+		"can_dialogue_move": true
 	},
 	"goal": {
 		"type": "none",
@@ -256,6 +257,7 @@ func _on_level_tree_item_selected():
 				create_property(item, "katamari/speed", PropertyType.NUMBER, "Katamari Speed", "The katamari's speed. 4.5 is the default.")
 				create_property(item, "katamari/can_dash", PropertyType.BOOLEAN, "Katamari can Dash", "Can the katamari do the Dash?")
 				create_property(item, "katamari/can_turn", PropertyType.BOOLEAN, "Katamari can Turn", "Can the katamari do the Quick Turn?")
+				create_property(item, "katamari/can_dialogue_move", PropertyType.BOOLEAN, "Katamari can Move During Dialogue", "Can the katamari move before the stage begins?")
 				%PropertiesPanel.add_child(HSeparator.new())
 				create_property(item, "time", PropertyType.NUMBER, "Time", "The amount of time given to complete the stage.\n0 disables the timer.\n-1 uses the Time Attack timer.")
 				create_property(item, "ranking/time_super", PropertyType.NUMBER, "120 Time", "The target time for 120 pts.")

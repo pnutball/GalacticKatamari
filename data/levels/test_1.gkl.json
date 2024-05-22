@@ -399,7 +399,8 @@
 						"size": 1,
 						"speed": 4.5,
 						"can_dash": true,
-						"can_turn": true
+						"can_turn": true,
+						"can_dialogue_move": true
 					},
 					"goal": {
 						"type": "none",
