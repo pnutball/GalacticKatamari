@@ -188,9 +188,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -700.0
+offset_left = -665.0
 offset_top = -1080.0
-offset_right = -60.0
+offset_right = -25.0
 grow_horizontal = 0
 grow_vertical = 0
 stretch = true
@@ -205,11 +205,11 @@ size = Vector2i(640, 1080)
 render_target_update_mode = 4
 
 [node name="Ouji" parent="OujiViewportContainer/SubViewport" instance=ExtResource("1_7cd8r")]
-transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.05, -0.99, -1.51)
+transform = Transform3D(0.038, 0, 0, 0, 0.038, 0, 0, 0, 0.038, 0.05, -0.835, -1.51)
 
 [node name="Camera3D" type="Camera3D" parent="OujiViewportContainer/SubViewport"]
 transform = Transform3D(0.848048, 0.0369653, 0.528628, 0, 0.997564, -0.0697565, -0.529919, 0.0591568, 0.845982, 1.915, 0.17, 2.415)
-fov = 41.0
+fov = 35.9
 
 [node name="OujiAnimTree" type="AnimationTree" parent="OujiViewportContainer/SubViewport"]
 unique_name_in_owner = true
@@ -234,8 +234,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -384.0
-offset_top = -384.0
+offset_left = -432.0
+offset_top = -306.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("3_w4j5m")
+expand_mode = 2
+stretch_mode = 4
