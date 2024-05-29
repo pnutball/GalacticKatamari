@@ -1,12 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://bp5gmy06yifpu"]
+[gd_scene load_steps=19 format=3 uid="uid://bp5gmy06yifpu"]
 
-[ext_resource type="Texture2D" uid="uid://evak7n0ethga" path="res://textures/king/moya/kingmoya.png" id="1_ldxbr"]
+[ext_resource type="Texture2D" uid="uid://evak7n0ethga" path="res://assets/textures/king/moya/kingmoya.png" id="1_ldxbr"]
 [ext_resource type="Script" path="res://scripts/king_moya.gd" id="1_togpb"]
-[ext_resource type="ArrayMesh" uid="uid://y0q12nmx3hnn" path="res://models/king/moya.tres" id="2_xksay"]
-[ext_resource type="Texture2D" uid="uid://18cwp3grxof" path="res://textures/king/rainbow/rainbow_spark.png" id="3_5ncxc"]
-[ext_resource type="AnimationLibrary" uid="uid://dpy8711l2hl38" path="res://animations/king/moya/moya_wibble.res" id="3_xesqk"]
-[ext_resource type="Texture2D" uid="uid://c3bx2hvt4e6n7" path="res://textures/king/king_face.png" id="6_wtp3r"]
+[ext_resource type="ArrayMesh" uid="uid://y0q12nmx3hnn" path="res://assets/models/king/moya.tres" id="2_xksay"]
+[ext_resource type="Texture2D" uid="uid://18cwp3grxof" path="res://assets/textures/king/rainbow/rainbow_spark.png" id="3_5ncxc"]
+[ext_resource type="AnimationLibrary" uid="uid://dpy8711l2hl38" path="res://assets/animations/king/moya/moya_wibble.res" id="3_xesqk"]
+[ext_resource type="Texture2D" uid="uid://c3bx2hvt4e6n7" path="res://assets/textures/king/king_face.png" id="6_wtp3r"]
 [ext_resource type="Script" path="res://scripts/king_face.gd" id="7_c51ur"]
+[ext_resource type="PackedScene" uid="uid://dko4fplsrtbul" path="res://scenes/ui/dialogue_box.tscn" id="8_limmi"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_etfw7"]
 viewport_path = NodePath("MoyaView")
@@ -173,7 +174,10 @@ one_shot = true
 [node name="MoyaView" type="SubViewport" parent="."]
 own_world_3d = true
 transparent_bg = true
+handle_input_locally = false
+msaa_3d = 3
 screen_space_aa = 1
+render_target_update_mode = 4
 
 [node name="MoyaMesh" type="MeshInstance3D" parent="MoyaView"]
 mesh = ExtResource("2_xksay")
@@ -234,3 +238,15 @@ root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_2r6ns")
 }
+
+[node name="DialogueBoxRoot" parent="." instance=ExtResource("8_limmi")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 522.0
+offset_bottom = 522.0
+grow_horizontal = 1
+grow_vertical = 1
