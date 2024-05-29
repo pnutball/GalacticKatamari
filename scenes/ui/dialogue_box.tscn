@@ -1,19 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://dko4fplsrtbul"]
+[gd_scene load_steps=5 format=3 uid="uid://dko4fplsrtbul"]
 
 [ext_resource type="Texture2D" uid="uid://cxlwxj4kih37" path="res://assets/textures/ui/dialog_bubble.png" id="1_2cj6i"]
+[ext_resource type="Script" path="res://scripts/dialogue_box.gd" id="1_5wwfj"]
 [ext_resource type="Texture2D" uid="uid://dy8nj2nv5lllo" path="res://assets/textures/ui/dialog_tail_a.png" id="2_mtq20"]
+[ext_resource type="FontVariation" uid="uid://vhegr7fkhs42" path="res://assets/fonts/talk.tres" id="3_w1ery"]
 
 [node name="DialogueBoxRoot" type="Control"]
 layout_mode = 3
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5wwfj")
 
-[node name="DialogBubble" type="NinePatchRect" parent="."]
-modulate = Color(0, 0, 0.521569, 0.482353)
+[node name="DialogSizing" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -26,13 +29,22 @@ offset_right = 400.0
 offset_bottom = 120.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="DialogBubble" type="NinePatchRect" parent="DialogSizing"]
+modulate = Color(0, 0, 0.521569, 0.482353)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_2cj6i")
 patch_margin_left = 32
 patch_margin_top = 32
 patch_margin_right = 32
 patch_margin_bottom = 32
 
-[node name="DialogBubbleTail" type="TextureRect" parent="DialogBubble"]
+[node name="DialogBubbleTail" type="TextureRect" parent="DialogSizing/DialogBubble"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -44,3 +56,31 @@ grow_horizontal = 2
 texture = ExtResource("2_mtq20")
 expand_mode = 2
 stretch_mode = 4
+
+[node name="LettersContainer" type="Control" parent="DialogSizing"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlaceTextSizing" type="Label" parent="DialogSizing"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -228.5
+offset_top = -41.0
+offset_right = 228.5
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_w1ery")
+theme_override_font_sizes/font_size = 56
+text = "One... two... three..."
+horizontal_alignment = 1
+vertical_alignment = 1
