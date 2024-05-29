@@ -31,6 +31,7 @@ driver/driver=""
 
 StageLoader="*res://scripts/stage_loader.gd"
 FPSCounter="res://scenes/fps_counter.tscn"
+KingFace="*res://scenes/ui/king_moya.tscn"
 
 [display]
 

@@ -20,10 +20,10 @@ enum KingExpression {NEUTRAL, HAPPY, ANGRY, SHOCK}
 ## 5. Mouth 2
 ## 6. Mouth 3
 var Textures = {
-	KingExpression.NEUTRAL: [preload("res://textures/king/king_face.png"), preload("res://textures/king/king_eye_close.png"), null, preload("res://textures/king/king_mouth1.png"), preload("res://textures/king/king_mouth2.png"), preload("res://textures/king/king_mouth3.png")],
-	KingExpression.HAPPY: [preload("res://textures/king/king_face_happy.png"), preload("res://textures/king/king_eye_close.png"), null, preload("res://textures/king/king_mouth_smile1.png"), preload("res://textures/king/king_mouth_smile2.png"), preload("res://textures/king/king_mouth_smile3.png")],
-	KingExpression.ANGRY: [preload("res://textures/king/king_face_angry.png"), preload("res://textures/king/king_eye_close_angry.png"), null, preload("res://textures/king/king_mouth1.png"), preload("res://textures/king/king_mouth2.png"), preload("res://textures/king/king_mouth3.png")],
-	KingExpression.SHOCK: [preload("res://textures/king/king_face_shock.png"), preload("res://textures/king/king_eye_close.png"), null, preload("res://textures/king/king_mouth1.png"), preload("res://textures/king/king_mouth2.png"), preload("res://textures/king/king_mouth3.png")]
+	KingExpression.NEUTRAL: [preload("res://assets/textures/king/king_face.png"), preload("res://assets/textures/king/king_eye_close.png"), null, preload("res://assets/textures/king/king_mouth1.png"), preload("res://assets/textures/king/king_mouth2.png"), preload("res://assets/textures/king/king_mouth3.png")],
+	KingExpression.HAPPY: [preload("res://assets/textures/king/king_face_happy.png"), preload("res://assets/textures/king/king_eye_close.png"), null, preload("res://assets/textures/king/king_mouth_smile1.png"), preload("res://assets/textures/king/king_mouth_smile2.png"), preload("res://assets/textures/king/king_mouth_smile3.png")],
+	KingExpression.ANGRY: [preload("res://assets/textures/king/king_face_angry.png"), preload("res://assets/textures/king/king_eye_close_angry.png"), null, preload("res://assets/textures/king/king_mouth1.png"), preload("res://assets/textures/king/king_mouth2.png"), preload("res://assets/textures/king/king_mouth3.png")],
+	KingExpression.SHOCK: [preload("res://assets/textures/king/king_face_shock.png"), preload("res://assets/textures/king/king_eye_close.png"), null, preload("res://assets/textures/king/king_mouth1.png"), preload("res://assets/textures/king/king_mouth2.png"), preload("res://assets/textures/king/king_mouth3.png")]
 }
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
