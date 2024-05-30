@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmk0arvkvr00a"]
+[gd_scene load_steps=8 format=3 uid="uid://dmk0arvkvr00a"]
 
 [ext_resource type="Texture2D" uid="uid://b5jgxbegq7pvk" path="res://assets/textures/logo/logo_text.png" id="1_wyfqe"]
-[ext_resource type="Texture2D" uid="uid://bpuoyfia8p555" path="res://assets/textures/placeholder/prince.png" id="2_0d2r1"]
-[ext_resource type="FontFile" uid="uid://dvjh8wmwfwvgn" path="res://assets/fonts/talk.ttf" id="2_u7rsc"]
+[ext_resource type="FontVariation" uid="uid://vhegr7fkhs42" path="res://assets/fonts/talk.tres" id="2_riupg"]
 
 [sub_resource type="GDScript" id="GDScript_3r0od"]
 resource_name = "DebugMenuScript"
@@ -297,39 +296,24 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Load"]
-texture_filter = 1
+clip_contents = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -333.0
-offset_top = -66.0
-offset_right = 333.0
-offset_bottom = 88.0
+offset_left = -300.0
+offset_top = -86.0
+offset_right = 254.0
+offset_bottom = 54.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("2_u7rsc")
+theme_override_fonts/normal_font = ExtResource("2_riupg")
 bbcode_enabled = true
 text = "[font_size=96px][wave amp=100.0 freq=-5.0 connected=1][rainbow freq=0.5 sat=0.5 val=1]Now loading...[/rainbow][/wave][/font_size]"
 fit_content = true
-
-[node name="FunnyPrince" type="TextureRect" parent="."]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -182.0
-offset_top = 66.0
-offset_right = -69.0
-offset_bottom = 257.0
-grow_horizontal = 0
-grow_vertical = 2
-texture = ExtResource("2_0d2r1")
+autowrap_mode = 0
 
 [connection signal="pressed" from="Menu/EditorButton" to="Menu/EditorButton" method="_on_pressed"]
 [connection signal="pressed" from="Menu/HubButton" to="Menu/HubButton" method="_on_pressed"]
