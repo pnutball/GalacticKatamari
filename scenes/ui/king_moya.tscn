@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bp5gmy06yifpu"]
+[gd_scene load_steps=21 format=3 uid="uid://bp5gmy06yifpu"]
 
 [ext_resource type="Texture2D" uid="uid://evak7n0ethga" path="res://assets/textures/king/moya/kingmoya.png" id="1_ldxbr"]
 [ext_resource type="Script" path="res://scripts/king_moya.gd" id="1_togpb"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/king_face.gd" id="7_c51ur"]
 [ext_resource type="Texture2D" uid="uid://d7ugixhmm28n" path="res://assets/textures/king/king_eye_close.png" id="8_5v18i"]
 [ext_resource type="Texture2D" uid="uid://bs5m7scj62npg" path="res://assets/textures/king/king_mouth3.png" id="9_30di3"]
+[ext_resource type="PackedScene" uid="uid://dko4fplsrtbul" path="res://scenes/ui/dialogue_box.tscn" id="10_2obe3"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_etfw7"]
 viewport_path = NodePath("MoyaView")
@@ -44,7 +45,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("KingFace:MouthShape")
+tracks/0/path = NodePath("MoyaPos/KingFace:MouthShape")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -56,7 +57,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("KingFace:EyesClosed")
+tracks/1/path = NodePath("MoyaPos/KingFace:EyesClosed")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -73,7 +74,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("KingFace:EyesClosed")
+tracks/0/path = NodePath("MoyaPos/KingFace:EyesClosed")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -85,7 +86,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("KingFace:MouthShape")
+tracks/1/path = NodePath("MoyaPos/KingFace:MouthShape")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -103,7 +104,7 @@ step = 0.0333333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("KingFace:MouthShape")
+tracks/0/path = NodePath("MoyaPos/KingFace:MouthShape")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -120,120 +121,19 @@ _data = {
 "talk": SubResource("Animation_x73yh")
 }
 
-[sub_resource type="Animation" id="Animation_locnq"]
-resource_name = "king_bounce"
-length = 10.0
-loop_mode = 1
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(960, -0.25, 0, 0.25, 0, 960, -0.25, 0, 0.25, 0, 960, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 5, 10)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(2, 2, 2),
-"points": PackedFloat32Array(0, 0, 0, 1.66667, 0, 40, -1.66667, 0, 1.66667, 0, 0, -1.66667, 0, 0, 0),
-"times": PackedFloat32Array(0, 5, 10)
-}
-
-[sub_resource type="Animation" id="Animation_0ptlj"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(960, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_g04g0"]
-_data = {
-"RESET": SubResource("Animation_0ptlj"),
-"king_bounce": SubResource("Animation_locnq")
-}
-
 [node name="KingMoya" type="Control"]
 layout_mode = 3
-anchors_preset = 13
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.115, 1.115)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_togpb")
-
-[node name="MoyaMask" type="TextureRect" parent="."]
-clip_children = 1
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -170.0
-offset_top = 10.0
-offset_right = 170.0
-offset_bottom = 350.0
-grow_horizontal = 2
-mouse_filter = 2
-texture = SubResource("ViewportTexture_etfw7")
-expand_mode = 1
-
-[node name="MoyaTex" type="TextureRect" parent="MoyaMask"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -160.0
-offset_right = 160.0
-offset_bottom = 160.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(160, 160)
-mouse_filter = 2
-texture = ExtResource("1_ldxbr")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="MoyaMask"]
-z_index = -1
-position = Vector2(170, 170)
-emitting = false
-amount = 1
-process_material = SubResource("ParticleProcessMaterial_27vb6")
-texture = ExtResource("3_5ncxc")
-lifetime = 1.5
-one_shot = true
 
 [node name="MoyaView" type="SubViewport" parent="."]
 own_world_3d = true
@@ -256,23 +156,86 @@ libraries = {
 }
 speed_scale = 2.0
 
-[node name="KingFace" type="TextureRect" parent="."]
+[node name="MoyaPos" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-offset_left = -72.0
-offset_top = 38.0
-offset_right = 72.0
-offset_bottom = 292.0
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -170.0
+offset_right = 170.0
+offset_bottom = 170.0
 grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MoyaMask" type="TextureRect" parent="MoyaPos"]
+clip_children = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -170.0
+offset_right = 170.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("ViewportTexture_etfw7")
+expand_mode = 1
+
+[node name="MoyaTex" type="TextureRect" parent="MoyaPos/MoyaMask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -160.0
+offset_right = 160.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(160, 160)
+mouse_filter = 2
+texture = ExtResource("1_ldxbr")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MoyaPos/MoyaMask"]
+z_index = -1
+position = Vector2(170, 170)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_27vb6")
+texture = ExtResource("3_5ncxc")
+lifetime = 1.5
+one_shot = true
+
+[node name="KingFace" type="TextureRect" parent="MoyaPos"]
+editor_description = "Placeholder king face.
+THIS WILL BE REPLACED LATER WITH THE 3D VERSION!"
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.775, 0.775)
+pivot_offset = Vector2(170, 170)
 mouse_filter = 2
 texture = ExtResource("6_wtp3r")
 expand_mode = 3
 stretch_mode = 5
 script = ExtResource("7_c51ur")
 
-[node name="KingEyes" type="TextureRect" parent="KingFace"]
+[node name="KingEyes" type="TextureRect" parent="MoyaPos/KingFace"]
+visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -285,7 +248,8 @@ texture = ExtResource("8_5v18i")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="KingMouth" type="TextureRect" parent="KingFace"]
+[node name="KingMouth" type="TextureRect" parent="MoyaPos/KingFace"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -297,14 +261,13 @@ texture = ExtResource("9_30di3")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="KingMouthAnimation" type="AnimationPlayer" parent="KingFace"]
-root_node = NodePath("../..")
+[node name="KingMouthAnimation" type="AnimationPlayer" parent="MoyaPos/KingFace"]
+root_node = NodePath("../../..")
 libraries = {
 "": SubResource("AnimationLibrary_2r6ns")
 }
 
-[node name="BounceAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_g04g0")
-}
-speed_scale = 1.5
+[node name="DialogueBoxRoot" parent="." instance=ExtResource("10_2obe3")]
+layout_mode = 1
+
+[node name="MoyaHoverAnimation" type="AnimationPlayer" parent="."]

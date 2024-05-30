@@ -84,25 +84,26 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 4.0
-offset_right = -8.0
-offset_bottom = -4.0
+offset_right = 835.0
+offset_bottom = 470.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Format code reference:
 
 Use Enter or \\n to add a line break.
-To add an extra dialogue box, use [break] on a new line.
+End each box with |break|
 
-[color:#HEXCLR] - Change text color
-[bgcolor:#HEXCLR] - Change bubble color
-[hwave] - Wave text horizontally
-[vwave] - Wave text vertically
-[pulse] - Pulse text
-[rainbow] - Rainbow text
-[noeffect] - Clear text effects
-[face:Abc(S)] - Modify King's face:
-Abc is an expression - Ang is anger, Hap is happy, Neu is neutral, etc. Adding S to the end adds shocked eyes.
-[OUJI_#] - The name of Player #'s cousin (max 8)."
+|color:#HEXCLR| - Change text color
+|bgcolor:#HEXCLR| - Change bubble color
+|hwave| - Wave text horizontally
+|vwave| - Wave text vertically
+|jitter| - Jitters text vertically (like hwave, but choppier)
+|pulse| - Pulse text (transparency)
+|rainbow| - Rainbow text
+|clear| - Clear text effects
+|face:ABCDE(S)| - Modify King's face:
+ABC is an expression - ANGER is anger, HAPPY is happy, NEUTR is neutral. Adding S to the end adds shocked eyes.
+|OUJI_#| - The name of Player #'s cousin, with color formatting (any undefined cousins show up as \"???\")."
 fit_content = true
 scroll_active = false
 shortcut_keys_enabled = false
