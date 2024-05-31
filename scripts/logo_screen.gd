@@ -9,4 +9,4 @@ func _ready():
 	$LogoAnimation.play(&"DevBy")
 
 func LogosDone():
-	get_tree().change_scene_to_file("res://scenes/debug_menu.tscn")
+	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")

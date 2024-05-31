@@ -154,7 +154,6 @@ size = 5.0
 libraries = {
 "": ExtResource("3_xesqk")
 }
-speed_scale = 2.0
 
 [node name="MoyaPos" type="Control" parent="."]
 layout_mode = 1
