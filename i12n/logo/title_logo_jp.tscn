@@ -1,0 +1,115 @@
+[gd_scene load_steps=10 format=3 uid="uid://b44h7np3agoul"]
+
+[ext_resource type="Texture2D" uid="uid://vcqj57iscyqc" path="res://i12n/logo/logo_jp_shadow.png" id="1_e1v0s"]
+[ext_resource type="Texture2D" uid="uid://iqv85c1b061s" path="res://i12n/logo/logo_jp_star_A.png" id="2_on56u"]
+[ext_resource type="Texture2D" uid="uid://b1ffw30scj35l" path="res://i12n/logo/logo_jp_star_B.png" id="3_6xm8w"]
+[ext_resource type="Shader" uid="uid://dnm0v0i1pqymv" path="res://assets/materials/shaders/title_logo_fade.tres" id="4_pjuw1"]
+[ext_resource type="Texture2D" uid="uid://bgk1pxr4g8pma" path="res://i12n/logo/logo_fade_mask_jp.png" id="5_tamk6"]
+[ext_resource type="Texture2D" uid="uid://bfxth2nq5vqrm" path="res://i12n/logo/logo_jp_text.png" id="6_7cw20"]
+[ext_resource type="Texture2D" uid="uid://bxxkbcemmkr18" path="res://i12n/logo/logo_jp_full.png" id="7_0u7d5"]
+[ext_resource type="AnimationLibrary" uid="uid://cul7gt0gw5aib" path="res://assets/animations/ui/logo_title.res" id="8_31l5g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d05gj"]
+shader = ExtResource("4_pjuw1")
+shader_parameter/MaskModifier = -1.0
+shader_parameter/AlphaMask = ExtResource("5_tamk6")
+
+[node name="TitleLogo" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LogoShadow" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -624.0
+offset_top = -265.0
+offset_right = 624.0
+offset_bottom = 265.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_e1v0s")
+
+[node name="LogoStarsA" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -244.5
+offset_right = 576.0
+offset_bottom = 244.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_on56u")
+
+[node name="LogoStarsB" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -244.5
+offset_right = 576.0
+offset_bottom = 244.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_6xm8w")
+
+[node name="LogoText" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_d05gj")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -244.5
+offset_right = 576.0
+offset_bottom = 244.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_7cw20")
+
+[node name="LogoFull" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -244.5
+offset_right = 576.0
+offset_bottom = 244.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_0u7d5")
+
+[node name="LogoAnimation" type="AnimationPlayer" parent="."]
+deterministic = true
+libraries = {
+"": ExtResource("8_31l5g")
+}

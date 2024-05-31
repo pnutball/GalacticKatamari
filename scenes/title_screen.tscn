@@ -1,12 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://cyliyh8q1wuj5"]
+[gd_scene load_steps=17 format=3 uid="uid://cyliyh8q1wuj5"]
 
-[ext_resource type="Script" path="res://scenes/title_screen.gd" id="1_6st85"]
-[ext_resource type="Texture2D" uid="uid://veq4nyfwxjm2" path="res://assets/textures/logo/logo_full.png" id="1_c7k4c"]
-[ext_resource type="FontFile" uid="uid://dvjh8wmwfwvgn" path="res://assets/fonts/talk.ttf" id="2_o1xuu"]
+[ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_6st85"]
+[ext_resource type="PackedScene" uid="uid://bf6vo23yhq2oy" path="res://scenes/ui/title_logo.tscn" id="2_f7ydy"]
 [ext_resource type="AudioStream" uid="uid://ihyml2weu58" path="res://assets/music/placeholder.ogg" id="4_3bqmt"]
-[ext_resource type="AudioStream" uid="uid://ti521pkbxfs" path="res://assets/sounds/game/grab_XS_01.wav" id="4_c8aja"]
+[ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="4_x5xj5"]
 [ext_resource type="PackedScene" uid="uid://ddvym7hjeiewb" path="res://assets/ouji/rig/Ouji01.tscn" id="5_6mot5"]
-[ext_resource type="AnimationLibrary" uid="uid://bhwfupvw4lfhs" path="res://assets/animations/ouji.res" id="6_4mli3"]
+[ext_resource type="AudioStream" uid="uid://y3b2s8om4dm0" path="res://assets/sounds/ui/confirm.wav" id="6_kxnsq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qendg"]
 sky_top_color = Color(1, 1, 1, 1)
@@ -21,23 +20,8 @@ sky_material = SubResource("ProceduralSkyMaterial_qendg")
 background_mode = 2
 sky = SubResource("Sky_iohxl")
 
-[sub_resource type="Animation" id="Animation_4cb67"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_d08tn"]
-resource_name = "fade out"
+[sub_resource type="Animation" id="Animation_13odj"]
+resource_name = "FadeIn"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -53,7 +37,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_r5f6s"]
-resource_name = "fade in"
+resource_name = "FadeOut"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -67,113 +51,88 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TitleMusic:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [0.0, -80.0]
+}
+
+[sub_resource type="Animation" id="Animation_4cb67"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../TitleMusic:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kyndt"]
 _data = {
-"RESET": SubResource("Animation_4cb67"),
-"fade in": SubResource("Animation_r5f6s"),
-"fade out": SubResource("Animation_d08tn")
+"FadeIn": SubResource("Animation_13odj"),
+"FadeOut": SubResource("Animation_r5f6s"),
+"RESET": SubResource("Animation_4cb67")
+}
+
+[sub_resource type="Animation" id="Animation_vt6m8"]
+resource_name = "FadeInOut"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_1ahd3"]
 length = 0.001
-tracks/0/type = "bezier"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate:r")
+tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-
-[sub_resource type="Animation" id="Animation_vt6m8"]
-resource_name = "fade in and out"
-loop_mode = 1
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate:r")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate:g")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate:b")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:modulate:a")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibi4j"]
 _data = {
-"RESET": SubResource("Animation_1ahd3"),
-"fade in and out": SubResource("Animation_vt6m8")
+"FadeInOut": SubResource("Animation_vt6m8"),
+"RESET": SubResource("Animation_1ahd3")
 }
 
 [node name="TitleScreen" type="Control"]
@@ -188,7 +147,7 @@ script = ExtResource("1_6st85")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_von1c")
 
-[node name="Fade Out" type="ColorRect" parent="."]
+[node name="FadeOverlay" type="ColorRect" parent="."]
 modulate = Color(0, 0, 0, 1)
 top_level = true
 layout_mode = 1
@@ -199,40 +158,47 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Animation" type="AnimationPlayer" parent="Fade Out"]
+[node name="FadeOverlayAnim" type="AnimationPlayer" parent="FadeOverlay"]
+deterministic = true
 libraries = {
 "": SubResource("AnimationLibrary_kyndt")
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
-texture_filter = 1
+[node name="TitleLogo" parent="." instance=ExtResource("2_f7ydy")]
 layout_mode = 1
 anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -488.0
-offset_top = 80.0
-offset_right = 1432.0
-offset_bottom = 895.0
-grow_horizontal = 2
-scale = Vector2(0.51, 0.51)
-texture = ExtResource("1_c7k4c")
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 360.0
+offset_right = 0.0
+offset_bottom = 360.0
+grow_vertical = 1
+scale = Vector2(0.85, 0.85)
 
-[node name="Label" type="Label" parent="."]
+[node name="CopyrightText" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -32.0
-offset_right = 1885.0
-offset_bottom = -9.0
+offset_left = -938.5
+offset_top = -91.0
+offset_right = 938.5
+offset_bottom = -16.0
+grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.0235294, 0.137255, 0.643137, 1)
-theme_override_fonts/font = ExtResource("2_o1xuu")
-text = "Katamari Damacy and related properties are owned by Bandai Namco. \"Galactic Katamari\" is a free fangame and should not be sold. All registered trademarks belong to their respective owners and were used without intent to harm or profit."
+theme_override_fonts/font = ExtResource("4_x5xj5")
+theme_override_font_sizes/font_size = 24
+text = "Katamari Damacy and related properties are owned by Bandai Namco Entertainment.
+All registered trademarks belong to their respective owners. \"Galactic Katamari\" is a free fangame and should not be sold."
+horizontal_alignment = 1
 
-[node name="Start" type="Label" parent="."]
+[node name="StartText" type="Label" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -245,25 +211,29 @@ offset_right = 941.0
 offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.0235294, 0.137255, 0.643137, 1)
-theme_override_fonts/font = ExtResource("2_o1xuu")
+theme_override_colors/font_color = Color(0.6, 0.901961, 0.372549, 1)
+theme_override_colors/font_outline_color = Color(0.117647, 0.435294, 0.313726, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("4_x5xj5")
 theme_override_font_sizes/font_size = 50
-text = "Click the screen (or press X) to start!"
+text = "Press Enter"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Fade In _ Out" type="AnimationPlayer" parent="Start"]
+[node name="StartFadeAnim" type="AnimationPlayer" parent="StartText"]
+deterministic = true
 libraries = {
 "": SubResource("AnimationLibrary_ibi4j")
 }
 speed_scale = 0.8
 
-[node name="Confirm" type="AudioStreamPlayer" parent="Start"]
-stream = ExtResource("4_c8aja")
-
 [node name="TitleMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_3bqmt")
-volume_db = 1.0
+bus = &"Music"
+
+[node name="ConfirmSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_kxnsq")
+bus = &"SFX"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.585, 1.16)
@@ -272,9 +242,3 @@ near = 0.001
 
 [node name="Ouji" parent="." instance=ExtResource("5_6mot5")]
 transform = Transform3D(0.0246345, 0, 0.0171214, 0, 0.03, 0, -0.0171214, 0, 0.0246345, -1.31, -0.215, -3.295)
-
-[node name="OujiAnimation2" type="AnimationPlayer" parent="Ouji"]
-deterministic = true
-libraries = {
-"": ExtResource("6_4mli3")
-}

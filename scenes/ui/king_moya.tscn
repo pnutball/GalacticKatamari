@@ -122,6 +122,7 @@ _data = {
 }
 
 [node name="KingMoya" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5

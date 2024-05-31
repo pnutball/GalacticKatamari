@@ -10,3 +10,7 @@ func _ready():
 
 func LogosDone():
 	get_tree().change_scene_to_file("res://scenes/title_screen.tscn")
+
+func _input(_event):
+	if Input.is_action_just_pressed("Confirm") and ($LogoAnimation.current_animation == &"DevBy" or $LogoAnimation.current_animation == &"PowBy"):
+		$LogoAnimation.play($LogoAnimation.animation_get_next($LogoAnimation.current_animation))
