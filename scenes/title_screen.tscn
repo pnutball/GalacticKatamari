@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_6st85"]
 [ext_resource type="PackedScene" uid="uid://bf6vo23yhq2oy" path="res://scenes/ui/title_logo.tscn" id="2_f7ydy"]
-[ext_resource type="AudioStream" uid="uid://ihyml2weu58" path="res://assets/music/placeholder.ogg" id="4_3bqmt"]
+[ext_resource type="AudioStream" uid="uid://26nmgspuyhcm" path="res://assets/music/cosmea_center.ogg" id="4_lrv7y"]
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="4_x5xj5"]
 [ext_resource type="PackedScene" uid="uid://ddvym7hjeiewb" path="res://assets/ouji/rig/Ouji01.tscn" id="5_6mot5"]
 [ext_resource type="AudioStream" uid="uid://y3b2s8om4dm0" path="res://assets/sounds/ui/confirm.wav" id="6_kxnsq"]
@@ -228,7 +228,7 @@ libraries = {
 speed_scale = 0.8
 
 [node name="TitleMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_3bqmt")
+stream = ExtResource("4_lrv7y")
 bus = &"Music"
 
 [node name="ConfirmSound" type="AudioStreamPlayer" parent="."]

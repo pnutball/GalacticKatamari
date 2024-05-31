@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bc0i21yptk00r" path="res://assets/textures/material/dev/floor_64.png" id="2_x8ovx"]
 [ext_resource type="PackedScene" uid="uid://didtwp35i5ed5" path="res://scenes/game/object/hub_ouji.tscn" id="3_h7q6a"]
 [ext_resource type="PackedScene" uid="uid://dx4skkxtb28gf" path="res://scenes/environment/env_day.tscn" id="4_1s7ex"]
-[ext_resource type="AudioStream" uid="uid://dlaq63l2i5jv8" path="res://assets/music/king.ogg" id="5_xtrex"]
+[ext_resource type="AudioStream" uid="uid://26nmgspuyhcm" path="res://assets/music/cosmea_center.ogg" id="5_3vvck"]
 [ext_resource type="PackedScene" uid="uid://diaw2mn34xmsp" path="res://scenes/test/test_interactable.tscn" id="6_185yb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8kjt6"]
@@ -92,7 +92,7 @@ shape = SubResource("ConcavePolygonShape3D_v2omh")
 [node name="EnvDay" parent="." instance=ExtResource("4_1s7ex")]
 
 [node name="HubMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_xtrex")
+stream = ExtResource("5_3vvck")
 autoplay = true
 bus = &"Music"
 
