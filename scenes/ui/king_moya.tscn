@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bp5gmy06yifpu"]
+[gd_scene load_steps=27 format=3 uid="uid://bp5gmy06yifpu"]
 
 [ext_resource type="Texture2D" uid="uid://evak7n0ethga" path="res://assets/textures/king/moya/kingmoya.png" id="1_ldxbr"]
 [ext_resource type="Script" path="res://scripts/king_moya.gd" id="1_togpb"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://d7ugixhmm28n" path="res://assets/textures/king/king_eye_close.png" id="8_5v18i"]
 [ext_resource type="Texture2D" uid="uid://bs5m7scj62npg" path="res://assets/textures/king/king_mouth3.png" id="9_30di3"]
 [ext_resource type="PackedScene" uid="uid://dko4fplsrtbul" path="res://scenes/ui/dialogue_box.tscn" id="10_2obe3"]
+[ext_resource type="Texture2D" uid="uid://ba5worm70dcu" path="res://assets/textures/king/rainbow/rainbow_demo.png" id="11_iimqf"]
+[ext_resource type="AudioStream" uid="uid://d1qvl24jpnjq3" path="res://assets/sounds/king/rainbow.wav" id="12_abr0d"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_etfw7"]
 viewport_path = NodePath("MoyaView")
@@ -121,8 +123,319 @@ _data = {
 "talk": SubResource("Animation_x73yh")
 }
 
+[sub_resource type="Animation" id="Animation_qirg3"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Royal Rainbow/Rainbow1:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Royal Rainbow/Rainbow1:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Royal Rainbow/AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Royal Rainbow/Rainbow1:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-6.28319]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Royal Rainbow/Rainbow2:scale:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Royal Rainbow/Rainbow2:scale:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Royal Rainbow/Rainbow2:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-6.28319]
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Royal Rainbow/Rainbow3:scale:x")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Royal Rainbow/Rainbow3:scale:y")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Royal Rainbow/Rainbow3:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.392699]
+}
+tracks/10/type = "bezier"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Royal Rainbow/Rainbow4:scale:x")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Royal Rainbow/Rainbow4:scale:y")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Royal Rainbow/Rainbow4:rotation")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.1781]
+}
+
+[sub_resource type="Animation" id="Animation_egfes"]
+resource_name = "Rainbow"
+length = 10.0
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Royal Rainbow/Rainbow1:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5, 7.75, 9.25)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Royal Rainbow/Rainbow1:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1.5, 7.75, 9.25)
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Royal Rainbow/AudioStreamPlayer:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Royal Rainbow/Rainbow1:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 9.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 19.3732]
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Royal Rainbow/Rainbow2:scale:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.25, 1.75, 8, 9.5)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Royal Rainbow/Rainbow2:scale:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.25, 1.75, 8, 9.5)
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Royal Rainbow/Rainbow2:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.25, 9.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 19.3732]
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Royal Rainbow/Rainbow3:scale:x")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.5, 2, 8.25, 9.75)
+}
+tracks/8/type = "bezier"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Royal Rainbow/Rainbow3:scale:y")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.5, 2, 8.25, 9.75)
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Royal Rainbow/Rainbow3:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.5, 9.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 19.3732]
+}
+tracks/10/type = "bezier"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Royal Rainbow/Rainbow4:scale:x")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.75, 2.25, 8.5, 10)
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Royal Rainbow/Rainbow4:scale:y")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1.25, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0.75, 2.25, 8.5, 10)
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Royal Rainbow/Rainbow4:rotation")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.75, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 19.3732]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0xf6j"]
+_data = {
+"RESET": SubResource("Animation_qirg3"),
+"Rainbow": SubResource("Animation_egfes")
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ndemr"]
+
 [node name="KingMoya" type="Control"]
-visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -157,6 +470,7 @@ libraries = {
 }
 
 [node name="MoyaPos" type="Control" parent="."]
+z_index = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -271,3 +585,43 @@ libraries = {
 layout_mode = 1
 
 [node name="MoyaHoverAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0xf6j")
+}
+speed_scale = 1.5
+
+[node name="Royal Rainbow" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, -310)
+
+[node name="Rainbow1" type="Sprite2D" parent="Royal Rainbow"]
+texture_filter = 1
+rotation = -6.28319
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("11_iimqf")
+
+[node name="Rainbow2" type="Sprite2D" parent="Royal Rainbow"]
+texture_filter = 1
+rotation = -6.28319
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("11_iimqf")
+
+[node name="Rainbow3" type="Sprite2D" parent="Royal Rainbow"]
+texture_filter = 1
+rotation = 0.392699
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("11_iimqf")
+
+[node name="Rainbow4" type="Sprite2D" parent="Royal Rainbow"]
+texture_filter = 1
+rotation = 1.1781
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("11_iimqf")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Royal Rainbow"]
+stream = ExtResource("12_abr0d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Royal Rainbow"]
+libraries = {
+"": SubResource("AnimationLibrary_ndemr")
+}
