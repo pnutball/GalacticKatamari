@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bf6vo23yhq2oy"]
+[gd_scene load_steps=11 format=3 uid="uid://bf6vo23yhq2oy"]
 
 [ext_resource type="Texture2D" uid="uid://b43v73j7hu7fs" path="res://assets/textures/logo/logo_shadow.png" id="1_4x20e"]
 [ext_resource type="Texture2D" uid="uid://veq4nyfwxjm2" path="res://assets/textures/logo/logo_full.png" id="1_625xc"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" uid="uid://dnm0v0i1pqymv" path="res://assets/materials/shaders/title_logo_fade.tres" id="4_ja4mr"]
 [ext_resource type="Texture2D" uid="uid://ecsh13214xr3" path="res://assets/textures/logo/logo_fade_mask.png" id="5_fdaqw"]
 [ext_resource type="Texture2D" uid="uid://b5jgxbegq7pvk" path="res://assets/textures/logo/logo_text.png" id="6_bqisa"]
+[ext_resource type="FontVariation" uid="uid://vhegr7fkhs42" path="res://assets/fonts/talk.tres" id="8_7qvlf"]
 [ext_resource type="AnimationLibrary" uid="uid://cul7gt0gw5aib" path="res://assets/animations/ui/logo_title.res" id="8_akmmd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nvya3"]
@@ -107,6 +108,21 @@ offset_bottom = 244.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_625xc")
+
+[node name="DemoLabel" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -234.0
+offset_top = 212.0
+offset_right = 577.0
+offset_bottom = 334.0
+theme_override_colors/font_color = Color(0.0235294, 0.145098, 0.658824, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("8_7qvlf")
+theme_override_font_sizes/font_size = 81
+text = "Katamari Month Demo"
+horizontal_alignment = 2
 
 [node name="LogoAnimation" type="AnimationPlayer" parent="."]
 deterministic = true

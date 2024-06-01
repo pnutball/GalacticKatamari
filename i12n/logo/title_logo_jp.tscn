@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b44h7np3agoul"]
+[gd_scene load_steps=11 format=3 uid="uid://b44h7np3agoul"]
 
 [ext_resource type="Texture2D" uid="uid://vcqj57iscyqc" path="res://i12n/logo/logo_jp_shadow.png" id="1_e1v0s"]
 [ext_resource type="Texture2D" uid="uid://iqv85c1b061s" path="res://i12n/logo/logo_jp_star_A.png" id="2_on56u"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bfxth2nq5vqrm" path="res://i12n/logo/logo_jp_text.png" id="6_7cw20"]
 [ext_resource type="Texture2D" uid="uid://bxxkbcemmkr18" path="res://i12n/logo/logo_jp_full.png" id="7_0u7d5"]
 [ext_resource type="AnimationLibrary" uid="uid://cul7gt0gw5aib" path="res://assets/animations/ui/logo_title.res" id="8_31l5g"]
+[ext_resource type="FontVariation" uid="uid://vhegr7fkhs42" path="res://assets/fonts/talk.tres" id="8_pfs13"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_d05gj"]
 shader = ExtResource("4_pjuw1")
@@ -107,6 +108,21 @@ offset_bottom = 244.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_0u7d5")
+
+[node name="DemoLabel" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = -253.0
+offset_top = 168.0
+offset_right = 558.0
+offset_bottom = 290.0
+theme_override_colors/font_color = Color(0.0235294, 0.145098, 0.658824, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("8_pfs13")
+theme_override_font_sizes/font_size = 76
+text = "塊魂月の体験版"
+horizontal_alignment = 2
 
 [node name="LogoAnimation" type="AnimationPlayer" parent="."]
 deterministic = true
