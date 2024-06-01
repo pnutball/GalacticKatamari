@@ -1,0 +1,21 @@
+[gd_scene load_steps=7 format=3 uid="uid://bg6hh7hfmc43t"]
+
+[ext_resource type="ArrayMesh" uid="uid://nyql1ax46qo0" path="res://assets/models/king/headdress.obj" id="1_1muie"]
+[ext_resource type="Shader" path="res://assets/materials/shaders/king_headdress.gdshader" id="2_dom5b"]
+[ext_resource type="Texture2D" uid="uid://cix3fw3b3x5n0" path="res://assets/textures/king/headdress_B.png" id="3_c18ly"]
+[ext_resource type="Texture2D" uid="uid://qoqyx5ei0thf" path="res://assets/textures/king/headdress_A.png" id="4_gylsg"]
+[ext_resource type="Texture2D" uid="uid://doyb1svlbyup0" path="res://assets/textures/king/headdress_E.png" id="5_kd6ig"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_covmm"]
+render_priority = 0
+shader = ExtResource("2_dom5b")
+shader_parameter/MixValue = 1.0
+shader_parameter/BaseTexture = ExtResource("4_gylsg")
+shader_parameter/AltTexture = ExtResource("3_c18ly")
+shader_parameter/EmissionTexture = ExtResource("5_kd6ig")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_1muie")
+surface_material_override/0 = SubResource("ShaderMaterial_covmm")
