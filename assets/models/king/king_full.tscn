@@ -1,12 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://bg6hh7hfmc43t"]
+[gd_scene load_steps=11 format=3 uid="uid://bg6hh7hfmc43t"]
 
 [ext_resource type="ArrayMesh" uid="uid://nyql1ax46qo0" path="res://assets/models/king/headdress.obj" id="1_1muie"]
 [ext_resource type="Shader" path="res://assets/materials/shaders/king_headdress.gdshader" id="2_dom5b"]
 [ext_resource type="Texture2D" uid="uid://cix3fw3b3x5n0" path="res://assets/textures/king/headdress_B.png" id="3_c18ly"]
 [ext_resource type="Texture2D" uid="uid://qoqyx5ei0thf" path="res://assets/textures/king/headdress_A.png" id="4_gylsg"]
 [ext_resource type="Texture2D" uid="uid://doyb1svlbyup0" path="res://assets/textures/king/headdress_E.png" id="5_kd6ig"]
+[ext_resource type="Texture2D" uid="uid://dwurxbp1gwoay" path="res://assets/textures/king/headdress_S.png" id="6_3se8p"]
+[ext_resource type="Texture2D" uid="uid://bh6huyeqsisti" path="res://assets/textures/king/headdress_SE.png" id="7_t5vo3"]
+[ext_resource type="ArrayMesh" uid="uid://d4m14udajb707" path="res://assets/models/king/headdress_side.obj" id="8_w0nnl"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_covmm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2b17c"]
 render_priority = 0
 shader = ExtResource("2_dom5b")
 shader_parameter/MixValue = 1.0
@@ -14,8 +17,20 @@ shader_parameter/BaseTexture = ExtResource("4_gylsg")
 shader_parameter/AltTexture = ExtResource("3_c18ly")
 shader_parameter/EmissionTexture = ExtResource("5_kd6ig")
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kaka4"]
+render_priority = 0
+shader = ExtResource("2_dom5b")
+shader_parameter/MixValue = 1.0
+shader_parameter/BaseTexture = ExtResource("6_3se8p")
+shader_parameter/AltTexture = ExtResource("6_3se8p")
+shader_parameter/EmissionTexture = ExtResource("7_t5vo3")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="KingFull" type="Node3D"]
+
+[node name="Headdress" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_2b17c")
 mesh = ExtResource("1_1muie")
-surface_material_override/0 = SubResource("ShaderMaterial_covmm")
+
+[node name="HeaddressSide" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_kaka4")
+mesh = ExtResource("8_w0nnl")
