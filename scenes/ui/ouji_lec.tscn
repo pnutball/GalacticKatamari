@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://wv6kjl3twmkg"]
+
+[ext_resource type="PackedScene" uid="uid://ddvym7hjeiewb" path="res://assets/ouji/rig/Ouji01.tscn" id="1_diden"]
+[ext_resource type="AnimationLibrary" uid="uid://bhwfupvw4lfhs" path="res://assets/animations/ouji.res" id="2_d7uwe"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.705, 0)
+current = true
+
+[node name="Ouji" parent="." instance=ExtResource("1_diden")]
+transform = Transform3D(-0.0372787, 0, -3.25901e-09, 0, 0.0372787, 0, 3.25901e-09, 0, -0.0372787, 0, 0, -1.965)
+
+[node name="OujiAnimation2" type="AnimationPlayer" parent="Ouji"]
+deterministic = true
+libraries = {
+"": ExtResource("2_d7uwe")
+}
