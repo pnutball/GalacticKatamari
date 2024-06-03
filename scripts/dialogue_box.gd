@@ -8,13 +8,19 @@ var StringYPos:Array[float] = []
 var StringCharWidth:Array[float] = []
 var StringColors:Array[Color] = []
 var StringEffects:Array[StringName] = []
+var StringFaces:Array[StringName] = []
+var StringShocked:Array[bool] = []
 
 var BoxPosition:Vector2 = Vector2.ZERO
 
 func _ready():
 	speak("Testing, |OUJI_1|,\n|vwave|one... two... three...")
 	await get_tree().create_timer(5).timeout
-	speak("|hwave|HEEEERE |color:#CA52C9|WE|color:#FFFFFF| GO!!!!!!!!!!!")
+	speak("|face:happy||hwave|HEEEERE |color:#CA52C9|WE|color:#FFFFFF| |face:happys|GO!!!!!!!!!!!")
+	await get_tree().create_timer(5).timeout
+	speak("|rainbow|Royal Rainbow!")
+	await get_tree().create_timer(5).timeout
+	speak("It's time to fix the apostrophes.")
 
 func speak(unf_text:String):
 	for letter in $DialogSizing/LettersContainer.get_children():
@@ -25,11 +31,15 @@ func speak(unf_text:String):
 	StringCharWidth = []
 	StringColors = []
 	StringEffects = []
+	StringFaces = []
+	StringShocked = []
 	# Let's format this text.
 	var text:String = ""
 	var formattingSplits = unf_text.split("|")
 	var currentColor:Color = Color("#FFFFFF")
 	var currentEffect:StringName = &""
+	var currentFace:StringName = &"Neutral"
+	var currentShocked:bool = false
 	for index in formattingSplits.size():
 		if index % 2 == 1:
 			var tag:String = formattingSplits[index]
@@ -45,11 +55,34 @@ func speak(unf_text:String):
 				effArray.resize(oujiName.length())
 				effArray.fill(&"")
 				StringEffects.append_array(effArray)
+				var facArray = []
+				facArray.resize(oujiName.length())
+				facArray.fill(currentFace)
+				StringFaces.append_array(facArray)
+				var shoArray = []
+				shoArray.resize(oujiName.length())
+				shoArray.fill(currentShocked)
+				StringShocked.append_array(shoArray)
 			elif tag.to_upper().begins_with("COLOR:"):
 				if tag.right(-6).is_valid_html_color():
 					currentColor = Color(tag.right(-6))
+			elif tag.to_upper().begins_with("FACE:"):
+				var face = tag.to_upper().right(-5)
+				if face.begins_with("NEUTRAL") or face.begins_with("NONE"):
+					currentFace = &"Neutral"
+				elif face.begins_with("ANGER") or face.begins_with("ANGRY"):
+					currentFace = &"Anger"
+				elif face.begins_with("HAPPY"):
+					currentFace = &"Happy"
+				elif face.begins_with("SAD"):
+					currentFace = &"Sad"
+				currentShocked = face.ends_with("S")
 			elif tag.to_upper().begins_with("VWAVE"):
 				currentEffect = &"vwave"
+			elif tag.to_upper().begins_with("HWAVE"):
+				currentEffect = &"hwave"
+			elif tag.to_upper().begins_with("RAINBOW"):
+				currentEffect = &"rainbow"
 		else: 
 			text += formattingSplits[index]
 			var colArray = []
@@ -60,6 +93,14 @@ func speak(unf_text:String):
 			effArray.resize(formattingSplits[index].length() - formattingSplits[index].count("\n"))
 			effArray.fill(currentEffect)
 			StringEffects.append_array(effArray)
+			var facArray = []
+			facArray.resize(formattingSplits[index].length() - formattingSplits[index].count("\n"))
+			facArray.fill(currentFace)
+			StringFaces.append_array(facArray)
+			var shoArray = []
+			shoArray.resize(formattingSplits[index].length() - formattingSplits[index].count("\n"))
+			shoArray.fill(currentShocked)
+			StringShocked.append_array(shoArray)
 	# Let's set up the letters.
 	var splits = text.split("\n", false)
 	var height = -82 - (41 * splits.size())
@@ -77,7 +118,8 @@ func speak(unf_text:String):
 			# Manual adjustments for wonky letters:
 			# "." gets moved up
 			if substring[index] == ".": posOffset += Vector2(0,-4)
-			
+			# "'" gets moved down
+			if substring[index] == "\'": posOffset -= Vector2(0,-6)
 			if index == 0: XPosArray.push_back(posOffset.x)
 			else: XPosArray.push_back(
 				FONT.get_string_size(substring.left(index + 1), HORIZONTAL_ALIGNMENT_CENTER, -1, 56).x - FONT.get_string_size(substring[index], HORIZONTAL_ALIGNMENT_CENTER, -1, 56).x
@@ -97,5 +139,9 @@ func speak(unf_text:String):
 		letter.name = "Letter" + str(index)
 		letter.self_modulate = StringColors[index]
 		letter.effect = StringEffects[index]
+		letter.face = StringFaces[index]
+		letter.shocked = StringShocked[index]
 		letter.delay = index * 0.1
 		$DialogSizing/LettersContainer.add_child(letter)
+	# Let's animate King.
+	# TODO: add this part crealol :)

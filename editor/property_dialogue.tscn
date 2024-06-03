@@ -101,8 +101,8 @@ End each box with |break|
 |pulse| - Pulse text (transparency)
 |rainbow| - Rainbow text
 |clear| - Clear text effects
-|face:ABCDE(S)| - Modify King's face:
-ABC is an expression - ANGER is anger, HAPPY is happy, NEUTR is neutral. Adding S to the end adds shocked eyes.
+|face:E(S)| - Modify King's face:
+ABC is an expression - ANGER/HAPPY/SAD/NEUTRAL, adding S to the end adds shocked eyes.
 |OUJI_#| - The name of Player #'s cousin, with color formatting (any undefined cousins show up as \"???\")."
 fit_content = true
 scroll_active = false
