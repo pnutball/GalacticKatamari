@@ -1,24 +1,19 @@
-[gd_scene load_steps=27 format=3 uid="uid://bp5gmy06yifpu"]
+[gd_scene load_steps=49 format=3 uid="uid://bp5gmy06yifpu"]
 
 [ext_resource type="Texture2D" uid="uid://evak7n0ethga" path="res://assets/textures/king/moya/kingmoya.png" id="1_ldxbr"]
 [ext_resource type="Script" path="res://scripts/king_moya.gd" id="1_togpb"]
 [ext_resource type="ArrayMesh" uid="uid://y0q12nmx3hnn" path="res://assets/models/king/moya.tres" id="2_xksay"]
 [ext_resource type="Texture2D" uid="uid://18cwp3grxof" path="res://assets/textures/king/rainbow/rainbow_spark.png" id="3_5ncxc"]
 [ext_resource type="AnimationLibrary" uid="uid://dpy8711l2hl38" path="res://assets/animations/king/moya/moya_wibble.res" id="3_xesqk"]
-[ext_resource type="Texture2D" uid="uid://c3bx2hvt4e6n7" path="res://assets/textures/king/king_face.png" id="6_wtp3r"]
-[ext_resource type="Script" path="res://scripts/king_face.gd" id="7_c51ur"]
-[ext_resource type="Texture2D" uid="uid://d7ugixhmm28n" path="res://assets/textures/king/king_eye_close.png" id="8_5v18i"]
-[ext_resource type="Texture2D" uid="uid://bs5m7scj62npg" path="res://assets/textures/king/king_mouth3.png" id="9_30di3"]
+[ext_resource type="PackedScene" uid="uid://ymepdyha6l44" path="res://assets/models/king/rig/king_face.tscn" id="5_ganpw"]
+[ext_resource type="Shader" path="res://assets/materials/shaders/king_moya.gdshader" id="6_bksp0"]
 [ext_resource type="PackedScene" uid="uid://dko4fplsrtbul" path="res://scenes/ui/dialogue_box.tscn" id="10_2obe3"]
 [ext_resource type="Texture2D" uid="uid://ba5worm70dcu" path="res://assets/textures/king/rainbow/rainbow_demo.png" id="11_iimqf"]
 [ext_resource type="AudioStream" uid="uid://d1qvl24jpnjq3" path="res://assets/sounds/king/rainbow.wav" id="12_abr0d"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_etfw7"]
-viewport_path = NodePath("MoyaView")
-
 [sub_resource type="Curve" id="Curve_px78m"]
-_data = [Vector2(0, 0), 0.0, 2.91505, 0, 0, Vector2(1, 1), 3.66393e-07, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0), 0.0, 2.91505, 0, 0, Vector2(0.916667, 1), 3.66393e-07, 0.0, 0, 0, Vector2(1, 0), -34.1869, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_3wb6e"]
 curve = SubResource("Curve_px78m")
@@ -42,86 +37,15 @@ scale_max = 3.0
 scale_curve = SubResource("CurveTexture_s4h50")
 alpha_curve = SubResource("CurveTexture_3wb6e")
 
-[sub_resource type="Animation" id="Animation_gbow0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoyaPos/KingFace:MouthShape")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MoyaPos/KingFace:EyesClosed")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_birm0"]
+render_priority = 0
+shader = ExtResource("6_bksp0")
+shader_parameter/rotation = 0.0
+shader_parameter/MoyaPattern = ExtResource("1_ldxbr")
 
-[sub_resource type="Animation" id="Animation_j046e"]
-resource_name = "blink"
-length = 6.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoyaPos/KingFace:EyesClosed")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5, 1.6, 4, 4.1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [false, true, false, true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MoyaPos/KingFace:MouthShape")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_x73yh"]
-resource_name = "talk"
-length = 0.800003
-loop_mode = 1
-step = 0.0333333
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MoyaPos/KingFace:MouthShape")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.4, 0.533333, 0.6, 0.666667, 0.733333, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [1, 2, 1, 3, 1, 2, 3, 2, 1]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2r6ns"]
-_data = {
-"RESET": SubResource("Animation_gbow0"),
-"blink": SubResource("Animation_j046e"),
-"talk": SubResource("Animation_x73yh")
-}
+[sub_resource type="Environment" id="Environment_pi02v"]
+ambient_light_source = 2
+ambient_light_color = Color(0.470076, 0.470076, 0.470076, 1)
 
 [sub_resource type="Animation" id="Animation_qirg3"]
 length = 0.001
@@ -150,31 +74,30 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Royal Rainbow/AudioStreamPlayer:playing")
+tracks/2/path = NodePath("Royal Rainbow/Rainbow1:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [-6.28319]
 }
-tracks/3/type = "value"
+tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Royal Rainbow/Rainbow1:rotation")
+tracks/3/path = NodePath("Royal Rainbow/Rainbow2:scale:x")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-6.28319]
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 tracks/4/type = "bezier"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Royal Rainbow/Rainbow2:scale:x")
+tracks/4/path = NodePath("Royal Rainbow/Rainbow2:scale:y")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -182,33 +105,33 @@ tracks/4/keys = {
 "points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/5/type = "bezier"
+tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Royal Rainbow/Rainbow2:scale:y")
+tracks/5/path = NodePath("Royal Rainbow/Rainbow2:rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Royal Rainbow/Rainbow2:rotation")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [-6.28319]
 }
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Royal Rainbow/Rainbow3:scale:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 tracks/7/type = "bezier"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Royal Rainbow/Rainbow3:scale:x")
+tracks/7/path = NodePath("Royal Rainbow/Rainbow3:scale:y")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
@@ -216,33 +139,33 @@ tracks/7/keys = {
 "points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/8/type = "bezier"
+tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Royal Rainbow/Rainbow3:scale:y")
+tracks/8/path = NodePath("Royal Rainbow/Rainbow3:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/9/type = "value"
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/path = NodePath("Royal Rainbow/Rainbow3:rotation")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.392699]
 }
+tracks/9/type = "bezier"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Royal Rainbow/Rainbow4:scale:x")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 tracks/10/type = "bezier"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Royal Rainbow/Rainbow4:scale:x")
+tracks/10/path = NodePath("Royal Rainbow/Rainbow4:scale:y")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -250,24 +173,13 @@ tracks/10/keys = {
 "points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
-tracks/11/type = "bezier"
+tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Royal Rainbow/Rainbow4:scale:y")
+tracks/11/path = NodePath("Royal Rainbow/Rainbow4:rotation")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1.05, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("Royal Rainbow/Rainbow4:rotation")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -433,7 +345,141 @@ _data = {
 "Rainbow": SubResource("Animation_egfes")
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ndemr"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ho5my"]
+animation = &"blink"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d512c"]
+animation = &"shocked"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rsiek"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_70r6i"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Shocked"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d4qvb"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "not Shocked"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_j5avm"]
+states/Start/position = Vector2(342, 145)
+states/blink/node = SubResource("AnimationNodeAnimation_ho5my")
+states/blink/position = Vector2(475, 111)
+states/shocked/node = SubResource("AnimationNodeAnimation_d512c")
+states/shocked/position = Vector2(475, 185)
+transitions = ["Start", "blink", SubResource("AnimationNodeStateMachineTransition_rsiek"), "blink", "shocked", SubResource("AnimationNodeStateMachineTransition_70r6i"), "shocked", "blink", SubResource("AnimationNodeStateMachineTransition_d4qvb")]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_vm3w7"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ykneb"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_85vfd"]
+animation = &"angry"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_13a3i"]
+animation = &"happy"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n7170"]
+animation = &"sad"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3xr0c"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Sad\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ed4mr"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Angry\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uj84s"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Happy\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tatqy"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Angry\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_56iox"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Sad\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mnfar"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Happy\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gu5i1"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Happy\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bgcwl"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Neutral\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tgoad"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Angry\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v7l1y"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Neutral\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g78t2"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Sad\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1gy08"]
+xfade_time = 0.05
+advance_mode = 2
+advance_expression = "Emotion == \"Neutral\""
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5s3mk"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_plha5"]
+states/RESET/node = SubResource("AnimationNodeAnimation_ykneb")
+states/RESET/position = Vector2(249, 118)
+states/Start/position = Vector2(126, 118)
+states/angry/node = SubResource("AnimationNodeAnimation_85vfd")
+states/angry/position = Vector2(378, 24)
+states/happy/node = SubResource("AnimationNodeAnimation_13a3i")
+states/happy/position = Vector2(517, 118)
+states/sad/node = SubResource("AnimationNodeAnimation_n7170")
+states/sad/position = Vector2(378, 216)
+transitions = ["angry", "sad", SubResource("AnimationNodeStateMachineTransition_3xr0c"), "sad", "angry", SubResource("AnimationNodeStateMachineTransition_ed4mr"), "angry", "happy", SubResource("AnimationNodeStateMachineTransition_uj84s"), "happy", "angry", SubResource("AnimationNodeStateMachineTransition_tatqy"), "happy", "sad", SubResource("AnimationNodeStateMachineTransition_56iox"), "sad", "happy", SubResource("AnimationNodeStateMachineTransition_mnfar"), "RESET", "happy", SubResource("AnimationNodeStateMachineTransition_gu5i1"), "happy", "RESET", SubResource("AnimationNodeStateMachineTransition_bgcwl"), "RESET", "angry", SubResource("AnimationNodeStateMachineTransition_tgoad"), "angry", "RESET", SubResource("AnimationNodeStateMachineTransition_v7l1y"), "RESET", "sad", SubResource("AnimationNodeStateMachineTransition_g78t2"), "sad", "RESET", SubResource("AnimationNodeStateMachineTransition_1gy08"), "Start", "RESET", SubResource("AnimationNodeStateMachineTransition_5s3mk")]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xtxnv"]
+animation = &"talk"
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_fwuig"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4vhce"]
+graph_offset = Vector2(-405.093, 145.679)
+nodes/BlinkState/node = SubResource("AnimationNodeStateMachine_j5avm")
+nodes/BlinkState/position = Vector2(-140, 120)
+nodes/Emotion/node = SubResource("AnimationNodeAdd2_vm3w7")
+nodes/Emotion/position = Vector2(200, 200)
+nodes/EmotionState/node = SubResource("AnimationNodeStateMachine_plha5")
+nodes/EmotionState/position = Vector2(40, 380)
+nodes/Talk/node = SubResource("AnimationNodeAnimation_xtxnv")
+nodes/Talk/position = Vector2(-120, 260)
+nodes/TalkAdd/node = SubResource("AnimationNodeAdd2_fwuig")
+nodes/TalkAdd/position = Vector2(40, 180)
+nodes/output/position = Vector2(400, 200)
+node_connections = [&"Emotion", 0, &"TalkAdd", &"Emotion", 1, &"EmotionState", &"TalkAdd", 0, &"BlinkState", &"TalkAdd", 1, &"Talk", &"output", 0, &"Emotion"]
 
 [node name="KingMoya" type="Control"]
 layout_mode = 3
@@ -449,28 +495,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_togpb")
 
-[node name="MoyaView" type="SubViewport" parent="."]
-own_world_3d = true
-transparent_bg = true
-screen_space_aa = 1
-
-[node name="MoyaMesh" type="MeshInstance3D" parent="MoyaView"]
-mesh = ExtResource("2_xksay")
-blend_shapes/moya2 = 0.0
-
-[node name="MoyaMeshCam" type="Camera3D" parent="MoyaView"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1, 0)
-current = true
-fov = 140.0
-size = 5.0
-
-[node name="MoyaWibbleAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": ExtResource("3_xesqk")
-}
-
 [node name="MoyaPos" type="Control" parent="."]
-z_index = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -484,44 +509,7 @@ offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MoyaMask" type="TextureRect" parent="MoyaPos"]
-clip_children = 1
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -170.0
-offset_top = -170.0
-offset_right = 170.0
-offset_bottom = 170.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = SubResource("ViewportTexture_etfw7")
-expand_mode = 1
-
-[node name="MoyaTex" type="TextureRect" parent="MoyaPos/MoyaMask"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -160.0
-offset_right = 160.0
-offset_bottom = 160.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(160, 160)
-mouse_filter = 2
-texture = ExtResource("1_ldxbr")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="MoyaPos/MoyaMask"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="MoyaPos"]
 z_index = -1
 position = Vector2(170, 170)
 emitting = false
@@ -531,64 +519,72 @@ texture = ExtResource("3_5ncxc")
 lifetime = 1.5
 one_shot = true
 
-[node name="KingFace" type="TextureRect" parent="MoyaPos"]
-editor_description = "Placeholder king face.
-THIS WILL BE REPLACED LATER WITH THE 3D VERSION!"
+[node name="SubViewportContainer" type="SubViewportContainer" parent="MoyaPos"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -170.0
+offset_right = 170.0
+offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(0.775, 0.775)
-pivot_offset = Vector2(170, 170)
-mouse_filter = 2
-texture = ExtResource("6_wtp3r")
-expand_mode = 3
-stretch_mode = 5
-script = ExtResource("7_c51ur")
 
-[node name="KingEyes" type="TextureRect" parent="MoyaPos/KingFace"]
-visible = false
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("8_5v18i")
-expand_mode = 3
-stretch_mode = 5
+[node name="SubViewport" type="SubViewport" parent="MoyaPos/SubViewportContainer"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+msaa_3d = 3
+size = Vector2i(340, 340)
+render_target_update_mode = 4
 
-[node name="KingMouth" type="TextureRect" parent="MoyaPos/KingFace"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("9_30di3")
-expand_mode = 3
-stretch_mode = 5
+[node name="KingFace" parent="MoyaPos/SubViewportContainer/SubViewport" instance=ExtResource("5_ganpw")]
 
-[node name="KingMouthAnimation" type="AnimationPlayer" parent="MoyaPos/KingFace"]
-root_node = NodePath("../../..")
+[node name="Moya" type="MeshInstance3D" parent="MoyaPos/SubViewportContainer/SubViewport"]
+transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, -1.4, 0, 1.4, -6.11959e-08, 0, 0.245, -2)
+rotation_order = 1
+mesh = ExtResource("2_xksay")
+skeleton = NodePath("")
+blend_shapes/moya2 = 0.42784
+surface_material_override/0 = SubResource("ShaderMaterial_birm0")
+
+[node name="Camera3D" type="Camera3D" parent="MoyaPos/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.245, 7)
+projection = 1
+size = 7.5
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="MoyaPos/SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 13.4501, 0)
+sky_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="MoyaPos/SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_pi02v")
+
+[node name="MoyaWibbleAnimation" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_2r6ns")
+"": ExtResource("3_xesqk")
 }
-
-[node name="DialogueBoxRoot" parent="." instance=ExtResource("10_2obe3")]
-layout_mode = 1
+autoplay = "moya_wibble"
 
 [node name="MoyaHoverAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_0xf6j")
 }
 speed_scale = 1.5
+
+[node name="KingFaceAnimation" type="AnimationTree" parent="."]
+root_node = NodePath("../MoyaPos/SubViewportContainer/SubViewport/KingFace")
+tree_root = SubResource("AnimationNodeBlendTree_4vhce")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../MoyaPos/SubViewportContainer/SubViewport/KingFace/KingAnimation")
+parameters/Emotion/add_amount = 1.0
+parameters/TalkAdd/add_amount = 1.0
+
+[node name="DialogueBoxRoot" parent="." instance=ExtResource("10_2obe3")]
+layout_mode = 1
 
 [node name="Royal Rainbow" type="Node2D" parent="."]
 visible = false
@@ -620,8 +616,3 @@ texture = ExtResource("11_iimqf")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Royal Rainbow"]
 stream = ExtResource("12_abr0d")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Royal Rainbow"]
-libraries = {
-"": SubResource("AnimationLibrary_ndemr")
-}

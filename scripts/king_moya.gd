@@ -9,10 +9,9 @@ var MoyaPosition:Vector2 = Vector2(0,-310)
 ## The position modifier of the King's face & moya.
 var MoyaPositionModifier:Vector2 = Vector2(0,0)
 
-func _ready():
-	$MoyaWibbleAnimation.play("moya_wibble")
-	#$BounceAnimation.play("king_bounce")
-	# This will be added back at a later date.
+@onready var FaceAnimation = $MoyaPos/SubViewportContainer/SubViewport/KingFace/KingAnimation
+var Emotion:StringName = &"Neutral"
+var Shocked:bool = false
 
 func _process(delta):
 	$MoyaPos.position = MoyaPosition + MoyaPositionModifier - Vector2(170, 170)

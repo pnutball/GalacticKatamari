@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://evak7n0ethga"
-path.bptc="res://.godot/imported/kingmoya.png-83a89723f7f6d675f3819893247c5631.bptc.ctex"
+uid="uid://dgyshywsv8o0v"
+path.bptc="res://.godot/imported/face.png-9b577f958823cc02420e92461bf929e5.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/king/moya/kingmoya.png"
-dest_files=["res://.godot/imported/kingmoya.png-83a89723f7f6d675f3819893247c5631.bptc.ctex"]
+source_file="res://assets/textures/king/face.png"
+dest_files=["res://.godot/imported/face.png-9b577f958823cc02420e92461bf929e5.bptc.ctex"]
 
 [params]
 

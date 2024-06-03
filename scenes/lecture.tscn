@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bih33wjjv4u5h" path="res://assets/textures/king/lecture/swirl_lay3.png" id="6_e7mxi"]
 [ext_resource type="AudioStream" uid="uid://dlaq63l2i5jv8" path="res://assets/music/king.ogg" id="7_leavv"]
 [ext_resource type="PackedScene" uid="uid://ddvym7hjeiewb" path="res://assets/ouji/rig/Ouji01.tscn" id="8_cslta"]
-[ext_resource type="PackedScene" path="res://assets/models/king/king_full.tscn" id="9_d4g87"]
+[ext_resource type="PackedScene" uid="uid://bg6hh7hfmc43t" path="res://assets/models/king/rig/king_full.tscn" id="9_d4g87"]
 [ext_resource type="Texture2D" uid="uid://c3bx2hvt4e6n7" path="res://assets/textures/king/king_face.png" id="9_mbyjw"]
 [ext_resource type="Texture2D" uid="uid://b30tugqheva1k" path="res://assets/textures/placeholder/ph_king.png" id="11_vo5ak"]
 
