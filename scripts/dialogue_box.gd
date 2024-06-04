@@ -200,7 +200,9 @@ func speak(unf_text:String, scripted:bool = false):
 		continue_message_queue()
 
 ## Makes King say every message in the message queue.
-func speak_queue(): if not MessageQueue.is_empty(): speak(MessageQueue.pop_front())
+func speak_queue(): 
+	if not MessageQueue.is_empty(): 
+		continue_message_queue()
 
 func continue_message_queue():
 	if MessageQueue.is_empty():
@@ -209,7 +211,8 @@ func continue_message_queue():
 	else: 
 		var nextMessage:String = MessageQueue.pop_front()
 		if nextMessage == "": # Blank message closes & reopens the dialogue box.
-			await create_tween().tween_property($DialogSizing, "modulate", Color(1,1,1,0), 0.2).finished
-			if $DialogSizing.modulate != Color(1,1,1,0): $DialogSizing.visible = false
+			if $DialogSizing.visible:
+				await create_tween().tween_property($DialogSizing, "modulate", Color(1,1,1,0), 0.2).finished
+				if $DialogSizing.modulate != Color(1,1,1,0): $DialogSizing.visible = false
 			continue_message_queue()
 		else: speak(nextMessage)
