@@ -109,7 +109,7 @@
 							"en": "pt{plural}."
 						}
 					},
-					"time": 0,
+					"time": 600,
 					"ranking": {
 						"skip_results": false,
 						"size_super": -1,

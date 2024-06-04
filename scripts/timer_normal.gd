@@ -9,7 +9,7 @@ extends Control
 
 ## The current amount of time remaining, in seconds.[br]
 ## Setting time to a value higher than maximum_time will increase maximum_time to match. 
-@export var time:float = 60:
+var time:float = 60:
 	set(newTime):
 		time = newTime
 		@warning_ignore("narrowing_conversion")
@@ -17,7 +17,7 @@ extends Control
 	get:
 		return time
 ## The maximum amount of time available, in seconds.
-@export var maximum_time:int = 60:
+var maximum_time:int = 60:
 	set(newMax):
 		if time > newMax: maximum_time = ceili(time)
 		else: maximum_time = newMax
@@ -77,6 +77,10 @@ func get_time(format:String = "%d:%d", secondsFirst:bool = false):
 func get_maximum_time(format:String = "%d:%d", secondsFirst:bool = false):
 	if secondsFirst: return format % [maximum_time % 60, maximum_time / 60]
 	else: return format % [maximum_time / 60, maximum_time % 60]
+
+func _ready():
+	$TimerAnimation.animation_set_next(&"MinuteSpin", &"SecondSpin_Transition")
+	$TimerAnimation.animation_set_next(&"SecondSpin_Transition", &"SecondSpin")
 
 func _process(delta):
 	

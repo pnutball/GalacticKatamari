@@ -14,6 +14,7 @@ var loadFinished:bool = true
 
 const RollableObject3D:PackedScene = preload("res://scenes/game/object/rollable_object_3d.tscn")
 const KatamariControllable:PackedScene = preload("res://scenes/game/object/katamari_controllable.tscn")
+const TimerNormal:PackedScene = preload("res://scenes/ui/timer_normal.tscn")
 
 func _init():
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -86,7 +87,12 @@ func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
 	currentKatamari.CanDash = currentStage.modes.get(currentMode).katamari.can_dash
 	currentKatamari.CanQuickTurn = currentStage.modes.get(currentMode).katamari.can_turn
 	currentKatamari.CameraZones = currentStage.modes.get(currentMode).cam_zones
-	
+	if not currentStage.modes.get(currentMode).katamari.can_dialogue_move: currentKatamari.MovementEnabled = false
+	if currentStage.modes.get(currentMode).time > 0: 
+		var currentTimer = TimerNormal.instantiate()
+		currentTimer.maximum_time = currentStage.modes.get(currentMode).time
+		currentTimer.time = currentStage.modes.get(currentMode).time
+		currentKatamari.add_child(currentTimer)
 	preloadArea(0)
 	await instantiateArea(0)
 	
