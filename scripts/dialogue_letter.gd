@@ -28,17 +28,19 @@ func _process(delta):
 		&"pulse": self_modulate = base_color * Color(1, 1, 1, (sin((elapsed + delay) * 6) + 1) * 0.4 + 0.2)
 
 func show_letter():
-	anim_finished = true
 	KingFace.Emotion = face
 	KingFace.Shocked = shocked
 	$FadeAnim.play("FadeIn")
+	await $FadeAnim.animation_finished
+	anim_finished = true
 
 func skip():
-	anim_finished = true
-	$FadeAnim.play("FadeIn", -1, INF)
-	if last_letter:
-		KingFace.Emotion = face
-		KingFace.Shocked = shocked
+	if not anim_finished:
+		anim_finished = true
+		$FadeAnim.play("FadeIn", -1, INF)
+		if last_letter:
+			KingFace.Emotion = face
+			KingFace.Shocked = shocked
 
 func conditional_end_talk(): 
 	if last_letter: 

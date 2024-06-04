@@ -81,6 +81,7 @@ mouse_filter = 2
 script = ExtResource("1_5wwfj")
 
 [node name="DialogSizing" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -96,7 +97,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="DialogBubble" type="NinePatchRect" parent="DialogSizing"]
-modulate = Color(0, 0, 0.521569, 0.482353)
+modulate = Color(0, 0, 0.521569, 0.701961)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

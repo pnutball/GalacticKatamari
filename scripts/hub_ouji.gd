@@ -1,3 +1,4 @@
+class_name HubOuji
 extends CharacterBody3D
 ## The input vector for the left stick (movement).
 var LeftStick:Vector2 = Vector2(0, 0)

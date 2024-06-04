@@ -28,13 +28,6 @@ func _input(_event):
 		if $StarAnimation.is_playing():
 			$StarAnimation.speed_scale = INF
 
-func _ready():
-	queue_message("Testing, |OUJI_1|,\n|vwave|one... two... three...")
-	queue_message("|face:happy||hwave|HEEEERE |color:#CA52C9|WE|color:#FFFFFF| |face:happys|GO!!!!!!!!!!!")
-	queue_message("|rainbow|Royal Rainbow!")
-	queue_message("|face:sad|Our emotions are changing|face:anger||pulse|\nmid-sentence!")
-	speak_queue()
-
 func queue_message(unf_text:String): MessageQueue.push_back(unf_text)
 
 ## Makes King automatically say a message.
@@ -149,7 +142,9 @@ func speak(unf_text:String, scripted:bool = false):
 			# "." gets moved up
 			if substring[index] == ".": posOffset += Vector2(0,-4)
 			# "'" gets moved down
-			if substring[index] == "\'": posOffset -= Vector2(0,-6)
+			if substring[index] == "\'": posOffset += Vector2(0,6)
+			# "-" gets moved down
+			if substring[index] == "-": posOffset += Vector2(0,4)
 			if index == 0: XPosArray.push_back(posOffset.x)
 			else: XPosArray.push_back(
 				FONT.get_string_size(substring.left(index + 1), HORIZONTAL_ALIGNMENT_CENTER, -1, 56).x - FONT.get_string_size(substring[index], HORIZONTAL_ALIGNMENT_CENTER, -1, 56).x
@@ -160,13 +155,15 @@ func speak(unf_text:String, scripted:bool = false):
 		StringXPos.append_array(XPosArray)
 	#endregion
 	# Let's create them.
+	KingFace.Emotion = StringFaces[0]
+	KingFace.Shocked = StringShocked[0]
 	if $DialogSizing.visible:
 		$DialogSizing.modulate = Color(1,1,1,1)
 		# TODO: make this account for 16:9 screen cutoff
 		var tween = create_tween()
 		tween.tween_property($DialogSizing, "size", Vector2(maxLength + 128, 240), 0.2) 
 		tween.parallel().tween_property($DialogSizing, "position", BoxPosition - (Vector2(maxLength + 128, 240) / 2.0), 0.2)
-		await get_tree().create_timer(0.2, false) 
+		await get_tree().create_timer(0.2, false).timeout
 	else:
 		$DialogSizing.modulate = Color(1,1,1,0)
 		# TODO: make this account for 16:9 screen cutoff
@@ -197,22 +194,33 @@ func speak(unf_text:String, scripted:bool = false):
 		await $StarAnimation.animation_finished
 		$DialogueFinishSound.play()
 		$StarAnimation.speed_scale = 1
-		continue_message_queue()
+		return
 
 ## Makes King say every message in the message queue.
-func speak_queue(): 
+##
+## reveal_king, when true, plays King's reveal and unreveal animations before and after dialogue.
+func speak_queue(reveal_king:bool = true): 
 	if not MessageQueue.is_empty(): 
-		continue_message_queue()
+		if reveal_king: 
+			KingFace.Emotion = &"Neutral"
+			KingFace.Shocked = false
+			KingFace.get_node("MoyaInOutAnimation").play(&"in")
+		continue_message_queue(reveal_king)
+		
 
-func continue_message_queue():
+func continue_message_queue(hide_king:bool = true):
 	if MessageQueue.is_empty():
 		await create_tween().tween_property($DialogSizing, "modulate", Color(1,1,1,0), 0.2).finished
-		if $DialogSizing.modulate != Color(1,1,1,0): $DialogSizing.visible = false
+		if $DialogSizing.modulate == Color(1,1,1,0): 
+			$DialogSizing.visible = false
+			if hide_king: KingFace.get_node("MoyaInOutAnimation").play(&"out")
 	else: 
 		var nextMessage:String = MessageQueue.pop_front()
 		if nextMessage == "": # Blank message closes & reopens the dialogue box.
 			if $DialogSizing.visible:
 				await create_tween().tween_property($DialogSizing, "modulate", Color(1,1,1,0), 0.2).finished
-				if $DialogSizing.modulate != Color(1,1,1,0): $DialogSizing.visible = false
-			continue_message_queue()
-		else: speak(nextMessage)
+				if $DialogSizing.modulate == Color(1,1,1,0): $DialogSizing.visible = false
+			continue_message_queue(hide_king)
+		else: 
+			await speak(nextMessage)
+			continue_message_queue(hide_king)

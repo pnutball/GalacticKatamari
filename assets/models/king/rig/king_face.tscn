@@ -251,7 +251,7 @@ tracks/1/keys = {
 resource_name = "talk"
 length = 1.00001
 loop_mode = 1
-step = 0.05
+step = 0.025
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -259,10 +259,10 @@ tracks/0/path = NodePath("Face:blend_shapes/Jaw")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.15, 0.3, 0.4, 0.45, 0.6, 0.75, 0.8),
-"transitions": PackedFloat32Array(2, 0.5, 0.5, 2, 0.5, 0.5, 2, 0.5, 0.5),
+"times": PackedFloat32Array(0, 0.125, 0.3, 0.425, 0.6, 0.775),
+"transitions": PackedFloat32Array(-5, -5, -5, -5, -5, -5),
 "update": 0,
-"values": [0.0, 0.5, 0.5, 0.0, 0.5, 0.5, 0.0, 1.0, 1.0]
+"values": [0.0, 0.5, 0.0, 0.5, 0.0, 1.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -271,10 +271,10 @@ tracks/1/path = NodePath("Face:blend_shapes/Lip")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.15, 0.3, 0.4, 0.45, 0.6, 0.75, 0.8),
-"transitions": PackedFloat32Array(2, 0.5, 0.5, 2, 0.5, 0.5, 2, 0.5, 0.5),
+"times": PackedFloat32Array(0, 0.125, 0.3, 0.425, 0.6, 0.775),
+"transitions": PackedFloat32Array(-5, -5, -5, -5, -5, -5),
 "update": 0,
-"values": [0.0, 0.5, 0.5, 0.0, 0.5, 0.5, 0.5, 1.0, 1.0]
+"values": [0.0, 0.5, 0.0, 0.5, 1.0, 1.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qtmg7"]

@@ -1,17 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://diaw2mn34xmsp"]
+[gd_scene load_steps=5 format=3 uid="uid://diaw2mn34xmsp"]
 
 [ext_resource type="Texture2D" uid="uid://2vv2r8yhmhhx" path="res://assets/textures/placeholder/DemITM05.png" id="1_4ndu6"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gd6xm"]
-size = Vector3(2.73242, 2.3349, 2.58228)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_domp4"]
+height = 2.335
+radius = 1.368
+
+[sub_resource type="GDScript" id="GDScript_6mdg4"]
+resource_name = "MammothTouchScript"
+script/source = "extends Area3D
+
+
+func _on_body_entered(body):
+	if body is HubOuji:
+		DialogueBox.queue_message(\"Testing, |OUJI_1|,\\n|vwave|one... two... three...\")
+		DialogueBox.queue_message(\"|face:happy||hwave|HEEEERE |color:#CA52C9|WE|color:#FFFFFF| |face:happys|GO!!!!!!!!!!!\")
+		DialogueBox.queue_message(\"|rainbow|Royal Rainbow!\")
+		DialogueBox.queue_message(\"|face:sad|Our emotions are changing|face:anger||pulse|\\nmid-sentence!\")
+		DialogueBox.speak_queue()
+"
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cm85i"]
+height = 2.335
+radius = 2.0
 
 [node name="test_interactable" type="StaticBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0873108, 0)
-shape = SubResource("BoxShape3D_gd6xm")
+shape = SubResource("CylinderShape3D_domp4")
 
 [node name="test_MAMMOTH" type="Sprite3D" parent="."]
+offset = Vector2(-70, 14)
 billboard = 2
 texture_filter = 0
 texture = ExtResource("1_4ndu6")
+
+[node name="Area3D" type="Area3D" parent="."]
+monitorable = false
+script = SubResource("GDScript_6mdg4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_cm85i")
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
