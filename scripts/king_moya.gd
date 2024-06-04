@@ -1,17 +1,58 @@
 extends Control
 
+signal talk_changed(talking:bool)
+signal emotion_changed(emotion:StringName)
+
+const TALK_NORMAL:AudioStream = preload("res://assets/sounds/king/talk_normal.wav")
+const TALK_ANGRY:AudioStream = preload("res://assets/sounds/king/talk_angry.wav")
+const TALK_HAPPY:AudioStream = preload("res://assets/sounds/king/talk_happy.wav")
+const TALK_SAD:AudioStream = preload("res://assets/sounds/king/talk_sad.wav")
+
 ## The base position of the King's face & moya, relative to the screen center.
 ##
 ## Recommended position bounds, for future reference:
-## X: -700 to 700 (left to right)
-## Y: -310 to 310 (top to bottom)
-var MoyaPosition:Vector2 = Vector2(0,-310)
+## X: -750 to 750 (left to right)
+## Y: -350 to 350 (top to bottom)
+var MoyaPosition:Vector2 = Vector2(0,-350)
 ## The position modifier of the King's face & moya.
 var MoyaPositionModifier:Vector2 = Vector2(0,0)
 
 @onready var FaceAnimation = $MoyaPos/SubViewportContainer/SubViewport/KingFace/KingAnimation
-var Emotion:StringName = &"Neutral"
+var Emotion:StringName = &"Neutral":
+	get:
+		return Emotion
+	set(newEmote):
+		if Emotion != newEmote: 
+			emotion_changed.emit(newEmote)
+			Emotion = newEmote
 var Shocked:bool = false
+var Talking:bool = false:
+	get:
+		return Talking
+	set(newTalk):
+		if Talking != newTalk: 
+			talk_changed.emit(newTalk)
+			Talking = newTalk
 
-func _process(delta):
+func _process(_delta):
 	$MoyaPos.position = MoyaPosition + MoyaPositionModifier - Vector2(170, 170)
+
+func _talk_changed(newTalking:bool):
+	if newTalking:
+		match Emotion:
+			&"Angry": $KingSpeechSound.stream = TALK_ANGRY
+			&"Happy": $KingSpeechSound.stream = TALK_HAPPY
+			&"Sad": $KingSpeechSound.stream = TALK_SAD
+			_: $KingSpeechSound.stream = TALK_NORMAL
+		await get_tree().create_timer(0.1, false).timeout
+		if Talking: $KingSpeechSound.play()
+	else: $KingSpeechSound.stop()
+
+func _emotion_changed(newEmotion:StringName):
+	var wasPlaying:bool = $KingSpeechSound.playing
+	match newEmotion:
+		&"Angry": $KingSpeechSound.stream = TALK_ANGRY
+		&"Happy": $KingSpeechSound.stream = TALK_HAPPY
+		&"Sad": $KingSpeechSound.stream = TALK_SAD
+		_: $KingSpeechSound.stream = TALK_NORMAL
+	if Talking and wasPlaying: $KingSpeechSound.play()

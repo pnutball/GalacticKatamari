@@ -1,5 +1,7 @@
 extends Control
 
+var MessageQueue:Array[String] = []
+
 const FONT = preload("res://assets/fonts/talk.tres")
 const LETTER = preload("res://scenes/ui/dialogue_letter.tscn")
 var StringChars:Array[String] = []
@@ -11,18 +13,36 @@ var StringEffects:Array[StringName] = []
 var StringFaces:Array[StringName] = []
 var StringShocked:Array[bool] = []
 
+## The base position of the dialog box, relative to the screen center.
+##
+## Recommended position bounds, for future reference:
+## X: -750 to 750 (left to right)
+## Y: -350 to 350 (top to bottom)
 var BoxPosition:Vector2 = Vector2.ZERO
 
-func _ready():
-	speak("Testing, |OUJI_1|,\n|vwave|one... two... three...")
-	await get_tree().create_timer(5).timeout
-	speak("|face:happy||hwave|HEEEERE |color:#CA52C9|WE|color:#FFFFFF| |face:happys|GO!!!!!!!!!!!")
-	await get_tree().create_timer(5).timeout
-	speak("|rainbow|Royal Rainbow!")
-	await get_tree().create_timer(5).timeout
-	speak("It's time to fix the apostrophes.")
+func _input(_event):
+	if Input.is_action_just_pressed("Confirm"):
+		if $DialogSizing/LettersContainer.get_child_count() == StringChars.size():
+			for letter in $DialogSizing/LettersContainer.get_children():
+				letter.skip()
+		if $StarAnimation.is_playing():
+			$StarAnimation.speed_scale = INF
 
-func speak(unf_text:String):
+func _ready():
+	queue_message("Testing, |OUJI_1|,\n|vwave|one... two... three...")
+	queue_message("|face:happy||hwave|HEEEERE |color:#CA52C9|WE|color:#FFFFFF| |face:happys|GO!!!!!!!!!!!")
+	queue_message("|rainbow|Royal Rainbow!")
+	queue_message("|face:sad|Our emotions are changing|face:anger||pulse|\nmid-sentence!")
+	speak_queue()
+
+func queue_message(unf_text:String): MessageQueue.push_back(unf_text)
+
+## Makes King automatically say a message.
+##
+## unf_text is a message with formatting codes enclosed in "|".
+## scripted, when true, disables behavior to continue reading the message queue.
+func speak(unf_text:String, scripted:bool = false):
+	#region Letter Creation
 	for letter in $DialogSizing/LettersContainer.get_children():
 		letter.queue_free()
 	StringChars = []
@@ -33,6 +53,8 @@ func speak(unf_text:String):
 	StringEffects = []
 	StringFaces = []
 	StringShocked = []
+	#endregion
+	#region Text Formatting
 	# Let's format this text.
 	var text:String = ""
 	var formattingSplits = unf_text.split("|")
@@ -40,6 +62,7 @@ func speak(unf_text:String):
 	var currentEffect:StringName = &""
 	var currentFace:StringName = &"Neutral"
 	var currentShocked:bool = false
+	var finalLetter
 	for index in formattingSplits.size():
 		if index % 2 == 1:
 			var tag:String = formattingSplits[index]
@@ -53,7 +76,8 @@ func speak(unf_text:String):
 				StringColors.append_array(colArray)
 				var effArray = []
 				effArray.resize(oujiName.length())
-				effArray.fill(&"")
+				if currentEffect != &"rainbow": effArray.fill(currentEffect)
+				else: effArray.fill(&"")
 				StringEffects.append_array(effArray)
 				var facArray = []
 				facArray.resize(oujiName.length())
@@ -71,7 +95,7 @@ func speak(unf_text:String):
 				if face.begins_with("NEUTRAL") or face.begins_with("NONE"):
 					currentFace = &"Neutral"
 				elif face.begins_with("ANGER") or face.begins_with("ANGRY"):
-					currentFace = &"Anger"
+					currentFace = &"Angry"
 				elif face.begins_with("HAPPY"):
 					currentFace = &"Happy"
 				elif face.begins_with("SAD"):
@@ -83,6 +107,10 @@ func speak(unf_text:String):
 				currentEffect = &"hwave"
 			elif tag.to_upper().begins_with("RAINBOW"):
 				currentEffect = &"rainbow"
+			elif tag.to_upper().begins_with("PULSE"):
+				currentEffect = &"pulse"
+			elif tag.to_upper().begins_with("CLEAR"):
+				currentEffect = &""
 		else: 
 			text += formattingSplits[index]
 			var colArray = []
@@ -101,6 +129,8 @@ func speak(unf_text:String):
 			shoArray.resize(formattingSplits[index].length() - formattingSplits[index].count("\n"))
 			shoArray.fill(currentShocked)
 			StringShocked.append_array(shoArray)
+	#endregion
+	#region Letter Setup
 	# Let's set up the letters.
 	var splits = text.split("\n", false)
 	var height = -82 - (41 * splits.size())
@@ -128,9 +158,24 @@ func speak(unf_text:String):
 			StringYPos.push_back(height + posOffset.y)
 		XPosArray = XPosArray.map(func(x): return x - (subLength / 2.0))
 		StringXPos.append_array(XPosArray)
+	#endregion
 	# Let's create them.
-	$DialogSizing.size.x = maxLength + 128
-	$DialogSizing.position = BoxPosition - ($DialogSizing.size / 2.0)
+	if $DialogSizing.visible:
+		$DialogSizing.modulate = Color(1,1,1,1)
+		# TODO: make this account for 16:9 screen cutoff
+		var tween = create_tween()
+		tween.tween_property($DialogSizing, "size", Vector2(maxLength + 128, 240), 0.2) 
+		tween.parallel().tween_property($DialogSizing, "position", BoxPosition - (Vector2(maxLength + 128, 240) / 2.0), 0.2)
+		await get_tree().create_timer(0.2, false) 
+	else:
+		$DialogSizing.modulate = Color(1,1,1,0)
+		# TODO: make this account for 16:9 screen cutoff
+		$DialogSizing.size.x = maxLength + 128
+		$DialogSizing.position = BoxPosition - ($DialogSizing.size / 2.0)
+		$DialogSizing.visible = true
+		await create_tween().tween_property($DialogSizing, "modulate", Color(1,1,1,1), 0.2).finished
+	# Let's take a detour and animate King:
+	KingFace.Talking = true
 	for index in StringChars.size():
 		var letter = LETTER.instantiate()
 		letter.text = StringChars[index]
@@ -142,6 +187,29 @@ func speak(unf_text:String):
 		letter.face = StringFaces[index]
 		letter.shocked = StringShocked[index]
 		letter.delay = index * 0.1
+		if (index == StringChars.size() - 1):
+			letter.last_letter = true
+			finalLetter = letter
 		$DialogSizing/LettersContainer.add_child(letter)
-	# Let's animate King.
-	# TODO: add this part crealol :)
+	if not scripted:
+		await finalLetter.last_letter_shown
+		$StarAnimation.play("StarBlink")
+		await $StarAnimation.animation_finished
+		$DialogueFinishSound.play()
+		$StarAnimation.speed_scale = 1
+		continue_message_queue()
+
+## Makes King say every message in the message queue.
+func speak_queue(): if not MessageQueue.is_empty(): speak(MessageQueue.pop_front())
+
+func continue_message_queue():
+	if MessageQueue.is_empty():
+		await create_tween().tween_property($DialogSizing, "modulate", Color(1,1,1,0), 0.2).finished
+		if $DialogSizing.modulate != Color(1,1,1,0): $DialogSizing.visible = false
+	else: 
+		var nextMessage:String = MessageQueue.pop_front()
+		if nextMessage == "": # Blank message closes & reopens the dialogue box.
+			await create_tween().tween_property($DialogSizing, "modulate", Color(1,1,1,0), 0.2).finished
+			if $DialogSizing.modulate != Color(1,1,1,0): $DialogSizing.visible = false
+			continue_message_queue()
+		else: speak(nextMessage)

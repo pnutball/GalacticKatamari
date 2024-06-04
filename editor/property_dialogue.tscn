@@ -100,7 +100,7 @@ End each box with |break|
 |jitter| - Jitters text vertically (like hwave, but choppier)
 |pulse| - Pulse text (transparency)
 |rainbow| - Rainbow text
-|clear| - Clear text effects
+|clear| - Clear text effects without clearing color
 |face:E(S)| - Modify King's face:
 ABC is an expression - ANGER/HAPPY/SAD/NEUTRAL, adding S to the end adds shocked eyes.
 |OUJI_#| - The name of Player #'s cousin, with color formatting (any undefined cousins show up as \"???\")."

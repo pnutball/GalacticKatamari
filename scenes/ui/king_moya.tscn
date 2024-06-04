@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://bp5gmy06yifpu"]
+[gd_scene load_steps=53 format=3 uid="uid://bp5gmy06yifpu"]
 
 [ext_resource type="Texture2D" uid="uid://evak7n0ethga" path="res://assets/textures/king/moya/kingmoya.png" id="1_ldxbr"]
 [ext_resource type="Script" path="res://scripts/king_moya.gd" id="1_togpb"]
@@ -7,7 +7,6 @@
 [ext_resource type="AnimationLibrary" uid="uid://dpy8711l2hl38" path="res://assets/animations/king/moya/moya_wibble.res" id="3_xesqk"]
 [ext_resource type="PackedScene" uid="uid://ymepdyha6l44" path="res://assets/models/king/rig/king_face.tscn" id="5_ganpw"]
 [ext_resource type="Shader" path="res://assets/materials/shaders/king_moya.gdshader" id="6_bksp0"]
-[ext_resource type="PackedScene" uid="uid://dko4fplsrtbul" path="res://scenes/ui/dialogue_box.tscn" id="10_2obe3"]
 [ext_resource type="Texture2D" uid="uid://ba5worm70dcu" path="res://assets/textures/king/rainbow/rainbow_demo.png" id="11_iimqf"]
 [ext_resource type="AudioStream" uid="uid://d1qvl24jpnjq3" path="res://assets/sounds/king/rainbow.wav" id="12_abr0d"]
 
@@ -461,25 +460,48 @@ states/sad/node = SubResource("AnimationNodeAnimation_n7170")
 states/sad/position = Vector2(378, 216)
 transitions = ["angry", "sad", SubResource("AnimationNodeStateMachineTransition_3xr0c"), "sad", "angry", SubResource("AnimationNodeStateMachineTransition_ed4mr"), "angry", "happy", SubResource("AnimationNodeStateMachineTransition_uj84s"), "happy", "angry", SubResource("AnimationNodeStateMachineTransition_tatqy"), "happy", "sad", SubResource("AnimationNodeStateMachineTransition_56iox"), "sad", "happy", SubResource("AnimationNodeStateMachineTransition_mnfar"), "RESET", "happy", SubResource("AnimationNodeStateMachineTransition_gu5i1"), "happy", "RESET", SubResource("AnimationNodeStateMachineTransition_bgcwl"), "RESET", "angry", SubResource("AnimationNodeStateMachineTransition_tgoad"), "angry", "RESET", SubResource("AnimationNodeStateMachineTransition_v7l1y"), "RESET", "sad", SubResource("AnimationNodeStateMachineTransition_g78t2"), "sad", "RESET", SubResource("AnimationNodeStateMachineTransition_1gy08"), "Start", "RESET", SubResource("AnimationNodeStateMachineTransition_5s3mk")]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xtxnv"]
-animation = &"talk"
-
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_fwuig"]
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sqmpo"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_siehk"]
+animation = &"talk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jnyep"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_soblo"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "Talking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xss05"]
+xfade_time = 0.1
+advance_mode = 2
+advance_expression = "not Talking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fi1id"]
+states/RESET/node = SubResource("AnimationNodeAnimation_sqmpo")
+states/RESET/position = Vector2(303, 100)
+states/talk/node = SubResource("AnimationNodeAnimation_siehk")
+states/talk/position = Vector2(484, 100)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_jnyep"), "RESET", "talk", SubResource("AnimationNodeStateMachineTransition_soblo"), "talk", "RESET", SubResource("AnimationNodeStateMachineTransition_xss05")]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4vhce"]
-graph_offset = Vector2(-405.093, 145.679)
+graph_offset = Vector2(-253.712, 76.8839)
 nodes/BlinkState/node = SubResource("AnimationNodeStateMachine_j5avm")
 nodes/BlinkState/position = Vector2(-140, 120)
 nodes/Emotion/node = SubResource("AnimationNodeAdd2_vm3w7")
 nodes/Emotion/position = Vector2(200, 200)
 nodes/EmotionState/node = SubResource("AnimationNodeStateMachine_plha5")
 nodes/EmotionState/position = Vector2(40, 380)
-nodes/Talk/node = SubResource("AnimationNodeAnimation_xtxnv")
-nodes/Talk/position = Vector2(-120, 260)
 nodes/TalkAdd/node = SubResource("AnimationNodeAdd2_fwuig")
 nodes/TalkAdd/position = Vector2(40, 180)
+nodes/TalkState/node = SubResource("AnimationNodeStateMachine_fi1id")
+nodes/TalkState/position = Vector2(-120, 280)
 nodes/output/position = Vector2(400, 200)
-node_connections = [&"Emotion", 0, &"TalkAdd", &"Emotion", 1, &"EmotionState", &"TalkAdd", 0, &"BlinkState", &"TalkAdd", 1, &"Talk", &"output", 0, &"Emotion"]
+node_connections = [&"Emotion", 0, &"TalkAdd", &"Emotion", 1, &"EmotionState", &"TalkAdd", 0, &"BlinkState", &"TalkAdd", 1, &"TalkState", &"output", 0, &"Emotion"]
 
 [node name="KingMoya" type="Control"]
 layout_mode = 3
@@ -490,7 +512,6 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.115, 1.115)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_togpb")
@@ -509,7 +530,7 @@ offset_bottom = 170.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="MoyaPos"]
+[node name="RoyalRainbowParticles" type="GPUParticles2D" parent="MoyaPos"]
 z_index = -1
 position = Vector2(170, 170)
 emitting = false
@@ -583,9 +604,6 @@ anim_player = NodePath("../MoyaPos/SubViewportContainer/SubViewport/KingFace/Kin
 parameters/Emotion/add_amount = 1.0
 parameters/TalkAdd/add_amount = 1.0
 
-[node name="DialogueBoxRoot" parent="." instance=ExtResource("10_2obe3")]
-layout_mode = 1
-
 [node name="Royal Rainbow" type="Node2D" parent="."]
 visible = false
 position = Vector2(0, -310)
@@ -616,3 +634,9 @@ texture = ExtResource("11_iimqf")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Royal Rainbow"]
 stream = ExtResource("12_abr0d")
+
+[node name="KingSpeechSound" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[connection signal="emotion_changed" from="." to="." method="_emotion_changed"]
+[connection signal="talk_changed" from="." to="." method="_talk_changed"]
