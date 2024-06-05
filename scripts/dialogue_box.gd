@@ -61,21 +61,29 @@ func speak(unf_text:String, scripted:bool = false):
 			var tag:String = formattingSplits[index]
 			if tag.to_upper().begins_with("OUJI_"):
 				# temp behavior
-				var oujiName = "Prince"
+				var playerNumber:int = tag.right(-5).to_int() - 1
+				var playerOuji:int = (0 if not (playerNumber >= 0 and playerNumber < GKGlobal.players.size()) 
+				else GKGlobal.players[playerNumber][0])
+				if playerOuji < 0 or playerOuji > GKGlobal.OujiInfo.size(): playerOuji = 0
+				var oujiName = GKGlobal.OujiInfo[playerOuji].get("DialogueName")
 				text += oujiName
+				
 				var colArray = []
-				colArray.resize(oujiName.length())
-				colArray.fill(Color("#8FC93A"))
+				for nameIndex in oujiName.length():
+					var colLength:int = GKGlobal.OujiInfo[playerOuji].get("DialogueColor").size()
+					colArray.push_back(GKGlobal.OujiInfo[playerOuji].get("DialogueColor")[nameIndex % colLength])
 				StringColors.append_array(colArray)
+				
 				var effArray = []
 				effArray.resize(oujiName.length())
-				if currentEffect != &"rainbow": effArray.fill(currentEffect)
-				else: effArray.fill(&"")
+				effArray.fill(GKGlobal.OujiInfo[playerOuji].get("DialogueEffect"))
 				StringEffects.append_array(effArray)
+				
 				var facArray = []
 				facArray.resize(oujiName.length())
 				facArray.fill(currentFace)
 				StringFaces.append_array(facArray)
+				
 				var shoArray = []
 				shoArray.resize(oujiName.length())
 				shoArray.fill(currentShocked)
