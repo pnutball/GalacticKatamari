@@ -170,8 +170,8 @@ func _process(delta):
 
 func _physics_process(delta):
 	# Handle movement inputs
-	LeftStick = Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5)
-	RightStick = Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5)
+	LeftStick = GKGlobal.snap_input_angle(Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5))
+	RightStick = GKGlobal.snap_input_angle(Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5))
 	StickMidpoint = (LeftStick + Vector2.LEFT).lerp(RightStick + Vector2.RIGHT, 0.5) * int(MovementEnabled)
 	if StickMidpoint.length() <= 0.501: StickMidpoint = Vector2.ZERO
 	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle() * int(CameraMovementEnabled)

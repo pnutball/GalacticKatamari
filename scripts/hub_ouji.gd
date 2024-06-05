@@ -13,8 +13,8 @@ var MouseVelocity:Vector2 = Vector2.ZERO
 const Speed:float = 240
 
 func _physics_process(delta):
-	LeftStick = Input.get_vector("LS Right", "LS Left", "LS Down", "LS Up", 0.5).rotated(deg_to_rad(-1 * CamRotation.x))
-	RightStick = Input.get_vector("RS Right", "RS Left", "RS Down", "RS Up", 0.5)
+	LeftStick = GKGlobal.snap_input_angle(Input.get_vector("LS Right", "LS Left", "LS Down", "LS Up", 0.5)).rotated(deg_to_rad(-1 * CamRotation.x))
+	RightStick = GKGlobal.snap_input_angle(Input.get_vector("RS Right", "RS Left", "RS Down", "RS Up", 0.5))
 	velocity = Vector3(LeftStick.x, 0, LeftStick.y) * Speed
 	if Input.is_action_pressed("Hub Run"): 
 		velocity *= 2
