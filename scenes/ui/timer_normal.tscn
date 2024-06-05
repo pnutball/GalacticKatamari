@@ -91,6 +91,7 @@ deterministic = true
 libraries = {
 "": ExtResource("5_tucfh")
 }
+speed_scale = 0.0
 
 [node name="TimerScrollAnimation" type="AnimationPlayer" parent="."]
 libraries = {

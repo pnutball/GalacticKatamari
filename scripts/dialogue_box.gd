@@ -200,7 +200,7 @@ func speak(unf_text:String, scripted:bool = false):
 ##
 ## reveal_king, when true, plays King's reveal and unreveal animations before and after dialogue.
 func speak_queue(reveal_king:bool = true): 
-	if not MessageQueue.is_empty(): 
+	if not (MessageQueue.is_empty() or $DialogSizing.visible): 
 		if reveal_king: 
 			KingFace.Emotion = &"Neutral"
 			KingFace.Shocked = false

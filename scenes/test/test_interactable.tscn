@@ -12,7 +12,8 @@ script/source = "extends Area3D
 
 
 func _on_body_entered(body):
-	if body is HubOuji:
+	if body is CharacterBody3D:
+		DialogueBox.queue_message(\"\")
 		DialogueBox.queue_message(\"Testing, |OUJI_1|,\\n|vwave|one... two... three...\")
 		DialogueBox.queue_message(\"|face:happy||hwave|HEEEERE |color:#CA52C9|WE|color:#FFFFFF| |face:happys|GO!!!!!!!!!!!\")
 		DialogueBox.queue_message(\"|rainbow|Royal Rainbow!\")
