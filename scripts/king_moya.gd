@@ -3,10 +3,10 @@ extends Control
 signal talk_changed(talking:bool)
 signal emotion_changed(emotion:StringName)
 
-const TALK_NORMAL:AudioStream = preload("res://assets/sounds/king/talk_normal.wav")
-const TALK_ANGRY:AudioStream = preload("res://assets/sounds/king/talk_angry.wav")
-const TALK_HAPPY:AudioStream = preload("res://assets/sounds/king/talk_happy.wav")
-const TALK_SAD:AudioStream = preload("res://assets/sounds/king/talk_sad.wav")
+const TALK_NORMAL:AudioStream = preload("uid://dx5uvsocf375a")
+const TALK_ANGRY:AudioStream = preload("uid://dfbwpjfdqtlw1")
+const TALK_HAPPY:AudioStream = preload("uid://dye5a7b7my52f")
+const TALK_SAD:AudioStream = preload("uid://c8etddlj68pm1")
 
 ## The base position of the King's face & moya, relative to the screen center.
 ##
