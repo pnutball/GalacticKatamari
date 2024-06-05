@@ -86,18 +86,23 @@ func _process(delta):
 	
 	if enabled:
 		
-		if $TimerBody.position.x > 0:
+		if $TimerBody.position.x > 0 and not $TimerScrollAnimation.is_playing():
 			fade_in()
 		
 		previous_time = time
 		time = maxf(time - delta, 0)
 		
 		if floori(time) != floori(previous_time) and floori(time) < 31: $TimerAudio.play() 
-		if floori(time) < floori(previous_time) and floori(previous_time) >= 60 and floori(time) < 60: minute_remaining.emit()
+		if floori(time) < floori(previous_time) and floori(previous_time) >= 60 and floori(time) < 60: 
+			minute_remaining.emit()
+			DialogueBox.queue_message("")
+			DialogueBox.queue_message("You've got |color:#FF4D3D|one minute|color:#FFFFFF| left.\n|vwave|Keep rolling until you can't anymore!")
+			DialogueBox.speak_queue()
 		
 		if time >= 60:
 			$TimerBody/TimerText.text = str(ceili(time/60))
 			if $TimerAnimation.current_animation != "MinuteSpin": $TimerAnimation.current_animation = "MinuteSpin"
+			$TimerAnimation.speed_scale = ((maximum_time - 60) / 60)
 			$TimerAnimation.seek((maximum_time - time) * (60.0 / (maximum_time - 60)))
 		elif time >= 59:
 			$TimerBody/TimerText.text = str(floori(time))
