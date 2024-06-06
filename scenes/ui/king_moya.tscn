@@ -807,6 +807,7 @@ autoplay = "moya_wibble"
 libraries = {
 "": SubResource("AnimationLibrary_5n5qq")
 }
+speed_scale = 0.75
 
 [node name="KingFaceAnimation" type="AnimationTree" parent="."]
 root_node = NodePath("../MoyaPos/SubViewportContainer/SubViewport/KingFace")
