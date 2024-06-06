@@ -16,13 +16,13 @@ animation = &"Ouji_Idle"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_6ms7l"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ybj86"]
-animation = &"Ouji_Roll_Forward"
+animation = &"Ouji_Run_Forward"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_08thh"]
 animation = &"Ouji_Walk_Forward"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_2bi3i"]
-graph_offset = Vector2(-168.296, -24.4572)
+graph_offset = Vector2(-238.438, 97.0578)
 nodes/Move/node = SubResource("AnimationNodeBlend2_6yj8a")
 nodes/Move/position = Vector2(20, 100)
 nodes/MoveSpeed/node = SubResource("AnimationNodeTimeScale_6ms7l")
