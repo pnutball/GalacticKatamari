@@ -2,6 +2,11 @@ extends Control
 
 func _ready():
 	%OujiAnimTree.active = true
+	var OujiModel = load(GKGlobal.OujiInfo[GKGlobal.players[0][0]].get("Model")).instantiate()
+	OujiModel.position = Vector3(0.05, -0.835, -1.51)
+	OujiModel.scale = Vector3(0.038, 0.038, 0.038)
+	$OujiViewportContainer/SubViewport.add_child(OujiModel)
+	%OujiAnimTree.anim_player = ^"../Ouji/OujiAnimation"
 
 func _process(_delta):
 	# Animate cousin model
