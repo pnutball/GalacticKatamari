@@ -184,11 +184,12 @@ func _physics_process(delta):
 	$KatamariBody.gravity_scale = $"..".scale.y * Size
 	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size * 1.15 * $"..".scale.y
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * $"..".scale.y
-	$FloorBumpDetect/FloorBumpCollide.scale = Vector3.ONE * Size * $"..".scale.y
-	$FloorBumpDetect.position = $KatamariBody.position + (0.3 * Vector3.DOWN * Size * $"..".scale.y)
-	$WallBumpDetect/WallBumpCollide.scale = Vector3.ONE * Size * $"..".scale.y
-	$WallBumpDetect.position = $KatamariBody.position + (0.3 * (($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() if $KatamariBody.linear_velocity.length() > 0 else Vector3.ZERO) * Size * $"..".scale.y)
+	$FloorBumpDetect/FloorBumpCollide.scale = Vector3.ONE * Size
+	$FloorBumpDetect.position = $KatamariBody.position + (0.3 * Vector3.DOWN * Size)
+	$WallBumpDetect/WallBumpCollide.scale = Vector3.ONE * Size
+	$WallBumpDetect.position = $KatamariBody.position + (0.2 * (($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() if $KatamariBody.linear_velocity.length() > 0 else Vector3.ZERO) * Size)
 	$KatamariBody.center_of_mass = Vector3(0, -Size/2, 0) * $"..".scale.y
+	$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.draw_pass_1.size = Vector2.ONE * 0.3 * Size
 	
 	# Rotate katamari model
 	var zRot:float = ($KatamariBody.linear_velocity.x * -PI / $"..".scale.x * delta) / (Size * 1.15)
@@ -233,13 +234,13 @@ func _physics_process(delta):
 	if CanDash:
 		if DashCharge < 100 and DashCharge >= 25 and not is_equal_approx(DashCharge, 100):
 			$KatamariBody.apply_central_force(Vector3(
-				(Speed * -20 / $"..".scale.x * sin(%KatamariCamera.global_rotation.y)) * Size,
+				(Speed * -20 * sin(%KatamariCamera.global_rotation.y)) * Size,
 				0,
-				(Speed * -20 / $"..".scale.z * cos(%KatamariCamera.global_rotation.y)) * Size
+				(Speed * -20 * cos(%KatamariCamera.global_rotation.y)) * Size
 			) * $"..".scale.y * delta)
 			
-			var zRotDash:float = (24 / $"..".scale.x * delta * sin(%KatamariCamera.global_rotation.y))
-			var xRotDash:float = (-24 / $"..".scale.z * delta * cos(%KatamariCamera.global_rotation.y))
+			var zRotDash:float = (24 * delta * sin(%KatamariCamera.global_rotation.y))
+			var xRotDash:float = (-24 * delta * cos(%KatamariCamera.global_rotation.y))
 			$KatamariBody/KatamariMeshPivot.rotate_z(zRotDash)
 			$KatamariBody/KatamariMeshPivot.rotate_x(xRotDash)
 			
@@ -292,7 +293,7 @@ func changeCamArea(index:int, skipAnimation:bool = false):
 		CameraTilt = deg_to_rad(CameraZones[CurrentZone].Tilt)
 		CameraShift = CameraZones[CurrentZone].Shift
 		if CameraZones[CurrentZone].DOF: 
-			%KatamariCamera.attributes.dof_blur_far_distance = CameraZones[CurrentZone].DOF
+			%KatamariCamera.attributes.dof_blur_far_distance = CameraZones[CurrentZone].DOF * $"..".scale.y
 			%KatamariCamera.attributes.dof_blur_amount = 0.0 if is_equal_approx(CameraZones[CurrentZone].DOF, 0) else 0.3
 	else:
 		var CameraTween = get_tree().create_tween()
