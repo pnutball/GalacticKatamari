@@ -153,6 +153,9 @@ func _process(delta):
 	%KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-25, 0, 30) / 30)), 0.2)
 	%KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-55, 0, 30) / 30)), 0.2)
 	
+	$KatamariBody/ShadowDecal.size = Vector3(0.9, 5, 0.9) * Size
+	$KatamariBody/ShadowDecal.position = Vector3.DOWN * 0.5 * Size
+	
 	# Adjust cam. shader parameters
 	if not is_zero_approx(%ViewportRect.material.get("shader_parameter/FX_opacity")):
 		%ViewportRect.set("shader_parameter/FX_zoom", delta+1)

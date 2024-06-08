@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=33 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dg5j6njuk2bjb" path="res://assets/textures/effect/dash_A.png" id="6_8pgql"]
 [ext_resource type="Shader" path="res://assets/materials/shaders/KDZoom.gdshader" id="6_rnc8v"]
 [ext_resource type="Texture2D" uid="uid://bxcxru2mxjxbs" path="res://assets/textures/effect/dash_B.png" id="7_kpo2d"]
+[ext_resource type="Texture2D" uid="uid://cdyw241rr1it" path="res://assets/textures/core/core_shadow.png" id="8_5y6a3"]
 [ext_resource type="Material" uid="uid://dvwa0633gj8dk" path="res://assets/materials/particle/bound_backup.tres" id="8_pkl4q"]
 [ext_resource type="Texture2D" uid="uid://8i4cvqk35qcq" path="res://assets/textures/effect/bound.png" id="8_sly4x"]
 [ext_resource type="PackedScene" uid="uid://bfk4h2p6ortti" path="res://scenes/ui/ouji_view.tscn" id="11_ystjj"]
@@ -212,7 +213,7 @@ libraries = {
 }
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
-size = Vector2i(2, 2)
+size = Vector2i(949, 430)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
@@ -257,6 +258,15 @@ mesh = SubResource("SphereMesh_78fgn")
 [node name="KatamariDashEfB" type="MeshInstance3D" parent="KatamariBody/KatamariDashEfPivot"]
 material_override = SubResource("StandardMaterial3D_0uvt6")
 mesh = SubResource("SphereMesh_78fgn")
+
+[node name="ShadowDecal" type="Decal" parent="KatamariBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+layers = 2
+size = Vector3(0.95, 5, 0.95)
+texture_albedo = ExtResource("8_5y6a3")
+upper_fade = 0.00218679
+lower_fade = 0.025
+cull_mask = 1048574
 
 [node name="FloorBumpDetect" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
