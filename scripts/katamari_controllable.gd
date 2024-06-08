@@ -416,7 +416,7 @@ func _on_wall_bump(_body):
 
 
 func _on_floor_bump(_body):
-	if $KatamariBody.linear_velocity.y < (-3.5 * Size * $"..".scale.y * $KatamariBody.gravity_scale): 
+	if $KatamariBody.linear_velocity.y < (-3.5 * Size * $"..".scale.y): 
 		playBumpSound(0)
 		$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.emitting = true
 
