@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=38 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -168,6 +168,26 @@ corner_radius_bottom_left = 25
 [sub_resource type="LabelSettings" id="LabelSettings_8467r"]
 font_size = 32
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kmom7"]
+bg_color = Color(0, 0, 0, 0.156863)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ppeim"]
+bg_color = Color(0.44, 0.44, 0.44, 1)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sfqoh"]
+bg_color = Color(0, 0, 0, 0.156863)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxxru"]
+bg_color = Color(0.951344, 0.400433, 0.322336, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
 [sub_resource type="GDScript" id="GDScript_4llql"]
 resource_name = "ZoomAnimButton"
 script/source = "extends Button
@@ -298,9 +318,10 @@ collision_mask = 10
 shape = SubResource("SphereShape3D_qrq08")
 
 [node name="WallClimbDetect" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
 collision_layer = 0
 collision_mask = 10
+monitorable = false
 
 [node name="WallClimbCollide" type="CollisionShape3D" parent="WallClimbDetect"]
 shape = SubResource("CapsuleShape3D_p0v8r")
@@ -430,7 +451,7 @@ text = "a: XXrad (XXdeg)"
 label_settings = SubResource("LabelSettings_8467r")
 vertical_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="Debug/StickDisplay"]
+[node name="DashChargeBar" type="ProgressBar" parent="Debug/StickDisplay"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -438,12 +459,32 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = 124.0
-offset_top = -136.4
-offset_right = 451.0
-offset_bottom = -79.4
+offset_top = -113.0
+offset_right = 252.0
+offset_bottom = -79.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 38
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_kmom7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ppeim")
+
+[node name="DashTireBar" type="ProgressBar" parent="Debug/StickDisplay"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 124.0
+offset_top = -124.4
+offset_right = 252.0
+offset_bottom = -114.4
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_sfqoh")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pxxru")
+show_percentage = false
 
 [node name="Button" type="Button" parent="Debug/StickDisplay"]
 layout_mode = 1

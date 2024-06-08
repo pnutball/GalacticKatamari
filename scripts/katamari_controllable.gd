@@ -28,6 +28,7 @@ var ObjectQueue:Array[StringName] = []
 ## Should usually be TRUE unless control of the katamari is lost (e.g. getting slammed into, quick turning, etc.)
 var MovementEnabled:bool = true
 var CameraMovementEnabled:bool = true
+var Climbing:bool = false
 #endregion
 #region Camera
 @export_group("Camera")
@@ -169,7 +170,7 @@ func _process(delta):
 	$Debug/StickDisplay/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
 	$Debug/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f\nVr:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z, ($KatamariBody.linear_velocity*Vector3(1,0,1)).length()]
 	$Debug/Label4.text = "size:%dm%02dcm%01dmm\ndamp:%f" % [floori(Size), floori(Size * 100) % 100, floori(Size * 1000) % 10, $KatamariBody.linear_damp]
-	$Debug/StickDisplay/ProgressBar.value = DashCharge
+	$Debug/StickDisplay/DashChargeBar.value = DashCharge
 
 func _physics_process(delta):
 	# Handle movement inputs
@@ -194,11 +195,13 @@ func _physics_process(delta):
 	$WallBumpDetect/WallBumpCollide.scale = Vector3.ONE * Size
 	$WallBumpDetect.position = $KatamariBody.position + (0.2 * (($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() if $KatamariBody.linear_velocity.length() > 0 else Vector3.ZERO) * Size)
 	
-	$WallClimbDetect/WallClimbCollide.scale = Vector3.ONE * Size
-	if not is_zero_approx($KatamariBody.linear_velocity.length()):
-		$WallClimbDetect.position = $KatamariBody.position + ((Vector3(0, 0.15, 0) + (0.3 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation))) * Size)
-	
 	$KatamariBody.center_of_mass = Vector3(0, Size*-0.5, 0) * $"..".scale.y
+	
+	
+	
+	$WallClimbDetect/WallClimbCollide.scale = Vector3.ONE * Size
+	if Climbing or not is_zero_approx($KatamariBody.linear_velocity.length()):
+		$WallClimbDetect.position = $KatamariBody.position + ((Vector3(0, 0.1, 0) + (0.3 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation))) * Size)
 	
 	$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.draw_pass_1.size = Vector2.ONE * 0.3 * Size
 	
@@ -240,6 +243,28 @@ func _physics_process(delta):
 	InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) * pow(1, Speed - 1)
 	# Create movement force
 	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y).rotated(Vector3(1,0,0), Vector2(floorAngle.y, floorAngle.x).angle()).rotated(Vector3(0,0,1), Vector2(floorAngle.y, floorAngle.z).angle())
+	
+	if is_zero_approx($KatamariBody.linear_velocity.length()) and $WallClimbDetect.has_overlapping_bodies() and StickMidpoint.y < -0.5:
+		Climbing = true
+	if Climbing:
+		if $WallClimbDetect.get_overlapping_bodies().size() > 0 and StickMidpoint.y < -0.5:
+			$KatamariBody.gravity_scale = 0
+			$KatamariBody.apply_central_force(Vector3.UP * Size * $"..".scale.y * Speed * 40 * delta)
+			
+			var zRotClimb:float = (5 * delta * sin(%KatamariCamera.global_rotation.y))
+			var xRotClimb:float = (-5 * delta * cos(%KatamariCamera.global_rotation.y))
+			$KatamariBody/KatamariMeshPivot.rotate_z(zRotClimb)
+			$KatamariBody/KatamariMeshPivot.rotate_x(xRotClimb)
+			
+			# Rotate object collision
+			for collider:Node3D in $KatamariBody.get_children():
+				if collider is CollisionShape3D and collider.name != "KatamariBaseCollision":
+					#collider.rotate_z(zRot)
+					#collider.rotate_x(zRot)
+					collider.transform = collider.transform.rotated(Vector3(0,0,1), zRotClimb).rotated(Vector3(1,0,0), xRotClimb)
+			
+			$KatamariBody.constant_force *= abs(Vector3(0, 1, 1).rotated(Vector3.UP, CameraRotation))
+		else: Climbing = false
 	
 	# Create dash movement/force
 	if CanDash:
@@ -394,3 +419,4 @@ func _on_floor_bump(_body):
 	if $KatamariBody.linear_velocity.y < (-3.5 * Size * $"..".scale.y * $KatamariBody.gravity_scale): 
 		playBumpSound(0)
 		$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.emitting = true
+
