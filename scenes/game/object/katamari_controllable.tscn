@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=34 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -141,6 +141,10 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_m0f6f"]
 material = SubResource("StandardMaterial3D_fnpb2")
 size = Vector2(0.3, 0.3)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p0v8r"]
+radius = 0.3
+height = 0.8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmoml"]
 bg_color = Color(0.12549, 0.160784, 0.258824, 1)
@@ -292,6 +296,14 @@ collision_mask = 10
 
 [node name="WallBumpCollide" type="CollisionShape3D" parent="WallBumpDetect"]
 shape = SubResource("SphereShape3D_qrq08")
+
+[node name="WallClimbDetect" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+collision_layer = 0
+collision_mask = 10
+
+[node name="WallClimbCollide" type="CollisionShape3D" parent="WallClimbDetect"]
+shape = SubResource("CapsuleShape3D_p0v8r")
 
 [node name="Debug" type="Control" parent="."]
 layout_mode = 3

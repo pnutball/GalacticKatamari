@@ -187,11 +187,19 @@ func _physics_process(delta):
 	$KatamariBody.gravity_scale = $"..".scale.y * Size
 	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size * 1.15 * $"..".scale.y
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * $"..".scale.y
+	
 	$FloorBumpDetect/FloorBumpCollide.scale = Vector3.ONE * Size
 	$FloorBumpDetect.position = $KatamariBody.position + (0.3 * Vector3.DOWN * Size)
+	
 	$WallBumpDetect/WallBumpCollide.scale = Vector3.ONE * Size
 	$WallBumpDetect.position = $KatamariBody.position + (0.2 * (($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() if $KatamariBody.linear_velocity.length() > 0 else Vector3.ZERO) * Size)
-	$KatamariBody.center_of_mass = Vector3(0, -Size/2, 0) * $"..".scale.y
+	
+	$WallClimbDetect/WallClimbCollide.scale = Vector3.ONE * Size
+	if not is_zero_approx($KatamariBody.linear_velocity.length()):
+		$WallClimbDetect.position = $KatamariBody.position + ((Vector3(0, 0.15, 0) + (0.3 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation))) * Size)
+	
+	$KatamariBody.center_of_mass = Vector3(0, Size*-0.5, 0) * $"..".scale.y
+	
 	$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.draw_pass_1.size = Vector2.ONE * 0.3 * Size
 	
 	# Rotate katamari model
