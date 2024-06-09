@@ -1,5 +1,7 @@
 extends Control
 
+var FatiguePrev:float = 1
+
 func _ready():
 	%OujiAnimTree.active = true
 	var OujiModel = load(GKGlobal.OujiInfo[GKGlobal.players[0][0]].get("Model")).instantiate()
@@ -8,7 +10,7 @@ func _ready():
 	$OujiViewportContainer/SubViewport.add_child(OujiModel)
 	%OujiAnimTree.anim_player = ^"../Ouji/OujiAnimation"
 
-func _process(_delta):
+func _process(delta):
 	# Animate cousin model
 	var rotatedVelocity = Vector2($"../KatamariBody".linear_velocity.x, $"../KatamariBody".linear_velocity.z).rotated($"..".CameraRotation)
 	%OujiAnimTree.set("parameters/WalkState/conditions/idle_speed_reached", $"../KatamariBody".linear_velocity.length() < ($"..".Size / 10))
@@ -21,4 +23,7 @@ func _process(_delta):
 	%OujiAnimTree.set("parameters/WalkState/Ouji_Walk/Forward/BodyRotAdd/add_amount", rotatedVelocity.normalized().x)
 	%OujiAnimTree.set("parameters/WalkState/Ouji_Walk/Forward/HeadRotAdd/add_amount", rotatedVelocity.normalized().x)
 	%OujiAnimTree.set("parameters/WalkState/Ouji_Roll/Forward/OujiForwardAdd/add_amount", lerpf(%OujiAnimTree.get("parameters/WalkState/Ouji_Roll/Forward/OujiForwardAdd/add_amount"), $"..".StickAngle, 0.5))
-	%OujiAnimTree.set("parameters/MovementScale/scale", $"..".Speed / 4.5)
+	%OujiAnimTree.set("parameters/MovementScale/scale", ($"..".Speed / 4.5) * lerp(FatiguePrev, 1 - (float($"..".Fatigued) * 0.5), clampf(0.5*((1.0 / 60)/delta), 0, 1)))
+	print(%OujiAnimTree.get("parameters/MovementScale/scale"))
+	%OujiAnimTree.set("parameters/TiredAdd/add_amount", lerpf(%OujiAnimTree.get("parameters/TiredAdd/add_amount"), ease($"..".DashFatigue / 100.0, 0.1) if $"..".Fatigued else 0.0, 0.5))
+	FatiguePrev = 1 - (float($"..".Fatigued) * 0.5)

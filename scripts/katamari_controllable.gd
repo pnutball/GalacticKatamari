@@ -83,6 +83,16 @@ var DashDir:int = 0:
 		DashDir = signi(newDir)
 	get:
 		return DashDir
+## The amount of fatigue for the Dash.
+var DashFatigue:float = 0:
+	set(newFatigue):
+		DashFatigue = clampf(newFatigue, 0, 100)
+		if DashFatigue == 0: Fatigued = false
+		if DashFatigue == 100: Fatigued = true
+	get:
+		return DashFatigue
+## Is the player currently fatigued?
+var Fatigued:bool = false
 ## Can the katamari dash?
 @export var CanDash:bool = true
 ## Can the katamari quick turn?
@@ -131,22 +141,25 @@ func _process(delta):
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform,
 	 clamp(CameraSmoothing*((1.0 / 60)/delta), 0, 1))
 	
+	DashFatigue -= (5 if not Fatigued else 7.5) * delta
+	
 	# Discharge / recharge dash
-	if DashCharge < 0:
-		DashCharge += 15 * delta
-	elif DashCharge < 25:
-		DashCharge = clamp(DashCharge - (delta * 20) * int(MovementEnabled), 0, 100)
-	elif DashCharge < 100 and not is_equal_approx(DashCharge, 100):
-		if MovementEnabled:
-			MovementEnabled = false
-			$KatamariDashAudio.stream = preload("uid://cfisonr1vjblw")
-			$KatamariDashAudio.play()
-		DashCharge += delta * 25
-	if DashCharge <= 0 or not CanDash: DashDir = 0
-	if CanDash and (MovementEnabled or DashCharge >= 25) and DashCharge >= 0 and ((Input.is_action_just_pressed("LS Dash Down") and DashDir < 1) or (Input.is_action_just_pressed("LS Dash Up") and DashDir > -1)):
-		DashCharge += 6.25
-		if Input.is_action_just_pressed("LS Dash Down"): DashDir = 1
-		if Input.is_action_just_pressed("LS Dash Up"): DashDir = -1
+	if not Fatigued:
+		if DashCharge < 0:
+			DashCharge += 15 * delta
+		elif DashCharge < 25:
+			DashCharge = clamp(DashCharge - (delta * 20) * int(MovementEnabled), 0, 100)
+		elif DashCharge < 100 and not is_equal_approx(DashCharge, 100):
+			if MovementEnabled:
+				MovementEnabled = false
+				$KatamariDashAudio.stream = preload("uid://cfisonr1vjblw")
+				$KatamariDashAudio.play()
+			DashCharge += delta * 25
+		if DashCharge <= 0 or not CanDash: DashDir = 0
+		if CanDash and (MovementEnabled or DashCharge >= 25) and DashCharge >= 0 and ((Input.is_action_just_pressed("LS Dash Down") and DashDir < 1) or (Input.is_action_just_pressed("LS Dash Up") and DashDir > -1)):
+			DashCharge += 6.25
+			if Input.is_action_just_pressed("LS Dash Down"): DashDir = 1
+			if Input.is_action_just_pressed("LS Dash Up"): DashDir = -1
 	
 	%KatamariDashEfPivot.scale = Vector3.ONE * Size * 1.15 * $"..".scale.y
 	%KatamariDashEfPivot.rotation.y = %KatamariCameraPivot.rotation.y
@@ -171,6 +184,7 @@ func _process(delta):
 	$Debug/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f\nVr:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z, ($KatamariBody.linear_velocity*Vector3(1,0,1)).length()]
 	$Debug/Label4.text = "size:%dm%02dcm%01dmm\ndamp:%f" % [floori(Size), floori(Size * 100) % 100, floori(Size * 1000) % 10, $KatamariBody.linear_damp]
 	$Debug/StickDisplay/DashChargeBar.value = DashCharge
+	$Debug/StickDisplay/DashTireBar.value = DashFatigue
 
 func _physics_process(delta):
 	# Handle movement inputs
@@ -266,7 +280,7 @@ func _physics_process(delta):
 		else: Climbing = false
 	
 	# Create dash movement/force
-	if CanDash:
+	if CanDash and not Fatigued:
 		if DashCharge < 100 and DashCharge >= 25 and not is_equal_approx(DashCharge, 100):
 			$KatamariBody.apply_central_force(Vector3(
 				(Speed * -20 * sin(%KatamariCamera.global_rotation.y)) * Size,
@@ -295,6 +309,7 @@ func _physics_process(delta):
 				(Speed * -4.5 / $"..".scale.z * cos(%KatamariCamera.global_rotation.y)) * Size
 			) * $"..".scale.y)
 			DashCharge = -10
+			DashFatigue += 30
 			MovementEnabled = true
 	
 	# Detect size/camera area changes

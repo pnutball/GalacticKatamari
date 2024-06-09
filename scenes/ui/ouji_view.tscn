@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://bfk4h2p6ortti"]
+[gd_scene load_steps=60 format=3 uid="uid://bfk4h2p6ortti"]
 
 [ext_resource type="Script" path="res://scripts/ouji_view.gd" id="1_g71is"]
 [ext_resource type="Texture2D" uid="uid://dxiw044rvr1po" path="res://assets/textures/ui/earth.png" id="3_w4j5m"]
@@ -11,6 +11,11 @@ ambient_light_color = Color(1, 1, 1, 1)
 environment = SubResource("Environment_d2jpm")
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_7b822"]
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_85gch"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vut82"]
+animation = &"Internal_OujiShock"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ptnkm"]
 animation = &"Ouji_Climb"
@@ -299,16 +304,20 @@ states/Ouji_Walk/node = SubResource("AnimationNodeStateMachine_3vv05")
 states/Ouji_Walk/position = Vector2(520.047, 155)
 states/Start/position = Vector2(158, 90)
 transitions = ["Ouji_Idle", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_m8qfg"), "Ouji_Roll", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_27yf4"), "Ouji_Roll", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_3p50r"), "Ouji_Walk", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_wvdnn"), "Ouji_Idle", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_xh258"), "Ouji_Walk", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_73w21"), "Start", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_kabmr"), "Ouji_Idle", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_ct57w"), "Ouji_Climb", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_toiim"), "Ouji_Climb", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_bjkcn"), "Ouji_Roll", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_e5b03"), "Ouji_Walk", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_cvxrq")]
-graph_offset = Vector2(93.0474, 12.1325)
+graph_offset = Vector2(-11.3785, -96.7588)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
-graph_offset = Vector2(-181.105, 21.0155)
+graph_offset = Vector2(-67.3991, -64.8518)
 nodes/MovementScale/node = SubResource("AnimationNodeTimeScale_7b822")
 nodes/MovementScale/position = Vector2(580, 60)
+nodes/TiredAdd/node = SubResource("AnimationNodeAdd2_85gch")
+nodes/TiredAdd/position = Vector2(820, 140)
+nodes/TiredAnim/node = SubResource("AnimationNodeAnimation_vut82")
+nodes/TiredAnim/position = Vector2(520, 300)
 nodes/WalkState/node = SubResource("AnimationNodeStateMachine_lygbi")
 nodes/WalkState/position = Vector2(400, 100)
-nodes/output/position = Vector2(780, 60)
-node_connections = [&"MovementScale", 0, &"WalkState", &"output", 0, &"MovementScale"]
+nodes/output/position = Vector2(980, 200)
+node_connections = [&"MovementScale", 0, &"WalkState", &"TiredAdd", 0, &"MovementScale", &"TiredAdd", 1, &"TiredAnim", &"output", 0, &"TiredAdd"]
 
 [node name="OujiView" type="Control"]
 layout_mode = 3
@@ -349,9 +358,12 @@ fov = 35.9
 [node name="OujiAnimTree" type="AnimationTree" parent="OujiViewportContainer/SubViewport"]
 unique_name_in_owner = true
 active = false
+root_node = NodePath("%OujiAnimTree/../Ouji")
 tree_root = SubResource("AnimationNodeBlendTree_5ly86")
 advance_expression_base_node = NodePath("../../../..")
+anim_player = NodePath("../Ouji/OujiAnimation")
 parameters/MovementScale/scale = 1.0
+parameters/TiredAdd/add_amount = 0
 parameters/WalkState/conditions/idle_speed_reached = false
 parameters/WalkState/conditions/walk_speed_reached = false
 parameters/WalkState/Ouji_Roll/conditions/backward_condition = false
