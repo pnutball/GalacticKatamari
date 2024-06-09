@@ -200,8 +200,7 @@ func _physics_process(delta):
 	
 	
 	$WallClimbDetect/WallClimbCollide.scale = Vector3.ONE * Size
-	if Climbing or not is_zero_approx($KatamariBody.linear_velocity.length()):
-		$WallClimbDetect.position = $KatamariBody.position + ((Vector3(0, 0.1, 0) + (0.3 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation))) * Size)
+	$WallClimbDetect.position = $KatamariBody.position + ((Vector3(0, 0.1, 0) + (0.3 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation))) * Size)
 	
 	$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.draw_pass_1.size = Vector2.ONE * 0.3 * Size
 	
@@ -242,14 +241,14 @@ func _physics_process(delta):
 	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x * Size, $"..".scale.z * Size) * Speed * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), 
 	InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) * pow(1, Speed - 1)
 	# Create movement force
-	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y).rotated(Vector3(1,0,0), Vector2(floorAngle.y, floorAngle.x).angle()).rotated(Vector3(0,0,1), Vector2(floorAngle.y, floorAngle.z).angle())
+	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y).rotated(Vector3(1,0,0), Vector2(floorAngle.y, floorAngle.x).angle()).rotated(Vector3(0,0,1), Vector2(floorAngle.y, floorAngle.z).angle()) * 1.3
 	
 	if is_zero_approx($KatamariBody.linear_velocity.length()) and $WallClimbDetect.has_overlapping_bodies() and StickMidpoint.y < -0.5:
 		Climbing = true
 	if Climbing:
-		if $WallClimbDetect.get_overlapping_bodies().size() > 0 and StickMidpoint.y < -0.5:
+		if $WallClimbDetect.get_overlapping_bodies().size() > 0 and StickMidpoint.y < -0.5 and MovementEnabled:
 			$KatamariBody.gravity_scale = 0
-			$KatamariBody.apply_central_force(Vector3.UP * Size * $"..".scale.y * Speed * 40 * delta)
+			$KatamariBody.apply_central_force(Vector3.UP * Size * $"..".scale.y * Speed * 1.3 * 40 * delta)
 			
 			var zRotClimb:float = (5 * delta * sin(%KatamariCamera.global_rotation.y))
 			var xRotClimb:float = (-5 * delta * cos(%KatamariCamera.global_rotation.y))
