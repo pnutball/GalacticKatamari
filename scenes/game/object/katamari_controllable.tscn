@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=43 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -9,9 +9,14 @@
 [ext_resource type="Shader" path="res://assets/materials/shaders/KDZoom.gdshader" id="6_rnc8v"]
 [ext_resource type="Texture2D" uid="uid://bxcxru2mxjxbs" path="res://assets/textures/effect/dash_B.png" id="7_kpo2d"]
 [ext_resource type="Texture2D" uid="uid://cdyw241rr1it" path="res://assets/textures/core/core_shadow.png" id="8_5y6a3"]
-[ext_resource type="Material" uid="uid://dvwa0633gj8dk" path="res://assets/materials/particle/bound_backup.tres" id="8_pkl4q"]
 [ext_resource type="Texture2D" uid="uid://8i4cvqk35qcq" path="res://assets/textures/effect/bound.png" id="8_sly4x"]
 [ext_resource type="PackedScene" uid="uid://bfk4h2p6ortti" path="res://scenes/ui/ouji_view.tscn" id="11_ystjj"]
+
+[sub_resource type="Curve" id="Curve_bp25q"]
+min_value = -2.0
+max_value = 2.1
+_data = [Vector2(0, 2.1), 0.0, -4.1, 0, 1, Vector2(1, -2), -4.1, 0.0, 1, 0]
+point_count = 2
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qviqp"]
 dof_blur_far_enabled = true
@@ -127,6 +132,38 @@ albedo_texture = ExtResource("7_kpo2d")
 [sub_resource type="SphereShape3D" id="SphereShape3D_qrq08"]
 radius = 0.35
 
+[sub_resource type="Curve" id="Curve_w77ct"]
+resource_local_to_scene = true
+min_value = -2.0
+max_value = 2.1
+_data = [Vector2(0, 2.1), 0.0, -4.1, 0, 1, Vector2(1, -2), -4.1, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_o4q8p"]
+resource_local_to_scene = true
+curve_y = SubResource("Curve_w77ct")
+
+[sub_resource type="Curve" id="Curve_gvgtd"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.62308, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ab0xv"]
+curve = SubResource("Curve_gvgtd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qdqb8"]
+resource_local_to_scene = true
+spread = 180.0
+flatness = 1.0
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+directional_velocity_min = 1.0
+directional_velocity_max = 1.0
+directional_velocity_curve = SubResource("CurveXYZTexture_o4q8p")
+gravity = Vector3(0, -2, 0)
+linear_accel_min = -4.0
+linear_accel_max = -4.0
+scale_curve = SubResource("CurveTexture_ab0xv")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fnpb2"]
 transparency = 1
 blend_mode = 1
@@ -215,6 +252,7 @@ viewport_path = NodePath("SubViewport")
 editor_description = "An inherited scene for a player-controlled katamari. Only one should exist per-viewport; any more can cause issues with multiple active cameras."
 script = ExtResource("1_k6077")
 InclineSpeedMultiplier = ExtResource("2_dth00")
+FloorBumpCurve = SubResource("Curve_bp25q")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(853, 480)
@@ -237,7 +275,7 @@ libraries = {
 }
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
-size = Vector2i(949, 356)
+size = Vector2i(949, 448)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
@@ -306,7 +344,8 @@ emitting = false
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
-process_material = ExtResource("8_pkl4q")
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_qdqb8")
 draw_pass_1 = SubResource("QuadMesh_m0f6f")
 
 [node name="WallBumpDetect" type="Area3D" parent="."]

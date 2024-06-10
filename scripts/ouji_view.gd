@@ -24,6 +24,5 @@ func _process(delta):
 	%OujiAnimTree.set("parameters/WalkState/Ouji_Walk/Forward/HeadRotAdd/add_amount", rotatedVelocity.normalized().x)
 	%OujiAnimTree.set("parameters/WalkState/Ouji_Roll/Forward/OujiForwardAdd/add_amount", lerpf(%OujiAnimTree.get("parameters/WalkState/Ouji_Roll/Forward/OujiForwardAdd/add_amount"), $"..".StickAngle, 0.5))
 	%OujiAnimTree.set("parameters/MovementScale/scale", ($"..".Speed / 4.5) * lerp(FatiguePrev, 1 - (float($"..".Fatigued) * 0.5), clampf(0.5*((1.0 / 60)/delta), 0, 1)))
-	print(%OujiAnimTree.get("parameters/MovementScale/scale"))
 	%OujiAnimTree.set("parameters/TiredAdd/add_amount", lerpf(%OujiAnimTree.get("parameters/TiredAdd/add_amount"), ease($"..".DashFatigue / 100.0, 0.1) if $"..".Fatigued else 0.0, 0.5))
 	FatiguePrev = 1 - (float($"..".Fatigued) * 0.5)

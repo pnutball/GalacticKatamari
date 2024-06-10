@@ -307,7 +307,7 @@ transitions = ["Ouji_Idle", "Ouji_Roll", SubResource("AnimationNodeStateMachineT
 graph_offset = Vector2(-11.3785, -96.7588)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
-graph_offset = Vector2(-67.3991, -64.8518)
+graph_offset = Vector2(-941, 0)
 nodes/MovementScale/node = SubResource("AnimationNodeTimeScale_7b822")
 nodes/MovementScale/position = Vector2(580, 60)
 nodes/TiredAdd/node = SubResource("AnimationNodeAdd2_85gch")

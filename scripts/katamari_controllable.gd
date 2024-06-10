@@ -101,6 +101,7 @@ var Fatigued:bool = false
 #region Visual
 @export_file("*.obj") var CoreModel:String = "res://assets/models/core/core_generic.obj"
 @export_file("*.png") var CoreTexture:String = "res://assets/textures/core/core_test.png"
+@export var FloorBumpCurve:Curve 
 #endregion
 
 const RollSounds = {
@@ -173,6 +174,13 @@ func _process(delta):
 	# Adjust cam. shader parameters
 	if not is_zero_approx(%ViewportRect.material.get("shader_parameter/FX_opacity")):
 		%ViewportRect.set("shader_parameter/FX_zoom", delta+1)
+	
+	FloorBumpCurve.max_value = 2.1 * Size * $"..".scale.y
+	FloorBumpCurve.min_value = -2 * Size * $"..".scale.y
+	FloorBumpCurve.set_point_value(0, 2.1 * Size * $"..".scale.y)
+	FloorBumpCurve.set_point_value(0, -2 * Size * $"..".scale.y)
+	FloorBumpCurve.bake()
+	$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.set("process_material:directional_velocity_curve:curve_y", FloorBumpCurve)
 	
 	# Update debug info
 	$Debug/StickDisplay/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
@@ -402,7 +410,6 @@ func playBumpSound(sound:int):
 
 func respawn(noAnimation:bool = false):
 	if not noAnimation:
-		# DO A TRANSITION HERE (UNIMPLEMENTED I GUESS)
 		CameraSmoothing = 1
 		await create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 1, 0.25).finished
 	CameraSmoothing = 0
@@ -410,15 +417,15 @@ func respawn(noAnimation:bool = false):
 	$KatamariBody.position = Vector3(randomSpawn.x, randomSpawn.y, randomSpawn.z) + Vector3(0,Size / 2,0)
 	CameraRotation = deg_to_rad(randomSpawn.w)
 	$KatamariBody.linear_velocity = Vector3.ZERO
+	CameraSmoothing = 0.85
 	if not noAnimation: create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 0, 0.25)
 	await get_tree().process_frame
 	await get_tree().process_frame
-	CameraSmoothing = 0.85
+	
 
 func grabObject(ObjectSize:float, ObjectID:StringName):
 	ObjectQueue.push_back(ObjectID)
 	Size += ObjectSize * GrowthMultiplier
-
 
 func _on_wall_bump(_body):
 	var vel:float = ($KatamariBody.linear_velocity * Vector3(1,0,1)).length()
@@ -428,9 +435,8 @@ func _on_wall_bump(_body):
 		playBumpSound(2)
 	elif vel > (Speed * 0.33 * Size * $"..".scale.y): playBumpSound(1)
 
-
 func _on_floor_bump(_body):
-	if $KatamariBody.linear_velocity.y < (-3.5 * Size * $"..".scale.y): 
+	if $KatamariBody.linear_velocity.y < (-5 * Size * $"..".scale.y): 
 		playBumpSound(0)
 		$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.emitting = true
 

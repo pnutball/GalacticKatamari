@@ -1,8 +1,10 @@
 [gd_resource type="ParticleProcessMaterial" load_steps=5 format=3 uid="uid://dvwa0633gj8dk"]
 
 [sub_resource type="Curve" id="Curve_w77ct"]
-max_value = 2.0
-_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(0.5, 0), 0.0, 0.0, 0, 0]
+resource_local_to_scene = true
+min_value = -2.0
+max_value = 2.1
+_data = [Vector2(0, 2.1), 0.0, -4.1, 0, 1, Vector2(1, -2), -4.1, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_o4q8p"]
