@@ -84,15 +84,23 @@ var DashDir:int = 0:
 	get:
 		return DashDir
 ## The amount of fatigue for the Dash.
-var DashFatigue:float = 0:
+@onready var DashFatigue:float = 0:
 	set(newFatigue):
 		DashFatigue = clampf(newFatigue, 0, 100)
-		if DashFatigue == 0: Fatigued = false
-		if DashFatigue == 100: Fatigued = true
+		if DashFatigue == 0: 
+			Fatigued = false
+			SpeedMultiplier = 1.3
+			$KatamariBody.linear_damp = 1.5
+		if DashFatigue == 100: 
+			Fatigued = true
+			SpeedMultiplier = 1
+			$KatamariBody.linear_damp = 1.1
 	get:
 		return DashFatigue
 ## Is the player currently fatigued?
 var Fatigued:bool = false
+## Speed multiplier
+var SpeedMultiplier:float = 1.3
 ## Can the katamari dash?
 @export var CanDash:bool = true
 ## Can the katamari quick turn?
@@ -272,14 +280,14 @@ func _physics_process(delta):
 	var finalMovement:Vector2 = tempMovement * Vector2($"..".scale.x * Size, $"..".scale.z * Size) * Speed * Vector2(InclineSpeedMultiplier.sample((floorAngle.x * signf(tempMovement.x * -1)/2) + 0.5), 
 	InclineSpeedMultiplier.sample((floorAngle.z * signf(tempMovement.y * -1)/2) + 0.5)) * pow(1, Speed - 1)
 	# Create movement force
-	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y).rotated(Vector3(1,0,0), Vector2(floorAngle.y, floorAngle.x).angle()).rotated(Vector3(0,0,1), Vector2(floorAngle.y, floorAngle.z).angle()) * 1.3
+	$KatamariBody.constant_force = Vector3(finalMovement.x, 0, finalMovement.y).rotated(Vector3(1,0,0), Vector2(floorAngle.y, floorAngle.x).angle()).rotated(Vector3(0,0,1), Vector2(floorAngle.y, floorAngle.z).angle()) * SpeedMultiplier
 	
 	if is_zero_approx($KatamariBody.linear_velocity.length()) and $WallClimbDetect.has_overlapping_bodies() and StickMidpoint.y < -0.5:
 		Climbing = true
 	if Climbing:
 		if $WallClimbDetect.get_overlapping_bodies().size() > 0 and StickMidpoint.y < -0.5 and MovementEnabled:
 			$KatamariBody.gravity_scale = 0
-			$KatamariBody.apply_central_force(Vector3.UP * Size * $"..".scale.y * Speed * 1.3 * 40 * delta)
+			$KatamariBody.apply_central_force(Vector3.UP * Size * $"..".scale.y * Speed * SpeedMultiplier * 40 * delta)
 			
 			var zRotClimb:float = (5 * delta * sin(%KatamariCamera.global_rotation.y))
 			var xRotClimb:float = (-5 * delta * cos(%KatamariCamera.global_rotation.y))
