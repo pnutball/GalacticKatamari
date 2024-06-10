@@ -1,10 +1,10 @@
 [center][b]Pnutball Team[/b][/center]
 
 [b]Project Lead[/b]
-[right]Ronan "crealol2" Banton[/right]
+[right]@crealol2[/right]
 
 [b]Composers[/b]
-[right]Ronan "crealol2" Banton[/right]
+[right]@crealol2[/right]
 [right]@puff[/right]
 
 [b]Reference Artists[/b]
@@ -13,15 +13,12 @@
 [b]Concept Artists[/b]
 [right]@Chorus Kids[/right]
 
-[b]Additional Help[/b]
-[right]@Lucimatsu[/right]
-
 [b]Texture Artists[/b]
-[right]Ronan "crealol2" Banton[/right]
+[right]@crealol2[/right]
 [right]Put the original WLK texture artists here if possible[/right]
 
 [b]Logo Design[/b]
-[right]Ronan "crealol2" Banton[/right]
+[right]@crealol2[/right]
 
 [b]Special Thanks[/b]
 [right]Keita Takahashi[/right]
@@ -38,9 +35,9 @@
 [right]Based on music by Noisespank[/right]
 
 [b]"Final Fugue"[/b]
-[right]Music: Ronan "crealol2" Banton[/right]
+[right]Music: @crealol2[/right]
 [right]Assistance: @puff[/right]
 
 [b]"Universal Celebration"[/b]
-[right]Music: Ronan "crealol2" Banton[/right]
+[right]Music: @crealol2[/right]
 [right]Instrumentation: @puff[/right]
