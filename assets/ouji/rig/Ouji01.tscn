@@ -248,6 +248,33 @@ blend_shapes/Jaw = 0.0
 "blend_shapes/Top Lip" = 0.0
 surface_material_override/0 = SubResource("ShaderMaterial_ticd3")
 
+[node name="HeadAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
+transform = Transform3D(1, 8.17124e-14, 2.38419e-07, -1.35968e-14, 1, -2.98023e-07, -2.38419e-07, 2.98023e-07, 1, 3.2744e-13, 14.525, 1.69873e-06)
+bone_name = "Head"
+bone_idx = 6
+
+[node name="BindPointFace" type="Node3D" parent="OujiArmature/OujiSkeleton/HeadAttach"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43, 2.73)
+
+[node name="BindPointHead" type="Node3D" parent="OujiArmature/OujiSkeleton/HeadAttach"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.19785e-16, 3.16, -8.94079e-09)
+
+[node name="ChestAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
+transform = Transform3D(1, 1.06581e-13, 2.38419e-07, 1.83855e-08, 0.997022, -0.0771147, -2.37709e-07, 0.0771147, 0.997022, -3.05244e-13, 8.7535, -0.446395)
+bone_name = "Chest"
+bone_idx = 2
+
+[node name="BindPointBack" type="Node3D" parent="OujiArmature/OujiSkeleton/ChestAttach"]
+transform = Transform3D(1, -4.15592e-08, 5.68434e-14, 4.14011e-08, 0.996195, -0.0871558, 3.62233e-09, 0.0871558, 0.996195, 3.21799e-07, 1.50039, -1.34972)
+
+[node name="TorsoAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
+transform = Transform3D(1, -1.1724e-13, 2.38419e-07, -4.18519e-08, 0.984472, 0.17554, -2.34717e-07, -0.17554, 0.984472, 0, 6.25, 0)
+bone_name = "Torso"
+bone_idx = 1
+
+[node name="BindPointWaist" type="Node3D" parent="OujiArmature/OujiSkeleton/TorsoAttach"]
+transform = Transform3D(1, -7.82707e-15, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 2.84217e-14, 0.0295439, 0.00520933)
+
 [node name="OujiAnimation" type="AnimationPlayer" parent="."]
 deterministic = true
 libraries = {
