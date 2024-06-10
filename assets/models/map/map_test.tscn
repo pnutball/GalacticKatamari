@@ -11,8 +11,8 @@
 render_priority = 0
 shader = ExtResource("7_5dbwr")
 shader_parameter/water_depth = 0.5
-shader_parameter/water_color = Vector3(0, 92, 136)
-shader_parameter/shore_color = Vector3(44, 163, 211)
+shader_parameter/water_color = Color(0.0901961, 0.568627, 0.686275, 1)
+shader_parameter/shore_color = Color(0.407843, 0.733333, 0.831373, 1)
 shader_parameter/steps = 3
 
 [sub_resource type="QuadMesh" id="QuadMesh_rcl16"]

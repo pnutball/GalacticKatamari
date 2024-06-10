@@ -109,7 +109,6 @@ var SpeedMultiplier:float = 1.3
 #region Visual
 @export_file("*.obj") var CoreModel:String = "res://assets/models/core/core_generic.obj"
 @export_file("*.png") var CoreTexture:String = "res://assets/textures/core/core_test.png"
-@export var FloorBumpCurve:Curve 
 #endregion
 
 const RollSounds = {
@@ -183,12 +182,7 @@ func _process(delta):
 	if not is_zero_approx(%ViewportRect.material.get("shader_parameter/FX_opacity")):
 		%ViewportRect.set("shader_parameter/FX_zoom", delta+1)
 	
-	FloorBumpCurve.max_value = 2.1 * Size * $"..".scale.y
-	FloorBumpCurve.min_value = -2 * Size * $"..".scale.y
-	FloorBumpCurve.set_point_value(0, 2.1 * Size * $"..".scale.y)
-	FloorBumpCurve.set_point_value(0, -2 * Size * $"..".scale.y)
-	FloorBumpCurve.bake()
-	$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.set("process_material:directional_velocity_curve:curve_y", FloorBumpCurve)
+	$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.process_material.set("shader_parameter/Size", Size)
 	
 	# Update debug info
 	$Debug/StickDisplay/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
@@ -240,8 +234,6 @@ func _physics_process(delta):
 	$KatamariBody/WallClimbCast.position = (2.5 * (Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size)
 	$KatamariBody/WallClimbCast.target_position = (-2.5 * (Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size)
 	$WallClimbDetect.global_position = $KatamariBody/WallClimbCast.get_collision_point(0) - Vector3(0, 0.35 * Size * $"..".scale.y, 0) - ((0.15 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size * $"..".scale.y)
-	
-	$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.draw_pass_1.size = Vector2.ONE * 0.3 * Size
 	
 	# Rotate katamari model
 	var zRot:float = ($KatamariBody.linear_velocity.x * -PI / $"..".scale.x * delta) / (Size * 1.15)

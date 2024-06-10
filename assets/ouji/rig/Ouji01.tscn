@@ -79,8 +79,8 @@ render_priority = 0
 shader = ExtResource("1_sryk0")
 shader_parameter/FaceOverlayAmount = 0.5
 shader_parameter/EmotionAmount = 4.75e-08
-shader_parameter/ShockColor = Vector3(178, 225, 255)
-shader_parameter/AngerColor = Vector3(219, 70, 70)
+shader_parameter/ShockColor = Color(0.65, 0.866, 1, 1)
+shader_parameter/AngerColor = Color(0.97, 0.504, 0.504, 1)
 shader_parameter/BaseTexture = ExtResource("2_cvtk1")
 shader_parameter/OverlayTexture = ExtResource("3_5d5ts")
 
@@ -112,8 +112,8 @@ render_priority = 0
 shader = ExtResource("1_sryk0")
 shader_parameter/FaceOverlayAmount = 0.5
 shader_parameter/EmotionAmount = 0.0
-shader_parameter/ShockColor = Vector3(178, 225, 255)
-shader_parameter/AngerColor = Vector3(219, 70, 70)
+shader_parameter/ShockColor = Color(178, 225, 255, 1)
+shader_parameter/AngerColor = Color(219, 70, 70, 1)
 shader_parameter/BaseTexture = ExtResource("2_cvtk1")
 shader_parameter/OverlayTexture = ExtResource("3_5d5ts")
 
