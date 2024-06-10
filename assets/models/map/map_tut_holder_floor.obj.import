@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b3kgpmukaiv06"
+path="res://.godot/imported/map_tut_holder_floor.obj-e0c8b545a26356fc5cab6c684e32b1ee.mesh"
+
+[deps]
+
+files=["res://.godot/imported/map_tut_holder_floor.obj-e0c8b545a26356fc5cab6c684e32b1ee.mesh"]
+
+source_file="res://assets/models/map/map_tut_holder_floor.obj"
+dest_files=["res://.godot/imported/map_tut_holder_floor.obj-e0c8b545a26356fc5cab6c684e32b1ee.mesh", "res://.godot/imported/map_tut_holder_floor.obj-e0c8b545a26356fc5cab6c684e32b1ee.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
