@@ -212,17 +212,26 @@ func _physics_process(delta):
 	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * $"..".scale.y
 	
 	$FloorBumpDetect/FloorBumpCollide.scale = Vector3.ONE * Size
-	$FloorBumpDetect.position = $KatamariBody.position + (0.3 * Vector3.DOWN * Size)
+	#$FloorBumpDetect.position = $KatamariBody.position + (0.3 * Vector3.DOWN * Size)
+	$KatamariBody/FloorBumpCast.scale = Vector3.ONE * Size * $"..".scale.y
+	$KatamariBody/FloorBumpCast.position = Vector3.DOWN * 2.5 * Size
+	$FloorBumpDetect.global_position = $KatamariBody/FloorBumpCast.get_collision_point(0) + (0.1 * Vector3.UP * Size)
 	
 	$WallBumpDetect/WallBumpCollide.scale = Vector3.ONE * Size
-	$WallBumpDetect.position = $KatamariBody.position + (0.2 * (($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() if $KatamariBody.linear_velocity.length() > 0 else Vector3.ZERO) * Size)
+	#$WallBumpDetect.position = $KatamariBody.position + (0.2 * (($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() if $KatamariBody.linear_velocity.length() > 0 else Vector3.ZERO) * Size)
+	$KatamariBody/WallBumpCast.scale = Vector3.ONE * Size * $"..".scale.y
+	$KatamariBody/WallBumpCast.position = (2.5 * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() * Size)
+	$KatamariBody/WallBumpCast.target_position = (-2.5 * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() * Size)
+	$WallBumpDetect.global_position = ($KatamariBody/WallBumpCast.get_collision_point(0) - (0.2 * Size * $"..".scale.y * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized())) if $KatamariBody.linear_velocity.length() > 0 else $KatamariBody.global_position
 	
 	$KatamariBody.center_of_mass = Vector3(0, Size*-0.5, 0) * $"..".scale.y
 	
-	
-	
 	$WallClimbDetect/WallClimbCollide.scale = Vector3.ONE * Size
-	$WallClimbDetect.position = $KatamariBody.position + ((Vector3(0, 0.1, 0) + (0.3 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation))) * Size)
+	#$WallClimbDetect.position = $KatamariBody.position + ((Vector3(0, 0.1, 0) + (0.3 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation))) * Size)
+	$KatamariBody/WallClimbCast.scale = Vector3.ONE * Size * $"..".scale.y
+	$KatamariBody/WallClimbCast.position = (2.5 * (Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size)
+	$KatamariBody/WallClimbCast.target_position = (-2.5 * (Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size)
+	$WallClimbDetect.global_position = $KatamariBody/WallClimbCast.get_collision_point(0) - Vector3(0, 0.35 * Size * $"..".scale.y, 0) - ((0.15 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size * $"..".scale.y)
 	
 	$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.draw_pass_1.size = Vector2.ONE * 0.3 * Size
 	
@@ -417,11 +426,11 @@ func respawn(noAnimation:bool = false):
 	$KatamariBody.position = Vector3(randomSpawn.x, randomSpawn.y, randomSpawn.z) + Vector3(0,Size / 2,0)
 	CameraRotation = deg_to_rad(randomSpawn.w)
 	$KatamariBody.linear_velocity = Vector3.ZERO
+	if not noAnimation: 
+		await create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 0, 0.25).finished
+	await get_tree().process_frame
+	await get_tree().process_frame
 	CameraSmoothing = 0.85
-	if not noAnimation: create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 0, 0.25)
-	await get_tree().process_frame
-	await get_tree().process_frame
-	
 
 func grabObject(ObjectSize:float, ObjectID:StringName):
 	ObjectQueue.push_back(ObjectID)

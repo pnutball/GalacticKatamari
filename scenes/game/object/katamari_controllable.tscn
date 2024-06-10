@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=45 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -129,6 +129,13 @@ shading_mode = 0
 albedo_color = Color(0, 0, 0, 1)
 albedo_texture = ExtResource("7_kpo2d")
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kuqvu"]
+height = 0.001
+radius = 2.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wu556"]
+radius = 2.5
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_qrq08"]
 radius = 0.35
 
@@ -180,7 +187,7 @@ material = SubResource("StandardMaterial3D_fnpb2")
 size = Vector2(0.3, 0.3)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p0v8r"]
-radius = 0.3
+radius = 0.4
 height = 0.8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmoml"]
@@ -275,7 +282,7 @@ libraries = {
 }
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
-size = Vector2i(949, 448)
+size = Vector2i(949, 412)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
@@ -329,6 +336,27 @@ texture_albedo = ExtResource("8_5y6a3")
 upper_fade = 0.00218679
 lower_fade = 0.025
 cull_mask = 1048574
+
+[node name="FloorBumpCast" type="ShapeCast3D" parent="KatamariBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+shape = SubResource("CylinderShape3D_kuqvu")
+exclude_parent = false
+target_position = Vector3(0, 2.5, 0)
+max_results = 1
+
+[node name="WallBumpCast" type="ShapeCast3D" parent="KatamariBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+shape = SubResource("SphereShape3D_wu556")
+exclude_parent = false
+target_position = Vector3(0, 0, 2.5)
+max_results = 1
+
+[node name="WallClimbCast" type="ShapeCast3D" parent="KatamariBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+shape = SubResource("SphereShape3D_wu556")
+exclude_parent = false
+target_position = Vector3(0, 0, 2.5)
+max_results = 1
 
 [node name="FloorBumpDetect" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
