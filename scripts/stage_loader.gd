@@ -77,6 +77,7 @@ func getModes():
 ## mode: The level's mode.
 ## parent: The node that the stage root node is parented to.
 func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
+	GKOverlays.load_start()
 	currentMode = mode
 	stageRoot = Node3D.new()
 	stageRoot.name = "KatamariStageRoot"
@@ -93,7 +94,7 @@ func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
 		currentTimer.maximum_time = currentStage.modes.get(currentMode).time
 		currentTimer.time = currentStage.modes.get(currentMode).time
 		currentKatamari.add_child(currentTimer)
-	preloadArea(0)
+	await preloadArea(0)
 	await instantiateArea(0)
 	
 	stageRoot.add_child(currentKatamari)
@@ -102,6 +103,7 @@ func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
 	
 	parent.add_child(stageRoot)
 	stage_instantiated.emit()
+	GKOverlays.load_end()
 
 ## Preloads an area, without adding it to the stage root.
 func preloadArea(area:int = currentArea + 1):

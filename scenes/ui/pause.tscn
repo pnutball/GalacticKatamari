@@ -1,18 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2n7fqkxxktdj"]
+[gd_scene load_steps=5 format=3 uid="uid://c2n7fqkxxktdj"]
 
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="1_b5jee"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_gvuf4"]
+[ext_resource type="Texture2D" uid="uid://h5ig1amhsvwp" path="res://assets/textures/ui/pause_back.png" id="2_wkw1r"]
 [ext_resource type="AudioStream" uid="uid://cfrpjiychgu6s" path="res://assets/sounds/game/pause.wav" id="3_dsb0h"]
-
-[sub_resource type="Gradient" id="Gradient_3tjmh"]
-colors = PackedColorArray(0.145098, 0.321569, 0.0862745, 1, 0.2, 0.458824, 0.160784, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_riwpb"]
-gradient = SubResource("Gradient_3tjmh")
-fill = 2
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(0, 1)
-metadata/_snap_enabled = true
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -26,24 +17,25 @@ script = ExtResource("1_gvuf4")
 
 [node name="PauseBG" type="TextureRect" parent="."]
 process_mode = 2
-visible = false
-self_modulate = Color(1, 1, 1, 0.501961)
+self_modulate = Color(1, 1, 1, 0.737255)
+texture_repeat = 2
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 212.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("GradientTexture2D_riwpb")
+texture = ExtResource("2_wkw1r")
 stretch_mode = 1
 
 [node name="Label" type="Label" parent="PauseBG"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 32.0
-offset_top = 32.0
+offset_top = 16.0
 offset_right = 216.0
-offset_bottom = 104.0
+offset_bottom = 88.0
 theme_override_fonts/font = ExtResource("1_b5jee")
 theme_override_font_sizes/font_size = 48
 text = "Paused..."

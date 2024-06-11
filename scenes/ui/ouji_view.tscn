@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://bfk4h2p6ortti"]
+[gd_scene load_steps=61 format=3 uid="uid://bfk4h2p6ortti"]
 
 [ext_resource type="Script" path="res://scripts/ouji_view.gd" id="1_g71is"]
 [ext_resource type="Texture2D" uid="uid://dxiw044rvr1po" path="res://assets/textures/ui/earth.png" id="3_w4j5m"]
@@ -293,6 +293,10 @@ xfade_time = 0.2
 advance_mode = 2
 advance_expression = "Climbing"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p3vbo"]
+advance_mode = 2
+advance_condition = &"idle_speed_reached"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_lygbi"]
 states/Ouji_Climb/node = SubResource("AnimationNodeAnimation_ptnkm")
 states/Ouji_Climb/position = Vector2(732.047, 115.132)
@@ -303,11 +307,11 @@ states/Ouji_Roll/position = Vector2(520.047, 68)
 states/Ouji_Walk/node = SubResource("AnimationNodeStateMachine_3vv05")
 states/Ouji_Walk/position = Vector2(520.047, 155)
 states/Start/position = Vector2(158, 90)
-transitions = ["Ouji_Idle", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_m8qfg"), "Ouji_Roll", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_27yf4"), "Ouji_Roll", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_3p50r"), "Ouji_Walk", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_wvdnn"), "Ouji_Idle", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_xh258"), "Ouji_Walk", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_73w21"), "Start", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_kabmr"), "Ouji_Idle", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_ct57w"), "Ouji_Climb", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_toiim"), "Ouji_Climb", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_bjkcn"), "Ouji_Roll", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_e5b03"), "Ouji_Walk", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_cvxrq")]
-graph_offset = Vector2(-11.3785, -96.7588)
+transitions = ["Ouji_Idle", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_m8qfg"), "Ouji_Roll", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_27yf4"), "Ouji_Roll", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_3p50r"), "Ouji_Walk", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_wvdnn"), "Ouji_Idle", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_xh258"), "Ouji_Walk", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_73w21"), "Start", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_kabmr"), "Ouji_Idle", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_ct57w"), "Ouji_Climb", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_toiim"), "Ouji_Climb", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_bjkcn"), "Ouji_Roll", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_e5b03"), "Ouji_Walk", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_cvxrq"), "Ouji_Climb", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_p3vbo")]
+graph_offset = Vector2(-34.3785, -5.7588)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
-graph_offset = Vector2(-941, 0)
+graph_offset = Vector2(-144.344, 22.35)
 nodes/MovementScale/node = SubResource("AnimationNodeTimeScale_7b822")
 nodes/MovementScale/position = Vector2(580, 60)
 nodes/TiredAdd/node = SubResource("AnimationNodeAdd2_85gch")

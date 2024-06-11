@@ -238,6 +238,7 @@ script = ExtResource("1_k6077")
 InclineSpeedMultiplier = ExtResource("2_dth00")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+process_mode = 3
 size = Vector2i(853, 480)
 
 [node name="KatamariCameraPivot" type="Node3D" parent="SubViewport"]
@@ -258,6 +259,7 @@ libraries = {
 }
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
+process_mode = 3
 size = Vector2i(949, 448)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
