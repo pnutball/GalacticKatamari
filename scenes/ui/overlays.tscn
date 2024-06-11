@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bq6ehac1q4tq0"]
+[gd_scene load_steps=9 format=3 uid="uid://bq6ehac1q4tq0"]
 
 [ext_resource type="Texture2D" uid="uid://d20coto00qvsh" path="res://assets/textures/ui/load_back.png" id="1_kcg3r"]
+[ext_resource type="Script" path="res://scripts/global_overlays.gd" id="1_t7k3r"]
 [ext_resource type="Texture2D" uid="uid://crwnw52vjrdal" path="res://assets/textures/ui/load_ring.png" id="2_twswe"]
 [ext_resource type="Texture2D" uid="uid://7eksqio71yh3" path="res://assets/textures/ui/load_front.png" id="3_hdj7j"]
 [ext_resource type="FontVariation" uid="uid://jimsv6e58fx7" path="res://assets/fonts/hud_small.tres" id="4_b0jvm"]
@@ -58,6 +59,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_erh3t"]
 length = 0.001
@@ -109,6 +122,18 @@ tracks/3/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 0
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_psa12"]
 _data = {
@@ -125,9 +150,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_t7k3r")
 
 [node name="Load" type="Control" parent="."]
+visible = false
+z_index = 4096
 layout_mode = 1
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -210,4 +239,3 @@ vertical_alignment = 2
 libraries = {
 "": SubResource("AnimationLibrary_psa12")
 }
-autoplay = "Load"
