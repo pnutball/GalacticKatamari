@@ -314,7 +314,6 @@ void process() {
 }
 
 "
-graph_offset = Vector2(-186.613, -94.1268)
 mode = 2
 flags/collision_use_scale = false
 flags/disable_force = false

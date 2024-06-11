@@ -34,6 +34,7 @@ StageLoader="*res://scripts/stage_loader.gd"
 FPSCounter="res://scenes/fps_counter.tscn"
 KingFace="*res://scenes/ui/king_moya.tscn"
 DialogueBox="*res://scenes/ui/dialogue_box.tscn"
+GKOverlays="*res://scenes/ui/overlays.tscn"
 
 [display]
 
