@@ -602,7 +602,6 @@ mouse_filter = 2
 texture = SubResource("ViewportTexture_l3wab")
 
 [node name="PauseMenu" parent="." instance=ExtResource("13_8548j")]
-visible = false
 
 [node name="OujiView" parent="." instance=ExtResource("11_ystjj")]
 z_index = 1

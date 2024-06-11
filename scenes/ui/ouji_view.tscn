@@ -320,6 +320,7 @@ nodes/output/position = Vector2(980, 200)
 node_connections = [&"MovementScale", 0, &"WalkState", &"TiredAdd", 0, &"MovementScale", &"TiredAdd", 1, &"TiredAnim", &"output", 0, &"TiredAdd"]
 
 [node name="OujiView" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
