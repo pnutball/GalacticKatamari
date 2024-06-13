@@ -402,22 +402,29 @@
 						"can_turn": true,
 						"can_dialogue_move": true
 					},
-					"goal": {
-						"type": "none",
-						"goal": 0,
-						"end_at_goal": false,
+					"goal_type_size": {
+						"goal_minimum": 0,
+						"goal_100pts": 0,
+						"goal_120pts": 0,
+						"end_at_120pts": false
+					},
+					"goal_type_points": {
+						"goal_minimum": 0,
+						"goal_100pts": 0,
+						"goal_120pts": 0,
+						"end_at_120pts": false,
 						"point_objects": "",
 						"point_name": {
 							"en": "pt{plural}."
-						},
+						}
 					},
-					"time": 0,
-					"ranking": {
-						"skip_results": false,
-						"size_super": -1,
-						"time_super": -1,
-						"point_super": -1
+					"goal_type_exact_size":{
+						"goal_120pts": 0,
+						"goal_100pts": 0,
+						"goal_minimum": 0
 					}
+					"time": 0,
+					"skip_results": false
 				}
 			}
 		}
