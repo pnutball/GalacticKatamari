@@ -402,6 +402,7 @@
 						"can_turn": true,
 						"can_dialogue_move": true
 					},
+					"goal_type": 0,
 					"goal_type_size": {
 						"goal_minimum": 0,
 						"goal_100pts": 0,
@@ -413,17 +414,19 @@
 						"goal_100pts": 0,
 						"goal_120pts": 0,
 						"end_at_120pts": false,
-						"point_objects": "",
+						"point_objects": [],
 						"point_name": {
 							"en": "pt{plural}."
 						}
 					},
-					"goal_type_exact_size":{
-						"goal_120pts": 0,
-						"goal_100pts": 0,
-						"goal_minimum": 0
-					}
+					"goal_type_none":{
+						"show_object_count": false,
+						"can_quit_early": false,
+						"hide_ui": false
+					},
 					"time": 0,
+					"time_100pts": 0,
+					"time_120pts": 0,
 					"skip_results": false
 				}
 			}

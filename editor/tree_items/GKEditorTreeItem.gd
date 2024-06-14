@@ -3,14 +3,15 @@ class_name GKEditorTreeItem
 extends Resource
 
 enum PropertyType {
-	PROPERTY_TYPE_NUMBER, 
-	PROPERTY_TYPE_VECTOR3, 
-	PROPERTY_TYPE_STRING, 
-	PROPERTY_TYPE_DROPDOWN, 
-	PROPERTY_TYPE_BOOLEAN, 
-	PROPERTY_TYPE_LOCALIZED, 
-	PROPERTY_TYPE_DIALOGUE}
+	NUMBER, 
+	VECTOR3, 
+	STRING, 
+	ARRAY, 
+	BOOLEAN, 
+	LOCALIZED, 
+	DIALOGUE}
 
+@export var parent:GKEditorTreeItem = null
 @export var children:Array[GKEditorTreeItem] = []
 var synced_tree_item:TreeItem = null
 
@@ -19,10 +20,12 @@ var synced_tree_item:TreeItem = null
 ## Returns the child GKEditorTreeItem.
 func add_child(child:GKEditorTreeItem) -> GKEditorTreeItem:
 	children.push_back(child)
+	child.parent = self
 	return child
 
 ## Removes a child GKEditorTreeItem.
 func remove_child(position:int) -> void:
+	children[position].parent = null
 	children.remove_at(position)
 
 ## Returns a JSON-compatible representation of this tree item and its children.
@@ -39,9 +42,19 @@ func send_properties(to:BoxContainer) -> void:
 		child.queue_free()
 
 ## Internal function, instantiates property scenes.
-func _create_property(container:BoxContainer, property_type:PropertyType, property:StringName, name:String = "Property", description:String = "Description"):
-	pass
+func _create_property(container:BoxContainer, property_type:PropertyType, property:StringName, name:String = "Property", description:String = "Description") -> void:
+	return
+
+func _create_dropdown_property(container:BoxContainer, dropdown_items:Array[String], property:StringName, name:String = "Property", description:String = "Description") -> void:
+	return
+
+func _create_property_group(container:BoxContainer, name:String = "Group") -> BoxContainer:
+	return BoxContainer.new()
 
 ## Creates a tree item for this EditorTreeItem.
 func tree_sync(item:TreeItem) -> void:
+	var this_item:TreeItem = item.create_child()
+	synced_tree_item = this_item
+	for level in children:
+		level.tree_sync(this_item)
 	return
