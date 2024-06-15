@@ -64,7 +64,7 @@ enum GoalType {NONE, SIZE, POINTS, EXACT_SIZE}
 @export_range(0, 1, 1, "or_greater", "hide_slider") var point_goal_minimum:int = 0
 @export_range(0, 1, 1, "or_greater", "hide_slider") var point_goal_100pts:int = 0
 @export_range(0, 1, 1, "or_greater", "hide_slider") var point_goal_120pts:int = 0
-@export var point_objects:Array[String] = []
+@export var point_objects:Array = []
 @export var point_name:Dictionary = {"en": "{points}pt{plural}."}
 @export_subgroup("No Goal")
 @export var none_show_object_count:bool = false
@@ -75,7 +75,6 @@ enum GoalType {NONE, SIZE, POINTS, EXACT_SIZE}
 @export_range(-1, 1200, 1, "or_greater") var time_120pts:float = 0
 ## Returns a JSON-compatible representation of this tree item and its children.
 func to_json() -> Dictionary:
-	
 	var dict:Dictionary = {
 		"name": {
 			"en": mode_name
@@ -132,9 +131,54 @@ func to_json() -> Dictionary:
 
 ## Creates a this tree item and its children from a source Dictionary.
 static func from_json(from:Dictionary, name:String = "") -> GKEditorTreeMode:
-	var new_mode:GKEditorTreeMode
-	# TODO: do this
-	# new_item.example = from.get("example", new_level.example)
+	var new_mode:GKEditorTreeMode = GKEditorTreeMode.new()
+	new_mode.mode_id = name
+	new_mode.mode_name = from.get("name", new_mode.mode_name)
+	
+	new_mode.default_music = from.get("music", {}).get("default", new_mode.default_music)
+	new_mode.force_default_music = from.get("music", {}).get("force_default", new_mode.force_default_music)
+	
+	new_mode.pre_dialogue = from.get("pre_dialogue", new_mode.pre_dialogue)
+	new_mode.start_dialogue = from.get("start_dialogue", new_mode.start_dialogue)
+	new_mode.retry_dialogue = from.get("retry_dialogue", new_mode.retry_dialogue)
+	new_mode.win_dialogue = from.get("win_dialogue", new_mode.win_dialogue)
+	new_mode.fail_dialogue = from.get("fail_dialogue", new_mode.fail_dialogue)
+	new_mode.result_dialogue = from.get("result_dialogue", new_mode.result_dialogue)
+	
+	new_mode.katamari_size = from.get("katamari", {}).get("size", new_mode.katamari_size)
+	new_mode.katamari_speed = from.get("katamari", {}).get("speed", new_mode.katamari_speed)
+	new_mode.can_katamari_dash = from.get("katamari", {}).get("can_dash", new_mode.can_katamari_dash)
+	new_mode.can_katamari_turn = from.get("katamari", {}).get("can_turn", new_mode.can_katamari_turn)
+	new_mode.can_katamari_dialogue_move = from.get("katamari", {}).get("can_dialogue_move", new_mode.can_katamari_dialogue_move)
+	
+	new_mode.goal_type = from.get("goal_type", new_mode.goal_type)
+	new_mode.end_at_120pts = from.get("end_at_120pts", new_mode.end_at_120pts)
+	new_mode.hide_ui = from.get("hide_ui", new_mode.hide_ui)
+	new_mode.skip_results = from.get("skip_results", new_mode.skip_results)
+	
+	new_mode.size_goal_minimum = from.get("goal_type_size", {}).get("goal_minimum", new_mode.size_goal_minimum)
+	new_mode.size_goal_100pts = from.get("goal_type_size", {}).get("goal_100pts", new_mode.size_goal_100pts)
+	new_mode.size_goal_120pts = from.get("goal_type_size", {}).get("goal_120pts", new_mode.size_goal_120pts)
+	
+	new_mode.point_goal_minimum = from.get("goal_type_points", {}).get("goal_minimum", new_mode.point_goal_minimum)
+	new_mode.point_goal_100pts = from.get("goal_type_points", {}).get("goal_100pts", new_mode.point_goal_100pts)
+	new_mode.point_goal_120pts = from.get("goal_type_points", {}).get("goal_120pts", new_mode.point_goal_120pts)
+	new_mode.point_objects = from.get("goal_type_points", {}).get("point_objects", new_mode.point_objects)
+	new_mode.point_name = from.get("goal_type_points", {}).get("point_name", new_mode.point_name)
+	
+	new_mode.none_show_object_count = from.get("goal_type_none", {}).get("show_object_count", new_mode.none_show_object_count)
+	new_mode.none_can_quit_early = from.get("goal_type_none", {}).get("can_quit_early", new_mode.none_can_quit_early)
+	
+	new_mode.time = from.get("time", new_mode.time)
+	new_mode.time_100pts = from.get("time_100pts", new_mode.time_100pts)
+	new_mode.time_120pts = from.get("time_120pts", new_mode.time_120pts)
+	
+	for key in from.get("map_zones", {}).keys():
+		new_mode.add_child(GKEditorTreeArea.from_json(from.get("map_zones", {})[key], key))
+	
+	for key in from.get("cam_zones", {}).keys():
+		new_mode.add_child(GKEditorTreeCamZone.from_json(from.get("cam_zones", {})[key], key))
+	
 	return new_mode
 
 ## Creates property packed scenes for this node.

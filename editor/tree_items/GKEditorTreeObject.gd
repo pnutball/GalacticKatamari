@@ -12,7 +12,7 @@ func to_json() -> Dictionary:
 
 ## Creates a this tree item and its children from a source Dictionary.
 static func from_json(from:Dictionary, name:String = "") -> GKEditorTreeObject:
-	var new_item:GKEditorTreeItem
+	var new_item:GKEditorTreeObject = GKEditorTreeObject.new()
 	# new_item.example = from.get("example", new_level.example)
 	return new_item
 

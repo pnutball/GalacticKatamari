@@ -27,10 +27,12 @@ func to_json() -> Dictionary:
 
 ## Creates a this tree item and its children from a source Dictionary.
 static func from_json(from:Dictionary, name:String = "") -> GKEditorTreeLevel:
-	var new_level:GKEditorTreeLevel
+	var new_level:GKEditorTreeLevel = GKEditorTreeLevel.new()
 	new_level.level_id = name
 	new_level.level_name = from.get("name", new_level.level_name)
 	new_level.level_description = from.get("description", new_level.level_description)
+	for key in from.get("modes", {}).keys():
+		new_level.add_child(GKEditorTreeMode.from_json(from.get("modes", {})[key], key))
 	return new_level
 
 ## Creates property packed scenes for this node.
