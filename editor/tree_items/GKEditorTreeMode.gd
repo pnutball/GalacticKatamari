@@ -57,22 +57,22 @@ enum GoalType {NONE, SIZE, POINTS, EXACT_SIZE}
 @export var skip_results:bool = false
 @export var hide_ui:bool = false
 @export_subgroup("Size Goal")
-@export_range(0, 1, 0.01, "or_greater", "hide_slider") var size_goal_minimum:float = 0
-@export_range(0, 1, 0.01, "or_greater", "hide_slider") var size_goal_100pts:float = 0
-@export_range(0, 1, 0.01, "or_greater", "hide_slider") var size_goal_120pts:float = 0
+@export_range(0, 1, 0.01, "or_greater", "hide_slider", "suffix:m") var size_goal_minimum:float = 0
+@export_range(0, 1, 0.01, "or_greater", "hide_slider", "suffix:m") var size_goal_100pts:float = 0
+@export_range(0, 1, 0.01, "or_greater", "hide_slider", "suffix:m") var size_goal_120pts:float = 0
 @export_subgroup("Point Goal")
-@export_range(0, 1, 1, "or_greater", "hide_slider") var point_goal_minimum:int = 0
-@export_range(0, 1, 1, "or_greater", "hide_slider") var point_goal_100pts:int = 0
-@export_range(0, 1, 1, "or_greater", "hide_slider") var point_goal_120pts:int = 0
+@export_range(0, 1, 1, "or_greater", "hide_slider", "suffix:pt(s).") var point_goal_minimum:int = 0
+@export_range(0, 1, 1, "or_greater", "hide_slider", "suffix:pt(s).") var point_goal_100pts:int = 0
+@export_range(0, 1, 1, "or_greater", "hide_slider", "suffix:pt(s).") var point_goal_120pts:int = 0
 @export var point_objects:Array = []
 @export var point_name:Dictionary = {"en": "{points}pt{plural}."}
 @export_subgroup("No Goal")
 @export var none_show_object_count:bool = false
 @export var none_can_quit_early:bool = false
 @export_group("Time")
-@export_range(-1, 1200, 1, "or_greater") var time:float = 0
-@export_range(-1, 1200, 1, "or_greater") var time_100pts:float = 0
-@export_range(-1, 1200, 1, "or_greater") var time_120pts:float = 0
+@export_range(-1, 1200, 1, "or_greater", "suffix:sec.") var time:float = 0
+@export_range(-1, 1200, 1, "or_greater", "suffix:sec.") var time_100pts:float = 0
+@export_range(-1, 1200, 1, "or_greater", "suffix:sec.") var time_120pts:float = 0
 ## Returns a JSON-compatible representation of this tree item and its children.
 func to_json() -> Dictionary:
 	var dict:Dictionary = {

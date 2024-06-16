@@ -9,7 +9,7 @@ func to_json() -> Array:
 	return [path]
 
 ## Creates a this tree item and its children from a source Array.
-static func from_json(from:Array, name:String = "") -> GKEditorTreeStatic:
+static func from_json(from:Array, _name:String = "") -> GKEditorTreeStatic:
 	var new_item:GKEditorTreeStatic = GKEditorTreeStatic.new()
 	new_item.path = from[0]
 	return new_item

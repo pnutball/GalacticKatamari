@@ -10,7 +10,7 @@ func to_json() -> Array:
 	return [position.x, position.y, position.z, rotation]
 
 ## Creates a this tree item and its children from a source Array.
-static func from_json(from:Array, name:String = "") -> GKEditorTreeSpawn:
+static func from_json(from:Array, _name:String = "") -> GKEditorTreeSpawn:
 	var new_spawn:GKEditorTreeSpawn = GKEditorTreeSpawn.new()
 	new_spawn.position = Vector3(from[0], from[1], from[2])
 	new_spawn.rotation = from[3]

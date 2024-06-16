@@ -21,7 +21,7 @@ func to_json() -> Dictionary:
 	return dict
 
 ## Creates a this tree item and its children from a source Dictionary.
-static func from_json(from:Dictionary, name:String = "") -> GKEditorTreeCamZone:
+static func from_json(from:Dictionary, _name:String = "") -> GKEditorTreeCamZone:
 	var new_zone:GKEditorTreeCamZone
 	# new_item.example = from.get("example", new_level.example)
 	new_zone.lower_bound = from.get("Bound", new_zone.lower_bound)

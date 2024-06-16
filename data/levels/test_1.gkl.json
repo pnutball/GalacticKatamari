@@ -83,7 +83,16 @@
 										0,
 										0
 									],
-									"behavior": "static",
+									"approach_behavior": 0,
+									"approaches_small_katamari": false,
+									"approach_speed": 0,
+									"physics_behavior": 0,
+									"physics_file": "",
+									"physics_speed": 0,
+									"launch_vector": [0,0,0],
+									"animation": "",
+									"animation_speed": 1,
+									"animation_phase": 0,
 									"sub_objects": [],
 									"unload_size": -1
 								},
