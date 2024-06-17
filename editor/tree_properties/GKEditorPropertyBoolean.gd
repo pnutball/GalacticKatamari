@@ -12,3 +12,7 @@ func _ready():
 	bool_node.size_flags_stretch_ratio = 3
 	bool_node.toggled.connect(_update_property)
 	add_child(bool_node)
+
+func _update_property(property) -> void:
+	super(property)
+	get_child(1).set_pressed_no_signal(property)

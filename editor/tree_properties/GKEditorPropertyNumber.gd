@@ -13,6 +13,8 @@ func _ready():
 	num_node.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	num_node.max_value = 0
 	num_node.step = 0
+	num_node.allow_greater = true
+	num_node.allow_lesser = true
 	if property_id.contains("point"): 
 		num_node.rounded = true
 		num_node.suffix = "pt."
@@ -25,3 +27,7 @@ func _ready():
 	num_node.select_all_on_focus = true
 	num_node.value_changed.connect(_update_property)
 	add_child(num_node)
+
+func _update_property(property) -> void:
+	super(property)
+	get_child(1).set_value_no_signal(property)
