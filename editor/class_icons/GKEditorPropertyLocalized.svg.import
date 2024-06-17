@@ -5,6 +5,7 @@ type="CompressedTexture2D"
 uid="uid://bg54v43wirh5j"
 path="res://.godot/imported/GKEditorPropertyLocalized.svg-388535954ea6c73efd94848d9f75f3a8.ctex"
 metadata={
+"has_editor_variant": true,
 "vram_texture": false
 }
 
@@ -33,5 +34,5 @@ process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
 svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
+editor/scale_with_editor_scale=true
+editor/convert_colors_with_editor_theme=true

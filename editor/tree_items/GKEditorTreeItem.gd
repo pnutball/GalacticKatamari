@@ -11,9 +11,21 @@ enum PropertyType {
 	LOCALIZED, 
 	DIALOGUE}
 
-@export var parent:GKEditorTreeItem = null
+var parent_ref:WeakRef = null
+@export var parent:GKEditorTreeItem:
+	get:
+		return parent_ref.get_ref()
+	set(new_parent):
+		parent_ref = weakref(new_parent)
 @export var children:Array[GKEditorTreeItem] = []
-var synced_tree_item:TreeItem = null
+var item_index:int = 0
+var synced_tree_item:TreeItem = null:
+	get:
+		return synced_tree_item
+	set(new_item):
+		if new_item != null:
+			synced_tree_item = new_item
+			synced_tree_item.set_meta(&"property", self)
 
 ## Adds a child GKEditorTreeItem.
 ##
@@ -33,7 +45,7 @@ func to_json():
 	return {}
 
 ## Creates a tree item and its children from a JSON source.
-static func from_json(from, name:String = "") -> GKEditorTreeItem:
+static func from_json(_from, _name:String = "") -> GKEditorTreeItem:
 	return GKEditorTreeItem.new()
 
 ## Creates properties for this node and inserts it into "to".

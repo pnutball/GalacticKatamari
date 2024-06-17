@@ -4,7 +4,6 @@ extends GKEditorTreeItem
 
 ## Returns a JSON-compatible representation of this tree item and its children.
 func to_json() -> Dictionary:
-	
 	var dict:Dictionary = {"levels":{}}
 	for child in children:
 		if child is GKEditorTreeLevel:
