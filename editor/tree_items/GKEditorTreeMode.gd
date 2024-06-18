@@ -64,7 +64,7 @@ enum GoalType {NONE, SIZE, POINTS, EXACT_SIZE}
 @export_range(0, 1, 1, "or_greater", "hide_slider", "suffix:pt(s).") var point_goal_minimum:int = 0
 @export_range(0, 1, 1, "or_greater", "hide_slider", "suffix:pt(s).") var point_goal_100pts:int = 0
 @export_range(0, 1, 1, "or_greater", "hide_slider", "suffix:pt(s).") var point_goal_120pts:int = 0
-@export var point_objects:Array = []
+@export var point_objects:Dictionary = {}
 @export var point_name:Dictionary = {"en": "{points}pt{plural}."}
 @export_subgroup("No Goal")
 @export var none_show_object_count:bool = false
@@ -219,7 +219,7 @@ func send_properties(to:BoxContainer) -> void:
 	_create_property(group_point, PropertyType.NUMBER, &"point_goal_minimum", "Goal Points", "The goal amount of points.")
 	_create_property(group_point, PropertyType.NUMBER, &"point_goal_100_pts", "100pts. Goal", "The required points for a 100pt score.")
 	_create_property(group_point, PropertyType.NUMBER, &"point_goal_120_pts", "120pts. Goal", "The required points for a 120pt score.")
-	_create_property(group_point, PropertyType.ARRAY, &"point_objects", "Point Objects", "A list of objects or categories that give points.\nCategories are denoted by a \'$\' before the name.")
+	_create_property(group_point, PropertyType.DICTIONARY, &"point_objects", "Point Objects", "A list of objects or categories that give points.\nCategories are denoted by a \'$\' before the name.")
 	_create_property(group_point, PropertyType.LOCALIZED, &"point_name", "Point Name", "The localized name of the points.\n{points} is the amount of points.\n{plural} is the string used to denote plurality (if necessary).")
 	var group_none = _create_property_group(group_goals, "No Goal")
 	_create_property(group_none, PropertyType.BOOLEAN, &"none_show_object_count", "Show Object Count?", "If true, shows object count.")

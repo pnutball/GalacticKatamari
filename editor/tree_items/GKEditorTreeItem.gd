@@ -6,7 +6,7 @@ enum PropertyType {
 	NUMBER, 
 	VECTOR3, 
 	STRING, 
-	ARRAY, 
+	DICTIONARY, 
 	BOOLEAN, 
 	LOCALIZED, 
 	DIALOGUE}

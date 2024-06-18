@@ -9,6 +9,7 @@ var collapsed = false
 
 func _init():
 	vertical = true
+	property_type = "Group"
 
 func _ready():
 	var header_node:HBoxContainer = HBoxContainer.new()

@@ -423,7 +423,7 @@
 						"goal_100pts": 0,
 						"goal_120pts": 0,
 						"end_at_120pts": false,
-						"point_objects": [],
+						"point_objects": {},
 						"point_name": {
 							"en": "pt{plural}."
 						}
