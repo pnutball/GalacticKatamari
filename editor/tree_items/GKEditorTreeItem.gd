@@ -55,12 +55,38 @@ func send_properties(to:BoxContainer) -> void:
 
 ## Internal function, instantiates property scenes.
 func _create_property(container:BoxContainer, property_type:PropertyType, property:StringName, name:String = "Property", description:String = "Description") -> void:
-	return
+	var property_node:GKEditorProperty
+	match property_type:
+		PropertyType.NUMBER:
+			property_node = GKEditorPropertyNumber.new()
+		PropertyType.VECTOR3:
+			property_node = GKEditorPropertyVector3.new()
+		PropertyType.STRING:
+			property_node = GKEditorPropertyString.new()
+		PropertyType.BOOLEAN:
+			property_node = GKEditorPropertyBoolean.new()
+		PropertyType.DICTIONARY:
+			property_node = GKEditorPropertyDictionary.new()
+		PropertyType.LOCALIZED:
+			property_node = GKEditorPropertyLocalized.new()
+		PropertyType.DIALOGUE:
+			property_node = GKEditorPropertyDialogue.new()
+	property_node.property_id = property
+	property_node.property_name = name
+	property_node.property_description = description
+	container.add_child(property_node)
 
 func _create_dropdown_property(container:BoxContainer, dropdown_items:Array[String], property:StringName, name:String = "Property", description:String = "Description") -> void:
-	return
+	var property_node := GKEditorPropertyDropdown.new()
+	property_node.dropdown_entries = dropdown_items
+	property_node.property_id = property
+	property_node.property_name = name
+	property_node.property_description = description
+	container.add_child(property_node)
 
 func _create_property_group(container:BoxContainer, name:String = "Group") -> BoxContainer:
+	var group_node := GKEditorPropertyGroup
+	group_node.property_name = name
 	return BoxContainer.new()
 
 ## Creates a tree item for this EditorTreeItem.
