@@ -89,8 +89,11 @@ func _create_dropdown_property(container:BoxContainer, dropdown_items:Array, pro
 	container.add_child(property_node)
 
 func _create_property_group(container:BoxContainer, name:String = "Group") -> BoxContainer:
+	container.add_child(HSeparator.new())
 	var group_node := GKEditorPropertyGroup.new()
 	group_node.property_name = name
+	container.add_child(group_node)
+	group_node.add_child(HSeparator.new())
 	return group_node
 
 ## Creates a tree item for this EditorTreeItem.

@@ -201,8 +201,8 @@ static func from_json(from:Dictionary, name:String = "") -> GKEditorTreeMode:
 ## Creates property packed scenes for this node.
 func send_properties(to:BoxContainer) -> void:
 	super(to)
-	_create_property(to, PropertyType.STRING, &"mode_id", "", "")
-	_create_property(to, PropertyType.LOCALIZED, &"mode_name", "", "")
+	_create_property(to, PropertyType.STRING, &"mode_id", "Mode ID", "The ID used internally for this mode.")
+	_create_property(to, PropertyType.LOCALIZED, &"mode_name", "Mode Name", "The name of the mode.")
 	var group_music = _create_property_group(to, "Music")
 	_create_property(group_music, PropertyType.STRING, &"default_music", "Default Music", "The mode's default music.\nIf blank or invalid, defaults to silence.")
 	_create_property(group_music, PropertyType.BOOLEAN, &"force_default_music", "Force Default Music", "If true, forces the default music to be played even if the level's been played before.")
