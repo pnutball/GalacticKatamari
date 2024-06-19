@@ -29,11 +29,11 @@ func _ready():
 	showhide_button.icon = ICON_COLLAPSE
 	showhide_button.tooltip_text = "Collapse"
 	showhide_button.pressed.connect(_show_hide)
-	header_node.add_child(name_node)
+	header_node.add_child(showhide_button)
 
 func _show_hide():
-	collapsed = not collapsed
 	for child in get_children():
 		if child.name != "Header": child.visible = collapsed
+	collapsed = not collapsed
 	showhide_button.icon = ICON_EXPAND if collapsed else ICON_COLLAPSE
 	showhide_button.tooltip_text = "Expand" if collapsed else "Collapse"

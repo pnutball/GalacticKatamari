@@ -15,7 +15,11 @@ func _add_entry(entry_name:String):
 		super(entry_name)
 
 func _update_property(property) -> void:
-	(self as GKEditorProperty)._update_property(property)
+	if not property_being_changed and property_id != &"":
+		property_being_changed = true
+		property_cache = property
+		source_item.set(property_id, property)
+		property_being_changed = false
 	var en_found:bool = false
 	for entry in entries:
 		if entry.property_name == "en":

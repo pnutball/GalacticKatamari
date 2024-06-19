@@ -22,7 +22,7 @@ extends GKEditorTreeItem
 @export var unload_size:float = -1
 
 ## Returns a JSON-compatible representation of this tree item and its children.
-func to_json() -> Dictionary:
+func to_json():
 	var sub_objects_dict:Array = []
 	for child in children:
 		if child is GKEditorTreeObject:
@@ -51,15 +51,18 @@ func to_json() -> Dictionary:
 static func from_json(from:Dictionary, _name:String = "") -> GKEditorTreeObject:
 	var new_item:GKEditorTreeObject = GKEditorTreeObject.new()
 	new_item.object_id = from.get("id", new_item.object_id)
-	new_item.position = from.get("position", new_item.position)
-	new_item.rotation = from.get("rotation", new_item.rotation)
+	var pos = from.get("position", [new_item.position.x, new_item.position.y, new_item.position.z])
+	new_item.position = Vector3(pos[0], pos[1], pos[2])
+	var rot = from.get("rotation", [new_item.rotation.x, new_item.rotation.y, new_item.rotation.z])
+	new_item.rotation = Vector3(rot[0], rot[1], rot[2])
 	new_item.approach_behavior = from.get("approach_behavior", new_item.approach_behavior)
 	new_item.approaches_small_katamari = from.get("approaches_small_katamari", new_item.approaches_small_katamari)
 	new_item.approach_speed = from.get("approach_speed", new_item.approach_speed)
 	new_item.physics_behavior = from.get("physics_behavior", new_item.physics_behavior)
 	new_item.physics_file = from.get("physics_file", new_item.physics_file)
 	new_item.physics_speed = from.get("physics_speed", new_item.physics_speed)
-	new_item.launch_vector = from.get("launch_vector", new_item.launch_vector)
+	var vec = from.get("launch_vector", [new_item.launch_vector.x, new_item.launch_vector.y, new_item.launch_vector.z])
+	new_item.launch_vector = Vector3(vec[0], vec[1], vec[2])
 	new_item.animation = from.get("animation", new_item.animation)
 	new_item.animation_speed = from.get("animation_speed", new_item.animation_speed)
 	new_item.animation_phase = from.get("animation_phase", new_item.animation_phase)
@@ -67,6 +70,18 @@ static func from_json(from:Dictionary, _name:String = "") -> GKEditorTreeObject:
 	for index in from.get("sub_objects", []).size():
 		new_item.add_child(GKEditorTreeObject.from_json(from.get("sub_objects", [])[index]))
 	return new_item
+
+## Creates a tree item for this EditorTreeItem.
+func tree_sync(item:TreeItem) -> void:
+	var this_item:TreeItem = item.create_child()
+	this_item.set_icon(0, preload("res://editor/icons/object.png"))
+	if item.has_meta(&"property") and item.get_meta(&"property", null) is GKEditorTreeObject:
+		this_item.set_text(0, "Sub-Object %d"%(this_item.get_index() + 1))
+	else: this_item.set_text(0, "Object %d"%(this_item.get_index() + 1))
+	for child in children:
+		child.tree_sync(this_item)
+	synced_tree_item = this_item
+	return
 
 ## Creates property packed scenes for this node.
 func send_properties(to:BoxContainer) -> void:

@@ -74,7 +74,7 @@ enum GoalType {NONE, SIZE, POINTS, EXACT_SIZE}
 @export_range(-1, 1200, 1, "or_greater", "suffix:sec.") var time_100pts:float = 0
 @export_range(-1, 1200, 1, "or_greater", "suffix:sec.") var time_120pts:float = 0
 ## Returns a JSON-compatible representation of this tree item and its children.
-func to_json() -> Dictionary:
+func to_json():
 	var dict:Dictionary = {
 		"name": {
 			"en": mode_name
@@ -129,6 +129,23 @@ func to_json() -> Dictionary:
 	dict["cam_zones"] = cam_array
 	return dict
 
+## Creates a tree item for this EditorTreeItem.
+func tree_sync(item:TreeItem) -> void:
+	var this_item:TreeItem = item.create_child()
+	this_item.set_icon(0, preload("res://editor/icons/mode.png"))
+	this_item.set_text(0, mode_id)
+	synced_tree_item = this_item
+	var map_zones:TreeItem = this_item.create_child()
+	map_zones.set_text(0, "Size Areas")
+	map_zones.set_selectable(0, false)
+	var cam_zones:TreeItem = this_item.create_child()
+	cam_zones.set_text(0, "Camera Zones")
+	cam_zones.set_selectable(0, false)
+	for child in children:
+		if child is GKEditorTreeArea: child.tree_sync(map_zones)
+		if child is GKEditorTreeCamZone: child.tree_sync(cam_zones)
+	return
+
 ## Creates a this tree item and its children from a source Dictionary.
 static func from_json(from:Dictionary, name:String = "") -> GKEditorTreeMode:
 	var new_mode:GKEditorTreeMode = GKEditorTreeMode.new()
@@ -173,11 +190,11 @@ static func from_json(from:Dictionary, name:String = "") -> GKEditorTreeMode:
 	new_mode.time_100pts = from.get("time_100pts", new_mode.time_100pts)
 	new_mode.time_120pts = from.get("time_120pts", new_mode.time_120pts)
 	
-	for key in from.get("map_zones", {}).keys():
-		new_mode.add_child(GKEditorTreeArea.from_json(from.get("map_zones", {})[key], key))
+	for key in from.get("map_zones", []).size():
+		new_mode.add_child(GKEditorTreeArea.from_json(from.get("map_zones", [])[key], ""))
 	
-	for key in from.get("cam_zones", {}).keys():
-		new_mode.add_child(GKEditorTreeCamZone.from_json(from.get("cam_zones", {})[key], key))
+	for key in from.get("cam_zones", []).size():
+		new_mode.add_child(GKEditorTreeCamZone.from_json(from.get("cam_zones", [])[key], ""))
 	
 	return new_mode
 

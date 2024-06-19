@@ -33,8 +33,8 @@ func _process(_delta):
 	get_window().title = "%s%s - GK Editor (%s)" % ["*" if changed else "", 
 	currentFile.get_file() if currentFile != "" else "New File", 
 	Engine.get_architecture_name()]
-	if %SplitLeft.LevelTreeRoot.get_text(0) != currentFile.get_file() if currentFile != "" else "New File":
-		%SplitLeft.LevelTreeRoot.set_text(0, currentFile.get_file() if currentFile != "" else "New File")
+	if %SplitLeft.TreeRoot.get_text(0) != currentFile.get_file() if currentFile != "" else "New File":
+		%SplitLeft.TreeRoot.set_text(0, currentFile.get_file() if currentFile != "" else "New File")
 
 func returnToDebug():
 	if await confirmQuit() == true:
@@ -71,7 +71,7 @@ func saveFile():
 	else:
 		var file = FileAccess.open(currentFile, FileAccess.WRITE)
 		if file != null:
-			file.store_string(JSON.stringify({"levels": %SplitLeft.InternalLevelTree}, "\t" , false))
+			file.store_string(JSON.stringify(%SplitLeft.InternalTreeRoot.to_json(), "\t" , false))
 			file.close()
 		$BlockingOverlay.visible = false
 		if file != null: changed = false
@@ -112,8 +112,8 @@ func openFile():
 			var file = FileAccess.open(currentFile, FileAccess.READ)
 			if file != null:
 				var fileJson = JSON.parse_string(file.get_as_text())
-				if fileJson != null and "levels" in fileJson:
-					%SplitLeft.openDict(fileJson.levels)
+				if fileJson != null:
+					%SplitLeft.openDict(fileJson)
 			$BlockingOverlay.visible = false
 			return true
 		else:
@@ -130,7 +130,7 @@ func newFile():
 	$BlockingOverlay.visible = false
 
 func _on_play_button_pressed():
-	await StageLoader.loadStagefromDict({"levels": %SplitLeft.InternalLevelTree}, %SplitLeft.lastSelectedLevel.get_text(0))
+	await StageLoader.loadStagefromDict(%SplitLeft.InternalTreeRoot.to_json(), %SplitLeft.lastSelectedLevel.level_id)
 	PlayMode = not PlayMode
 	OS.low_processor_usage_mode = not PlayMode
 	%EditorView/ViewPort.disable_3d = PlayMode
@@ -146,7 +146,7 @@ func _on_play_button_pressed():
 		var play = Node.new()
 		play.name = "EditorPlay"
 		%GameView.add_child(play)
-		await StageLoader.instantiateStage(%SplitLeft.lastSelectedMode.get_text(0), %GameView/EditorPlay)
+		await StageLoader.instantiateStage(%SplitLeft.lastSelectedMode.mode_id, %GameView/EditorPlay)
 		%GameView.visible = PlayMode
 	else:
 		%GameView.visible = PlayMode

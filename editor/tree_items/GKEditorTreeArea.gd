@@ -14,7 +14,7 @@ enum AudioSize {XS, S, M, L, XL, C}
 @export_range(0, 0, 0.01, "hide_slider", "or_greater", "suffix:sec.") var time_bonus:float = 0
 
 ## Returns a JSON-compatible representation of this tree item and its children.
-func to_json() -> Dictionary:
+func to_json():
 	var static_arr:Array = []
 	var object_arr:Array = []
 	var spawn_arr:Array = []
@@ -72,4 +72,24 @@ func send_properties(to:BoxContainer) -> void:
 	_create_property(to, PropertyType.STRING, &"core_model", "Core Model", "The model used by the katamari's \"core\".")
 	_create_property(to, PropertyType.STRING, &"core_texture", "Core Texture", "The texture used by the katamari's \"core\".")
 	_create_property(to, PropertyType.NUMBER, &"time_bonus", "Time Bonus", "The amount of time earned when entering the area.")
+	return
+
+func tree_sync(item:TreeItem) -> void:
+	var this_item:TreeItem = item.create_child()
+	this_item.set_icon(0, preload("res://editor/icons/area.png"))
+	this_item.set_text(0, "Area %d"%(this_item.get_index() + 1))
+	synced_tree_item = this_item
+	var stat_container:TreeItem = this_item.create_child()
+	stat_container.set_text(0, "Statics")
+	stat_container.set_selectable(0, false)
+	var object_container:TreeItem = this_item.create_child()
+	object_container.set_text(0, "Objects")
+	object_container.set_selectable(0, false)
+	var spawn_container:TreeItem = this_item.create_child()
+	spawn_container.set_text(0, "Spawn Points")
+	spawn_container.set_selectable(0, false)
+	for child in children:
+		if child is GKEditorTreeStatic: child.tree_sync(stat_container)
+		if child is GKEditorTreeObject: child.tree_sync(object_container)
+		if child is GKEditorTreeSpawn: child.tree_sync(spawn_container)
 	return

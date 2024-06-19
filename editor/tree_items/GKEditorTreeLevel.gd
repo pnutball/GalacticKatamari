@@ -13,7 +13,7 @@ extends GKEditorTreeItem
 @export var level_description:Dictionary = {"en": "Enter a description here"}
 
 ## Returns a JSON-compatible representation of this tree item and its children.
-func to_json() -> Dictionary:
+func to_json():
 	var modes_dict:Dictionary = {}
 	for child in children:
 		if child is GKEditorTreeMode:
@@ -41,4 +41,14 @@ func send_properties(to:BoxContainer) -> void:
 	_create_property(to, PropertyType.STRING, &"level_id", "Level ID", "The level's unique identifier.")
 	_create_property(to, PropertyType.LOCALIZED, &"level_name", "Name", "The level's name.")
 	_create_property(to, PropertyType.LOCALIZED, &"level_description", "Description", "The level's description.")
+	return
+
+## Creates a tree item for this EditorTreeItem.
+func tree_sync(item:TreeItem) -> void:
+	var this_item:TreeItem = item.create_child()
+	this_item.set_icon(0, preload("res://editor/icons/level.png"))
+	this_item.set_text(0, level_id)
+	synced_tree_item = this_item
+	for mode in children:
+		mode.tree_sync(this_item)
 	return

@@ -9,7 +9,7 @@ extends GKEditorTreeItem
 @export var depth_of_field:float = 20
 
 ## Returns a JSON-compatible representation of this tree item and its children.
-func to_json() -> Dictionary:
+func to_json():
 	
 	var dict:Dictionary = {
 		"Bound": lower_bound,
@@ -22,7 +22,7 @@ func to_json() -> Dictionary:
 
 ## Creates a this tree item and its children from a source Dictionary.
 static func from_json(from:Dictionary, _name:String = "") -> GKEditorTreeCamZone:
-	var new_zone:GKEditorTreeCamZone
+	var new_zone:GKEditorTreeCamZone = GKEditorTreeCamZone.new()
 	# new_item.example = from.get("example", new_level.example)
 	new_zone.lower_bound = from.get("Bound", new_zone.lower_bound)
 	new_zone.scale = from.get("Scale", new_zone.scale)
@@ -39,4 +39,12 @@ func send_properties(to:BoxContainer) -> void:
 	_create_property(to, PropertyType.NUMBER, &"tilt", "Tilt", "The tilt of the camera (in degrees).")
 	_create_property(to, PropertyType.NUMBER, &"vertical_shift", "Vert. Shift", "The vertical shift of the camera.\nPositive values move the camera upwards.")
 	_create_property(to, PropertyType.NUMBER, &"depth_of_field", "DOF", "The depth-of-field distance (in meters).\n-1 disables DOF.")
+	return
+
+## Creates a tree item for this EditorTreeItem.
+func tree_sync(item:TreeItem) -> void:
+	var this_item:TreeItem = item.create_child()
+	this_item.set_icon(0, preload("res://editor/icons/camerazone.png"))
+	this_item.set_text(0, "Zone %d"%(this_item.get_index() + 1))
+	synced_tree_item = this_item
 	return
