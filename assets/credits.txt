@@ -23,7 +23,10 @@
 [b]Special Thanks[/b]
 [right]Keita Takahashi[/right]
 
-
+[center][b]External Help[/b][/center]
+[right]Object Inspector plugin: @4d49[/right]
+[right]Part of water shader code: @Lielay9[/right]
+[right]Feedback node for zoom shader: @celyk[/right]
 
 [center][b]Songs[/b][/center]
 
