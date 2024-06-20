@@ -44,6 +44,10 @@ window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/object-inspector/plugin.cfg")
+
 [file_customization]
 
 folder_colors={

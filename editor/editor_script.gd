@@ -135,6 +135,7 @@ func _on_play_button_pressed():
 	OS.low_processor_usage_mode = not PlayMode
 	%EditorView/ViewPort.disable_3d = PlayMode
 	%SplitLeft.visible = not PlayMode
+	%DialogueTagHelpWindow.visible = false
 	$BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer.visible = not PlayMode
 	$BGPanel/MarginContainer/EditorVBox/SplitMain.collapsed = PlayMode
 	%SplitLeft.dragger_visibility = SplitContainer.DRAGGER_HIDDEN if PlayMode else SplitContainer.DRAGGER_VISIBLE
@@ -173,3 +174,8 @@ func _on_file_menu_id_pressed(id):
 			4: saveFileAs()
 			5: returnToDebug()
 			6: returnToDesktop()
+
+func _on_help_menu_id_pressed(id):
+	if not $BlockingOverlay.visible:
+		match id:
+			1: %DialogueTagHelpWindow.visible = true

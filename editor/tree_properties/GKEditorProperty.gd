@@ -25,7 +25,7 @@ func _ready():
 	add_child(name_node)
 
 func _process(_delta):
-	if property_id != &"":
+	if not property_being_changed and property_id != &"":
 		var new_property = source_item.get(property_id)
 		if new_property != property_cache:
 			_update_property(new_property)

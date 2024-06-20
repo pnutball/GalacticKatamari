@@ -99,6 +99,7 @@ func _on_create_id_pressed(id):
 			var new_zone := GKEditorTreeArea.new()
 			lastSelectedMode.add_child(new_zone)
 			lastSelectedArea = new_zone
+			_on_create_id_pressed(6)
 		4: 
 			#addStatic(lastSelectedArea)
 			var new_stat := GKEditorTreeStatic.new()
@@ -163,7 +164,8 @@ func _on_level_tree_item_selected():
 			%Create/Spawn.disabled = true
 			%Create/Static.disabled = true
 			%ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object.disabled = true
-		property.send_properties(%PropertiesPanel)
+		#property.send_properties(%PropertiesPanel)
+		%"Inspector".set_object(property)
 		$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 
 func openDict(dict:Dictionary):

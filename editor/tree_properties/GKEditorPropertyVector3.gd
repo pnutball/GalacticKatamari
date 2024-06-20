@@ -46,10 +46,12 @@ func _ready():
 	header_node.add_child(z_node)
 
 func _update_vec3(_property):
-	_update_property(Vector3(get_node("Container/x").value, get_node("Container/y").value, get_node("Container/z").value))
+	_update_property(Vector3(get_node(^"Container/x").value, get_node(^"Container/y").value, get_node(^"Container/z").value))
 
 func _update_property(property) -> void:
-	super(property)
-	get_node("Container/x").set_value_no_signal(property.x)
-	get_node("Container/y").set_value_no_signal(property.y)
-	get_node("Container/z").set_value_no_signal(property.z)
+	if has_node(^"Container"):
+		super(property)
+		if not property_being_changed and property_id != &"":
+			get_node(^"Container/x").set_value_no_signal(property.x)
+			get_node(^"Container/y").set_value_no_signal(property.y)
+			get_node(^"Container/z").set_value_no_signal(property.z)

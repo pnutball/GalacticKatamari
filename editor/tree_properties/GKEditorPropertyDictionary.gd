@@ -28,17 +28,18 @@ func _start_update():
 	_update_property(newDict)
 
 func _update_property(property) -> void:
-	super(property)
-	for key in property.keys():
-		var found:bool = false
-		for entry in entries:
-			if entry.property_name == key:
-				entry.text = property[key]
-				found = true
-				break
-		if not found:
-			_add_entry(key)
-			entries.back().text = property[key]
+	if not property_being_changed and property_id != &"":
+		super(property)
+		for key in property.keys():
+			var found:bool = false
+			for entry in entries:
+				if entry.property_name == key:
+					entry.text = property[key]
+					found = true
+					break
+			if not found:
+				_add_entry(key)
+				entries.back().text = property[key]
 
 func _button_entry_add():
 	_add_entry(end_bar.get_child(0).text)

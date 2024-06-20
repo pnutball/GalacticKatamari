@@ -18,4 +18,5 @@ func _ready():
 
 func _update_property(property) -> void:
 	super(property)
-	get_child(1).selected = property
+	if not property_being_changed and property_id != &"":
+		get_child(1).selected = property
