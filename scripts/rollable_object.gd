@@ -7,8 +7,8 @@ var Katamari
 @export var ObjectName:String = "Debug Cube"
 @export var ObjectMesh:Mesh = load("res://assets/models/object/debug_cube_view.tres")
 @export var ObjectCol:Shape3D = load("res://assets/models/object/debug_cube.shape")
-@export var ObjectTex:Texture2D = null
-@export var ObjectTexRoll:Texture2D = null
+@export var ObjectTex:Texture2D = preload("uid://bo151m2ckmef3")
+@export var ObjectTexRoll:Texture2D = preload("uid://bo151m2ckmef3")
 @export var ObjectKnockSize:float = 0
 @export var ObjectRollSize:float = 0
 @export var ObjectGrowSize:float = 0
