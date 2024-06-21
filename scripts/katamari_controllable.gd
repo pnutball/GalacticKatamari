@@ -101,6 +101,7 @@ var DashDir:int = 0:
 var Fatigued:bool = false
 ## Speed multiplier
 var SpeedMultiplier:float = 1.3
+var RoyalWarping:bool = false
 ## Can the katamari dash?
 @export var CanDash:bool = true
 ## Can the katamari quick turn?
@@ -340,7 +341,8 @@ func _physics_process(delta):
 		doQuickTurn()
 	
 	# Detect royal warp
-	if $KatamariBody.position.y <= RoyalWarpHeight:
+	if $KatamariBody.position.y <= RoyalWarpHeight and not RoyalWarping:
+		RoyalWarping = true
 		respawn()
 
 ## Changes the current camera zone to CameraZones[index].
@@ -426,11 +428,12 @@ func respawn(noAnimation:bool = false):
 	$KatamariBody.position = Vector3(randomSpawn.x, randomSpawn.y, randomSpawn.z) + Vector3(0,Size / 2,0)
 	CameraRotation = deg_to_rad(randomSpawn.w)
 	$KatamariBody.linear_velocity = Vector3.ZERO
-	if not noAnimation: 
-		await create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 0, 0.25).finished
 	await get_tree().process_frame
 	await get_tree().process_frame
 	CameraSmoothing = 0.85
+	if not noAnimation: 
+		await create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 0, 0.25).finished
+	RoyalWarping = false
 
 func grabObject(ObjectSize:float, ObjectID:StringName):
 	ObjectQueue.push_back(ObjectID)
