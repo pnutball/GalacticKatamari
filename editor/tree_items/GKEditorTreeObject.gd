@@ -2,6 +2,7 @@
 class_name GKEditorTreeObject
 extends GKEditorTreeItem
 
+var linked_3d:Node3D
 @export var object_id:StringName = "debug_cube"
 @export var position:Vector3 = Vector3.ZERO
 @export var rotation:Vector3 = Vector3.ZERO

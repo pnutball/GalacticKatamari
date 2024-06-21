@@ -33,6 +33,7 @@ var InternalTreeRoot := GKEditorTreeRoot.new()
 
 func resetTree():
 	TreeRoot.set_text(0, "New File")
+	InternalTreeRoot.children.clear()
 	for child in %PropertiesPanel.get_children():
 		child.queue_free()
 	$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = true
@@ -43,15 +44,15 @@ func resetTree():
 	%Create/Static.disabled = true
 	%ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object.disabled = true
 	%PlayButton.disabled = true
+	InternalTreeRoot.tree_sync(TreeRoot)
 
 func _ready():
 	TreeRoot.set_text(0, "New File")
 	TreeRoot.set_icon(0, load("res://editor/icons/document.png"))
 	TreeRoot.set_selectable(0, false)
 	ChangeMade.connect(InternalTreeRoot.tree_sync.bind(TreeRoot))
-	
-	
-func _on_create_id_pressed(id):
+
+func _on_create_id_pressed(id, disable_sync:bool = false):
 	match id:
 		0: 
 			#addLevel()
@@ -70,7 +71,7 @@ func _on_create_id_pressed(id):
 			new_level.level_id = "level%d"%level_id_no
 			InternalTreeRoot.add_child(new_level)
 			lastSelectedLevel = new_level
-			_on_create_id_pressed(1)
+			_on_create_id_pressed(1, disable_sync)
 		1: 
 			#addMode(lastSelectedLevel)
 			var new_mode := GKEditorTreeMode.new()
@@ -88,31 +89,38 @@ func _on_create_id_pressed(id):
 			new_mode.mode_id = ("level%d"%mode_id_no if mode_id_no > -1 else "normal")
 			lastSelectedLevel.add_child(new_mode)
 			lastSelectedMode = new_mode
-			_on_create_id_pressed(2)
-			_on_create_id_pressed(3)
+			_on_create_id_pressed(2, disable_sync)
+			_on_create_id_pressed(3, disable_sync)
 		2: 
 			#addCameraZone(lastSelectedMode)
 			var new_zone := GKEditorTreeCamZone.new()
 			lastSelectedMode.add_child(new_zone)
+			if not disable_sync: InternalTreeRoot.tree_sync(TreeRoot)
 		3: 
 			#addSizeArea(lastSelectedMode)
 			var new_zone := GKEditorTreeArea.new()
 			lastSelectedMode.add_child(new_zone)
 			lastSelectedArea = new_zone
-			_on_create_id_pressed(6)
+			_on_create_id_pressed(6, disable_sync)
 		4: 
 			#addStatic(lastSelectedArea)
 			var new_stat := GKEditorTreeStatic.new()
 			lastSelectedArea.add_child(new_stat)
+			%EditorView.reload_statics()
+			if not disable_sync: InternalTreeRoot.tree_sync(TreeRoot)
 		5: 
 			#addObject(lastSelectedArea, %ObjectBrowser/ObjectScroll/ObjectList.get_item_text(%ObjectBrowser/ObjectScroll/ObjectList.get_selected_items()[0]))
 			var new_obj := GKEditorTreeObject.new()
 			new_obj.object_id = %ObjectBrowser/ObjectScroll/ObjectList.get_item_text(%ObjectBrowser/ObjectScroll/ObjectList.get_selected_items()[0])
 			lastSelectedArea.add_child(new_obj)
+			%EditorView.reload_objects()
+			if not disable_sync: InternalTreeRoot.tree_sync(TreeRoot)
 		6: 
 			#addSpawn(lastSelectedArea)
 			var new_spawn := GKEditorTreeSpawn.new()
 			lastSelectedArea.add_child(new_spawn)
+			%EditorView.reload_spawns()
+			InternalTreeRoot.tree_sync(TreeRoot)
 	ChangeMade.emit()
 
 func _on_level_tree_item_selected():
@@ -139,6 +147,7 @@ func _on_level_tree_item_selected():
 			%ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object.disabled = true
 			lastSelectedMode = property
 			lastSelectedLevel = property.parent
+			%PlayButton.disabled = false
 		elif property is GKEditorTreeArea:
 			%Create/Mode.disabled = true
 			%Create/CamArea.disabled = true
@@ -149,6 +158,7 @@ func _on_level_tree_item_selected():
 			lastSelectedArea = property
 			lastSelectedMode = property.parent
 			lastSelectedLevel = property.parent.parent
+			%EditorView.reload_all()
 			%PlayButton.disabled = false
 		elif property is GKEditorTreeObject:
 			%Create/Mode.disabled = true
@@ -170,10 +180,16 @@ func _on_level_tree_item_selected():
 
 func openDict(dict:Dictionary):
 	resetTree()
-	lastSelectedLevel = null
-	lastSelectedMode = null
-	lastSelectedArea = null
 	InternalTreeRoot = GKEditorTreeRoot.from_json(dict)
+	if not InternalTreeRoot.children.is_empty():
+		lastSelectedLevel = InternalTreeRoot.children[0]
+		if not lastSelectedLevel.children.is_empty():
+			lastSelectedMode = lastSelectedLevel.children[0]
+			%PlayButton.disabled = false
+			var areas:Array = lastSelectedMode.children.filter(func(object): return object is GKEditorTreeArea)
+			if not areas.is_empty():
+				lastSelectedArea = areas[0]
+	%EditorView.reload_all()
 	InternalTreeRoot.tree_sync(TreeRoot)
 
 func emitChange(): ChangeMade.emit()

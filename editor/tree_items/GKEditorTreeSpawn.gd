@@ -2,6 +2,7 @@
 class_name GKEditorTreeSpawn
 extends GKEditorTreeItem
 
+var linked_3d:Node3D
 @export var position:Vector3 = Vector3.ZERO
 @export_range(-180, 180, 0.001) var rotation:float = 0
 

@@ -286,6 +286,7 @@ stretch = true
 script = ExtResource("17_qjlcr")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
+visible = false
 layout_mode = 2
 
 [node name="Button" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/HBoxContainer"]

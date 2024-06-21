@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bfhktly6igktw"]
+
+[ext_resource type="Script" path="res://editor/3d_items/3d_view_object_script.gd" id="1_cv2tm"]
+[ext_resource type="BoxMesh" uid="uid://vaqb01utfnc0" path="res://assets/models/object/debug_cube_view.tres" id="2_i3xn4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_equx2"]
+metallic_specular = 0.0
+
+[node name="3DViewObject" type="Node3D"]
+script = ExtResource("1_cv2tm")
+
+[node name="3DAnimPivot" type="Node3D" parent="."]
+
+[node name="RollableObjectMesh" type="MeshInstance3D" parent="3DAnimPivot"]
+unique_name_in_owner = true
+material_override = SubResource("StandardMaterial3D_equx2")
+gi_mode = 0
+mesh = ExtResource("2_i3xn4")
+skeleton = NodePath("../..")

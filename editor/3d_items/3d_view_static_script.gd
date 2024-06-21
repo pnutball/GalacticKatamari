@@ -1,15 +1,17 @@
 extends Node3D
 
-## The "array" used to find the static's path.
-@export var SpawnArray:Array = [""]
-## A cache of the static's path, used to detect changes.
-var PathCache:String = ""
+## The source tree object used for this 3D static.
+@export var Source:GKEditorTreeStatic = null
+var _path_cache:String = ""
+var _change_in_progress:bool = false
 
 func _process(_delta):
-	if PathCache != SpawnArray[0]:
-		for child in self.get_children():
+	if not _change_in_progress and Source != null and Source.path != _path_cache:
+		_change_in_progress = true
+		_path_cache = Source.path
+		var model = preload("uid://brr0ixfenlr0r").instantiate() if not ResourceLoader.exists(Source.path) else load(Source.path).instantiate()
+		for child in get_children():
 			child.queue_free()
-		PathCache = SpawnArray[0]
-		var stat = preload("res://assets/ouji/OUJI_HOLDER.glb").instantiate() if not ResourceLoader.exists(PathCache, "PackedScene") else load(PathCache).instantiate()
-		stat.process_mode = Node.PROCESS_MODE_DISABLED
-		add_child(stat)
+		add_child(model)
+		await get_tree().create_timer(0.5).timeout
+		_change_in_progress = false
