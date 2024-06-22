@@ -7,3 +7,7 @@ func _process(_delta):
 	if Source != null:
 		position = Source.position
 		rotation.y = deg_to_rad(Source.rotation)
+
+func _dragged():
+	while Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		pass
