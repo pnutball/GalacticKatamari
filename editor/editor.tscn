@@ -304,7 +304,7 @@ text = "Reload Spawns"
 [node name="ViewPort" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
 own_world_3d = true
 handle_input_locally = false
-size = Vector2i(1622, 732)
+size = Vector2i(480, 270)
 render_target_update_mode = 4
 
 [node name="EditorPrevRoot" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/ViewPort"]
@@ -372,7 +372,7 @@ unique_name_in_owner = true
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(144, 144)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="EnvPreview" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/ObjectPreviewContainer/PreviewViewport" instance=ExtResource("20_n41lb")]

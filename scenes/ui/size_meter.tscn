@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dvsu0c77oxyp"]
+[gd_scene load_steps=13 format=3 uid="uid://dvsu0c77oxyp"]
 
 [ext_resource type="Texture2D" uid="uid://dojfk300ggwh3" path="res://assets/textures/ui/size/size_back.png" id="1_hyip0"]
 [ext_resource type="Script" path="res://scripts/size_meter.gd" id="1_wykus"]
@@ -6,6 +6,270 @@
 [ext_resource type="Texture2D" uid="uid://bysnman3dwwsi" path="res://assets/textures/ui/size/size_shinyB.png" id="3_om05j"]
 [ext_resource type="Texture2D" uid="uid://dp4412lkftgcc" path="res://assets/textures/ui/size/size_shinyC.png" id="4_rws3p"]
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="5_n7pvg"]
+[ext_resource type="FontVariation" uid="uid://jimsv6e58fx7" path="res://assets/fonts/hud_small.tres" id="7_ikygt"]
+[ext_resource type="Texture2D" uid="uid://xnicxvsued0l" path="res://assets/textures/ui/size/size_arrow.png" id="8_d5xwj"]
+
+[sub_resource type="Animation" id="Animation_8aaby"]
+resource_name = "Appear"
+length = 0.55
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OffsetBase:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(-500, 0), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OffsetBase/MainCounter:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(-256, 90), Vector2(132, 90)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OffsetBase/Arrow:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.366667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("OffsetBase/Arrow:offset_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3, 0.5),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [85.0, 300.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OffsetBase/GoalCounter:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.4509, 0.55),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("OffsetBase/SubCounter:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(-238, 191), Vector2(146, 191)]
+}
+
+[sub_resource type="Animation" id="Animation_d77s5"]
+resource_name = "RESET"
+length = 0.001
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OffsetBase:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.5),
+"update": 0,
+"values": [Vector2(-500, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OffsetBase/MainCounter:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.5),
+"update": 0,
+"values": [Vector2(-256, 90)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OffsetBase/Arrow:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("OffsetBase/Arrow:offset_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.5),
+"update": 0,
+"values": [85.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OffsetBase/GoalCounter:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0.5),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("OffsetBase/SubCounter:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-238, 191)]
+}
+
+[sub_resource type="Animation" id="Animation_q1xmy"]
+resource_name = "Appear_Fast"
+length = 0.1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OffsetBase:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OffsetBase/MainCounter:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(132, 90)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("OffsetBase/Arrow:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("OffsetBase/Arrow:offset_bottom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [300.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("OffsetBase/GoalCounter:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("OffsetBase/SubCounter:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(146, 191)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5v8ei"]
+_data = {
+"Appear": SubResource("Animation_8aaby"),
+"Appear_Fast": SubResource("Animation_q1xmy"),
+"RESET": SubResource("Animation_d77s5")
+}
 
 [node name="SizeMeter" type="Control"]
 layout_mode = 3
@@ -20,7 +284,8 @@ script = ExtResource("1_wykus")
 custom_minimum_size = Vector2(320, 320)
 layout_mode = 1
 anchors_preset = 0
-offset_right = 320.0
+offset_left = -500.0
+offset_right = -180.0
 offset_bottom = 320.0
 mouse_filter = 2
 
@@ -101,18 +366,77 @@ pivot_offset = Vector2(301, 301)
 mouse_filter = 2
 texture = ExtResource("4_rws3p")
 
+[node name="Arrow" type="NinePatchRect" parent="OffsetBase"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = 69.0
+offset_right = 10.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("8_d5xwj")
+patch_margin_bottom = 16
+
 [node name="MainCounter" type="RichTextLabel" parent="OffsetBase"]
+clip_contents = false
 layout_mode = 0
-offset_left = 96.0
-offset_top = 64.0
-offset_right = 937.0
-offset_bottom = 214.0
+offset_left = -256.0
+offset_top = 90.0
+offset_right = 356.0
+offset_bottom = 225.0
 mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0.366595, 0.366595, 0.366595, 1)
 theme_override_constants/outline_size = 10
 theme_override_fonts/normal_font = ExtResource("5_n7pvg")
 theme_override_font_sizes/normal_font_size = 80
 bbcode_enabled = true
-text = "[font_size=100]00km[font_size=90]00m[font_size=80]00cm[font_size=70]0mm"
+text = "[font_size=90]0[font_size=50]km[font_size=80]000[font_size=50]m[font_size=70]00[font_size=50]cm[font_size=60]0[font_size=50]mm"
 fit_content = true
 autowrap_mode = 0
+
+[node name="SubCounter" type="RichTextLabel" parent="OffsetBase"]
+clip_contents = false
+layout_mode = 0
+offset_left = -238.0
+offset_top = 191.0
+offset_right = -96.9999
+offset_bottom = 259.0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0.366595, 0.366595, 0.366595, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("5_n7pvg")
+theme_override_font_sizes/normal_font_size = 45
+bbcode_enabled = true
+text = "515 pts."
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="GoalCounter" type="RichTextLabel" parent="OffsetBase"]
+self_modulate = Color(1, 1, 1, 0)
+clip_contents = false
+layout_mode = 0
+offset_left = 168.0
+offset_top = 388.0
+offset_right = 571.0
+offset_bottom = 448.0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0.366595, 0.366595, 0.366595, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("7_ikygt")
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "00km00m00cm0mm"
+fit_content = true
+autowrap_mode = 0
+
+[node name="SizeAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5v8ei")
+}

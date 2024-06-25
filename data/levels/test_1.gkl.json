@@ -411,21 +411,23 @@
 						"can_turn": true,
 						"can_dialogue_move": true
 					},
-					"goal_type": 0,
+					"goal_type": 2,
 					"goal_type_size": {
 						"goal_minimum": 2,
-						"goal_100pts": 0,
+						"goal_100pts": 6,
 						"goal_120pts": 0,
 						"end_at_120pts": false
 					},
 					"goal_type_points": {
-						"goal_minimum": 0,
+						"goal_minimum": 10,
 						"goal_100pts": 0,
 						"goal_120pts": 0,
 						"end_at_120pts": false,
-						"point_objects": {},
+						"point_objects": {
+							"debug_cube": 1
+						},
 						"point_name": {
-							"en": "pt{plural}."
+							"en": ["{points} pts.", "{points} pt.", "{points} pts."]
 						}
 					},
 					"goal_type_none":{

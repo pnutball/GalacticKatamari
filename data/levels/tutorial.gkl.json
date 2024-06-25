@@ -106,7 +106,7 @@
 						"end_at_goal": false,
 						"point_objects": "",
 						"point_name": {
-							"en": "pt{plural}."
+							"en": ["{points} pts.", "{points} pt.", "{points} pts."]
 						}
 					},
 					"time": 90,

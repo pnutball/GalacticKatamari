@@ -52,3 +52,11 @@ func snap_input_angle(input:Vector2) -> Vector2:
 	return (Vector2.RIGHT * input.length()).rotated(
 		ANGLE_SNAP_CURVE.sample((input.angle() / TAU) + 0.5) * PI
 	)
+
+## Gets a localized string from a dictionary of translations.
+func get_localized_string(input:Dictionary) -> String:
+	return input.get(TranslationServer.get_locale().get_slice("_", 0), input.get("en", "MISSING STRING!"))
+
+func get_localized_plural(count:int, input:Dictionary) -> String:
+	var plurals:Array = input.get(TranslationServer.get_locale().get_slice("_", 0), input.get("en", ["MISSING STRING!"]))
+	return plurals[min(count, plurals.size() - 1)]

@@ -5,6 +5,8 @@ extends Node3D
 ## Sets the size of the katamari, in meters.
 @export_range(0.01, 0, 0.001, "or_greater", "hide_slider", "suffix:m") var Size:float = 1
 var MinimumSize:float = Size
+@export_range(0, 0, 1, "or_greater", "hide_slider", "suffix:pts.") var Score:int = 0
+@onready var ScoringList:Dictionary = StageLoader.currentStage.modes.get(StageLoader.currentMode).get("goal_type_points", {}).get("point_objects", {})
 ## Sets how much size objects give when rolled up. 
 ##
 ## 1 gives the full amount of size, 0 gives none.
@@ -438,6 +440,8 @@ func respawn(noAnimation:bool = false):
 func grabObject(ObjectSize:float, ObjectID:StringName):
 	ObjectQueue.push_back(ObjectID)
 	Size += ObjectSize * GrowthMultiplier
+	if ScoringList != {} and ScoringList.get(String(ObjectID)) != null:
+		Score += ScoringList.get(String(ObjectID))
 
 func _on_wall_bump(_body):
 	var vel:float = ($KatamariBody.linear_velocity * Vector3(1,0,1)).length()

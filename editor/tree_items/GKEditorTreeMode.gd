@@ -65,7 +65,7 @@ enum GoalType {NONE, SIZE, POINTS, EXACT_SIZE}
 @export_range(0, 1, 1, "or_greater", "hide_slider", "suffix:pt(s).") var point_goal_100pts:int = 0
 @export_range(0, 1, 1, "or_greater", "hide_slider", "suffix:pt(s).") var point_goal_120pts:int = 0
 @export var point_objects:Dictionary = {}
-@export var point_name:Dictionary = {"en": "{points}pt{plural}."}
+@export var point_name:Dictionary = {"en": ["{points} pts.", "{points} pt.", "{points} pts."]}
 @export_subgroup("No Goal")
 @export var none_show_object_count:bool = false
 @export var none_can_quit_early:bool = false

@@ -49,9 +49,9 @@ func _on_mode_list_item_selected(index):
 	
 	$InfoContainer/LoadButton.disabled = false
 	$InfoContainer/LevelInfo.text = \"[b]%s[/b]\\n[i]%s[/i]\\n\\n%s\" % [
-		StageLoader.currentStage.name.get(TranslationServer.get_locale().get_slice(\"_\", 0), StageLoader.currentStage.name.get(\"en\", \"MISSING STRING!\")),
-		StageLoader.currentStage.modes.get(selectedMode).name.get(TranslationServer.get_locale().get_slice(\"_\", 0), StageLoader.currentStage.modes.get(selectedMode).name.get(\"en\", \"MISSING STRING!\")),
-		StageLoader.currentStage.description.get(TranslationServer.get_locale().get_slice(\"_\", 0), StageLoader.currentStage.description.get(\"en\", \"MISSING STRING!\"))]
+		GKGlobal.get_localized_string(StageLoader.currentStage.name),
+		GKGlobal.get_localized_string(StageLoader.currentStage.modes.get(selectedMode).name),
+		GKGlobal.get_localized_string(StageLoader.currentStage.description)]
 
 
 func _on_load_button_pressed():
