@@ -2,22 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dojfk300ggwh3"
-path="res://.godot/imported/size_back.png-930475eb78a01edf814dd4b2bedd336e.ctex"
+uid="uid://crciqojmttmtt"
+path="res://.godot/imported/object_view_bg.png-1e675a32d1c6caa58a3215423a262d5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/ui/size/size_back.png"
-dest_files=["res://.godot/imported/size_back.png-930475eb78a01edf814dd4b2bedd336e.ctex"]
+source_file="res://assets/textures/ui/object_view/object_view_bg.png"
+dest_files=["res://.godot/imported/object_view_bg.png-1e675a32d1c6caa58a3215423a262d5a.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
-compress/lossy_quality=0.0
+compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
