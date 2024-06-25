@@ -1,7 +1,8 @@
-[gd_scene load_steps=61 format=3 uid="uid://bfk4h2p6ortti"]
+[gd_scene load_steps=62 format=3 uid="uid://bfk4h2p6ortti"]
 
 [ext_resource type="Script" path="res://scripts/ouji_view.gd" id="1_g71is"]
-[ext_resource type="Texture2D" uid="uid://dxiw044rvr1po" path="res://assets/textures/ui/earth.png" id="3_w4j5m"]
+[ext_resource type="Texture2D" uid="uid://ddhgqxa1uojmq" path="res://assets/textures/ui/ouji_cam/back_glow.png" id="2_ds4g1"]
+[ext_resource type="Texture2D" uid="uid://dxiw044rvr1po" path="res://assets/textures/ui/ouji_cam/back_earth.png" id="3_dxcms"]
 
 [sub_resource type="Environment" id="Environment_d2jpm"]
 ambient_light_source = 2
@@ -380,6 +381,22 @@ parameters/WalkState/Ouji_Walk/conditions/not_backward_condition = false
 parameters/WalkState/Ouji_Walk/Forward/BodyRotAdd/add_amount = 0
 parameters/WalkState/Ouji_Walk/Forward/HeadRotAdd/add_amount = 0
 
+[node name="OujiViewBGGlow" type="TextureRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -384.0
+offset_top = -384.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("2_ds4g1")
+expand_mode = 2
+stretch_mode = 4
+
 [node name="OujiViewBG" type="TextureRect" parent="."]
 z_index = -1
 layout_mode = 1
@@ -392,6 +409,6 @@ offset_left = -432.0
 offset_top = -306.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("3_w4j5m")
+texture = ExtResource("3_dxcms")
 expand_mode = 2
 stretch_mode = 4

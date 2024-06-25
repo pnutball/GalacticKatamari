@@ -150,7 +150,7 @@ func _process(delta):
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform,
 	 clamp(CameraSmoothing*((1.0 / 60)/delta), 0, 1))
 	
-	DashFatigue -= (5 if not Fatigued else 7.5) * delta
+	DashFatigue -= (5.0 if not Fatigued else 7.5) * delta
 	
 	# Discharge / recharge dash
 	if not Fatigued:

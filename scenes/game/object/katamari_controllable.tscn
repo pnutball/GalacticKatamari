@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=47 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -14,6 +14,7 @@
 [ext_resource type="Shader" path="res://assets/materials/shaders/bound_circle.gdshader" id="10_hoom7"]
 [ext_resource type="PackedScene" uid="uid://bfk4h2p6ortti" path="res://scenes/ui/ouji_view.tscn" id="11_ystjj"]
 [ext_resource type="PackedScene" uid="uid://c2n7fqkxxktdj" path="res://scenes/ui/pause.tscn" id="13_8548j"]
+[ext_resource type="PackedScene" uid="uid://dvsu0c77oxyp" path="res://scenes/ui/size_meter.tscn" id="15_5xjs0"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qviqp"]
 dof_blur_far_enabled = true
@@ -607,6 +608,8 @@ texture = SubResource("ViewportTexture_l3wab")
 
 [node name="OujiView" parent="." instance=ExtResource("11_ystjj")]
 z_index = 1
+
+[node name="SizeMeter" parent="." instance=ExtResource("15_5xjs0")]
 
 [connection signal="body_entered" from="FloorBumpDetect" to="." method="_on_floor_bump"]
 [connection signal="body_entered" from="WallBumpDetect" to="." method="_on_wall_bump"]
