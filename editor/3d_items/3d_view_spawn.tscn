@@ -1,13 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dkehn05aprooe"]
+[gd_scene load_steps=11 format=3 uid="uid://dkehn05aprooe"]
 
 [ext_resource type="Script" path="res://editor/3d_items/3d_view_spawn_script.gd" id="1_jjrq0"]
 [ext_resource type="PackedScene" uid="uid://cwxpkbdnvlvw0" path="res://assets/ouji/OUJI_HOLDER.glb" id="1_xy1ps"]
 [ext_resource type="ArrayMesh" uid="uid://beskhtc8fh5g2" path="res://editor/3d_items/rotate_gizmo.obj" id="3_b3hlg"]
 [ext_resource type="ArrayMesh" uid="uid://ch1iinygqwaqo" path="res://editor/3d_items/translate_gizmo.obj" id="4_4r4wi"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1uilb"]
-radius = 0.02
-height = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5l5dm"]
 shading_mode = 0
@@ -15,7 +11,10 @@ albedo_color = Color(0.57429, 0.81, 0.0243, 1)
 texture_filter = 0
 texture_repeat = false
 disable_receive_shadows = true
-fixed_size = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_mjinf"]
+height = 0.03
+radius = 0.335
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4c2x"]
 shading_mode = 0
@@ -23,7 +22,10 @@ albedo_color = Color(0.81, 0.0243, 0.20763, 1)
 texture_filter = 0
 texture_repeat = false
 disable_receive_shadows = true
-fixed_size = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_d6qq7"]
+height = 0.21
+radius = 0.04
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aexpy"]
 shading_mode = 0
@@ -31,7 +33,6 @@ albedo_color = Color(0.57429, 0.81, 0.0243, 1)
 texture_filter = 0
 texture_repeat = false
 disable_receive_shadows = true
-fixed_size = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arevr"]
 shading_mode = 0
@@ -39,7 +40,6 @@ albedo_color = Color(0.0243, 0.52191, 0.81, 1)
 texture_filter = 0
 texture_repeat = false
 disable_receive_shadows = true
-fixed_size = true
 
 [node name="3DViewSpawn" type="Node3D"]
 script = ExtResource("1_jjrq0")
@@ -47,24 +47,20 @@ script = ExtResource("1_jjrq0")
 [node name="Visual" parent="." instance=ExtResource("1_xy1ps")]
 transform = Transform3D(-7.95547e-07, 0, -18.2, 0, 18.2, 0, 18.2, 0, -7.95547e-07, 0, 0, 0)
 
-[node name="Area3D" type="Area3D" parent="Visual"]
-transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0, 0, 0)
-collision_layer = 0
-collision_mask = 0
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Visual/Area3D"]
-transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0, 0.025, 0)
-shape = SubResource("CapsuleShape3D_1uilb")
-
 [node name="Gizmos" type="Node3D" parent="."]
-visible = false
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.5, 0)
+top_level = true
 
 [node name="GizmoRotY" type="MeshInstance3D" parent="Gizmos"]
 material_override = SubResource("StandardMaterial3D_5l5dm")
 cast_shadow = 0
 mesh = ExtResource("3_b3hlg")
 skeleton = NodePath("../..")
+
+[node name="Detect" type="Area3D" parent="Gizmos/GizmoRotY"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gizmos/GizmoRotY/Detect"]
+shape = SubResource("CylinderShape3D_mjinf")
 
 [node name="GizmoTraX" type="MeshInstance3D" parent="Gizmos"]
 transform = Transform3D(-4.37114e-08, 0, -1, -1, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 0, 0, 0, 0)
@@ -73,6 +69,12 @@ cast_shadow = 0
 mesh = ExtResource("4_4r4wi")
 skeleton = NodePath("../..")
 
+[node name="Detect" type="Area3D" parent="Gizmos/GizmoTraX"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gizmos/GizmoTraX/Detect"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("CylinderShape3D_d6qq7")
+
 [node name="GizmoTraY" type="MeshInstance3D" parent="Gizmos"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_aexpy")
@@ -80,9 +82,21 @@ cast_shadow = 0
 mesh = ExtResource("4_4r4wi")
 skeleton = NodePath("../..")
 
+[node name="Detect" type="Area3D" parent="Gizmos/GizmoTraY"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gizmos/GizmoTraY/Detect"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.45)
+shape = SubResource("CylinderShape3D_d6qq7")
+
 [node name="GizmoTraZ" type="MeshInstance3D" parent="Gizmos"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_arevr")
 cast_shadow = 0
 mesh = ExtResource("4_4r4wi")
 skeleton = NodePath("../..")
+
+[node name="Detect" type="Area3D" parent="Gizmos/GizmoTraZ"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gizmos/GizmoTraZ/Detect"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.45, 0, 0)
+shape = SubResource("CylinderShape3D_d6qq7")
