@@ -33,11 +33,11 @@ func _on_katamari_entered(_rid, body, shape, _locshape):
 	print_debug(body.to_string() + "'s shape %d collided with %s (instance %s)."%[shape, ObjectID, InstanceName])
 	if body == Katamari.get_node("KatamariBody") and shape == 0:
 		if Katamari.Size >= ObjectRollSize:
-			Katamari.grabObject(ObjectGrowSize, ObjectID)
 			get_node(InstanceName + "_M").material_override.albedo_texture = ObjectTexRoll
 			get_node(InstanceName + "_C").queue_free()
 			get_node(InstanceName + "_K").reparent(body, true)
 			get_node(InstanceName + "_M").reparent(body.get_node("KatamariMeshPivot"))
+			Katamari.grabObject(ObjectGrowSize, ObjectID, InstanceName)
 			body.get_parent().playRollSound()
 			queue_free()
 			return

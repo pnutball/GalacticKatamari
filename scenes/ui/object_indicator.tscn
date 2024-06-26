@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://de13ox2uw60n5"]
+[gd_scene load_steps=11 format=3 uid="uid://de13ox2uw60n5"]
 
 [ext_resource type="Script" path="res://scripts/object_indicator.gd" id="1_82c7h"]
 [ext_resource type="Texture2D" uid="uid://crciqojmttmtt" path="res://assets/textures/ui/object_view/object_view_bg.png" id="1_rp6eg"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cwck8s0w4tont" path="res://assets/textures/ui/object_view/object_view_mask.png" id="3_l7t3k"]
 [ext_resource type="PackedScene" uid="uid://dqojpyii1gskp" path="res://scenes/environment/env_preview.tscn" id="4_07xd1"]
 [ext_resource type="FontVariation" uid="uid://jimsv6e58fx7" path="res://assets/fonts/hud_small.tres" id="4_peft0"]
+[ext_resource type="Texture2D" uid="uid://xkm85sech75n" path="res://assets/textures/ui/object_view/object_point_line.png" id="7_xm5um"]
+[ext_resource type="Texture2D" uid="uid://bforuxlngb4mx" path="res://assets/textures/ui/object_view/object_point_dot.png" id="8_jlr4l"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nk3a2"]
 
@@ -110,3 +112,21 @@ bbcode_enabled = true
 text = "[rainbow sat=0.3 val=1 freq=0.5]"
 fit_content = true
 autowrap_mode = 0
+
+[node name="PointerLine" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="ObjectPointerLine" type="Line2D" parent="PointerLine"]
+texture_repeat = 2
+points = PackedVector2Array(136, 912, 1579, 457)
+width = 18.0
+texture = ExtResource("7_xm5um")
+texture_mode = 1
+begin_cap_mode = 1
+antialiased = true
+
+[node name="ObjectPointerDot" type="TextureRect" parent="PointerLine"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("8_jlr4l")

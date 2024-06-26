@@ -7,6 +7,7 @@
 			"roll_size": 0.6,
 			"pickup_size": 0.05,
 			"scale": 1,
+			"view_scale": 1,
 			"texture": "",
 			"texture_rolledup": "",
 			"name": {

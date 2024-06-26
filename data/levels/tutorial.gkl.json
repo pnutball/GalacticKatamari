@@ -100,22 +100,32 @@
 						"can_turn": true,
 						"can_dialogue_move": true
 					},
-					"goal": {
-						"type": "none",
-						"goal": 0,
-						"end_at_goal": false,
-						"point_objects": "",
+					"goal_type": 0,
+					"goal_type_size": {
+						"goal_minimum": 0,
+						"goal_100pts": 0,
+						"goal_120pts": 0,
+						"end_at_120pts": false
+					},
+					"goal_type_points": {
+						"goal_minimum": 0,
+						"goal_100pts": 0,
+						"goal_120pts": 0,
+						"end_at_120pts": false,
+						"point_objects": {},
 						"point_name": {
 							"en": ["{points} pts.", "{points} pt.", "{points} pts."]
 						}
 					},
-					"time": 90,
-					"ranking": {
-						"skip_results": false,
-						"size_super": -1,
-						"time_super": -1,
-						"point_super": -1
-					}
+					"goal_type_none":{
+						"show_object_count": false,
+						"can_quit_early": false,
+						"hide_ui": false
+					},
+					"time": 240,
+					"time_100pts": 0,
+					"time_120pts": 0,
+					"skip_results": false
 				}
 			}
 		}

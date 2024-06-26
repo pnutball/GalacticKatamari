@@ -439,10 +439,10 @@ func respawn(noAnimation:bool = false):
 		await create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 0, 0.25).finished
 	RoyalWarping = false
 
-func grabObject(ObjectSize:float, ObjectID:StringName):
+func grabObject(ObjectSize:float, ObjectID:StringName, ObjectInstance:StringName):
 	ObjectQueue.push_back(ObjectID)
 	Size += ObjectSize * GrowthMultiplier
-	$ObjectIndicator.push_object(ObjectID)
+	$ObjectIndicator.push_object(ObjectID, ObjectInstance, %KatamariCamera)
 	if ScoringList != {} and ScoringList.get(String(ObjectID)) != null:
 		Score += ScoringList.get(String(ObjectID))
 
