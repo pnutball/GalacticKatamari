@@ -142,7 +142,6 @@ func preloadArea(area:int = currentArea + 1):
 			await get_tree().create_timer(0.1).timeout
 		
 		instantiated.InstanceName = str(area) + "_" + str(num)
-		instantiated.ObjectName = objectList.get(object.id, objectList["debug_cube"]).name.get(TranslationServer.get_locale().get_slice("_", 0), objectList.get(object.id, "debug_cube").name.get("en", "MISSING STRING!"))
 		if ResourceLoader.exists(objectList.get(object.id, objectList["debug_cube"]).view_mesh): instantiated.ObjectMesh = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").view_mesh)
 		if ResourceLoader.exists(objectList.get(object.id, objectList["debug_cube"]).collision_mesh): instantiated.ObjectCol = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").collision_mesh)
 		instantiated.ObjectKnockSize = objectList.get(object.id, objectList["debug_cube"]).knock_size

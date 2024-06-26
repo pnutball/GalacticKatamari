@@ -4,7 +4,6 @@ extends AnimatableBody3D
 var Katamari
 @export var ObjectID:StringName = &"debug_cube"
 @export var InstanceName:StringName = &"XX"
-@export var ObjectName:String = "Debug Cube"
 @export var ObjectMesh:Mesh = load("res://assets/models/object/debug_cube_view.tres")
 @export var ObjectCol:Shape3D = load("res://assets/models/object/debug_cube.shape")
 @export var ObjectTex:Texture2D = preload("uid://bo151m2ckmef3")

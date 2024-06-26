@@ -312,7 +312,7 @@ transitions = ["Ouji_Idle", "Ouji_Roll", SubResource("AnimationNodeStateMachineT
 graph_offset = Vector2(-34.3785, -5.7588)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
-graph_offset = Vector2(-144.344, 22.35)
+graph_offset = Vector2(-104.526, 30.3168)
 nodes/MovementScale/node = SubResource("AnimationNodeTimeScale_7b822")
 nodes/MovementScale/position = Vector2(580, 60)
 nodes/TiredAdd/node = SubResource("AnimationNodeAdd2_85gch")
@@ -325,7 +325,7 @@ nodes/output/position = Vector2(980, 200)
 node_connections = [&"MovementScale", 0, &"WalkState", &"TiredAdd", 0, &"MovementScale", &"TiredAdd", 1, &"TiredAnim", &"output", 0, &"TiredAdd"]
 
 [node name="OujiView" type="Control"]
-process_mode = 3
+process_mode = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -363,6 +363,7 @@ fov = 35.9
 
 [node name="OujiAnimTree" type="AnimationTree" parent="OujiViewportContainer/SubViewport"]
 unique_name_in_owner = true
+process_mode = 1
 active = false
 root_node = NodePath("%OujiAnimTree/../Ouji")
 tree_root = SubResource("AnimationNodeBlendTree_5ly86")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b71c6sh4m0f5e"]
+[gd_scene load_steps=48 format=3 uid="uid://b71c6sh4m0f5e"]
 
 [ext_resource type="Script" path="res://scripts/katamari_controllable.gd" id="1_k6077"]
 [ext_resource type="Curve" uid="uid://cqv88nsvwy1k" path="res://data/katamari_physics_curve.tres" id="2_dth00"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bfk4h2p6ortti" path="res://scenes/ui/ouji_view.tscn" id="11_ystjj"]
 [ext_resource type="PackedScene" uid="uid://c2n7fqkxxktdj" path="res://scenes/ui/pause.tscn" id="13_8548j"]
 [ext_resource type="PackedScene" uid="uid://dvsu0c77oxyp" path="res://scenes/ui/size_meter.tscn" id="15_5xjs0"]
+[ext_resource type="PackedScene" uid="uid://de13ox2uw60n5" path="res://scenes/ui/object_indicator.tscn" id="16_quent"]
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qviqp"]
 dof_blur_far_enabled = true
@@ -554,9 +555,9 @@ anchors_preset = -1
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 32.0
-offset_top = -365.0
+offset_top = -585.0
 offset_right = 307.0
-offset_bottom = -32.0
+offset_bottom = -252.0
 grow_vertical = 0
 pivot_offset = Vector2(40, 22)
 text = "x:
@@ -568,18 +569,6 @@ Vz:
 Vr:"
 label_settings = SubResource("LabelSettings_8467r")
 vertical_alignment = 2
-
-[node name="Label4" type="Label" parent="Debug"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = 32.0
-offset_top = 32.0
-offset_right = 307.0
-offset_bottom = 125.0
-pivot_offset = Vector2(40, 22)
-text = "size: 
-damp:"
-label_settings = SubResource("LabelSettings_8467r")
 
 [node name="KatamariZoomAudio" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
@@ -610,6 +599,8 @@ texture = SubResource("ViewportTexture_l3wab")
 z_index = 1
 
 [node name="SizeMeter" parent="." instance=ExtResource("15_5xjs0")]
+
+[node name="ObjectIndicator" parent="." instance=ExtResource("16_quent")]
 
 [connection signal="body_entered" from="FloorBumpDetect" to="." method="_on_floor_bump"]
 [connection signal="body_entered" from="WallBumpDetect" to="." method="_on_wall_bump"]

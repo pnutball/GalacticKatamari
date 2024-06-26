@@ -195,7 +195,6 @@ func _process(delta):
 	$Debug/StickDisplay/Label.rotation = StickAngle + (PI/2)
 	$Debug/StickDisplay/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
 	$Debug/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f\nVr:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z, ($KatamariBody.linear_velocity*Vector3(1,0,1)).length()]
-	$Debug/Label4.text = "size:%dm%02dcm%01dmm\ndamp:%f" % [floori(Size), floori(Size * 100) % 100, floori(Size * 1000) % 10, $KatamariBody.linear_damp]
 	$Debug/StickDisplay/DashChargeBar.value = DashCharge
 	$Debug/StickDisplay/DashTireBar.value = DashFatigue
 
@@ -220,14 +219,16 @@ func _physics_process(delta):
 	#$FloorBumpDetect.position = $KatamariBody.position + (0.3 * Vector3.DOWN * Size)
 	$KatamariBody/FloorBumpCast.scale = Vector3.ONE * Size * $"..".scale.y
 	$KatamariBody/FloorBumpCast.position = Vector3.DOWN * 2.5 * Size
-	$FloorBumpDetect.global_position = $KatamariBody/FloorBumpCast.get_collision_point(0) + (0.1 * Vector3.UP * Size)
+	if $KatamariBody/FloorBumpCast.get_collision_count() > 0:
+		$FloorBumpDetect.global_position = $KatamariBody/FloorBumpCast.get_collision_point(0) + (0.1 * Vector3.UP * Size)
 	
 	$WallBumpDetect/WallBumpCollide.scale = Vector3.ONE * Size
 	#$WallBumpDetect.position = $KatamariBody.position + (0.2 * (($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() if $KatamariBody.linear_velocity.length() > 0 else Vector3.ZERO) * Size)
 	$KatamariBody/WallBumpCast.scale = Vector3.ONE * Size * $"..".scale.y
 	$KatamariBody/WallBumpCast.position = (2.5 * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() * Size)
 	$KatamariBody/WallBumpCast.target_position = (-2.5 * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() * Size)
-	$WallBumpDetect.global_position = ($KatamariBody/WallBumpCast.get_collision_point(0) - (0.2 * Size * $"..".scale.y * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized())) if $KatamariBody.linear_velocity.length() > 0 else $KatamariBody.global_position
+	if $KatamariBody/WallBumpCast.get_collision_count() > 0:
+		$WallBumpDetect.global_position = ($KatamariBody/WallBumpCast.get_collision_point(0) - (0.2 * Size * $"..".scale.y * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized())) if $KatamariBody.linear_velocity.length() > 0 else $KatamariBody.global_position
 	
 	$KatamariBody.center_of_mass = Vector3(0, Size*-0.5, 0) * $"..".scale.y
 	
@@ -236,7 +237,8 @@ func _physics_process(delta):
 	$KatamariBody/WallClimbCast.scale = Vector3.ONE * Size * $"..".scale.y
 	$KatamariBody/WallClimbCast.position = (2.5 * (Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size)
 	$KatamariBody/WallClimbCast.target_position = (-2.5 * (Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size)
-	$WallClimbDetect.global_position = $KatamariBody/WallClimbCast.get_collision_point(0) - Vector3(0, 0.35 * Size * $"..".scale.y, 0) - ((0.15 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size * $"..".scale.y)
+	if $KatamariBody/WallClimbCast.get_collision_count() > 0:
+		$WallClimbDetect.global_position = $KatamariBody/WallClimbCast.get_collision_point(0) - Vector3(0, 0.35 * Size * $"..".scale.y, 0) - ((0.15 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size * $"..".scale.y)
 	
 	# Rotate katamari model
 	var zRot:float = ($KatamariBody.linear_velocity.x * -PI / $"..".scale.x * delta) / (Size * 1.15)
@@ -440,6 +442,7 @@ func respawn(noAnimation:bool = false):
 func grabObject(ObjectSize:float, ObjectID:StringName):
 	ObjectQueue.push_back(ObjectID)
 	Size += ObjectSize * GrowthMultiplier
+	$ObjectIndicator.push_object(ObjectID)
 	if ScoringList != {} and ScoringList.get(String(ObjectID)) != null:
 		Score += ScoringList.get(String(ObjectID))
 

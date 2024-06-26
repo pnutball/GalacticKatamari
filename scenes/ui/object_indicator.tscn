@@ -1,0 +1,112 @@
+[gd_scene load_steps=9 format=3 uid="uid://de13ox2uw60n5"]
+
+[ext_resource type="Script" path="res://scripts/object_indicator.gd" id="1_82c7h"]
+[ext_resource type="Texture2D" uid="uid://crciqojmttmtt" path="res://assets/textures/ui/object_view/object_view_bg.png" id="1_rp6eg"]
+[ext_resource type="StyleBox" uid="uid://bvf3assm4mybr" path="res://assets/textures/ui/object_view/object_label_box.tres" id="3_16y6i"]
+[ext_resource type="Texture2D" uid="uid://cwck8s0w4tont" path="res://assets/textures/ui/object_view/object_view_mask.png" id="3_l7t3k"]
+[ext_resource type="PackedScene" uid="uid://dqojpyii1gskp" path="res://scenes/environment/env_preview.tscn" id="4_07xd1"]
+[ext_resource type="FontVariation" uid="uid://jimsv6e58fx7" path="res://assets/fonts/hud_small.tres" id="4_peft0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nk3a2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qogmg"]
+transparency = 1
+metallic_specular = 0.0
+
+[node name="ObjectIndicator" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_82c7h")
+
+[node name="Offset" type="Control" parent="."]
+custom_minimum_size = Vector2(150, 190)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = -238.0
+offset_right = 210.0
+offset_bottom = -48.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Background" type="TextureRect" parent="Offset"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -71.0
+offset_right = 71.0
+offset_bottom = 142.0
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("1_rp6eg")
+
+[node name="3DMask" type="TextureRect" parent="Offset/Background"]
+clip_children = 1
+y_sort_enabled = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_l7t3k")
+
+[node name="3DView" type="SubViewportContainer" parent="Offset/Background/3DMask"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="3DViewport" type="SubViewport" parent="Offset/Background/3DMask/3DView"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+msaa_3d = 3
+size = Vector2i(142, 142)
+render_target_update_mode = 0
+
+[node name="ObjectMesh" type="MeshInstance3D" parent="Offset/Background/3DMask/3DView/3DViewport"]
+transform = Transform3D(0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, 0.819152, 0, 0, 0)
+mesh = SubResource("BoxMesh_nk3a2")
+surface_material_override/0 = SubResource("StandardMaterial3D_qogmg")
+
+[node name="Camera3D" type="Camera3D" parent="Offset/Background/3DMask/3DView/3DViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 1.09881, 2.3564)
+fov = 55.0
+
+[node name="EnvPreview" parent="Offset/Background/3DMask/3DView/3DViewport" instance=ExtResource("4_07xd1")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0)
+
+[node name="TextPanel" type="PanelContainer" parent="Offset"]
+visible = false
+layout_mode = 0
+offset_left = 67.0
+offset_top = 145.0
+offset_right = 83.0
+offset_bottom = 190.0
+theme_override_styles/panel = ExtResource("3_16y6i")
+
+[node name="Text" type="RichTextLabel" parent="Offset/TextPanel"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("4_peft0")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[rainbow sat=0.3 val=1 freq=0.5]"
+fit_content = true
+autowrap_mode = 0

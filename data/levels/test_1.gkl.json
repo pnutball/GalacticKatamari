@@ -411,7 +411,7 @@
 						"can_turn": true,
 						"can_dialogue_move": true
 					},
-					"goal_type": 2,
+					"goal_type": 1,
 					"goal_type_size": {
 						"goal_minimum": 2,
 						"goal_100pts": 6,
@@ -435,7 +435,7 @@
 						"can_quit_early": false,
 						"hide_ui": false
 					},
-					"time": 0,
+					"time": 240,
 					"time_100pts": 0,
 					"time_120pts": 0,
 					"skip_results": false

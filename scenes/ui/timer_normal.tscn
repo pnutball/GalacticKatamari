@@ -95,11 +95,13 @@ deterministic = true
 libraries = {
 "": ExtResource("5_tucfh")
 }
+speed_scale = 0.0
 
 [node name="TimerScrollAnimation" type="AnimationPlayer" parent="."]
 libraries = {
 "": ExtResource("6_uugll")
 }
+autoplay = "Scroll"
 
 [node name="TimerAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_3jco8")

@@ -81,6 +81,10 @@ func get_maximum_time(format:String = "%d:%d", secondsFirst:bool = false):
 func _ready():
 	$TimerAnimation.animation_set_next(&"MinuteSpin", &"SecondSpin_Transition")
 	$TimerAnimation.animation_set_next(&"SecondSpin_Transition", &"SecondSpin")
+	if time >= 60:
+		$TimerBody/TimerText.text = str(ceili(time/60))
+	elif time > 0:
+		$TimerBody/TimerText.text = str(floori(time))
 
 func _process(delta):
 	

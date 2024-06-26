@@ -37,6 +37,8 @@ var players:Array[Array] = [
 	[01, "Player 1"]
 ]
 
+var collectedObjects:Array[StringName] = []
+
 var lastWindowMode:int = Window.MODE_WINDOWED
 
 func _input(_event):
