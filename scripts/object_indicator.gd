@@ -14,12 +14,16 @@ var object_list:Dictionary = load("res://data/objects.json").data["objects"]
 	get: return in_danger
 	set(new):
 		in_danger = new
+		$Offset/Background/DangerSpinEffect.visible = new
 		if new:
 			$Offset/Background.texture = BG_DANGER
 			$Offset/TextPanel.set("theme_override_styles/panel", BOX_DANGER)
+			$WarnAudio.play()
+			
 		else:
 			$Offset/Background.texture = BG_NORMAL
 			$Offset/TextPanel.set("theme_override_styles/panel", BOX_NORMAL)
+			$WarnAudio.stop()
 
 var text_interrupted:bool = false
 
@@ -38,6 +42,9 @@ func _process(delta):
 	$Offset/TextPanel.visible = object_displayed
 	%"3DView".visible = object_displayed
 	$PointerLine.visible = object_displayed
+	$Offset/Background/DangerArrow.visible = in_danger and not object_displayed
+	if in_danger: $Offset/Background/DangerSpinEffect.rotation += (PI*4) * delta
+	
 	if pointer_line_target != null and not is_zero_approx(clampf((object_display_timer - 4.75) * 4,0,1)):
 		var endpoint:Vector2 = pointer_line_camera.unproject_position(pointer_line_target.global_position)
 		var start_base:Vector2 = $Offset/Background.global_position + (Vector2.ONE * 71)

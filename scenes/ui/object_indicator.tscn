@@ -1,13 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://de13ox2uw60n5"]
+[gd_scene load_steps=14 format=3 uid="uid://de13ox2uw60n5"]
 
 [ext_resource type="Script" path="res://scripts/object_indicator.gd" id="1_82c7h"]
 [ext_resource type="Texture2D" uid="uid://crciqojmttmtt" path="res://assets/textures/ui/object_view/object_view_bg.png" id="1_rp6eg"]
 [ext_resource type="StyleBox" uid="uid://bvf3assm4mybr" path="res://assets/textures/ui/object_view/object_label_box.tres" id="3_16y6i"]
+[ext_resource type="Texture2D" uid="uid://ca41yenpydmmu" path="res://assets/textures/ui/object_view/object_view_danger_radar.png" id="3_jjvay"]
 [ext_resource type="Texture2D" uid="uid://cwck8s0w4tont" path="res://assets/textures/ui/object_view/object_view_mask.png" id="3_l7t3k"]
 [ext_resource type="PackedScene" uid="uid://dqojpyii1gskp" path="res://scenes/environment/env_preview.tscn" id="4_07xd1"]
 [ext_resource type="FontVariation" uid="uid://jimsv6e58fx7" path="res://assets/fonts/hud_small.tres" id="4_peft0"]
+[ext_resource type="Texture2D" uid="uid://b5s6imj42yi85" path="res://assets/textures/ui/object_view/object_view_danger_arrow.png" id="6_q6cs7"]
 [ext_resource type="Texture2D" uid="uid://xkm85sech75n" path="res://assets/textures/ui/object_view/object_point_line.png" id="7_xm5um"]
 [ext_resource type="Texture2D" uid="uid://bforuxlngb4mx" path="res://assets/textures/ui/object_view/object_point_dot.png" id="8_jlr4l"]
+[ext_resource type="AudioStream" uid="uid://coxuk5diih87k" path="res://assets/sounds/game/look_out.wav" id="11_fvm7v"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nk3a2"]
 
@@ -49,6 +52,14 @@ offset_bottom = 142.0
 grow_horizontal = 2
 mouse_filter = 2
 texture = ExtResource("1_rp6eg")
+
+[node name="DangerSpinEffect" type="TextureRect" parent="Offset/Background"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+pivot_offset = Vector2(71, 71)
+texture = ExtResource("3_jjvay")
 
 [node name="3DMask" type="TextureRect" parent="Offset/Background"]
 clip_children = 1
@@ -92,6 +103,13 @@ fov = 55.0
 [node name="EnvPreview" parent="Offset/Background/3DMask/3DView/3DViewport" instance=ExtResource("4_07xd1")]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0)
 
+[node name="DangerArrow" type="TextureRect" parent="Offset/Background"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_q6cs7")
+
 [node name="TextPanel" type="PanelContainer" parent="Offset"]
 visible = false
 layout_mode = 0
@@ -130,3 +148,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("8_jlr4l")
+
+[node name="WarnAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_fvm7v")
+bus = &"SFX"
