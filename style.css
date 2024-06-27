@@ -51,13 +51,6 @@ html.disable-scroll, body.disable-scroll {
   }
 }
 
-@media all and (orientation:portrait) and (max-width:1024px) {
-  #copyright {
-    width: 1024px;
-	height: 216px;
-  }
-}
-
 #entrance-banner {
 	animation-name: float;
 	animation-duration: 4s;
