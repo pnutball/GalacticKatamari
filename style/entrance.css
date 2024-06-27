@@ -1,0 +1,70 @@
+@keyframes float {
+  from	{
+	-ms-transform: translateY(calc(-50% + 16px)) translateX(-50%);
+	transform: translateY(calc(-50% + 16px)) translateX(-50%);
+  }
+  to	{
+	-ms-transform: translateY(calc(-50% - 16px)) translateX(-50%);
+	transform: translateY(calc(-50% - 16px)) translateX(-50%);
+	
+  }
+}
+
+#entrance-banner {
+	animation-name: float;
+	animation-duration: 4s;
+	animation-delay: -2s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+#copyright {
+	margin: 0;
+	position: absolute;
+	left: 0%;
+	bottom: 0%;
+}
+
+div#copyright {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+#copyright img {
+	object-fit: contain;
+	align-self: flex-end;
+}
+
+#entrance-king {
+	margin: 0;
+	position: absolute;
+	bottom: 0%;
+	right: 0%;
+}
+
+@media (max-width: 465px) {
+	#entrance-king {
+		left: 50%;
+		-ms-transform: translateX(-50%);
+		transform: translateX(-50%);
+	}
+}
+
+@keyframes slide {
+  from	{
+	left: 100%;
+  }
+  to	{
+	left: -300px;
+  }
+}
+
+.cloud-decoration {
+	animation-name: slide;
+	animation-duration: 20s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	margin: 0;
+	position: absolute;
+}
