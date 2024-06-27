@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=34 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://editor/objectbrowse_script.gd" id="18_vcg6u"]
 [ext_resource type="Texture2D" uid="uid://d1c07jxwmy0mv" path="res://editor/icons/object.png" id="19_2w5lp"]
 [ext_resource type="PackedScene" uid="uid://dqojpyii1gskp" path="res://scenes/environment/env_preview.tscn" id="20_n41lb"]
+[ext_resource type="Texture2D" uid="uid://bqg13pg72kt63" path="res://editor/icons/grid_snap.png" id="22_yl2et"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmqy0"]
 bg_color = Color(0.00784314, 0.0705882, 0.329412, 1)
@@ -281,7 +282,6 @@ clip_contents = true
 custom_minimum_size = Vector2(480, 270)
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 0
 stretch = true
 script = ExtResource("17_qjlcr")
 
@@ -304,7 +304,8 @@ text = "Reload Spawns"
 [node name="ViewPort" type="SubViewport" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView"]
 own_world_3d = true
 handle_input_locally = false
-size = Vector2i(480, 270)
+physics_object_picking = true
+size = Vector2i(1622, 732)
 render_target_update_mode = 4
 
 [node name="EditorPrevRoot" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/ViewPort"]
@@ -319,11 +320,42 @@ render_target_update_mode = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
 layout_mode = 2
-alignment = 1
+
+[node name="SnapButton" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+toggle_mode = true
+button_pressed = true
+text = "Snap"
+icon = ExtResource("22_yl2et")
+
+[node name="SnapValueTranslate" type="SpinBox" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+min_value = 0.001
+step = 0.001
+value = 0.1
+allow_greater = true
+prefix = "Move:"
+suffix = "m"
+
+[node name="SnapValueRotate" type="SpinBox" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+min_value = 0.001
+max_value = 90.0
+step = 0.001
+value = 45.0
+prefix = "Rotate:"
+suffix = "º"
 
 [node name="PlayButton" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 6
 disabled = true
 text = "Play"
 icon = ExtResource("14_y8cnk")
@@ -372,7 +404,7 @@ unique_name_in_owner = true
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(144, 144)
 render_target_update_mode = 4
 
 [node name="EnvPreview" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/ObjectPreviewContainer/PreviewViewport" instance=ExtResource("20_n41lb")]

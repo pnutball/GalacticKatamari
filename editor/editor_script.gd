@@ -4,6 +4,10 @@ var PlayMode:bool = false
 var changed:bool = false
 var currentFile:String = ""
 
+var snap_enabled:bool = true
+var snap_move:float = 0.1
+var snap_angle:float = PI/4
+
 signal SavePanelResponse(response:int)
 signal FileDialogResponse(response:String)
 
@@ -14,6 +18,7 @@ func emitSaveResponse(id:int = 0): SavePanelResponse.emit(id)
 func _ready():
 	OS.low_processor_usage_mode = true
 	get_tree().auto_accept_quit = false
+	GKOverlays.visible = false
 	%StatusBar/StatusLabel.text = "GK Editor (%s %s)" % ["64-bit" if "64" in Engine.get_architecture_name() else "32-bit", OS.get_name()]
 	get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	get_tree().root.get_node("FPSCounter").visible = false
@@ -27,6 +32,10 @@ func _ready():
 	%EditorView.visible = true
 
 func _process(_delta):
+	if not PlayMode:
+		snap_angle = deg_to_rad(%SnapValueRotate.value)
+		snap_move = %SnapValueTranslate.value
+		snap_enabled = %SnapButton.button_pressed
 	%StatusBar/FPSLabel.text = "%d FPS" % [Engine.get_frames_per_second()]
 	%GameView.position = Vector2i(%EditorView.get_global_rect().position)
 	%GameView.size = Vector2i(%EditorView.size)
@@ -39,6 +48,7 @@ func _process(_delta):
 func returnToDebug():
 	if await confirmQuit() == true:
 		OS.low_processor_usage_mode = false
+		GKOverlays.visible = true
 		get_tree().auto_accept_quit = true
 		get_window().title = "Galactic Katamari"
 		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS

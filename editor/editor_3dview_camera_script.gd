@@ -20,8 +20,8 @@ func disable_clicks():
 	RightClick = false
 	MiddleClick = false
 
-func input(event):
-	if event is InputEventMouseMotion:
+func _input(event):
+	if event is InputEventMouseMotion and (RightClick or MiddleClick) and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		MouseVelocity = event.relative#.posmodv(Vector2(get_viewport().size))
 		#print(MouseVelocity)
 	if event is InputEventMouseButton:
@@ -36,7 +36,7 @@ func input(event):
 func _process(delta):
 	MousePosition = get_viewport().get_mouse_position()
 	
-	if (MiddleClick or RightClick):
+	if (MiddleClick or RightClick) and not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		if MiddleClick:
 			if Input.is_key_pressed(KEY_SHIFT):
 				# Pan camera

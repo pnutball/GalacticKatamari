@@ -1,45 +1,42 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkehn05aprooe"]
+[gd_scene load_steps=12 format=3 uid="uid://dkehn05aprooe"]
 
 [ext_resource type="Script" path="res://editor/3d_items/3d_view_spawn_script.gd" id="1_jjrq0"]
 [ext_resource type="PackedScene" uid="uid://cwxpkbdnvlvw0" path="res://assets/ouji/OUJI_HOLDER.glb" id="1_xy1ps"]
+[ext_resource type="Shader" path="res://editor/3d_items/gizmo.gdshader" id="3_25ffb"]
 [ext_resource type="ArrayMesh" uid="uid://beskhtc8fh5g2" path="res://editor/3d_items/rotate_gizmo.obj" id="3_b3hlg"]
 [ext_resource type="ArrayMesh" uid="uid://ch1iinygqwaqo" path="res://editor/3d_items/translate_gizmo.obj" id="4_4r4wi"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5l5dm"]
-shading_mode = 0
-albedo_color = Color(0.57429, 0.81, 0.0243, 1)
-texture_filter = 0
-texture_repeat = false
-disable_receive_shadows = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yit87"]
+render_priority = 0
+shader = ExtResource("3_25ffb")
+shader_parameter/color = Color(0.572549, 0.811765, 0.0235294, 1)
+shader_parameter/selected = false
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_mjinf"]
 height = 0.03
 radius = 0.335
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4c2x"]
-shading_mode = 0
-albedo_color = Color(0.81, 0.0243, 0.20763, 1)
-texture_filter = 0
-texture_repeat = false
-disable_receive_shadows = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tg3n7"]
+render_priority = 0
+shader = ExtResource("3_25ffb")
+shader_parameter/color = Color(0.811765, 0.0235294, 0.207843, 1)
+shader_parameter/selected = false
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_d6qq7"]
 height = 0.21
 radius = 0.04
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aexpy"]
-shading_mode = 0
-albedo_color = Color(0.57429, 0.81, 0.0243, 1)
-texture_filter = 0
-texture_repeat = false
-disable_receive_shadows = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u107l"]
+render_priority = 0
+shader = ExtResource("3_25ffb")
+shader_parameter/color = Color(0.572549, 0.811765, 0.0235294, 1)
+shader_parameter/selected = false
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arevr"]
-shading_mode = 0
-albedo_color = Color(0.0243, 0.52191, 0.81, 1)
-texture_filter = 0
-texture_repeat = false
-disable_receive_shadows = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0fdvc"]
+render_priority = 0
+shader = ExtResource("3_25ffb")
+shader_parameter/color = Color(0.0235294, 0.521569, 0.811765, 1)
+shader_parameter/selected = false
 
 [node name="3DViewSpawn" type="Node3D"]
 script = ExtResource("1_jjrq0")
@@ -49,40 +46,46 @@ transform = Transform3D(-7.95547e-07, 0, -18.2, 0, 18.2, 0, 18.2, 0, -7.95547e-0
 
 [node name="Gizmos" type="Node3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.5, 0)
-top_level = true
 
 [node name="GizmoRotY" type="MeshInstance3D" parent="Gizmos"]
-material_override = SubResource("StandardMaterial3D_5l5dm")
+visible = false
+material_override = SubResource("ShaderMaterial_yit87")
 cast_shadow = 0
 mesh = ExtResource("3_b3hlg")
 skeleton = NodePath("../..")
 
 [node name="Detect" type="Area3D" parent="Gizmos/GizmoRotY"]
+collision_layer = 4096
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gizmos/GizmoRotY/Detect"]
 shape = SubResource("CylinderShape3D_mjinf")
 
 [node name="GizmoTraX" type="MeshInstance3D" parent="Gizmos"]
 transform = Transform3D(-4.37114e-08, 0, -1, -1, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 0, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_g4c2x")
+material_override = SubResource("ShaderMaterial_tg3n7")
 cast_shadow = 0
 mesh = ExtResource("4_4r4wi")
 skeleton = NodePath("../..")
 
 [node name="Detect" type="Area3D" parent="Gizmos/GizmoTraX"]
+collision_layer = 4096
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gizmos/GizmoTraX/Detect"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.45)
 shape = SubResource("CylinderShape3D_d6qq7")
 
 [node name="GizmoTraY" type="MeshInstance3D" parent="Gizmos"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_aexpy")
+material_override = SubResource("ShaderMaterial_u107l")
 cast_shadow = 0
 mesh = ExtResource("4_4r4wi")
 skeleton = NodePath("../..")
 
 [node name="Detect" type="Area3D" parent="Gizmos/GizmoTraY"]
+collision_layer = 4096
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gizmos/GizmoTraY/Detect"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.45)
@@ -90,13 +93,19 @@ shape = SubResource("CylinderShape3D_d6qq7")
 
 [node name="GizmoTraZ" type="MeshInstance3D" parent="Gizmos"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_arevr")
+material_override = SubResource("ShaderMaterial_0fdvc")
 cast_shadow = 0
 mesh = ExtResource("4_4r4wi")
 skeleton = NodePath("../..")
 
 [node name="Detect" type="Area3D" parent="Gizmos/GizmoTraZ"]
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gizmos/GizmoTraZ/Detect"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.45, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.45)
 shape = SubResource("CylinderShape3D_d6qq7")
+
+[connection signal="input_event" from="Gizmos/GizmoTraX/Detect" to="." method="_tra_x_clicked" unbinds=5]
+[connection signal="input_event" from="Gizmos/GizmoTraY/Detect" to="." method="_tra_y_clicked" unbinds=5]
+[connection signal="input_event" from="Gizmos/GizmoTraZ/Detect" to="." method="_tra_z_clicked" unbinds=5]

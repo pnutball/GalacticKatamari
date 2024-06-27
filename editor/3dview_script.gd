@@ -58,4 +58,5 @@ func reload_all():
 			$ViewPort/EditorPrevRoot/objects.add_child(ViewObj)
 
 func _gui_input(event):
-	$ViewPort/EditorPrevRoot/EditorCamera.input(event)
+	pass
+	#$ViewPort/EditorPrevRoot/EditorCamera.input(event)
