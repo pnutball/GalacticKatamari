@@ -2,10 +2,13 @@ extends Node3D
 
 @onready var editor:Control = get_node("/root/EditorRoot")
 @onready var camera:Camera3D = get_node("/root/EditorRoot/BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/ViewPort/EditorPrevRoot/EditorCamera/Camera3D")
+@onready var tree:Tree = get_node("/root/EditorRoot/BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/LevelTree")
 
 ## The source tree object used for this 3D spawn.
 @export var Source:GKEditorTreeSpawn = null
+@export var selected:bool = false
 var old_position:Vector3 = position
+var old_rotation:Vector3 = rotation
 
 enum Direction {X, Y, Z}
 enum TransformType {Translate, Rotate}
@@ -14,6 +17,7 @@ var dragging:bool = false
 var drag_direction:Direction = Direction.X
 var drag_type:TransformType = TransformType.Translate
 var drag_normal:Vector2 = Vector2.ZERO
+var drag_rot_mult:int = 0
 var mouse_velocity:Vector2 = Vector2.ZERO
 var mouse_velocity_combined:Vector2 = Vector2.ZERO
 
@@ -40,11 +44,23 @@ func _process(_delta):
 			var distance_3D:Vector3 = 0.0075 * magnitude_3D
 			if editor.snap_enabled: distance_3D = snapped(distance_3D, Vector3.ONE * editor.snap_move)
 			position = old_position + distance_3D
+		else:
+			var angle:float = mouse_velocity_combined.rotated(-(drag_normal.angle())).angle() * -drag_rot_mult
+			if editor.snap_enabled: angle = snappedf(angle, editor.snap_angle)
+			var final_rotation:Vector3
+			if drag_direction == Direction.X: final_rotation = old_rotation + (Vector3.RIGHT * angle)
+			elif drag_direction == Direction.Y: final_rotation = old_rotation + (Vector3.UP * angle)
+			else: final_rotation = old_rotation + (Vector3.BACK * angle)
+			$Visual.rotation = final_rotation
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			Source.position = position
 			Source.rotation = rad_to_deg($Visual.rotation.y) + 90
 			dragging = false
+			editor._on_treeprop_change_made()
+			editor._reload_properties_panel()
 	mouse_velocity = Vector2.ZERO
+	if selected and tree.get_selected() != Source.synced_tree_item:
+		deselect()
 
 func begin_translate(direction:Direction):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not dragging:
@@ -61,9 +77,49 @@ func begin_translate(direction:Direction):
 		drag_type = TransformType.Translate
 		dragging = true
 
+func begin_rotate(direction:Direction):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and not dragging:
+		get_viewport().set_input_as_handled()
+		old_rotation = $Visual.rotation
+		drag_direction = direction
+		mouse_velocity_combined = camera.get_parent().get_parent().get_parent().get_mouse_position() - camera.unproject_position($Gizmos.global_position)
+		drag_normal = mouse_velocity_combined.normalized()
+		if direction == Direction.X: 
+			drag_rot_mult = signf(Vector2.UP.rotated(-(camera.global_rotation.y)).x)
+		elif direction == Direction.Z: 
+			drag_rot_mult = signf(Vector2.RIGHT.rotated(-(camera.global_rotation.y)).x)
+		else: 
+			drag_rot_mult = signf(-(camera.global_rotation.x))
+		drag_type = TransformType.Rotate
+		dragging = true
+
+func select():
+	if not selected:
+		selected = true
+		$Visual/OUJI_HOLDER.material_override.set("shader_parameter/selected", true)
+		$Gizmos.visible = true
+		if tree.get_selected() != Source.synced_tree_item:
+			tree.set_selected(Source.synced_tree_item, 0)
+
+func deselect():
+	if selected:
+		selected = false
+		$Visual/OUJI_HOLDER.material_override.set("shader_parameter/selected", false)
+		$Gizmos.visible = false
+
+
+
 func _tra_x_clicked(): begin_translate(Direction.X)
 func _tra_y_clicked(): begin_translate(Direction.Y)
 func _tra_z_clicked(): begin_translate(Direction.Z)
+func _rot_x_clicked(): begin_rotate(Direction.X)
+func _rot_y_clicked(): begin_rotate(Direction.Y)
+func _rot_z_clicked(): begin_rotate(Direction.Z)
 
 func _gizmo_hover(node:MeshInstance3D, hovered:bool):
 	node.material_override.set("shader_parameter/selected", hovered)
+
+
+func _on_object_input(_camera, event, _position, _normal, _shape_idx):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		select()

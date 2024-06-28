@@ -176,6 +176,8 @@ func _on_level_tree_item_selected():
 			%ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object.disabled = true
 		#property.send_properties(%PropertiesPanel)
 		%"Inspector".set_object(property)
+		if property is GKEditorTreeSpawn:
+			property.linked_3d.select()
 		$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 
 func openDict(dict:Dictionary):

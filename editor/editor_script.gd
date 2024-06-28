@@ -36,6 +36,7 @@ func _process(_delta):
 		snap_angle = deg_to_rad(%SnapValueRotate.value)
 		snap_move = %SnapValueTranslate.value
 		snap_enabled = %SnapButton.button_pressed
+		%SnapButton.icon = preload("res://editor/icons/grid_snap_on.png") if snap_enabled else preload("res://editor/icons/grid_snap.png")
 	%StatusBar/FPSLabel.text = "%d FPS" % [Engine.get_frames_per_second()]
 	%GameView.position = Vector2i(%EditorView.get_global_rect().position)
 	%GameView.size = Vector2i(%EditorView.size)
@@ -150,6 +151,8 @@ func _on_play_button_pressed():
 	$BGPanel/MarginContainer/EditorVBox/SplitMain.collapsed = PlayMode
 	%SplitLeft.dragger_visibility = SplitContainer.DRAGGER_HIDDEN if PlayMode else SplitContainer.DRAGGER_VISIBLE
 	%Create.visible = not PlayMode
+	for child in %HBoxContainer.get_children():
+		if child != %PlayButton: child.visible = not PlayMode
 	if PlayMode:
 		%PlayButton.text = "Stop"
 		%PlayButton.icon = preload("res://editor/icons/stop.png")
@@ -189,3 +192,6 @@ func _on_help_menu_id_pressed(id):
 	if not $BlockingOverlay.visible:
 		match id:
 			1: %DialogueTagHelpWindow.visible = true
+
+func _reload_properties_panel():
+	%Inspector.update_inspector()
