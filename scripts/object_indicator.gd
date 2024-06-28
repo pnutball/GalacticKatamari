@@ -37,6 +37,9 @@ var pointer_line_target:MeshInstance3D = null
 @onready var pointer_line_camera:Camera3D = $"../SubViewport/KatamariCameraPivot/KatamariCamera"
 
 func _process(delta):
+	# Absolute shitty fucking hack. i hate this.
+	position = Vector2.ZERO
+	size = get_viewport().size * (1080.0 / get_viewport().size.y)
 	object_display_timer -= delta
 	%"3DView/3DViewport/ObjectMesh".rotation.y = -0.6109 - (-PI/4 * object_display_timer)
 	$Offset/TextPanel.visible = object_displayed
