@@ -305,7 +305,7 @@ text = "Reload Spawns"
 own_world_3d = true
 handle_input_locally = false
 physics_object_picking = true
-size = Vector2i(1622, 732)
+size = Vector2i(480, 270)
 render_target_update_mode = 4
 
 [node name="EditorPrevRoot" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/ViewPort"]
@@ -405,7 +405,7 @@ unique_name_in_owner = true
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(144, 144)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="EnvPreview" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/ObjectPreviewContainer/PreviewViewport" instance=ExtResource("20_n41lb")]
@@ -415,6 +415,7 @@ material_override = SubResource("StandardMaterial3D_0gkeu")
 
 [node name="Camera3D" type="Camera3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/ObjectPreviewContainer/PreviewViewport"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0.25, 0.433013)
+current = true
 
 [node name="ObjectScroll" type="ScrollContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser"]
 layout_mode = 2
@@ -530,6 +531,7 @@ Would you like to save?"
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/SizeArea" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [3]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Spawn" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [6]]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/TreePanel/Create/Static" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft" method="_on_create_id_pressed" binds= [4]]
+[connection signal="object_changed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitLeft/PropertiesScroll/Inspector" to="." method="_on_treeprop_change_made"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/HBoxContainer/Button" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_statics"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/HBoxContainer/Button2" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_objects"]
 [connection signal="pressed" from="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/HBoxContainer/Button3" to="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView" method="reload_spawns"]

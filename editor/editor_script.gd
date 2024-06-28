@@ -175,7 +175,7 @@ func _notification(what):
 			_on_play_button_pressed()
 		returnToDesktop()
 
-func _on_treeprop_change_made():
+func _on_treeprop_change_made(_object = null):
 	changed = true
 
 func _on_file_menu_id_pressed(id):
