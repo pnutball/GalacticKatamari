@@ -1,4 +1,5 @@
 @icon("res://Rollable3D.svg")
+class_name RollableObject3D
 extends AnimatableBody3D
 
 var Katamari
@@ -14,7 +15,8 @@ var Katamari
 
 func _ready():
 	$RollableObjectMesh.mesh = ObjectMesh
-	$RollableObjectMesh.material_override.albedo_texture = ObjectTex
+	$RollableObjectMesh.material_override.set("shader_parameter/Texture", ObjectTex)
+	$RollableObjectMesh.material_override.set("shader_parameter/Texture_Rolled", ObjectTexRoll)
 	$RollableObjectCollision.shape = ObjectCol
 	$OnKatamariCollisionShape.shape = ObjectCol
 	$ObjectAttachArea/RollableObjectAttachCollision.shape = ObjectCol
@@ -33,7 +35,7 @@ func _on_katamari_entered(_rid, body, shape, _locshape):
 	print_debug(body.to_string() + "'s shape %d collided with %s (instance %s)."%[shape, ObjectID, InstanceName])
 	if body == Katamari.get_node("KatamariBody") and shape == 0:
 		if Katamari.Size >= ObjectRollSize:
-			get_node(InstanceName + "_M").material_override.albedo_texture = ObjectTexRoll
+			get_node(InstanceName + "_M").material_override.set("shader_parameter/Rolled", true)
 			get_node(InstanceName + "_C").queue_free()
 			get_node(InstanceName + "_K").reparent(body, true)
 			get_node(InstanceName + "_M").reparent(body.get_node("KatamariMeshPivot"))

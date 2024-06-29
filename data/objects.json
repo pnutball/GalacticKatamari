@@ -8,8 +8,8 @@
 			"pickup_size": 0.05,
 			"scale": 1,
 			"view_scale": 1,
-			"texture": "",
-			"texture_rolledup": "",
+			"texture": "res://assets/textures/object/placeholder.png",
+			"texture_rolledup": "res://assets/textures/object/placeholder_roll.png",
 			"name": {
 				"en": "Debug Cube"
 			},

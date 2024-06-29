@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7ohty8xjjwlv"]
+[gd_scene load_steps=6 format=3 uid="uid://b7ohty8xjjwlv"]
 
 [ext_resource type="Script" path="res://scripts/rollable_object.gd" id="1_mpgf7"]
 [ext_resource type="Shape3D" uid="uid://dhu88w3dxj0q6" path="res://assets/models/object/debug_cube.shape" id="2_643b8"]
+[ext_resource type="Shader" path="res://assets/materials/shaders/object.gdshader" id="3_25gkn"]
 [ext_resource type="BoxMesh" uid="uid://vaqb01utfnc0" path="res://assets/models/object/debug_cube_view.tres" id="3_xibpy"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7pmn0"]
-metallic_specular = 0.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gtdq"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_25gkn")
+shader_parameter/Rolled = false
 
 [node name="RollableObject3D" type="AnimatableBody3D"]
 collision_layer = 2
@@ -17,7 +21,7 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 shape = ExtResource("2_643b8")
 
 [node name="RollableObjectMesh" type="MeshInstance3D" parent="."]
-material_override = SubResource("StandardMaterial3D_7pmn0")
+material_override = SubResource("ShaderMaterial_1gtdq")
 gi_mode = 0
 mesh = ExtResource("3_xibpy")
 
