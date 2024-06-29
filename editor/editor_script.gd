@@ -4,6 +4,7 @@ var PlayMode:bool = false
 var changed:bool = false
 var currentFile:String = ""
 
+var transform_local:bool = false
 var snap_enabled:bool = true
 var snap_move:float = 0.1
 var snap_angle:float = PI/4
@@ -36,7 +37,10 @@ func _process(_delta):
 		snap_angle = deg_to_rad(%SnapValueRotate.value)
 		snap_move = %SnapValueTranslate.value
 		snap_enabled = %SnapButton.button_pressed
+		transform_local = %LocalButton.button_pressed
 		%SnapButton.icon = preload("res://editor/icons/grid_snap_on.png") if snap_enabled else preload("res://editor/icons/grid_snap.png")
+		%LocalButton.icon = preload("res://editor/icons/local_space_on.png") if transform_local else preload("res://editor/icons/local_space.png")
+		%LocalButton.text = "Local" if transform_local else "Global"
 	%StatusBar/FPSLabel.text = "%d FPS" % [Engine.get_frames_per_second()]
 	%GameView.position = Vector2i(%EditorView.get_global_rect().position)
 	%GameView.size = Vector2i(%EditorView.size)

@@ -34,13 +34,16 @@ func _input(event):
 			mouse_velocity_combined += mouse_velocity
 
 func _process(_delta):
+	$Gizmos.position = $Visual.global_position + Vector3(0,0.5,0)
+	$Gizmos.rotation = $Visual.global_rotation if editor.transform_local else Vector3.ZERO
 	if Source != null and not dragging:
 		position = Source.position
 		$Visual.rotation.y = deg_to_rad(Source.rotation) - (PI*0.5)
 	else:
 		if drag_type == TransformType.Translate:
 			var positional_magnitude:float = (mouse_velocity_combined * Vector2(1,-1)).rotated(-(drag_normal.angle())).x
-			var magnitude_3D:Vector3 = positional_magnitude * (Vector3.UP if drag_direction == Direction.Y else (Vector3.RIGHT if drag_direction == Direction.X else Vector3.BACK)) 
+			var magnitude_3D:Vector3 = positional_magnitude * (Vector3.UP if drag_direction == Direction.Y else (Vector3.RIGHT if drag_direction == Direction.X else Vector3.BACK))
+			if editor.transform_local: magnitude_3D = magnitude_3D.rotated(Vector3.UP, $Visual.global_rotation.y)
 			var distance_3D:Vector3 = 0.0075 * magnitude_3D
 			if editor.snap_enabled: distance_3D = snapped(distance_3D, Vector3.ONE * editor.snap_move)
 			position = old_position + distance_3D
@@ -54,7 +57,7 @@ func _process(_delta):
 			$Visual.rotation = final_rotation
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			Source.position = position
-			Source.rotation = rad_to_deg($Visual.rotation.y) + 90
+			Source.rotation = rad_to_deg($Visual.global_rotation.y) + 90
 			dragging = false
 			editor._on_treeprop_change_made()
 			editor._reload_properties_panel()
@@ -69,11 +72,13 @@ func begin_translate(direction:Direction):
 		drag_direction = direction
 		mouse_velocity_combined = Vector2.ZERO
 		if direction == Direction.X: 
-			drag_normal = Vector2.RIGHT.rotated(-(camera.global_rotation.y))
+			drag_normal = Vector2.RIGHT
 		elif direction == Direction.Z: 
-			drag_normal = Vector2.UP.rotated(-(camera.global_rotation.y))
+			drag_normal = Vector2.UP
 		else: 
 			drag_normal = Vector2.DOWN
+		if direction != Direction.Y: drag_normal = drag_normal.rotated(-(camera.global_rotation.y))
+		if editor.transform_local and direction != Direction.Y: drag_normal = drag_normal.rotated($Visual.global_rotation.y)
 		drag_type = TransformType.Translate
 		dragging = true
 

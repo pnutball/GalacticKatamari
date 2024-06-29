@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://y5lpvpv88asc"]
+[gd_scene load_steps=35 format=3 uid="uid://y5lpvpv88asc"]
 
 [ext_resource type="Script" path="res://editor/editor_script.gd" id="1_ifg2b"]
 [ext_resource type="Theme" uid="uid://do4xoe6jr3w32" path="res://editor/EditorTheme.tres" id="1_vupi4"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://editor/objectbrowse_script.gd" id="18_vcg6u"]
 [ext_resource type="Texture2D" uid="uid://d1c07jxwmy0mv" path="res://editor/icons/object.png" id="19_2w5lp"]
 [ext_resource type="PackedScene" uid="uid://dqojpyii1gskp" path="res://scenes/environment/env_preview.tscn" id="20_n41lb"]
+[ext_resource type="Texture2D" uid="uid://0i1putnv8ujh" path="res://editor/icons/local_space.png" id="22_5gpt7"]
 [ext_resource type="Texture2D" uid="uid://bqg13pg72kt63" path="res://editor/icons/grid_snap.png" id="22_yl2et"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmqy0"]
@@ -321,6 +322,14 @@ render_target_update_mode = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="LocalButton" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(89, 36)
+layout_mode = 2
+toggle_mode = true
+text = "Global"
+icon = ExtResource("22_5gpt7")
 
 [node name="SnapButton" type="Button" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/HBoxContainer"]
 unique_name_in_owner = true

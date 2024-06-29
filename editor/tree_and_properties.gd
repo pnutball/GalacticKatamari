@@ -111,8 +111,11 @@ func _on_create_id_pressed(id, disable_sync:bool = false):
 		5: 
 			#addObject(lastSelectedArea, %ObjectBrowser/ObjectScroll/ObjectList.get_item_text(%ObjectBrowser/ObjectScroll/ObjectList.get_selected_items()[0]))
 			var new_obj := GKEditorTreeObject.new()
+			var parent = lastSelectedArea
+			if %LevelTree.get_selected().get_meta(&"property") is GKEditorTreeObject:
+				parent = %LevelTree.get_selected().get_meta(&"property")
 			new_obj.object_id = %ObjectBrowser/ObjectScroll/ObjectList.get_item_text(%ObjectBrowser/ObjectScroll/ObjectList.get_selected_items()[0])
-			lastSelectedArea.add_child(new_obj)
+			parent.add_child(new_obj)
 			%EditorView.reload_objects()
 			if not disable_sync: InternalTreeRoot.tree_sync(TreeRoot)
 		6: 
@@ -176,7 +179,7 @@ func _on_level_tree_item_selected():
 			%ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/Object.disabled = true
 		#property.send_properties(%PropertiesPanel)
 		%"Inspector".set_object(property)
-		if property is GKEditorTreeSpawn:
+		if property is GKEditorTreeSpawn or property is GKEditorTreeObject:
 			property.linked_3d.select()
 		$PropertiesScroll/PropertiesMargin/NoneSelectedLabel.visible = false
 

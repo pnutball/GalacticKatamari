@@ -56,6 +56,16 @@ func reload_all():
 			child.linked_3d = ViewObj
 			ViewObj.Source = child
 			$ViewPort/EditorPrevRoot/objects.add_child(ViewObj)
+			object_reload(child)
+
+func object_reload(item:GKEditorTreeObject):
+	for child in item.children:
+		if child is GKEditorTreeObject:
+			var ViewObj:Node3D = view_obj.instantiate()
+			child.linked_3d = ViewObj
+			ViewObj.Source = child
+			item.linked_3d.add_child(ViewObj)
+			object_reload(child)
 
 func _gui_input(event):
 	pass
