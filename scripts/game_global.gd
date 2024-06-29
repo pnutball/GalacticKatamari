@@ -41,7 +41,15 @@ var collectedObjects:Array[StringName] = []
 
 var lastWindowMode:int = Window.MODE_WINDOWED
 
-func _input(_event):
+var usingController:bool = false
+
+
+
+func _input(event):
+	if event is InputEventKey or event is InputEventMouse:
+		usingController = false
+	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		usingController = true
 	if Input.is_action_just_pressed("Fullscreen"):
 		if get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
 			@warning_ignore("int_as_enum_without_cast")
