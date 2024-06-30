@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://bv2kf17wopqad"
+path="res://.godot/imported/button_symbols.png-6ad14e40c0aadb716e043625ab8fce6d.image"
+
+[deps]
+
+source_file="res://assets/textures/input/button_symbols.png"
+dest_files=["res://.godot/imported/button_symbols.png-6ad14e40c0aadb716e043625ab8fce6d.image"]
+
+[params]
+

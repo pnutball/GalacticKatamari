@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://dmfusfg3uysus"
+path="res://.godot/imported/key_symbols.png-8a455daa78c47bb6df4161c23e467323.image"
+
+[deps]
+
+source_file="res://assets/textures/input/key_symbols.png"
+dest_files=["res://.godot/imported/key_symbols.png-8a455daa78c47bb6df4161c23e467323.image"]
+
+[params]
+

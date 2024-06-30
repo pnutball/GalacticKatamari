@@ -1,5 +1,7 @@
 extends Node
 
+func _init(): process_mode = Node.PROCESS_MODE_ALWAYS
+
 const ANGLE_SNAP_CURVE:Curve = preload("res://data/input_angle_curve.tres")
 
 ## An array of info for each Ouji ID.
@@ -43,7 +45,212 @@ var lastWindowMode:int = Window.MODE_WINDOWED
 
 var usingController:bool = false
 
+const _KEY_IMG:Image = preload("uid://dmfusfg3uysus")
+const _KEY_IMG_SIZE:Vector2i = Vector2i(52,26)
+const _KEY_IMG_MAP:Dictionary = {
+	KEY_ESCAPE: Vector2i(0, 0),
+	KEY_TAB: Vector2i(52, 0),
+	KEY_BACKSPACE: Vector2i(104, 0),
+	KEY_ENTER: Vector2i(156, 0),
+	KEY_INSERT: Vector2i(208, 0),
+	KEY_DELETE: Vector2i(260, 0),
+	KEY_PAUSE: Vector2i(312, 0),
+	KEY_HOME: Vector2i(364, 0),
+	KEY_END: Vector2i(0, 26),
+	KEY_SHIFT: Vector2i(52, 26),
+	KEY_A: Vector2i(104, 26),
+	KEY_B: Vector2i(156, 26),
+	KEY_C: Vector2i(208, 26),
+	KEY_D: Vector2i(260, 26),
+	KEY_E: Vector2i(312, 26),
+	KEY_F: Vector2i(364, 26),
+	KEY_G: Vector2i(0, 52),
+	KEY_H: Vector2i(52, 52),
+	KEY_I: Vector2i(104, 52),
+	KEY_J: Vector2i(156, 52),
+	KEY_K: Vector2i(208, 52),
+	KEY_L: Vector2i(260, 52),
+	KEY_M: Vector2i(312, 52),
+	KEY_N: Vector2i(364, 52),
+	KEY_O: Vector2i(0, 78),
+	KEY_P: Vector2i(52, 78),
+	KEY_Q: Vector2i(104, 78),
+	KEY_R: Vector2i(156, 78),
+	KEY_S: Vector2i(208, 78),
+	KEY_T: Vector2i(260, 78),
+	KEY_U: Vector2i(312, 78),
+	KEY_V: Vector2i(364, 78),
+	KEY_W: Vector2i(0, 104),
+	KEY_X: Vector2i(52, 104),
+	KEY_Y: Vector2i(104, 104),
+	KEY_Z: Vector2i(156, 104),
+	KEY_1: Vector2i(208, 104),
+	KEY_2: Vector2i(260, 104),
+	KEY_3: Vector2i(312, 104),
+	KEY_4: Vector2i(364, 104),
+	KEY_5: Vector2i(0, 130),
+	KEY_6: Vector2i(52, 130),
+	KEY_7: Vector2i(104, 130),
+	KEY_8: Vector2i(156, 130),
+	KEY_9: Vector2i(208, 130),
+	KEY_0: Vector2i(260, 130),
+	KEY_MINUS: Vector2i(312, 130),
+	KEY_EQUAL: Vector2i(364, 130),
+	KEY_BRACKETLEFT: Vector2i(0, 156),
+	KEY_BRACKETRIGHT: Vector2i(52, 156),
+	KEY_BACKSLASH: Vector2i(104, 156),
+	KEY_SEMICOLON: Vector2i(156, 156),
+	KEY_APOSTROPHE: Vector2i(208, 156),
+	KEY_COMMA: Vector2i(260, 156),
+	KEY_PERIOD: Vector2i(312, 156),
+	KEY_SLASH: Vector2i(364, 156),
+	KEY_F1: Vector2i(0, 182),
+	KEY_F2: Vector2i(52, 182),
+	KEY_F3: Vector2i(104, 182),
+	KEY_F4: Vector2i(156, 182),
+	KEY_F5: Vector2i(208, 182),
+	KEY_F6: Vector2i(260, 182),
+	KEY_F7: Vector2i(312, 182),
+	KEY_F8: Vector2i(364, 182),
+	KEY_F9: Vector2i(0, 208),
+	KEY_F10: Vector2i(52, 208),
+	KEY_F11: Vector2i(104, 208),
+	KEY_F12: Vector2i(156, 208),
+	KEY_KP_MULTIPLY: Vector2i(208, 208),
+	KEY_KP_DIVIDE: Vector2i(260, 208),
+	KEY_KP_ADD: Vector2i(312, 208),
+	KEY_KP_SUBTRACT: Vector2i(364, 208),
+	KEY_KP_1: Vector2i(0, 234),
+	KEY_KP_2: Vector2i(52, 234),
+	KEY_KP_3: Vector2i(104, 234),
+	KEY_KP_4: Vector2i(156, 234),
+	KEY_KP_5: Vector2i(208, 234),
+	KEY_KP_6: Vector2i(260, 234),
+	KEY_KP_7: Vector2i(312, 234),
+	KEY_KP_8: Vector2i(364, 234),
+	KEY_KP_9: Vector2i(0, 260),
+	KEY_KP_0: Vector2i(52, 260),
+	KEY_KP_PERIOD: Vector2i(104, 260),
+	KEY_KP_ENTER: Vector2i(156, 260),
+	KEY_SPACE: Vector2i(208, 260),
+	KEY_QUOTELEFT: Vector2i(260, 260),
+	KEY_CTRL: Vector2i(312, 260),
+	KEY_ALT: Vector2i(364, 260)
+}
 
+func is_key_valid(key:Key) -> bool:
+	return _KEY_IMG_MAP.has(key)
+
+func get_key(key:Key, pressed:bool) -> ImageTexture:
+	var key_image:Image = Image.create(68, 68, false, Image.FORMAT_RGBA8)
+	key_image.blend_rect(
+		preload("uid://bvrmr13ttg55c") if pressed else preload("uid://b72csthwn1kr1"),
+		Rect2i(Vector2i.ZERO, Vector2i(68,68)),
+		Vector2i.ZERO
+	)
+	if is_key_valid(key):
+		key_image.blend_rect(_KEY_IMG, Rect2i(_KEY_IMG_MAP[key], _KEY_IMG_SIZE), Vector2i(8,21))
+	else: push_warning("Invalid key \"" + OS.get_keycode_string(key) + "\", resulting keycap texture has no label.")
+	key_image.fix_alpha_edges()
+	return ImageTexture.create_from_image(key_image)
+
+#region ControllerButton enum
+enum ControllerButton {BUTTON_GUIDE=0, BUTTON_A=1, BUTTON_B=2, BUTTON_X=3, BUTTON_Y=4, BUTTON_START=5, BUTTON_BACK=6, BUTTON_LEFT_SHOULDER=7, BUTTON_RIGHT_SHOULDER=8, BUTTON_LEFT_TRIGGER=9, BUTTON_RIGHT_TRIGGER=10, BUTTON_LEFT_STICK=11, BUTTON_RIGHT_STICK=12}
+const BUTTON_GUIDE:ControllerButton = ControllerButton.BUTTON_GUIDE
+const BUTTON_A:ControllerButton = ControllerButton.BUTTON_A
+const BUTTON_B:ControllerButton = ControllerButton.BUTTON_B
+const BUTTON_X:ControllerButton = ControllerButton.BUTTON_X
+const BUTTON_Y:ControllerButton = ControllerButton.BUTTON_Y
+const BUTTON_START:ControllerButton = ControllerButton.BUTTON_START
+const BUTTON_BACK:ControllerButton = ControllerButton.BUTTON_BACK
+const BUTTON_LEFT_SHOULDER:ControllerButton = ControllerButton.BUTTON_LEFT_SHOULDER
+const BUTTON_RIGHT_SHOULDER:ControllerButton = ControllerButton.BUTTON_RIGHT_SHOULDER
+const BUTTON_LEFT_TRIGGER:ControllerButton = ControllerButton.BUTTON_LEFT_TRIGGER
+const BUTTON_RIGHT_TRIGGER:ControllerButton = ControllerButton.BUTTON_RIGHT_TRIGGER
+const BUTTON_LEFT_STICK:ControllerButton = ControllerButton.BUTTON_LEFT_STICK
+const BUTTON_RIGHT_STICK:ControllerButton = ControllerButton.BUTTON_RIGHT_STICK
+#endregion
+#region Brand enum
+enum Brand {BRAND_GENERIC = 0, BRAND_XBOX = 1, BRAND_XBOX_360 = 2, BRAND_PLAYSTATION = 3, BRAND_PLAYSTATION_3 = 4, BRAND_NINTENDO = 5}
+const BRAND_GENERIC:Brand = Brand.BRAND_GENERIC
+const BRAND_XBOX:Brand = Brand.BRAND_XBOX
+const BRAND_XBOX_360:Brand = Brand.BRAND_XBOX_360
+const BRAND_PLAYSTATION:Brand = Brand.BRAND_PLAYSTATION
+const BRAND_PLAYSTATION_3:Brand = Brand.BRAND_PLAYSTATION_3
+const BRAND_NINTENDO:Brand = Brand.BRAND_NINTENDO
+#endregion
+const _BUTTON_IMG:Image = preload("uid://bv2kf17wopqad")
+const _BUTTON_IMG_SIZE:Vector2i = Vector2i(52,26)
+const _BUTTON_IMG_MAP:Dictionary = {
+	BUTTON_GUIDE: Vector2i.ZERO,
+	BUTTON_A: Vector2i(52, 0),
+	BUTTON_B: Vector2i(52, 26),
+	BUTTON_X: Vector2i(104, 0),
+	BUTTON_Y: Vector2i(104, 26),
+	BUTTON_START: Vector2i(156, 0),
+	BUTTON_BACK: Vector2i(156, 26),
+	BUTTON_LEFT_SHOULDER: Vector2i(260, 0),
+	BUTTON_RIGHT_SHOULDER: Vector2i(260, 26),
+	BUTTON_LEFT_TRIGGER: Vector2i(312, 0),
+	BUTTON_RIGHT_TRIGGER: Vector2i(312, 26),
+	BUTTON_LEFT_STICK: Vector2i(364, 0),
+	BUTTON_RIGHT_STICK: Vector2i(364, 26)
+}
+
+func get_button(button:ControllerButton, pressed:bool, brand:Brand = BRAND_GENERIC) -> ImageTexture:
+	var key_image:Image = Image.create(68, 68, false, Image.FORMAT_RGBA8)
+	var bg_image:Image
+	var label_offset:Vector2i = Vector2i(8,21)
+	match button:
+		BUTTON_LEFT_SHOULDER: 
+			bg_image = preload("uid://6nrrv2xlyclh") if pressed else preload("uid://cjxkrjyv2qfch")
+			label_offset = Vector2i(12,21)
+		BUTTON_RIGHT_SHOULDER: 
+			bg_image = preload("uid://dq0qhpc11y7r") if pressed else preload("uid://dp7pe7orsc51i")
+			label_offset = Vector2i(4,21)
+		BUTTON_LEFT_TRIGGER: 
+			if brand == BRAND_XBOX_360:
+				bg_image = preload("uid://bvrmr13ttg55c") if pressed else preload("uid://b72csthwn1kr1")
+			else: bg_image = preload("uid://c77xk0ymlport") if pressed else preload("uid://drr8thsp1e6b6")
+		BUTTON_RIGHT_TRIGGER: 
+			if brand == BRAND_XBOX_360:
+				bg_image = preload("uid://bvrmr13ttg55c") if pressed else preload("uid://b72csthwn1kr1")
+			else: bg_image = preload("uid://d1addf7vlpekr") if pressed else preload("uid://bmgca2nvylpf3")
+		BUTTON_LEFT_STICK: 
+			bg_image = preload("uid://r8f3610sdxas") if pressed else preload("uid://coi45mr0j43wy")
+			label_offset = Vector2i(8,2)
+		BUTTON_RIGHT_STICK: 
+			bg_image = preload("uid://r8f3610sdxas") if pressed else preload("uid://coi45mr0j43wy")
+			label_offset = Vector2i(8,2)
+		_: bg_image = preload("uid://bgqj31l1pd5ol") if pressed else preload("uid://itw40r15v6ek")
+	key_image.fix_alpha_edges()
+	key_image.blend_rect(bg_image, Rect2i(Vector2i.ZERO, Vector2i(68,68)), Vector2i.ZERO)
+	
+	var button_position:Vector2i = _BUTTON_IMG_MAP[button]
+	if brand == BRAND_XBOX or brand == BRAND_XBOX_360: button_position += Vector2i(0, 52)
+	elif brand == BRAND_PLAYSTATION or brand == BRAND_PLAYSTATION_3: button_position += Vector2i(0, 104)
+	elif brand == BRAND_NINTENDO: button_position += Vector2i(0, 156)
+	
+	if brand == BRAND_XBOX_360 and button == BUTTON_BACK: button_position = Vector2i(156,26)
+	if brand == BRAND_XBOX_360 and button == BUTTON_START: button_position = Vector2i(156,0)
+	if brand == BRAND_PLAYSTATION_3 and button == BUTTON_BACK: button_position = Vector2i(0,78)
+	if brand == BRAND_PLAYSTATION_3 and button == BUTTON_START: button_position = Vector2i(156,0)
+	
+	key_image.blend_rect(_BUTTON_IMG, Rect2i(button_position, _BUTTON_IMG_SIZE), label_offset)
+	return ImageTexture.create_from_image(key_image)
+
+func get_stick(right:bool, direction:Vector2, brand:Brand = BRAND_GENERIC) -> ImageTexture:
+	var stick_image:Image = Image.create(68, 68, false, Image.FORMAT_RGBA8)
+	stick_image.blend_rect(preload("uid://ci7lb0bsrty3t"), Rect2i(Vector2i.ZERO, Vector2i(68,68)), Vector2i.ZERO)
+	var button_position:Vector2i = Vector2i(208, int(right) * 26)
+	if brand == BRAND_XBOX or brand == BRAND_XBOX_360: button_position += Vector2i(0, 52)
+	elif brand == BRAND_PLAYSTATION or brand == BRAND_PLAYSTATION_3: button_position += Vector2i(0, 104)
+	elif brand == BRAND_NINTENDO: button_position += Vector2i(0, 156)
+	var stick_position:Vector2i = Vector2i(((direction.limit_length() * Vector2(1, -1)).normalized() * 11).round())
+	stick_image.blend_rect(preload("uid://c1ioqc7lkk7f7"), Rect2i(Vector2i.ZERO, Vector2i(68,68)), stick_position)
+	stick_image.blend_rect(_BUTTON_IMG, Rect2i(button_position, _BUTTON_IMG_SIZE), Vector2i(8,21) + stick_position)
+	stick_image.fix_alpha_edges()
+	return ImageTexture.create_from_image(stick_image)
 
 func _input(event):
 	if event is InputEventKey or event is InputEventMouse:

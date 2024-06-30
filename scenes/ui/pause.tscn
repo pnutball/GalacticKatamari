@@ -40,6 +40,148 @@ theme_override_fonts/font = ExtResource("1_b5jee")
 theme_override_font_sizes/font_size = 48
 text = "Paused..."
 
+[node name="TestKey1" type="TextureRect" parent="PauseBG"]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 195.0
+offset_right = 166.0
+offset_bottom = 263.0
+
+[node name="TestKey2" type="TextureRect" parent="PauseBG"]
+layout_mode = 0
+offset_left = 196.0
+offset_top = 195.0
+offset_right = 264.0
+offset_bottom = 263.0
+
+[node name="TestKey3" type="TextureRect" parent="PauseBG"]
+layout_mode = 0
+offset_left = 362.0
+offset_top = 195.0
+offset_right = 430.0
+offset_bottom = 263.0
+
+[node name="TestStickL" type="TextureRect" parent="PauseBG"]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 304.0
+offset_right = 159.0
+offset_bottom = 372.0
+
+[node name="TestStickR" type="TextureRect" parent="PauseBG"]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 304.0
+offset_right = 257.0
+offset_bottom = 372.0
+
+[node name="TestStickR2" type="TextureRect" parent="PauseBG"]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 304.0
+offset_right = 374.0
+offset_bottom = 372.0
+
+[node name="GridContainer" type="GridContainer" parent="PauseBG"]
+layout_mode = 0
+offset_left = 246.0
+offset_top = 514.0
+offset_right = 286.0
+offset_bottom = 554.0
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+columns = 5
+
+[node name="TestBtnGenA" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnGenRB" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnGenRT" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnGenRS" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnGenStart" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnXboxA" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnXboxRB" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnXboxRT" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnXboxRS" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnXboxStart" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtn360A" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtn360RB" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtn360RT" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtn360RS" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtn360Start" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnPSA" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnPSRB" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnPSRT" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnPSRS" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnPSStart" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnPS3A" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnPS3RB" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnPS3RT" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnPS3RS" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnPS3Start" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnNintendoA" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnNintendoRB" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnNintendoRT" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnNintendoRS" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
+[node name="TestBtnNintendoStart" type="TextureRect" parent="PauseBG/GridContainer"]
+layout_mode = 2
+
 [node name="PauseSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_dsb0h")
 bus = &"SFX"

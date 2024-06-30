@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://6nrrv2xlyclh"
+path="res://.godot/imported/input_bg_bumper_L_pressed.png-59070e55f1acae509378353f47e0c7d7.image"
+
+[deps]
+
+source_file="res://assets/textures/input/input_bg_bumper_L_pressed.png"
+dest_files=["res://.godot/imported/input_bg_bumper_L_pressed.png-59070e55f1acae509378353f47e0c7d7.image"]
+
+[params]
+
