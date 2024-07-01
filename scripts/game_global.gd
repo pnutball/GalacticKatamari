@@ -43,7 +43,29 @@ var collectedObjects:Array[StringName] = []
 
 var lastWindowMode:int = Window.MODE_WINDOWED
 
-var usingController:bool = false
+signal controller_changed(index:int)
+@onready var _controller_list:Array[String] = [
+	Input.get_joy_name(0),
+	Input.get_joy_name(1),
+	Input.get_joy_name(2),
+	Input.get_joy_name(3)
+]
+
+func _process(_delta):
+	for i in _controller_list.size():
+		if _controller_list[i] != Input.get_joy_name(i):
+			_controller_list[i] = Input.get_joy_name(i)
+			controller_changed.emit(i)
+	print(_controller_list)
+	print(usingController)
+
+var usingController:bool = false:
+	get:
+		return usingController
+	set(new):
+		if usingController != new:
+			controller_changed.emit(0)
+		usingController = new
 
 const _KEY_IMG:Image = preload("uid://dmfusfg3uysus")
 const _KEY_IMG_SIZE:Vector2i = Vector2i(52,26)
@@ -141,7 +163,7 @@ const _KEY_IMG_MAP:Dictionary = {
 func is_key_valid(key:Key) -> bool:
 	return _KEY_IMG_MAP.has(key)
 
-func get_key(key:Key, pressed:bool) -> ImageTexture:
+func get_key(key:Key, pressed:bool = false) -> ImageTexture:
 	var key_image:Image = Image.create(68, 68, false, Image.FORMAT_RGBA8)
 	key_image.blend_rect(
 		preload("uid://bvrmr13ttg55c") if pressed else preload("uid://b72csthwn1kr1"),
@@ -197,7 +219,7 @@ const _BUTTON_IMG_MAP:Dictionary = {
 	BUTTON_RIGHT_STICK: Vector2i(364, 26)
 }
 
-func get_button(button:ControllerButton, pressed:bool, brand:Brand = BRAND_GENERIC) -> ImageTexture:
+func get_button(button:ControllerButton, pressed:bool = false, brand:Brand = BRAND_GENERIC) -> ImageTexture:
 	var key_image:Image = Image.create(68, 68, false, Image.FORMAT_RGBA8)
 	var bg_image:Image
 	var label_offset:Vector2i = Vector2i(8,21)
@@ -223,7 +245,6 @@ func get_button(button:ControllerButton, pressed:bool, brand:Brand = BRAND_GENER
 			bg_image = preload("uid://r8f3610sdxas") if pressed else preload("uid://coi45mr0j43wy")
 			label_offset = Vector2i(8,2)
 		_: bg_image = preload("uid://bgqj31l1pd5ol") if pressed else preload("uid://itw40r15v6ek")
-	key_image.fix_alpha_edges()
 	key_image.blend_rect(bg_image, Rect2i(Vector2i.ZERO, Vector2i(68,68)), Vector2i.ZERO)
 	
 	var button_position:Vector2i = _BUTTON_IMG_MAP[button]
@@ -237,6 +258,7 @@ func get_button(button:ControllerButton, pressed:bool, brand:Brand = BRAND_GENER
 	if brand == BRAND_PLAYSTATION_3 and button == BUTTON_START: button_position = Vector2i(156,0)
 	
 	key_image.blend_rect(_BUTTON_IMG, Rect2i(button_position, _BUTTON_IMG_SIZE), label_offset)
+	key_image.fix_alpha_edges()
 	return ImageTexture.create_from_image(key_image)
 
 func get_stick(right:bool, direction:Vector2, brand:Brand = BRAND_GENERIC) -> ImageTexture:
@@ -252,10 +274,57 @@ func get_stick(right:bool, direction:Vector2, brand:Brand = BRAND_GENERIC) -> Im
 	stick_image.fix_alpha_edges()
 	return ImageTexture.create_from_image(stick_image)
 
+func get_brand(device:int = 0) -> Brand:
+	var device_name:String = Input.get_joy_name(device)
+	if device_name.contains("Xbox") and not device_name.contains("Xbox 360"):
+		return BRAND_XBOX
+	elif device_name.contains("Xbox 360"):
+		return BRAND_XBOX_360
+	elif (
+		device_name.contains("PlayStation") or
+		device_name.contains("PS") or
+		device_name.contains("DualShock")
+	) and not (
+		device_name.contains("PlayStation 2") or
+		device_name.contains("PlayStation 3") or
+		device_name.contains("PlayStation Portable") or 
+		device_name.contains("Vita") or 
+		device_name.contains("PS1") or
+		device_name.contains("PS2") or
+		device_name.contains("PS3") or
+		device_name.contains("PSP") or
+		device_name.contains("DualShock 2") or
+		device_name.contains("DualShock 3") or 
+		device_name.contains("Ramox FPS")
+	):
+		return BRAND_PLAYSTATION
+	elif (
+		device_name.contains("PlayStation 2") or
+		device_name.contains("PlayStation 3") or
+		device_name.contains("PlayStation Portable") or 
+		device_name.contains("Vita") or 
+		device_name.contains("PS1") or
+		device_name.contains("PS2") or
+		device_name.contains("PS3") or
+		device_name.contains("PSP") or
+		device_name.contains("DualShock 2") or
+		device_name.contains("DualShock 3")
+	) and not device_name.contains("Ramox FPS"):
+		return BRAND_PLAYSTATION_3
+	elif (
+		device_name.contains("Nintendo") or 
+		device_name.contains("Wii U") or 
+		device_name.contains("8BitDo Ultimate") or 
+		device_name.contains("8BitDo Pro")
+	):
+		return BRAND_NINTENDO
+	else:
+		return BRAND_GENERIC
+
 func _input(event):
-	if event is InputEventKey or event is InputEventMouse:
+	if (event is InputEventKey or event is InputEventMouseButton) and usingController:
 		usingController = false
-	elif event is InputEventJoypadButton or event is InputEventJoypadMotion:
+	elif (event is InputEventJoypadButton) and event.device == 0 and not usingController:
 		usingController = true
 	if Input.is_action_just_pressed("Fullscreen"):
 		if get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN:

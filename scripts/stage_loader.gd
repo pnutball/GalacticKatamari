@@ -12,7 +12,7 @@ var preloadRoot:Node3D = Node3D.new()
 var currentKatamari
 var loadFinished:bool = true
 
-const RollableObject3D:PackedScene = preload("res://scenes/game/object/rollable_object_3d.tscn")
+const RollableObject:PackedScene = preload("res://scenes/game/object/rollable_object_3d.tscn")
 const KatamariControllable:PackedScene = preload("res://scenes/game/object/katamari_controllable.tscn")
 const TimerNormal:PackedScene = preload("res://scenes/ui/timer_normal.tscn")
 
@@ -126,7 +126,7 @@ func preloadArea(area:int = currentArea + 1):
 	
 	var num:int = 0
 	for object in currentStage.modes.get(currentMode).map_zones[area].objects:
-		var instantiated:Node = RollableObject3D.instantiate()
+		var instantiated:Node = RollableObject.instantiate()
 		
 		ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).view_mesh)
 		while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).view_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
