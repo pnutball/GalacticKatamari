@@ -56,8 +56,6 @@ func _process(_delta):
 		if _controller_list[i] != Input.get_joy_name(i):
 			_controller_list[i] = Input.get_joy_name(i)
 			controller_changed.emit(i)
-	print(_controller_list)
-	print(usingController)
 
 var usingController:bool = false:
 	get:

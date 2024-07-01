@@ -17,7 +17,7 @@ var MoyaPosition:Vector2 = Vector2(0,-350)
 ## The position modifier of the King's face & moya.
 var MoyaPositionModifier:Vector2 = Vector2(0,0)
 
-@onready var FaceAnimation = $MoyaPos/SubViewportContainer/SubViewport/KingFace/KingAnimation
+#@onready var FaceAnimation = $MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset/KingFace/KingAnimation
 var Emotion:StringName = &"Neutral":
 	get:
 		return Emotion
@@ -35,7 +35,8 @@ var Talking:bool = false:
 			Talking = newTalk
 
 func _process(_delta):
-	$MoyaPos.position = MoyaPosition + MoyaPositionModifier - Vector2(170, 170)
+	$MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset.position = Vector3(MoyaPosition.x + MoyaPositionModifier.x, -(MoyaPosition.y + MoyaPositionModifier.y), 0) * (0.00714286)
+	$MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset/Moya.get("surface_material_override/0").set("shader_parameter/offset", MoyaPosition + MoyaPositionModifier)
 
 func _talk_changed(newTalking:bool):
 	if newTalking:
