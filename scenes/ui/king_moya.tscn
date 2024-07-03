@@ -1028,6 +1028,7 @@ grow_vertical = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="MoyaPos/SubViewportContainer"]
+own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
 msaa_3d = 3
