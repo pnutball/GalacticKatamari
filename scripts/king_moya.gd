@@ -8,6 +8,9 @@ const TALK_ANGRY:AudioStream = preload("uid://dfbwpjfdqtlw1")
 const TALK_HAPPY:AudioStream = preload("uid://dye5a7b7my52f")
 const TALK_SAD:AudioStream = preload("uid://c8etddlj68pm1")
 
+## rainbow: 264m max distance
+
+
 ## The base position of the King's face & moya, relative to the screen center.
 ##
 ## Recommended position bounds, for future reference:
@@ -35,8 +38,9 @@ var Talking:bool = false:
 			Talking = newTalk
 
 func _process(_delta):
-	$MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset.position = Vector3(MoyaPosition.x + MoyaPositionModifier.x, -(MoyaPosition.y + MoyaPositionModifier.y), 0) * (0.00714286)
-	$MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset/Moya.get("surface_material_override/0").set("shader_parameter/offset", MoyaPosition + MoyaPositionModifier)
+	$MoyaPos/FacePos.position = get_viewport_rect().size * Vector2(0.5,0.5) + MoyaPosition + MoyaPositionModifier
+	%Moya3DOffset.position = Vector3(MoyaPosition.x + MoyaPositionModifier.x, -(MoyaPosition.y + MoyaPositionModifier.y), 0) * (0.00714286)
+	%Moya3DOffset/Moya.get("surface_material_override/0").set("shader_parameter/offset", MoyaPosition + MoyaPositionModifier)
 
 func _talk_changed(newTalking:bool):
 	if newTalking:

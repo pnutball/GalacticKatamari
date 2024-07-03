@@ -1,12 +1,16 @@
-[gd_scene load_steps=52 format=3 uid="uid://bp5gmy06yifpu"]
+[gd_scene load_steps=63 format=3 uid="uid://bp5gmy06yifpu"]
 
 [ext_resource type="Texture2D" uid="uid://evak7n0ethga" path="res://assets/textures/king/moya.png" id="1_ldxbr"]
 [ext_resource type="Script" path="res://scripts/king_moya.gd" id="1_togpb"]
 [ext_resource type="ArrayMesh" uid="uid://y0q12nmx3hnn" path="res://assets/models/king/moya.tres" id="2_xksay"]
 [ext_resource type="Texture2D" uid="uid://18cwp3grxof" path="res://assets/textures/king/rainbow/rainbow_spark.png" id="3_5ncxc"]
 [ext_resource type="AnimationLibrary" uid="uid://dpy8711l2hl38" path="res://assets/animations/king/moya/moya_wibble.res" id="3_xesqk"]
+[ext_resource type="Texture2D" uid="uid://cxcfqewvk7wpf" path="res://assets/textures/king/rainbow/rainbow_beam.png" id="4_vgq6a"]
 [ext_resource type="PackedScene" uid="uid://ymepdyha6l44" path="res://assets/models/king/rig/king_face.tscn" id="5_ganpw"]
 [ext_resource type="Shader" path="res://assets/materials/shaders/king_moya.gdshader" id="6_bksp0"]
+[ext_resource type="Texture2D" uid="uid://ddegy44321u8n" path="res://assets/textures/king/rainbow/rainbow.png" id="9_gjjdj"]
+[ext_resource type="AudioStream" uid="uid://d1qvl24jpnjq3" path="res://assets/sounds/king/rainbow.wav" id="10_358w4"]
+[ext_resource type="AudioStream" uid="uid://dnoekm7sibbpw" path="res://assets/sounds/king/bloop.wav" id="10_vraaw"]
 
 [sub_resource type="Curve" id="Curve_px78m"]
 _data = [Vector2(0, 0), 0.0, 2.91505, 0, 0, Vector2(0.834356, 1), 3.66393e-07, 0.0, 0, 0, Vector2(1, 0), -12.7624, 0.0, 0, 0]
@@ -108,6 +112,18 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset/Moya:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_c6xcf"]
 resource_name = "in"
@@ -168,6 +184,47 @@ tracks/4/path = NodePath("MoyaPos/SubViewportContainer:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_x0pq3"]
+resource_name = "in_moya_only"
+length = 0.300005
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset/Moya:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.4, 1.4, 1.4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/SubViewportContainer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset/Moya:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -243,7 +300,458 @@ tracks/4/keys = {
 _data = {
 "RESET": SubResource("Animation_nhukb"),
 "in": SubResource("Animation_c6xcf"),
+"in_moya_only": SubResource("Animation_x0pq3"),
 "out": SubResource("Animation_jbs0p")
+}
+
+[sub_resource type="Animation" id="Animation_icc1r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Camera3D:near")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Camera3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.245, 430)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Camera3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.315, 0.315, 0.315)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset/KingFace/Face:surface_material_override/1:shader_parameter/scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_7l83j"]
+resource_name = "transition"
+length = 0.500002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Camera3D:fov")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0, 0),
+"update": 0,
+"values": [75.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Camera3D:near")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0, 0),
+"update": 0,
+"values": [0.05, 100.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Camera3D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = false
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.197917, 0.2),
+"transitions": PackedFloat32Array(1, 0, 0),
+"update": 0,
+"values": [Vector3(0, 0.245, 4.8), Vector3(0, 0.245, 4.9), Vector3(0, 0.245, 430)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Camera3D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = false
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(0),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.197917, 0.2),
+"transitions": PackedFloat32Array(1, 0, 1),
+"update": 0,
+"values": [Vector3(0.315, 0.315, 0.315), Vector3(0.315, 0.315, 0.02), Vector3(0.315, 0.315, 0.315)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset/KingFace/Face:surface_material_override/1:shader_parameter/scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.197917, 0.2),
+"transitions": PackedFloat32Array(1.68179, 0, 1),
+"update": 0,
+"values": [1.0, 0.11, 1.0]
+}
+tracks/6/type = "animation"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MoyaInOutAnimation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": PackedStringArray("in_moya_only"),
+"times": PackedFloat32Array(0.2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j4fwm"]
+_data = {
+"RESET": SubResource("Animation_icc1r"),
+"transition": SubResource("Animation_7l83j")
+}
+
+[sub_resource type="Animation" id="Animation_nevhu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoyaPos/FacePos/RoyalRainbowParticles:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/FacePos/RainbowTexture:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoyaPos/FacePos/RainbowTexture:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MoyaPos/RainbowBlackBG:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MoyaPos/FacePos/BeamTexture1:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoyaPos/FacePos/BeamTexture2:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MoyaPos/FacePos/BeamTexture1:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("MoyaPos/FacePos/BeamTexture2:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("MoyaPos/FacePos/BeamTexture1:self_modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("MoyaPos/FacePos/BeamTexture2:self_modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_y8021"]
+resource_name = "rainbow"
+length = 6.90001
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RainbowSound")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 1.78615,
+"start_offset": 0.174745,
+"stream": ExtResource("10_358w4")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_vraaw")
+}],
+"times": PackedFloat32Array(0, 6)
+}
+tracks/0/use_blend = true
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/FacePos/RoyalRainbowParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0166667, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoyaPos/FacePos/RainbowTexture:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.5, 1.5, 4.5, 5.5),
+"transitions": PackedFloat32Array(-2, 1, -2, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(2, 2), Vector2(2, 2), Vector2(1e-05, 1e-05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MoyaPos/FacePos/RainbowTexture:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5, 1.3, 2.1, 2.9, 3.7, 4.5, 5.3, 6.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -3.14159, -6.28319, -9.42478, -12.5664, -15.708, -18.8496, -21.9911]
+}
+tracks/4/type = "animation"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MoyaInOutAnimation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": PackedStringArray("out"),
+"times": PackedFloat32Array(6)
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoyaPos/RainbowBlackBG:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 2.1, 3.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MoyaPos/FacePos/BeamTexture1:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.7, 1.5, 4.5, 5.3),
+"transitions": PackedFloat32Array(0.5, 1, 2, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("MoyaPos/FacePos/BeamTexture2:scale")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.7, 1.5, 4.5, 5.3),
+"transitions": PackedFloat32Array(0.5, 1, 2, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("MoyaPos/FacePos/BeamTexture1:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.5, 1.5, 2.5, 3.5, 4.5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, 6.28319, 9.42478, 12.5664, 15.708]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("MoyaPos/FacePos/BeamTexture2:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.5, 1.5, 2.5, 3.5, 4.5, 5.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -3.14159, -6.28319, -9.42478, -12.5664, -15.708]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("MoyaPos/FacePos/BeamTexture1:self_modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 4.5, 5.3),
+"transitions": PackedFloat32Array(1, 2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("MoyaPos/FacePos/BeamTexture2:self_modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 4.5, 5.3),
+"transitions": PackedFloat32Array(1, 2, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bccpf"]
+_data = {
+"RESET": SubResource("Animation_nevhu"),
+"rainbow": SubResource("Animation_y8021")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ho5my"]
@@ -391,7 +899,7 @@ states/talk/position = Vector2(484, 100)
 transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_jnyep"), "RESET", "talk", SubResource("AnimationNodeStateMachineTransition_soblo"), "talk", "RESET", SubResource("AnimationNodeStateMachineTransition_xss05")]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4vhce"]
-graph_offset = Vector2(-256.618, 71.5026)
+graph_offset = Vector2(-202.85, -96.1115)
 nodes/BlinkState/node = SubResource("AnimationNodeStateMachine_j5avm")
 nodes/BlinkState/position = Vector2(-140, 120)
 nodes/Emotion/node = SubResource("AnimationNodeAdd2_vm3w7")
@@ -424,6 +932,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="RainbowBlackBG" type="ColorRect" parent="MoyaPos"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="FacePos" type="Control" parent="MoyaPos"]
 layout_mode = 1
 anchors_preset = 8
@@ -431,6 +949,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_top = -350.0
+offset_bottom = -350.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -440,11 +960,65 @@ emitting = false
 amount = 1
 process_material = SubResource("ParticleProcessMaterial_27vb6")
 texture = ExtResource("3_5ncxc")
-lifetime = 1.5
 one_shot = true
+
+[node name="RainbowTexture" type="TextureRect" parent="MoyaPos/FacePos"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1524.0
+offset_top = -1524.0
+offset_right = 1524.0
+offset_bottom = 1524.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(1524, 1524)
+texture = ExtResource("9_gjjdj")
+expand_mode = 3
+
+[node name="BeamTexture1" type="TextureRect" parent="MoyaPos/FacePos"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1524.0
+offset_top = -1524.0
+offset_right = 1524.0
+offset_bottom = 1524.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(1524, 1524)
+texture = ExtResource("4_vgq6a")
+expand_mode = 3
+
+[node name="BeamTexture2" type="TextureRect" parent="MoyaPos/FacePos"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1524.0
+offset_top = -1524.0
+offset_right = 1524.0
+offset_bottom = 1524.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(1524, 1524)
+texture = ExtResource("4_vgq6a")
+expand_mode = 3
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="MoyaPos"]
 visible = false
+y_sort_enabled = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -454,15 +1028,23 @@ grow_vertical = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="MoyaPos/SubViewportContainer"]
-own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
 msaa_3d = 3
+canvas_item_default_texture_filter = 2
+gui_disable_input = true
+positional_shadow_atlas_size = 0
+positional_shadow_atlas_16_bits = false
+positional_shadow_atlas_quad_0 = 0
+positional_shadow_atlas_quad_1 = 0
+positional_shadow_atlas_quad_2 = 0
+positional_shadow_atlas_quad_3 = 0
 size = Vector2i(1920, 1080)
 render_target_update_mode = 0
 
 [node name="Camera3D" type="Camera3D" parent="MoyaPos/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.245, 430)
+environment = SubResource("Environment_pi02v")
 fov = 1.0
 size = 7.5
 near = 100.0
@@ -471,18 +1053,16 @@ near = 100.0
 transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 13.4501, 0)
 sky_mode = 1
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="MoyaPos/SubViewportContainer/SubViewport"]
-environment = SubResource("Environment_pi02v")
-
 [node name="Moya3DOffset" type="Node3D" parent="MoyaPos/SubViewportContainer/SubViewport"]
-transform = Transform3D(0.315, 0, 0, 0, 0.315, 0, 0, 0, 0.315, 0, 0, 0)
+unique_name_in_owner = true
+transform = Transform3D(0.315, 0, 0, 0, 0.315, 0, 0, 0, 0.315, 0, 2.5, 0)
 
 [node name="Moya" type="MeshInstance3D" parent="MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset"]
 transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, -1.4, 0, 1.4, -6.11959e-08, 0, 0.778, 0)
 rotation_order = 1
 mesh = ExtResource("2_xksay")
 skeleton = NodePath("")
-blend_shapes/moya2 = 0.0
+blend_shapes/moya2 = 0.346667
 surface_material_override/0 = SubResource("ShaderMaterial_birm0")
 
 [node name="KingFace" parent="MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset" instance=ExtResource("5_ganpw")]
@@ -499,8 +1079,18 @@ libraries = {
 }
 speed_scale = 0.75
 
+[node name="Moya3D2DTransition" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_j4fwm")
+}
+
+[node name="RoyalRainbowAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_bccpf")
+}
+
 [node name="KingFaceAnimation" type="AnimationTree" parent="."]
-root_node = NodePath("../MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset/KingFace")
+root_node = NodePath("%Moya3DOffset/KingFace")
 tree_root = SubResource("AnimationNodeBlendTree_4vhce")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset/KingFace/KingAnimation")
@@ -508,6 +1098,10 @@ parameters/Emotion/add_amount = 1.0
 parameters/TalkAdd/add_amount = 1.0
 
 [node name="KingSpeechSound" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="RainbowSound" type="AudioStreamPlayer" parent="."]
+max_polyphony = 2
 bus = &"SFX"
 
 [connection signal="emotion_changed" from="." to="." method="_emotion_changed"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://ymepdyha6l44"]
+[gd_scene load_steps=20 format=3 uid="uid://ymepdyha6l44"]
 
 [ext_resource type="Shader" path="res://assets/materials/shaders/king_face.gdshader" id="1_12wvg"]
 [ext_resource type="Texture2D" uid="uid://dgyshywsv8o0v" path="res://assets/textures/king/face.png" id="2_vqe08"]
 [ext_resource type="Texture2D" uid="uid://bgt7prksuy0l" path="res://assets/textures/king/face_eyes.png" id="3_odqam"]
 [ext_resource type="Shader" path="res://assets/materials/shaders/king_crown.gdshader" id="4_q43co"]
+[ext_resource type="Texture2D" uid="uid://cnsxesxfkpiof" path="res://assets/textures/king/crown_transition.png" id="5_4oxfw"]
 [ext_resource type="Texture2D" uid="uid://51aqflf2yop5" path="res://assets/textures/king/crown.png" id="5_l52ni"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h41ad"]
@@ -52,7 +53,9 @@ shader_parameter/EyeOverlay = ExtResource("3_odqam")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6gnjy"]
 render_priority = 0
 shader = ExtResource("4_q43co")
+shader_parameter/scale = 1.0
 shader_parameter/matcap = ExtResource("5_l52ni")
+shader_parameter/flatcap = ExtResource("5_4oxfw")
 
 [sub_resource type="Animation" id="Animation_iniqx"]
 length = 0.001

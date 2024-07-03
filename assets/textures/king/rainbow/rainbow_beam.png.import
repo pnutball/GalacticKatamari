@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgyshywsv8o0v"
-path.bptc="res://.godot/imported/face.png-9b577f958823cc02420e92461bf929e5.bptc.ctex"
+uid="uid://cxcfqewvk7wpf"
+path.bptc="res://.godot/imported/rainbow_beam.png-b0ac346643122e182b71a14999d3e438.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/king/face.png"
-dest_files=["res://.godot/imported/face.png-9b577f958823cc02420e92461bf929e5.bptc.ctex"]
+source_file="res://assets/textures/king/rainbow/rainbow_beam.png"
+dest_files=["res://.godot/imported/rainbow_beam.png-b0ac346643122e182b71a14999d3e438.bptc.ctex"]
 
 [params]
 
@@ -22,7 +22,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +32,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
