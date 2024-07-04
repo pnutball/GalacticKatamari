@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://bp5gmy06yifpu"]
+[gd_scene load_steps=78 format=3 uid="uid://bp5gmy06yifpu"]
 
 [ext_resource type="Texture2D" uid="uid://evak7n0ethga" path="res://assets/textures/king/moya.png" id="1_ldxbr"]
 [ext_resource type="Script" path="res://scripts/king_moya.gd" id="1_togpb"]
@@ -6,11 +6,16 @@
 [ext_resource type="Texture2D" uid="uid://18cwp3grxof" path="res://assets/textures/king/rainbow/rainbow_spark.png" id="3_5ncxc"]
 [ext_resource type="AnimationLibrary" uid="uid://dpy8711l2hl38" path="res://assets/animations/king/moya/moya_wibble.res" id="3_xesqk"]
 [ext_resource type="Texture2D" uid="uid://cxcfqewvk7wpf" path="res://assets/textures/king/rainbow/rainbow_beam.png" id="4_vgq6a"]
+[ext_resource type="Texture2D" uid="uid://cyxts0uwfnu2i" path="res://assets/textures/king/hand_goal.png" id="5_3fqnt"]
 [ext_resource type="PackedScene" uid="uid://ymepdyha6l44" path="res://assets/models/king/rig/king_face.tscn" id="5_ganpw"]
 [ext_resource type="Shader" path="res://assets/materials/shaders/king_moya.gdshader" id="6_bksp0"]
+[ext_resource type="Texture2D" uid="uid://dg4uhffjb7fhx" path="res://assets/textures/ui/goal_bg.png" id="6_fvb0s"]
+[ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="7_3b4yh"]
+[ext_resource type="Texture2D" uid="uid://co58rpbwpreeu" path="res://assets/textures/ui/time_bg.png" id="8_7p1o1"]
 [ext_resource type="Texture2D" uid="uid://ddegy44321u8n" path="res://assets/textures/king/rainbow/rainbow.png" id="9_gjjdj"]
 [ext_resource type="AudioStream" uid="uid://d1qvl24jpnjq3" path="res://assets/sounds/king/rainbow.wav" id="10_358w4"]
 [ext_resource type="AudioStream" uid="uid://dnoekm7sibbpw" path="res://assets/sounds/king/bloop.wav" id="10_vraaw"]
+[ext_resource type="AudioStream" uid="uid://bqgukb7vrtxrm" path="res://assets/sounds/game/show_goal.wav" id="16_7s2fe"]
 
 [sub_resource type="Curve" id="Curve_px78m"]
 _data = [Vector2(0, 0), 0.0, 2.91505, 0, 0, Vector2(0.834356, 1), 3.66393e-07, 0.0, 0, 0, Vector2(1, 0), -12.7624, 0.0, 0, 0]
@@ -37,6 +42,24 @@ gravity = Vector3(0, 0, 0)
 scale_max = 3.0
 scale_curve = SubResource("CurveTexture_s4h50")
 alpha_curve = SubResource("CurveTexture_3wb6e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5xy1u"]
+content_margin_left = 25.0
+content_margin_top = 5.0
+content_margin_right = 25.0
+content_margin_bottom = 5.0
+texture = ExtResource("6_fvb0s")
+texture_margin_left = 50.0
+texture_margin_right = 50.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ueps3"]
+content_margin_left = 25.0
+content_margin_top = 5.0
+content_margin_right = 25.0
+content_margin_bottom = 5.0
+texture = ExtResource("8_7p1o1")
+texture_margin_left = 50.0
+texture_margin_right = 50.0
 
 [sub_resource type="Environment" id="Environment_pi02v"]
 ambient_light_source = 2
@@ -754,6 +777,408 @@ _data = {
 "rainbow": SubResource("Animation_y8021")
 }
 
+[sub_resource type="Animation" id="Animation_xoh20"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoyaPos/FacePos/LeftHand:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/FacePos/LeftHand:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoyaPos/FacePos/LeftHand/SizeGoal:offset_left")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MoyaPos/FacePos/LeftHand/SizeGoal:offset_right")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MoyaPos/FacePos/LeftHand/SizeGoal:offset_top")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoyaPos/FacePos/LeftHand/SizeGoal:offset_bottom")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_kneey"]
+resource_name = "out"
+length = 0.250005
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoyaPos/FacePos/LeftHand:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/FacePos/LeftHand:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoyaPos/FacePos/LeftHand/SizeGoal:offset_left")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -512.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MoyaPos/FacePos/LeftHand/SizeGoal:offset_right")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -512.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MoyaPos/FacePos/LeftHand/SizeGoal:offset_top")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -128]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoyaPos/FacePos/LeftHand/SizeGoal:offset_bottom")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -128]
+}
+
+[sub_resource type="Animation" id="Animation_ycxls"]
+resource_name = "in"
+length = 0.20001
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoyaPos/FacePos/LeftHand:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/FacePos/LeftHand:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GoalShowSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0166667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kobnq"]
+_data = {
+"RESET": SubResource("Animation_xoh20"),
+"in": SubResource("Animation_ycxls"),
+"out": SubResource("Animation_kneey")
+}
+
+[sub_resource type="Animation" id="Animation_xxh3n"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoyaPos/FacePos/RightHand:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/FacePos/RightHand:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoyaPos/FacePos/RightHand/TimeGoal:offset_left")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MoyaPos/FacePos/RightHand/TimeGoal:offset_right")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MoyaPos/FacePos/RightHand/TimeGoal:offset_top")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoyaPos/FacePos/RightHand/TimeGoal:offset_bottom")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_wlaey"]
+resource_name = "in"
+length = 0.20001
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoyaPos/FacePos/RightHand:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/FacePos/RightHand:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GoalShowSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0166667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_wbgis"]
+resource_name = "out"
+length = 0.250005
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MoyaPos/FacePos/RightHand:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MoyaPos/FacePos/RightHand:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MoyaPos/FacePos/RightHand/TimeGoal:offset_left")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 512]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MoyaPos/FacePos/RightHand/TimeGoal:offset_right")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 512]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MoyaPos/FacePos/RightHand/TimeGoal:offset_top")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -128]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("MoyaPos/FacePos/RightHand/TimeGoal:offset_bottom")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -128]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aqi0d"]
+_data = {
+"RESET": SubResource("Animation_xxh3n"),
+"in": SubResource("Animation_wlaey"),
+"out": SubResource("Animation_wbgis")
+}
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ho5my"]
 animation = &"blink"
 
@@ -1016,6 +1441,82 @@ pivot_offset = Vector2(1524, 1524)
 texture = ExtResource("4_vgq6a")
 expand_mode = 3
 
+[node name="LeftHand" type="TextureRect" parent="MoyaPos/FacePos"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -594.0
+offset_right = -302.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_3fqnt")
+
+[node name="SizeGoal" type="PanelContainer" parent="MoyaPos/FacePos/LeftHand"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.38
+anchor_right = 0.75
+anchor_bottom = 0.38
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_5xy1u")
+
+[node name="GoalCounter" type="Label" parent="MoyaPos/FacePos/LeftHand/SizeGoal"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.366595, 0.366595, 0.366595, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("7_3b4yh")
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RightHand" type="TextureRect" parent="MoyaPos/FacePos"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 302.0
+offset_right = 594.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_3fqnt")
+flip_h = true
+
+[node name="TimeGoal" type="PanelContainer" parent="MoyaPos/FacePos/RightHand"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.38
+anchor_right = 0.25
+anchor_bottom = 0.38
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ueps3")
+
+[node name="GoalCounter" type="Label" parent="MoyaPos/FacePos/RightHand/TimeGoal"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.366595, 0.366595, 0.366595, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("7_3b4yh")
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="MoyaPos"]
 visible = false
 y_sort_enabled = true
@@ -1090,6 +1591,16 @@ libraries = {
 "": SubResource("AnimationLibrary_bccpf")
 }
 
+[node name="GoalHandAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kobnq")
+}
+
+[node name="TimeHandAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_aqi0d")
+}
+
 [node name="KingFaceAnimation" type="AnimationTree" parent="."]
 root_node = NodePath("%Moya3DOffset/KingFace")
 tree_root = SubResource("AnimationNodeBlendTree_4vhce")
@@ -1102,7 +1613,12 @@ parameters/TalkAdd/add_amount = 1.0
 bus = &"SFX"
 
 [node name="RainbowSound" type="AudioStreamPlayer" parent="."]
+volume_db = 3.0
 max_polyphony = 2
+bus = &"SFX"
+
+[node name="GoalShowSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_7s2fe")
 bus = &"SFX"
 
 [connection signal="emotion_changed" from="." to="." method="_emotion_changed"]

@@ -343,4 +343,4 @@ func get_localized_string(input:Dictionary) -> String:
 
 func get_localized_plural(count:int, input:Dictionary) -> String:
 	var plurals:Array = input.get(TranslationServer.get_locale().get_slice("_", 0), input.get("en", ["MISSING STRING!"]))
-	return plurals[min(count, plurals.size() - 1)]
+	return plurals[min(count, max(0, plurals.size() - 1), )]

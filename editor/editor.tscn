@@ -306,7 +306,7 @@ text = "Reload Spawns"
 own_world_3d = true
 handle_input_locally = false
 physics_object_picking = true
-size = Vector2i(480, 270)
+size = Vector2i(1622, 732)
 render_target_update_mode = 4
 
 [node name="EditorPrevRoot" type="Node3D" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/MiddleVBox/EditorView/ViewPort"]
@@ -414,7 +414,7 @@ unique_name_in_owner = true
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(144, 144)
 render_target_update_mode = 4
 
 [node name="EnvPreview" parent="BGPanel/MarginContainer/EditorVBox/SplitMain/SplitRight/BrowserContainer/ObjectBrowser/InfoPanel/InfoPanelMargin/InfoPanelVbox/ObjectPreviewContainer/PreviewViewport" instance=ExtResource("20_n41lb")]
@@ -492,7 +492,7 @@ theme_override_constants/margin_bottom = 8
 [node name="RichTextLabel" type="RichTextLabel" parent="DialogueTagHelpWindow/MarginContainer"]
 layout_mode = 2
 text = "Use Enter or \\n to add a line break.
-End each box with |break|
+End each box with |break|.
 
 |color:#HEXCLR| - Change text color
 |bgcolor:#HEXCLR| - Change bubble color

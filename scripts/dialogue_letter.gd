@@ -3,6 +3,7 @@ extends Label
 var delay:float = 0
 var effect:StringName = &""
 var face:StringName = &"Neutral"
+var goal:StringName = &""
 var shocked:bool = false
 var last_letter:bool = false
 var anim_finished:bool = false
@@ -43,6 +44,10 @@ func skip():
 			KingFace.Shocked = shocked
 
 func conditional_end_talk(): 
+	if goal == &"size": 
+		KingFace.get_node("GoalHandAnimation").play("in")
+	if goal == &"time":
+		KingFace.get_node("TimeHandAnimation").play("in")
 	if last_letter: 
 		KingFace.Talking = false
 		last_letter_shown.emit()
