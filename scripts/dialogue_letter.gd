@@ -24,6 +24,7 @@ func _process(delta):
 	elapsed += delta
 	match effect:
 		&"vwave": position = base_position + Vector2(0, sin((elapsed + delay) * 6) * 8 * effectMult)
+		&"jitter": position = base_position + Vector2(0, (roundf(sin((elapsed + delay) * 24) * 0.5 + 0.5) * 8 - 4) * effectMult)
 		&"hwave": position = base_position + Vector2(sin((elapsed + delay) * 6) * 8 * effectMult, 0)
 		&"rainbow": self_modulate = Color.from_hsv(fposmod((delay - elapsed) * -0.5, 1), 0.5, 1)
 		&"pulse": self_modulate = base_color * Color(1, 1, 1, (sin((elapsed + delay) * 6) + 1) * 0.4 + 0.2)

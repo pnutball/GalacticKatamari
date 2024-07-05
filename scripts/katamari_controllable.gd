@@ -139,6 +139,17 @@ func _ready():
 	changeCamArea(0, true)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 	respawn(true)
+	# Now let's init the dialogue
+	var mode:Dictionary = StageLoader.currentStage.get("modes", {}).get(StageLoader.currentMode, {})
+	MovementEnabled = mode.get("katamari", {}).get("can_dialogue_move", true)
+	if not StageLoader.restarted:
+		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("start_dialogue", {})))
+	else:
+		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("retry_dialogue", {})))
+	
+	DialogueBox.speak_queue()
+	await DialogueBox.queue_finished
+	MovementEnabled = true
 
 func _process(delta):
 	$SubViewport.size = %ViewportRect.get_viewport_rect().size

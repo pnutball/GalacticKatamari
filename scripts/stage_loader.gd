@@ -11,6 +11,7 @@ var stageRoot:Node3D
 var preloadRoot:Node3D = Node3D.new()
 var currentKatamari
 var loadFinished:bool = true
+var restarted:bool = false
 
 const RollableObject:PackedScene = preload("res://scenes/game/object/rollable_object_3d.tscn")
 const KatamariControllable:PackedScene = preload("res://scenes/game/object/katamari_controllable.tscn")

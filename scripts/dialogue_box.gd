@@ -85,8 +85,9 @@ const TIME_SUFFIXES:Dictionary = {
 }
 
 func queue_dialog_string(dialogue:String, new_mode:DialogueRevealMode = MODE_IN_OUT):
+	queue_message("", new_mode)
 	for split in dialogue.replacen("|break|","|break|").split("|break|"):
-		queue_message(dialogue, new_mode)
+		queue_message(split, new_mode)
 
 func interrupt_queue():
 	MessageQueue.clear()
@@ -155,7 +156,7 @@ func speak(unf_text:String, scripted:bool = false, instant:bool = false):
 				var goaArray = []
 				goaArray.resize(oujiName.length())
 				goaArray.fill(&"")
-				StringShow.append_array(shoArray)
+				StringShow.append_array(goaArray)
 			elif tag.to_upper().begins_with("COLOR:"):
 				if tag.right(-6).is_valid_html_color():
 					currentColor = Color(tag.right(-6))
@@ -172,6 +173,8 @@ func speak(unf_text:String, scripted:bool = false, instant:bool = false):
 				currentShocked = face.ends_with("S")
 			elif tag.to_upper().begins_with("VWAVE"):
 				currentEffect = &"vwave"
+			elif tag.to_upper().begins_with("JITTER"):
+				currentEffect = &"jitter"
 			elif tag.to_upper().begins_with("HWAVE"):
 				currentEffect = &"hwave"
 			elif tag.to_upper().begins_with("RAINBOW"):
@@ -208,7 +211,7 @@ func speak(unf_text:String, scripted:bool = false, instant:bool = false):
 				goaArray.resize(size_string.length())
 				goaArray.fill(&"")
 				goaArray[0] = &"size"
-				StringShow.append_array(shoArray)
+				StringShow.append_array(goaArray)
 			elif tag.to_upper().begins_with("GOAL:POINTS"):
 				var goal:int = StageLoader.currentStage.get("modes", {}).get(StageLoader.currentMode, {}).get("goal_type_points", {}).get("goal_minimum")
 				var locstring:String = GKGlobal.get_localized_plural(goal, StageLoader.currentStage.get("modes", {}).get(StageLoader.currentMode, {}).get("goal_type_points", {}).get("point_name", {}))
@@ -236,7 +239,7 @@ func speak(unf_text:String, scripted:bool = false, instant:bool = false):
 				goaArray.resize(locstring.length())
 				goaArray.fill(&"")
 				goaArray[0] = &"size"
-				StringShow.append_array(shoArray)
+				StringShow.append_array(goaArray)
 			elif tag.to_upper().begins_with("GOAL:TIME"):
 				var time:float = StageLoader.currentStage.get("modes", {}).get(StageLoader.currentMode, {}).get("time")
 				var minute:int = floor(time / 60.0)
@@ -252,6 +255,7 @@ func speak(unf_text:String, scripted:bool = false, instant:bool = false):
 					time_string += GKGlobal.get_localized_plural(0, TIME_SUFFIXES["minsec"]).format({"min":minute, "sec":second})
 				
 				text += time_string
+				KingFace.get_node("MoyaPos/FacePos/RightHand/TimeGoal/GoalCounter").text = time_string
 				var colArray = []
 				colArray.resize(time_string.length())
 				colArray.fill(currentColor)
@@ -272,7 +276,7 @@ func speak(unf_text:String, scripted:bool = false, instant:bool = false):
 				goaArray.resize(time_string.length())
 				goaArray.fill(&"")
 				goaArray[0] = &"time"
-				StringShow.append_array(shoArray)
+				StringShow.append_array(goaArray)
 		else: 
 			text += formattingSplits[index]
 			var colArray = []
@@ -294,7 +298,7 @@ func speak(unf_text:String, scripted:bool = false, instant:bool = false):
 			var goaArray = []
 			goaArray.resize(formattingSplits[index].length() - formattingSplits[index].count("\n"))
 			goaArray.fill(&"")
-			StringShow.append_array(shoArray)
+			StringShow.append_array(goaArray)
 	#endregion
 	#region Letter Setup
 	# Let's set up the letters.

@@ -504,7 +504,8 @@ End each box with |break|.
 |clear| - Clear text effects without clearing color
 |face:E(S)| - Modify King's face:
 ABC is an expression - ANGER/HAPPY/SAD/NEUTRAL, adding S to the end adds shocked eyes.
-|OUJI_#| - The name of Player #'s cousin, with color formatting (any undefined cousins show up as \"???\")."
+|OUJI_#| - The name of Player #'s cousin, with color formatting (any undefined cousins show up as \"???\").
+|goal:size|, |goal:points|, |goal:time| - Shows the corresponding goal and \"summons\" the corresponding HUD section."
 
 [node name="FileDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true

@@ -19,22 +19,22 @@
 						"force_default": true
 					},
 					"pre_dialogue": {
-						"en": "Dummy"
+						"en": "Oh, hang on. Sorry,\nWe'll call you back later.|break|Click... and... okie dokie!\nNow, where were We?|break|Right. |face:happy|The demo!|face:neutral| We had so, so\nfabulously forgotten about it.|break|The developers got it all set up\njuuuuuust right, Wethinks.|break|Now then, let's get rolling!|break|...did We mention how 3D We are?"
 					},
 					"start_dialogue": {
-						"en": "Dummy"
+						"en": "Aaand here We are! The |color:#F389F5|demo stage|color:#FFF|!|break|A |color:#00CDF9|wonderfully crafted|color:#FFF| house\nfor you to roll around in.|break|Now, as for Our request...\nWe want a |color:#F7532E||goal:size||color:#FFF| katamari today.|break|We're going to go shopping for a bit.\nWe'll be back in about |color:#F7532E||goal:time||color:#FFF|.|break|Alright! Surely you know what you're doing,\nso roll on with it!|break|We'll remember to get you some ice cream. |color:#EA323C|♥"
 					},
 					"retry_dialogue": {
-						"en": "Dummy"
+						"en": "Once more? An encore?|break|No problem-o, |OUJI_1|! Just get the katamari to\n|color:#F7532E||goal:size||color:#FFF| in |color:#F7532E||goal:time||color:#FFF|. Sound good?|break|Alright, now get to it!"
 					},
 					"win_dialogue": {
-						"en": "Dummy"
+						"en": "|face:happy||vwave|We're back!|clear| We brought...\n|face:neutrals||color:#FFEB57|...Oh!|color:#fff||break||face:happy|A |color:#00CDF9|nice big katamari|color:#fff|! Just for Us?\n|hwave|Oh, you shouldn't have!|break|Well, We shall take this creation of yours\nback to the Cosmos to study.|break||rainbow|Royal Rainbow!"
 					},
 					"fail_dialogue": {
-						"en": "Dummy"
+						"en": "|face:happy||vwave|We're back!|clear| We brought...\n|face:neutral||color:#00CDF9|...oh.|color:#fff||break||face:sad|A... |jitter|very small katamari|clear|. Just for Us...?|break||face:sad|Gee wiz, |face:anger|thanks a lot, |OUJI_1|.\n|vwave||color:#F7532E|We LOVE it when you disappoint Us.|break||face:anger||color:#5AC54F|Blegh...|color:#FFF| just get it bigger next time."
 					},
 					"result_dialogue": {
-						"en": "Dummy"
+						"en": "|face:happy|And here We return! With your |color:#F389F5|beautiful katamari|color:#FFF|!|break|...what? What game?\nWe didn't mention any game.|break|Anyhoo... this katamari here!\nOf course, it could've been much bigger.|break|We would do a lot better at this demo!|break|Speaking of, kewpie-kewpie! What did you think?|break|Was the demo good? Fun? Entertaining?|break||face:happy||color:#00CDF9||vwave|Did it serve you pot pie\nand put an apron on you?|break|We hope so! Hopefully this will get you excited for\nthe full release of |color:#00CDF9|Galactic Katamari|color:#FFF|!|break|This is only a taste of the game, so get excited!|break|Just don't cause |color:#F7532E|too|color:#FFF| much of a ruckus.|break|Anyhoo, Us and |OUJI_1| have a very important\nice cream meeting. |face:happy|Toodeloo, honey boo!"
 					},
 					"map_zones": [
 						{
