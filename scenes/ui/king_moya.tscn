@@ -1435,6 +1435,7 @@ nodes/output/position = Vector2(400, 200)
 node_connections = [&"Emotion", 0, &"TalkAdd", &"Emotion", 1, &"EmotionState", &"TalkAdd", 0, &"BlinkState", &"TalkAdd", 1, &"TalkState", &"output", 0, &"Emotion"]
 
 [node name="KingMoya" type="Control"]
+top_level = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

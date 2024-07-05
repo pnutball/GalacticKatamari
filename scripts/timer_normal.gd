@@ -1,11 +1,11 @@
 extends Control
 
 ## Enables the timer's process.
-@export var enabled:bool = false:
-	set(newEnabled):
-		enabled = newEnabled
-	get:
-		return enabled
+@export var enabled:bool = false#:
+#	set(newEnabled):
+#		enabled = newEnabled
+#	get:
+#		return enabled
 
 ## The current amount of time remaining, in seconds.[br]
 ## Setting time to a value higher than maximum_time will increase maximum_time to match. 
@@ -77,6 +77,11 @@ func get_time(format:String = "%d:%d", secondsFirst:bool = false):
 func get_maximum_time(format:String = "%d:%d", secondsFirst:bool = false):
 	if secondsFirst: return format % [maximum_time % 60, maximum_time / 60]
 	else: return format % [maximum_time / 60, maximum_time % 60]
+
+func play_gong(won:bool) -> void:
+	$TimerGong.stream = preload("res://assets/sounds/ui/timeup.wav") if won else preload("res://assets/sounds/ui/timeup_lose.wav")
+	$TimerGong.play()
+
 
 func _ready():
 	$TimerAnimation.animation_set_next(&"MinuteSpin", &"SecondSpin_Transition")

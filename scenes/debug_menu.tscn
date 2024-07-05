@@ -48,13 +48,15 @@ func _on_mode_list_item_selected(index):
 	selectedMode = $ModeList.get_item_text(index)
 	
 	$InfoContainer/LoadButton.disabled = false
-	$InfoContainer/LevelInfo.text = \"[b]%s[/b]\\n[i]%s[/i]\\n\\n%s\" % [
+	$InfoContainer/LevelInfo.text = \"[b]%s[/b]\\n[i]%s[/i]\\n\\n%s\\nMusic: \\\"%s\\\"\" % [
 		GKGlobal.get_localized_string(StageLoader.currentStage.name),
 		GKGlobal.get_localized_string(StageLoader.currentStage.modes.get(selectedMode).name),
-		GKGlobal.get_localized_string(StageLoader.currentStage.description)]
+		GKGlobal.get_localized_string(StageLoader.currentStage.description),
+		GKGlobal.get_music(StageLoader.currentStage.modes.get(selectedMode, {}).get(\"music\", {}).get(\"default\", \"\"))[1]]
 
 
 func _on_load_button_pressed():
+	GKGlobal.selectedMusic = StageLoader.currentStage.modes.get(selectedMode, {}).get(\"music\", {}).get(\"default\", \"\")
 	visible = false
 	$\"../Load\".visible = true
 	await StageLoader.instantiateStage(selectedMode)

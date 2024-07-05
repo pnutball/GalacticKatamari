@@ -262,13 +262,14 @@ libraries = {
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
 process_mode = 3
-size = Vector2i(2, 2)
+size = Vector2i(687, 267)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
 [node name="KatamariBody" type="RigidBody3D" parent="."]
 process_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+disable_mode = 1
 collision_mask = 32771
 input_ray_pickable = false
 axis_lock_angular_x = true
@@ -376,6 +377,7 @@ monitorable = false
 shape = SubResource("CapsuleShape3D_p0v8r")
 
 [node name="Debug" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -580,6 +582,9 @@ bus = &"SFX"
 [node name="KatamariDashAudio" type="AudioStreamPlayer" parent="."]
 bus = &"SFX"
 
+[node name="GameMusic" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
 [node name="ViewportRect" type="TextureRect" parent="."]
 unique_name_in_owner = true
 z_index = -10
@@ -596,9 +601,10 @@ texture = SubResource("ViewportTexture_l3wab")
 [node name="PauseMenu" parent="." instance=ExtResource("13_8548j")]
 
 [node name="OujiView" parent="." instance=ExtResource("11_ystjj")]
-z_index = 1
+z_index = -1
 
 [node name="SizeMeter" parent="." instance=ExtResource("15_5xjs0")]
+z_index = -1
 
 [node name="ObjectIndicator" parent="." instance=ExtResource("16_quent")]
 

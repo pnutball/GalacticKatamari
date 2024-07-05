@@ -41,8 +41,10 @@ func _process(delta):
 	position = Vector2.ZERO
 	size = get_viewport().size * (1080.0 / get_viewport().size.y)
 	$Offset.position.y = 826
+	
 	object_display_timer -= delta
 	%"3DView/3DViewport/ObjectMesh".rotation.y = -0.6109 - (-PI/4 * object_display_timer)
+	visible = in_danger or object_displayed
 	$Offset/TextPanel.visible = object_displayed
 	%"3DView".visible = object_displayed
 	$PointerLine.visible = object_displayed

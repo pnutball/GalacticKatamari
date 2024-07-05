@@ -114,6 +114,9 @@ var RoyalWarping:bool = false
 @export_file("*.png") var CoreTexture:String = "res://assets/textures/core/core_test.png"
 #endregion
 
+@export var Music:String = ""
+@export var Pausable:bool = false
+
 const RollSounds = {
 	"XS": [preload("uid://d3gp43smimgy4"), preload("uid://ti521pkbxfs"), preload("uid://0litba7qydpt")],
 	"S": [preload("uid://b5xq50lmixdve"), preload("uid://bmu3gyrkst2yn"), preload("uid://gjptanm2fkl8")],
@@ -139,6 +142,7 @@ func _ready():
 	changeCamArea(0, true)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 	respawn(true)
+	
 	# Now let's init the dialogue
 	var mode:Dictionary = StageLoader.currentStage.get("modes", {}).get(StageLoader.currentMode, {})
 	MovementEnabled = mode.get("katamari", {}).get("can_dialogue_move", true)
@@ -147,9 +151,41 @@ func _ready():
 	else:
 		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("retry_dialogue", {})))
 	
+	var music_array = GKGlobal.get_music(Music)
+	$GameMusic.stream = music_array[0]
+	## TODO: add music title gui element
 	DialogueBox.speak_queue()
 	await DialogueBox.queue_finished
+	$GameMusic.play()
 	MovementEnabled = true
+	Pausable = true
+	if has_node("Timer"):
+		$Timer.enabled = true
+		await $Timer.timeout
+		_end_stage()
+
+func _end_stage():
+	Pausable = false
+	var mode:Dictionary = StageLoader.currentStage.get("modes", {}).get(StageLoader.currentMode, {})
+	MovementEnabled = false
+	$KatamariBody.process_mode = Node.PROCESS_MODE_DISABLED
+	var won:bool = $SizeMeter.goal_reached(Size, Score)
+	if has_node("Timer"): $Timer.play_gong(won)
+	$GameMusic.stop()
+	if won:
+		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("win_dialogue", {})), DialogueBox.MODE_IN)
+		DialogueBox.speak_queue()
+		await DialogueBox.queue_finished
+		if has_node("Timer"): $Timer.scroll_out()
+		$SizeMeter/SizeAnimation.play("Disappear")
+		await $SizeMeter/SizeAnimation.animation_finished
+		KingFace.get_node("RoyalRainbowAnimation").play("rainbow")
+		await KingFace.get_node("MoyaInOutAnimation").animation_finished
+		await get_tree().create_timer(0.5).timeout
+		get_tree().change_scene_to_file("res://scenes/debug_menu.tscn")
+		get_node("/root/KatamariStageRoot").queue_free()
+	else:
+		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("lose_dialogue", {})), DialogueBox.MODE_IN)
 
 func _process(delta):
 	$SubViewport.size = %ViewportRect.get_viewport_rect().size

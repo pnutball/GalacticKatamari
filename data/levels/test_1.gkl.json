@@ -15,7 +15,7 @@
 						"en": "Normal"
 					},
 					"music": {
-						"default": "",
+						"default": "everlasting_love_plus_you",
 						"force_default": true
 					},
 					"pre_dialogue": {
@@ -409,7 +409,7 @@
 						"speed": 4.5,
 						"can_dash": true,
 						"can_turn": true,
-						"can_dialogue_move": true
+						"can_dialogue_move": false
 					},
 					"goal_type": 1,
 					"goal_type_size": {
@@ -435,7 +435,7 @@
 						"can_quit_early": false,
 						"hide_ui": false
 					},
-					"time": 240,
+					"time": 30,
 					"time_100pts": 0,
 					"time_120pts": 0,
 					"skip_results": false

@@ -22,6 +22,13 @@ var size_font_size_change:bool = true
 var point_label:RichTextLabel = null
 var point_font_size_change:bool = false
 
+func goal_reached(_size:float, _points:float) -> bool:
+	if goal_type == GoalType.SIZE:
+		return _size >= mode["goal_type_size"]["goal_minimum"]
+	elif goal_type == GoalType.POINTS:
+		return _points >= mode["goal_type_points"]["goal_minimum"]
+	else: return true
+
 func _ready():
 	if goal_type != GoalType.EXACT_SIZE and goal_type != GoalType.POINTS:
 		ui_min = mode["katamari"]["size"]

@@ -1,0 +1,20 @@
+{
+	"music": {
+		"final_fugue": {
+			"path": "res://assets/music/king.ogg",
+			"name": {
+				"en": "Pnutball Sound Team / Final Fugue"
+			},
+			"game_selectable": false,
+			"museum_selectable": true
+		},
+		"everlasting_love_plus_you": {
+			"path": "res://assets/music/bgm_everlove+you.ogg",
+			"name": {
+				"en": "Leah Dizon / Everlasting Love + You"
+			},
+			"game_selectable": true,
+			"museum_selectable": true
+		}
+	}
+}

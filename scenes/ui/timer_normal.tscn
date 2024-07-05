@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://r5b6h4jwf6gn"]
+[gd_scene load_steps=10 format=3 uid="uid://r5b6h4jwf6gn"]
 
 [ext_resource type="Script" path="res://scripts/timer_normal.gd" id="1_hk2xi"]
 [ext_resource type="Texture2D" uid="uid://7rlhllfm8cej" path="res://assets/textures/ui/timer_normal_hand.png" id="2_hyjjg"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="4_l3u3n"]
 [ext_resource type="AnimationLibrary" uid="uid://cp3q5qj7mxpnm" path="res://assets/animations/ui/timer.res" id="5_tucfh"]
 [ext_resource type="AnimationLibrary" uid="uid://e0nygmind07c" path="res://assets/animations/ui/timer_scroll.res" id="6_uugll"]
+[ext_resource type="AudioStream" uid="uid://boa1wkvebpa8m" path="res://assets/sounds/ui/timeup_lose.wav" id="8_ov21g"]
 [ext_resource type="AudioStream" uid="uid://iwg0k34bv3xw" path="res://assets/sounds/ui/countdown.wav" id="9_3jco8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pvrry"]
@@ -104,4 +105,8 @@ libraries = {
 [node name="TimerAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_3jco8")
 max_polyphony = 2
+bus = &"SFX"
+
+[node name="TimerGong" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_ov21g")
 bus = &"SFX"

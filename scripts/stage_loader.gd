@@ -89,6 +89,7 @@ func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
 	currentKatamari.CanDash = currentStage.modes.get(currentMode).katamari.can_dash
 	currentKatamari.CanQuickTurn = currentStage.modes.get(currentMode).katamari.can_turn
 	currentKatamari.CameraZones = currentStage.modes.get(currentMode).cam_zones
+	currentKatamari.Music = GKGlobal.selectedMusic
 	if not currentStage.modes.get(currentMode).katamari.can_dialogue_move: currentKatamari.MovementEnabled = false
 	if currentStage.modes.get(currentMode).time > 0: 
 		var currentTimer = TimerNormal.instantiate()

@@ -3,7 +3,7 @@ extends Control
 var _pause_in_progress:bool = false
 
 func _input(_event):
-	if Input.is_action_just_pressed("Pause") and not _pause_in_progress:
+	if Input.is_action_just_pressed("Pause") and not _pause_in_progress and $"..".Pausable:
 		_pause_in_progress = true
 		get_tree().paused = not get_tree().paused
 		if get_tree().paused: $PauseSound.play()

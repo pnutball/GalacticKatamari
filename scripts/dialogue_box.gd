@@ -248,9 +248,9 @@ func speak(unf_text:String, scripted:bool = false, instant:bool = false):
 				if minute == 0 and second == 0:
 					time_string = GKGlobal.get_localized_plural(0, TIME_SUFFIXES["min"]).format({"min":"???"})
 				elif minute == 0:
-					time_string = GKGlobal.get_localized_plural(0, TIME_SUFFIXES["sec"]).format({"sec":second})
+					time_string = GKGlobal.get_localized_plural(second, TIME_SUFFIXES["sec"]).format({"sec":second})
 				elif second == 0:
-					time_string += GKGlobal.get_localized_plural(0, TIME_SUFFIXES["min"]).format({"min":minute})
+					time_string += GKGlobal.get_localized_plural(minute, TIME_SUFFIXES["min"]).format({"min":minute})
 				else:
 					time_string += GKGlobal.get_localized_plural(0, TIME_SUFFIXES["minsec"]).format({"min":minute, "sec":second})
 				

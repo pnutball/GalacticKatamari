@@ -35,6 +35,16 @@ const OujiInfo:Array[Dictionary] = [
 	} # OUJI01, The Prince
 ]
 
+var MusicList:Dictionary = preload("res://data/music.json").data["music"]
+
+var selectedMusic = ""
+
+## Returns the song's AudioStream and its localized name.
+func get_music(id:String) -> Array:
+	var stream:AudioStream = AudioStream.new() if not MusicList.has(id) else load(MusicList[id].path)
+	var song_name:String = "" if not MusicList.has(id) else get_localized_string(MusicList[id].name)
+	return [stream, song_name]
+
 var players:Array[Array] = [
 	[01, "Player 1"]
 ]
