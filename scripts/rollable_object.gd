@@ -68,7 +68,7 @@ func _on_katamari_entered(_rid, body, shape, _locshape):
 			Katamari.playRollSound()
 			for child in $SubObjectsRoot.get_children():
 				if child is RollableObject3D:
-					child.reparent(get_parent())
+					child.reparent(get_node("/root/KatamariStageRoot"))
 			queue_free()
 			return
 		elif Katamari.Size >= ObjectKnockSize:

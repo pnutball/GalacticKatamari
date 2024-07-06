@@ -549,10 +549,116 @@
 									"physics_file": "",
 									"physics_speed": 0,
 									"launch_vector": [0,0,0],
-									"animation": "",
+									"animation": "wobble",
 									"animation_speed": 1,
 									"animation_phase": 0,
-									"sub_objects": [],
+									"sub_objects": [
+										{
+											"id": "debug_cube",
+											"position": [
+												0,
+												1,
+												0
+											],
+											"rotation": [
+												0,
+												0,
+												0
+											],
+											"approach_behavior": 0,
+											"approaches_small_katamari": false,
+											"approach_speed": 0,
+											"physics_behavior": 0,
+											"physics_file": "",
+											"physics_speed": 0,
+											"launch_vector": [0,0,0],
+											"animation": "wobble",
+											"animation_speed": 1,
+											"animation_phase": 0,
+											"sub_objects": [
+												{
+													"id": "debug_cube",
+													"position": [
+														0,
+														1,
+														0
+													],
+													"rotation": [
+														0,
+														0,
+														0
+													],
+													"approach_behavior": 0,
+													"approaches_small_katamari": false,
+													"approach_speed": 0,
+													"physics_behavior": 0,
+													"physics_file": "",
+													"physics_speed": 0,
+													"launch_vector": [0,0,0],
+													"animation": "wobble",
+													"animation_speed": 1,
+													"animation_phase": 0,
+													"sub_objects": [
+														{
+															"id": "debug_cube",
+															"position": [
+																0,
+																1,
+																0
+															],
+															"rotation": [
+																0,
+																0,
+																0
+															],
+															"approach_behavior": 0,
+															"approaches_small_katamari": false,
+															"approach_speed": 0,
+															"physics_behavior": 0,
+															"physics_file": "",
+															"physics_speed": 0,
+															"launch_vector": [0,0,0],
+															"animation": "wobble",
+															"animation_speed": 1,
+															"animation_phase": 0,
+															"sub_objects": [
+																{
+																	"id": "debug_cube",
+																	"position": [
+																		0,
+																		1,
+																		0
+																	],
+																	"rotation": [
+																		0,
+																		0,
+																		0
+																	],
+																	"approach_behavior": 0,
+																	"approaches_small_katamari": false,
+																	"approach_speed": 0,
+																	"physics_behavior": 0,
+																	"physics_file": "",
+																	"physics_speed": 0,
+																	"launch_vector": [0,0,0],
+																	"animation": "wobble",
+																	"animation_speed": 1,
+																	"animation_phase": 0,
+																	"sub_objects": [
+																		
+																	],
+																	"unload_size": -1
+																}
+															],
+															"unload_size": -1
+														}
+													],
+													"unload_size": -1
+												}
+											],
+											"unload_size": -1
+										}
+									],
 									"unload_size": -1
 								}
 							],
@@ -606,7 +712,7 @@
 						"can_quit_early": false,
 						"hide_ui": false
 					},
-					"time": 30,
+					"time": 240,
 					"time_100pts": 0,
 					"time_120pts": 0,
 					"skip_results": false

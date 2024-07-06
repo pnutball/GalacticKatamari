@@ -107,6 +107,8 @@ func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
 	stage_instantiated.emit()
 	GKOverlays.load_end()
 
+var preload_object_index:int = 0
+
 ## Preloads an area, without adding it to the stage root.
 func preloadArea(area:int = currentArea + 1):
 	loadFinished = false
@@ -126,42 +128,48 @@ func preloadArea(area:int = currentArea + 1):
 		instantiated.set_script(null)
 		currentStatics.add_child(instantiated)
 	
-	var num:int = 0
+	preload_object_index = 0
 	for object in currentStage.modes.get(currentMode).map_zones[area].objects:
-		var instantiated:Node = RollableObject.instantiate()
-		
-		ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).view_mesh)
-		while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).view_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-			await get_tree().create_timer(0.1).timeout
-		ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).collision_mesh)
-		while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).collision_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-			await get_tree().create_timer(0.1).timeout
-		ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).texture)
-		while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).texture) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-			await get_tree().create_timer(0.1).timeout
-		ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).texture_rolledup)
-		while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).texture_rolledup) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-			await get_tree().create_timer(0.1).timeout
-		
-		instantiated.InstanceName = str(area) + "_" + str(num)
-		if ResourceLoader.exists(objectList.get(object.id, objectList["debug_cube"]).view_mesh): instantiated.ObjectMesh = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").view_mesh)
-		if ResourceLoader.exists(objectList.get(object.id, objectList["debug_cube"]).collision_mesh): instantiated.ObjectCol = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").collision_mesh)
-		instantiated.ObjectKnockSize = objectList.get(object.id, objectList["debug_cube"]).knock_size
-		instantiated.ObjectRollSize = objectList.get(object.id, objectList["debug_cube"]).roll_size
-		instantiated.ObjectGrowSize = objectList.get(object.id, objectList["debug_cube"]).pickup_size
-		instantiated.ObjectTex = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").texture) if objectList.get(object.id, "debug_cube").texture != "" else preload("uid://bo151m2ckmef3")
-		instantiated.ObjectTexRoll = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").texture_rolledup) if objectList.get(object.id, "debug_cube").texture_rolledup != "" else instantiated.ObjectTex
-		instantiated.position = Vector3(object.position[0], object.position[1], object.position[2])
-		instantiated.rotation = Vector3(object.rotation[0], object.rotation[1], object.rotation[2]) * (PI/180)
-		instantiated.ObjectScale = objectList.get(object.id, "debug_cube").scale
-		instantiated.AnimationName = object.animation if object.animation != "" else &"RESET"
-		instantiated.AnimationSpeed = object.animation_speed
-		instantiated.AnimationPhase = fmod(object.animation_phase, 1)
-		
-		preloadRoot.add_child(instantiated)
-		
-		num += 1
+		await _preload_object(object, preloadRoot, area)
 	loadFinished = true
+
+func _preload_object(object:Dictionary, root:Node3D, area:int = currentArea + 1):
+	var instantiated:Node = RollableObject.instantiate()
+		
+	ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).view_mesh)
+	while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).view_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		await get_tree().create_timer(0.1).timeout
+	ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).collision_mesh)
+	while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).collision_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		await get_tree().create_timer(0.1).timeout
+	ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).texture)
+	while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).texture) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		await get_tree().create_timer(0.1).timeout
+	ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).texture_rolledup)
+	while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).texture_rolledup) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+		await get_tree().create_timer(0.1).timeout
+	
+	instantiated.InstanceName = str(area) + "_" + str(preload_object_index)
+	if ResourceLoader.exists(objectList.get(object.id, objectList["debug_cube"]).view_mesh): instantiated.ObjectMesh = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").view_mesh)
+	if ResourceLoader.exists(objectList.get(object.id, objectList["debug_cube"]).collision_mesh): instantiated.ObjectCol = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").collision_mesh)
+	instantiated.ObjectKnockSize = objectList.get(object.id, objectList["debug_cube"]).knock_size
+	instantiated.ObjectRollSize = objectList.get(object.id, objectList["debug_cube"]).roll_size
+	instantiated.ObjectGrowSize = objectList.get(object.id, objectList["debug_cube"]).pickup_size
+	instantiated.ObjectTex = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").texture) if objectList.get(object.id, "debug_cube").texture != "" else preload("uid://bo151m2ckmef3")
+	instantiated.ObjectTexRoll = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").texture_rolledup) if objectList.get(object.id, "debug_cube").texture_rolledup != "" else instantiated.ObjectTex
+	instantiated.position = Vector3(object.position[0], object.position[1], object.position[2])
+	instantiated.rotation = Vector3(object.rotation[0], object.rotation[1], object.rotation[2]) * (PI/180)
+	instantiated.ObjectScale = objectList.get(object.id, "debug_cube").scale
+	instantiated.AnimationName = object.animation if object.animation != "" else &"RESET"
+	instantiated.AnimationSpeed = object.animation_speed
+	instantiated.AnimationPhase = fmod(object.animation_phase, 1)
+	
+	for subobject in object.get("sub_objects", []):
+		await _preload_object(subobject, instantiated.get_node("SubObjectsRoot"), area)
+	
+	root.add_child(instantiated)
+		
+	preload_object_index += 1
 
 ## Instantiates a size area into the stage root.
 func instantiateArea(area:int = currentArea + 1):
