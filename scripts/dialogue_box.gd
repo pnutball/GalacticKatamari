@@ -56,7 +56,10 @@ func _input(_event):
 		if $StarAnimation.is_playing():
 			$StarAnimation.speed_scale = INF
 
-
+func _skip_all():
+	for letter in $DialogSizing/LettersContainer.get_children():
+		letter.skip()
+	$StarAnimation.speed_scale = INF
 
 func queue_message(unf_text:String, new_mode:DialogueRevealMode = MODE_IN_OUT): 
 	if MessageQueue.is_empty():
@@ -91,6 +94,10 @@ func queue_dialog_string(dialogue:String, new_mode:DialogueRevealMode = MODE_IN_
 
 func interrupt_queue():
 	MessageQueue.clear()
+	_skip_all()
+	if CurrentMode & MODE_OUT and KingFace.get_node("MoyaPos/SubViewportContainer").visible:
+		KingFace.get_node("MoyaInOutAnimation").play(&"out")
+	
 
 ## Makes King automatically say a message.
 ##

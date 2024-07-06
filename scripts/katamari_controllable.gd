@@ -145,6 +145,9 @@ func _ready():
 	
 	# Now let's init the dialogue
 	var mode:Dictionary = StageLoader.currentStage.get("modes", {}).get(StageLoader.currentMode, {})
+	CanDash = mode.get("katamari", {}).get("can_dash", true) and mode.get("katamari", {}).get("can_dialogue_move", true)
+	CanQuickTurn = mode.get("katamari", {}).get("can_turn", true) and mode.get("katamari", {}).get("can_dialogue_move", true)
+	CameraMovementEnabled = mode.get("katamari", {}).get("can_dialogue_move", true)
 	MovementEnabled = mode.get("katamari", {}).get("can_dialogue_move", true)
 	if not StageLoader.restarted:
 		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("start_dialogue", {})))
@@ -158,6 +161,9 @@ func _ready():
 	await DialogueBox.queue_finished
 	$GameMusic.play()
 	MovementEnabled = true
+	CameraMovementEnabled = true
+	CanDash = mode.get("katamari", {}).get("can_dash", true)
+	CanQuickTurn = mode.get("katamari", {}).get("can_turn", true)
 	Pausable = true
 	if has_node("Timer"):
 		$Timer.enabled = true
@@ -168,6 +174,9 @@ func _end_stage():
 	Pausable = false
 	var mode:Dictionary = StageLoader.currentStage.get("modes", {}).get(StageLoader.currentMode, {})
 	MovementEnabled = false
+	CameraMovementEnabled = false
+	CanDash = false
+	CanQuickTurn = false
 	$KatamariBody.process_mode = Node.PROCESS_MODE_DISABLED
 	var won:bool = $SizeMeter.goal_reached(Size, Score)
 	if has_node("Timer"): $Timer.play_gong(won)
@@ -234,16 +243,17 @@ func _process(delta):
 	
 	$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.process_material.set("shader_parameter/Size", Size)
 	
-	# Update debug info
-	$Debug/StickDisplay/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
-	$Debug/StickDisplay/PanelR/StickR.set_position(Vector2(25, 25) + (25 * RightStick))
-	$Debug/StickDisplay/StickM.set_position(Vector2(95, 45) + (25 * StickMidpoint))
-	$Debug/StickDisplay/Line2D.points = [Vector2(50, 50) + (25 * LeftStick), Vector2(150, 50) + (25 * RightStick)]
-	$Debug/StickDisplay/Label.rotation = StickAngle + (PI/2)
-	$Debug/StickDisplay/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
-	$Debug/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f\nVr:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z, ($KatamariBody.linear_velocity*Vector3(1,0,1)).length()]
-	$Debug/StickDisplay/DashChargeBar.value = DashCharge
-	$Debug/StickDisplay/DashTireBar.value = DashFatigue
+	if $Debug.visible:
+		# Update debug info
+		$Debug/StickDisplay/PanelL/StickL.set_position(Vector2(25, 25) + (25 * LeftStick))
+		$Debug/StickDisplay/PanelR/StickR.set_position(Vector2(25, 25) + (25 * RightStick))
+		$Debug/StickDisplay/StickM.set_position(Vector2(95, 45) + (25 * StickMidpoint))
+		$Debug/StickDisplay/Line2D.points = [Vector2(50, 50) + (25 * LeftStick), Vector2(150, 50) + (25 * RightStick)]
+		$Debug/StickDisplay/Label.rotation = StickAngle + (PI/2)
+		$Debug/StickDisplay/Label2.text = "a: %frad (%fdeg)" % [StickAngle, rad_to_deg(StickAngle)]
+		$Debug/Label3.text = "x:%f\ny:%f\nz:%f\nVx:%f\nVy:%f\nVz:%f\nVr:%f" % [$KatamariBody.position.x, $KatamariBody.position.y, $KatamariBody.position.z, $KatamariBody.linear_velocity.x, $KatamariBody.linear_velocity.y, $KatamariBody.linear_velocity.z, ($KatamariBody.linear_velocity*Vector3(1,0,1)).length()]
+		$Debug/StickDisplay/DashChargeBar.value = DashCharge
+		$Debug/StickDisplay/DashTireBar.value = DashFatigue
 
 func _physics_process(delta):
 	# Handle movement inputs
@@ -275,7 +285,11 @@ func _physics_process(delta):
 	$KatamariBody/WallBumpCast.position = (2.5 * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() * Size)
 	$KatamariBody/WallBumpCast.target_position = (-2.5 * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() * Size)
 	if $KatamariBody/WallBumpCast.get_collision_count() > 0:
-		$WallBumpDetect.global_position = ($KatamariBody/WallBumpCast.get_collision_point(0) - (0.2 * Size * $"..".scale.y * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized())) if $KatamariBody.linear_velocity.length() > 0 else $KatamariBody.global_position
+		$WallBumpDetect.global_position = (
+			Vector3($KatamariBody/WallBumpCast.get_collision_point(0).x,
+			$KatamariBody.global_position.y,
+			$KatamariBody/WallBumpCast.get_collision_point(0).z
+			) - (0.2 * Size * $"..".scale.y * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized())) if $KatamariBody.linear_velocity.length() > 0 else $KatamariBody.global_position
 	
 	$KatamariBody.center_of_mass = Vector3(0, Size*-0.5, 0) * $"..".scale.y
 	
@@ -285,7 +299,10 @@ func _physics_process(delta):
 	$KatamariBody/WallClimbCast.position = (2.5 * (Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size)
 	$KatamariBody/WallClimbCast.target_position = (-2.5 * (Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size)
 	if $KatamariBody/WallClimbCast.get_collision_count() > 0:
-		$WallClimbDetect.global_position = $KatamariBody/WallClimbCast.get_collision_point(0) - Vector3(0, 0.35 * Size * $"..".scale.y, 0) - ((0.15 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size * $"..".scale.y)
+		$WallClimbDetect.global_position = Vector3($KatamariBody/WallClimbCast.get_collision_point(0).x,
+			$KatamariBody.global_position.y,
+			$KatamariBody/WallClimbCast.get_collision_point(0).z
+			) - Vector3(0, 0.35 * Size * $"..".scale.y, 0) - ((0.15 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size * $"..".scale.y)
 	
 	# Rotate katamari model
 	var zRot:float = ($KatamariBody.linear_velocity.x * -PI / $"..".scale.x * delta) / (Size * 1.15)

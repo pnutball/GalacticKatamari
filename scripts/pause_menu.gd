@@ -8,10 +8,12 @@ func _input(_event):
 		get_tree().paused = not get_tree().paused
 		if get_tree().paused: $PauseSound.play()
 		$PauseBG.visible = get_tree().paused
-		if has_node("../Debug"): $"../Debug".visible = not get_tree().paused
+		if has_node("../Debug"): $"../Debug".modulate = Color(1,1,1,int(not get_tree().paused))
 		if has_node("../Timer"): $"../Timer".visible = not get_tree().paused
 		$"../SizeMeter".visible = not get_tree().paused
 		$"../ObjectIndicator".visible = not get_tree().paused
 		DialogueBox.visible = not get_tree().paused
 		KingFace.visible = not get_tree().paused
 		_pause_in_progress = false
+	elif Input.is_action_just_pressed("Pause") and not $"..".Pausable and not DialogueBox.MessageQueue.is_empty():
+		DialogueBox.interrupt_queue()
