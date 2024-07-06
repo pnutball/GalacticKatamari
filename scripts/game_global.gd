@@ -45,6 +45,17 @@ func get_music(id:String) -> Array:
 	var song_name:String = "" if not MusicList.has(id) else get_localized_string(MusicList[id].name)
 	return [stream, song_name]
 
+var resultsKatamariImage:Image
+var resultsKatamariScale:float
+
+func create_result_katamari_image(source_image:Image) -> void:
+	var usedRect: Rect2i = source_image.get_used_rect()
+	var squarewidth:int = max(usedRect.size.x, usedRect.size.y)
+	var squared := Image.create(squarewidth, squarewidth, false, source_image.get_format())
+	squared.blend_rect(resultsKatamariImage, Rect2i(Vector2i.ZERO, usedRect.size), (Vector2i(squarewidth,squarewidth)-usedRect.size)/2)
+	squared.resize_to_po2(true, Image.INTERPOLATE_LANCZOS)
+	resultsKatamariImage = squared
+
 var players:Array[Array] = [
 	[01, "Player 1"]
 ]

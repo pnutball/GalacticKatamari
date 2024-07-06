@@ -24,6 +24,7 @@ func _ready():
 				$StageList.add_item(\"user://levels/\" + file)
 	else:
 		$StageList.set_item_disabled($StageList.add_item(\"GK user directory not found.\"), true)
+	$\"../TextureRect\".texture = ImageTexture.create_from_image(GKGlobal.resultsKatamariImage)
 
 func _on_stage_list_item_selected(index):
 	selectedStage = $StageList.get_item_text(index)
@@ -341,6 +342,14 @@ bbcode_enabled = true
 text = "[font_size=96px][wave amp=100.0 freq=-5.0 connected=1][rainbow freq=0.5 sat=0.5 val=1]Now loading...[/rainbow][/wave][/font_size]"
 fit_content = true
 autowrap_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+top_level = true
+layout_mode = 0
+offset_left = 694.0
+offset_top = 35.0
+offset_right = 734.0
+offset_bottom = 75.0
 
 [connection signal="pressed" from="Menu/EditorButton" to="Menu/EditorButton" method="_on_pressed"]
 [connection signal="pressed" from="Menu/HubButton" to="Menu/HubButton" method="_on_pressed"]

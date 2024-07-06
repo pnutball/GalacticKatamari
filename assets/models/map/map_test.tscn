@@ -99,11 +99,13 @@ surface_material_override/3 = ExtResource("5_54dv8")
 
 [node name="WaterPlane" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.01411, 1.5, -0.541217, -0.994389)
+layers = 2
 material_override = SubResource("ShaderMaterial_e4jke")
 mesh = SubResource("QuadMesh_rcl16")
 
 [node name="map_test_hit_floor" type="MeshInstance3D" parent="."]
 visible = false
+layers = 2
 transparency = 1.0
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_8xvoe")
@@ -118,6 +120,7 @@ shape = SubResource("ConcavePolygonShape3D_rddnl")
 
 [node name="map_test_hit_wall" type="MeshInstance3D" parent="."]
 visible = false
+layers = 2
 transparency = 1.0
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_tubxj")

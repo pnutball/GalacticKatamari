@@ -185,6 +185,12 @@ func _end_stage():
 		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("win_dialogue", {})), DialogueBox.MODE_IN)
 		DialogueBox.speak_queue()
 		await DialogueBox.queue_finished
+		#%KatamariCamera.cull_mask = 1
+		#$SubViewport.transparent_bg = true
+		#await get_tree().create_timer(0.5).timeout
+		#GKGlobal.create_result_katamari_image($SubViewport.get_texture().get_image())
+		#$SubViewport.transparent_bg = false
+		#%KatamariCamera.cull_mask = 786431
 		if has_node("Timer"): $Timer.scroll_out()
 		$SizeMeter/SizeAnimation.play("Disappear")
 		await $SizeMeter/SizeAnimation.animation_finished

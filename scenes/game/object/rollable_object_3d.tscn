@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7ohty8xjjwlv"]
+[gd_scene load_steps=12 format=3 uid="uid://b7ohty8xjjwlv"]
 
 [ext_resource type="Script" path="res://scripts/rollable_object.gd" id="1_mpgf7"]
 [ext_resource type="Shape3D" uid="uid://dhu88w3dxj0q6" path="res://assets/models/object/debug_cube.shape" id="2_643b8"]
@@ -101,11 +101,28 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0.261799), Vector3(0, 0, -0.261799)]
 }
 
+[sub_resource type="Animation" id="Animation_kb47d"]
+resource_name = "roll"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ObjectBody:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(3.14159, 0, 0), Vector3(6.28319, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_srawc"]
 _data = {
 "RESET": SubResource("Animation_utnrk"),
 "bounce": SubResource("Animation_o2ksh"),
 "hop": SubResource("Animation_euc2n"),
+"roll": SubResource("Animation_kb47d"),
 "wobble": SubResource("Animation_te6k4")
 }
 
@@ -118,9 +135,10 @@ collision_mask = 0
 input_ray_pickable = false
 
 [node name="RollableObjectMesh" type="MeshInstance3D" parent="ObjectBody"]
-material_override = SubResource("ShaderMaterial_1gtdq")
+layers = 4
 gi_mode = 0
 mesh = ExtResource("3_xibpy")
+surface_material_override/0 = SubResource("ShaderMaterial_1gtdq")
 
 [node name="ObjectAttachArea" type="Area3D" parent="ObjectBody"]
 collision_layer = 2

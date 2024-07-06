@@ -15,6 +15,7 @@ data = PackedVector3Array(-17.0355, 5.2249, 9.8355, -9.8355, 5.2249, 17.0355, -1
 
 [node name="TutFloor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.099, -5.37571, -0.482)
+layers = 2
 material_override = ExtResource("5_oqqlv")
 mesh = ExtResource("2_srw5l")
 
@@ -27,6 +28,7 @@ shape = SubResource("ConcavePolygonShape3D_10k1d")
 
 [node name="TutWall" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.099, -5.37571, -0.482)
+layers = 2
 material_override = ExtResource("3_b7f33")
 mesh = ExtResource("4_6ujpo")
 

@@ -153,7 +153,7 @@ func preloadArea(area:int = currentArea + 1):
 		instantiated.ObjectTexRoll = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").texture_rolledup) if objectList.get(object.id, "debug_cube").texture_rolledup != "" else instantiated.ObjectTex
 		instantiated.position = Vector3(object.position[0], object.position[1], object.position[2])
 		instantiated.rotation = Vector3(object.rotation[0], object.rotation[1], object.rotation[2]) * (PI/180)
-		instantiated.scale = Vector3(objectList.get(object.id, "debug_cube").scale, objectList.get(object.id, "debug_cube").scale, objectList.get(object.id, "debug_cube").scale)
+		instantiated.ObjectScale = objectList.get(object.id, "debug_cube").scale
 		instantiated.AnimationName = object.animation if object.animation != "" else &"RESET"
 		instantiated.AnimationSpeed = object.animation_speed
 		instantiated.AnimationPhase = fmod(object.animation_phase, 1)

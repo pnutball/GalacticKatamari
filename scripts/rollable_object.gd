@@ -12,6 +12,7 @@ var Katamari
 @export var ObjectCol:Shape3D = load("res://assets/models/object/debug_cube.shape")
 @export var ObjectTex:Texture2D = preload("uid://bo151m2ckmef3")
 @export var ObjectTexRoll:Texture2D = preload("uid://bo151m2ckmef3")
+@export var ObjectScale:float = 1
 @export_group("Size Thresholds")
 @export var ObjectKnockSize:float = 0
 @export var ObjectRollSize:float = 0
@@ -28,8 +29,8 @@ var ObjectRotationOffset:Vector3 = Vector3.ZERO
 func _ready():
 	Katamari = StageLoader.currentKatamari
 	$ObjectBody/RollableObjectMesh.mesh = ObjectMesh
-	$ObjectBody/RollableObjectMesh.material_override.set("shader_parameter/Texture", ObjectTex)
-	$ObjectBody/RollableObjectMesh.material_override.set("shader_parameter/Texture_Rolled", ObjectTexRoll)
+	$ObjectBody/RollableObjectMesh.get("surface_material_override/0").set("shader_parameter/Texture", ObjectTex)
+	$ObjectBody/RollableObjectMesh.get("surface_material_override/0").set("shader_parameter/Texture_Rolled", ObjectTexRoll)
 	$ObjectBody/RollableObjectCollision.shape = ObjectCol
 	$ObjectBody/OnKatamariCollisionShape.shape = ObjectCol
 	$ObjectBody/ObjectAttachArea/RollableObjectAttachCollision.shape = ObjectCol
@@ -44,6 +45,8 @@ func _ready():
 	$ObjectBody/ObjectAttachArea/RollableObjectAttachCollision.name = InstanceName + "_AC"
 	$ObjectBody/ObjectAttachArea.name = InstanceName + "_A"
 	
+	$ObjectBody.scale = Vector3.ONE * ObjectScale
+	
 	$ObjectAnimation.speed_scale = AnimationSpeed
 	$ObjectAnimation.play(AnimationName, AnimationPhase)
 
@@ -56,7 +59,8 @@ func _on_katamari_entered(_rid, body, shape, _locshape):
 	print_debug(body.to_string() + "'s shape %d collided with %s (instance %s)."%[shape, ObjectID, InstanceName])
 	if body == Katamari.get_node("KatamariBody") and shape == 0:
 		if Katamari.Size >= ObjectRollSize:
-			$ObjectBody.get_node(InstanceName + "_M").material_override.set("shader_parameter/Rolled", true)
+			$ObjectBody.get_node(InstanceName + "_M").layers = 1
+			$ObjectBody.get_node(InstanceName + "_M").get("surface_material_override/0").set("shader_parameter/Rolled", true)
 			$ObjectBody.get_node(InstanceName + "_C").queue_free()
 			$ObjectBody.get_node(InstanceName + "_K").reparent(body, true)
 			$ObjectBody.get_node(InstanceName + "_M").reparent(body.get_node("KatamariMeshPivot"))
