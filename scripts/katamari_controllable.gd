@@ -185,12 +185,7 @@ func _end_stage():
 		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("win_dialogue", {})), DialogueBox.MODE_IN)
 		DialogueBox.speak_queue()
 		await DialogueBox.queue_finished
-		#%KatamariCamera.cull_mask = 1
-		#$SubViewport.transparent_bg = true
-		#await get_tree().create_timer(0.5).timeout
-		#GKGlobal.create_result_katamari_image($SubViewport.get_texture().get_image())
-		#$SubViewport.transparent_bg = false
-		#%KatamariCamera.cull_mask = 786431
+		capture_katamari_image()
 		if has_node("Timer"): $Timer.scroll_out()
 		$SizeMeter/SizeAnimation.play("Disappear")
 		await $SizeMeter/SizeAnimation.animation_finished
@@ -201,6 +196,22 @@ func _end_stage():
 		get_node("/root/KatamariStageRoot").queue_free()
 	else:
 		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("lose_dialogue", {})), DialogueBox.MODE_IN)
+
+func capture_katamari_image() -> void:
+	%ViewportRect.texture = ImageTexture.create_from_image($SubViewport.get_texture().get_image())
+	%KatamariCamera.cull_mask = 1
+	%KatamariCamera.attributes.set("dof_blur_far_enabled", false)
+	%KatamariCamera.environment = preload("res://scenes/environment/env_preview_env.tres")
+	$SubViewport.transparent_bg = true
+	await RenderingServer.frame_post_draw
+	RenderingServer.force_draw()
+	GKGlobal.create_result_katamari_image($SubViewport.get_texture().get_image())
+	$SubViewport.transparent_bg = false
+	%KatamariCamera.environment = null
+	%KatamariCamera.attributes.set("dof_blur_far_enabled", true)
+	%KatamariCamera.cull_mask = 786431
+	RenderingServer.force_draw()
+	%ViewportRect.texture = $SubViewport.get_texture()
 
 func _process(delta):
 	$SubViewport.size = %ViewportRect.get_viewport_rect().size

@@ -84,6 +84,22 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_kb47d"]
+resource_name = "roll"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ObjectBody:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(3.14159, 0, 0), Vector3(6.28319, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_te6k4"]
 resource_name = "wobble"
 loop_mode = 1
@@ -99,22 +115,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(0.5, -2, 2),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0.261799), Vector3(0, 0, -0.261799)]
-}
-
-[sub_resource type="Animation" id="Animation_kb47d"]
-resource_name = "roll"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ObjectBody:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(3.14159, 0, 0), Vector3(6.28319, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_srawc"]

@@ -52,8 +52,10 @@ func create_result_katamari_image(source_image:Image) -> void:
 	var usedRect: Rect2i = source_image.get_used_rect()
 	var squarewidth:int = max(usedRect.size.x, usedRect.size.y)
 	var squared := Image.create(squarewidth, squarewidth, false, source_image.get_format())
-	squared.blend_rect(resultsKatamariImage, Rect2i(Vector2i.ZERO, usedRect.size), (Vector2i(squarewidth,squarewidth)-usedRect.size)/2)
-	squared.resize_to_po2(true, Image.INTERPOLATE_LANCZOS)
+	squared.blend_rect(source_image, usedRect, (Vector2i(squarewidth,squarewidth)-usedRect.size)/2)
+	print(squared.get_size())
+	squared.resize(512, 512, Image.INTERPOLATE_LANCZOS)
+	print(squared.get_size())
 	resultsKatamariImage = squared
 
 var players:Array[Array] = [
