@@ -149,12 +149,14 @@ func preloadArea(area:int = currentArea + 1):
 		instantiated.ObjectKnockSize = objectList.get(object.id, objectList["debug_cube"]).knock_size
 		instantiated.ObjectRollSize = objectList.get(object.id, objectList["debug_cube"]).roll_size
 		instantiated.ObjectGrowSize = objectList.get(object.id, objectList["debug_cube"]).pickup_size
-		instantiated.Katamari = currentKatamari
 		instantiated.ObjectTex = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").texture) if objectList.get(object.id, "debug_cube").texture != "" else preload("uid://bo151m2ckmef3")
 		instantiated.ObjectTexRoll = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").texture_rolledup) if objectList.get(object.id, "debug_cube").texture_rolledup != "" else instantiated.ObjectTex
 		instantiated.position = Vector3(object.position[0], object.position[1], object.position[2])
 		instantiated.rotation = Vector3(object.rotation[0], object.rotation[1], object.rotation[2]) * (PI/180)
 		instantiated.scale = Vector3(objectList.get(object.id, "debug_cube").scale, objectList.get(object.id, "debug_cube").scale, objectList.get(object.id, "debug_cube").scale)
+		instantiated.AnimationName = object.animation if object.animation != "" else &"RESET"
+		instantiated.AnimationSpeed = object.animation_speed
+		instantiated.AnimationPhase = fmod(object.animation_phase, 1)
 		
 		preloadRoot.add_child(instantiated)
 		

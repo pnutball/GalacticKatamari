@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7ohty8xjjwlv"]
+[gd_scene load_steps=11 format=3 uid="uid://b7ohty8xjjwlv"]
 
 [ext_resource type="Script" path="res://scripts/rollable_object.gd" id="1_mpgf7"]
 [ext_resource type="Shape3D" uid="uid://dhu88w3dxj0q6" path="res://assets/models/object/debug_cube.shape" id="2_643b8"]
@@ -11,27 +11,135 @@ render_priority = 0
 shader = ExtResource("3_25gkn")
 shader_parameter/Rolled = false
 
-[node name="RollableObject3D" type="AnimatableBody3D"]
-collision_layer = 2
-collision_mask = 0
+[sub_resource type="Animation" id="Animation_utnrk"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:ObjectRotationOffset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ObjectBody:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:BodyPositionOffset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o2ksh"]
+resource_name = "bounce"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:BodyPositionOffset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_euc2n"]
+resource_name = "hop"
+loop_mode = 1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:BodyPositionOffset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(0.5, 2, 0.5),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_te6k4"]
+resource_name = "wobble"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:ObjectRotationOffset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.75),
+"transitions": PackedFloat32Array(0.5, -2, 2),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0.261799), Vector3(0, 0, -0.261799)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_srawc"]
+_data = {
+"RESET": SubResource("Animation_utnrk"),
+"bounce": SubResource("Animation_o2ksh"),
+"hop": SubResource("Animation_euc2n"),
+"wobble": SubResource("Animation_te6k4")
+}
+
+[node name="RollableObject3D" type="Node3D"]
 script = ExtResource("1_mpgf7")
 
-[node name="OnKatamariCollisionShape" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-shape = ExtResource("2_643b8")
+[node name="ObjectBody" type="AnimatableBody3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+input_ray_pickable = false
 
-[node name="RollableObjectMesh" type="MeshInstance3D" parent="."]
+[node name="RollableObjectMesh" type="MeshInstance3D" parent="ObjectBody"]
 material_override = SubResource("ShaderMaterial_1gtdq")
 gi_mode = 0
 mesh = ExtResource("3_xibpy")
 
-[node name="RollableObjectCollision" type="CollisionShape3D" parent="."]
-shape = ExtResource("2_643b8")
-
-[node name="ObjectAttachArea" type="Area3D" parent="."]
+[node name="ObjectAttachArea" type="Area3D" parent="ObjectBody"]
 collision_layer = 2
 
-[node name="RollableObjectAttachCollision" type="CollisionShape3D" parent="ObjectAttachArea"]
+[node name="RollableObjectAttachCollision" type="CollisionShape3D" parent="ObjectBody/ObjectAttachArea"]
 shape = ExtResource("2_643b8")
 
-[connection signal="body_shape_entered" from="ObjectAttachArea" to="." method="_on_katamari_entered"]
+[node name="OnKatamariCollisionShape" type="CollisionShape3D" parent="ObjectBody"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = ExtResource("2_643b8")
+
+[node name="RollableObjectCollision" type="CollisionShape3D" parent="ObjectBody"]
+shape = ExtResource("2_643b8")
+
+[node name="SubObjectsRoot" type="Node3D" parent="."]
+
+[node name="ObjectAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_srawc")
+}
+
+[connection signal="body_shape_entered" from="ObjectBody/ObjectAttachArea" to="." method="_on_katamari_entered"]

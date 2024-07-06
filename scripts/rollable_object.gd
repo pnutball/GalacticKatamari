@@ -1,47 +1,71 @@
 @icon("res://Rollable3D.svg")
 class_name RollableObject3D
-extends AnimatableBody3D
+extends Node3D
+
+const ENUMS = preload("res://scripts/lib/gk_object_enums.gd")
 
 var Katamari
 @export var ObjectID:StringName = &"debug_cube"
 @export var InstanceName:StringName = &"XX"
+@export_group("Visual")
 @export var ObjectMesh:Mesh = load("res://assets/models/object/debug_cube_view.tres")
 @export var ObjectCol:Shape3D = load("res://assets/models/object/debug_cube.shape")
 @export var ObjectTex:Texture2D = preload("uid://bo151m2ckmef3")
 @export var ObjectTexRoll:Texture2D = preload("uid://bo151m2ckmef3")
+@export_group("Size Thresholds")
 @export var ObjectKnockSize:float = 0
 @export var ObjectRollSize:float = 0
 @export var ObjectGrowSize:float = 0
+@export_group("Animation")
+@export var AnimationName:StringName = &"RESET"
+@export var AnimationSpeed:float = 1
+@export_range(0,1) var AnimationPhase:float = 0
+var ObjHeightOffset:float = 0
+var BodyPositionOffset:Vector3 = Vector3.ZERO
+@onready var ObjectBaseRotation:Vector3 = rotation
+var ObjectRotationOffset:Vector3 = Vector3.ZERO
 
 func _ready():
-	$RollableObjectMesh.mesh = ObjectMesh
-	$RollableObjectMesh.material_override.set("shader_parameter/Texture", ObjectTex)
-	$RollableObjectMesh.material_override.set("shader_parameter/Texture_Rolled", ObjectTexRoll)
-	$RollableObjectCollision.shape = ObjectCol
-	$OnKatamariCollisionShape.shape = ObjectCol
-	$ObjectAttachArea/RollableObjectAttachCollision.shape = ObjectCol
+	Katamari = StageLoader.currentKatamari
+	$ObjectBody/RollableObjectMesh.mesh = ObjectMesh
+	$ObjectBody/RollableObjectMesh.material_override.set("shader_parameter/Texture", ObjectTex)
+	$ObjectBody/RollableObjectMesh.material_override.set("shader_parameter/Texture_Rolled", ObjectTexRoll)
+	$ObjectBody/RollableObjectCollision.shape = ObjectCol
+	$ObjectBody/OnKatamariCollisionShape.shape = ObjectCol
+	$ObjectBody/ObjectAttachArea/RollableObjectAttachCollision.shape = ObjectCol
 	
-	name = InstanceName + "_O"
-	$RollableObjectMesh.name = InstanceName + "_M"
-	$RollableObjectCollision.name = InstanceName + "_C"
-	$OnKatamariCollisionShape.name = InstanceName + "_K"
-	$ObjectAttachArea/RollableObjectAttachCollision.name = InstanceName + "_AC"
-	$ObjectAttachArea.name = InstanceName + "_A"
+	ObjHeightOffset = $ObjectBody/RollableObjectMesh.get_aabb().size.y
+	translate_object_local(Vector3.DOWN * ObjHeightOffset * 0.5)
+	
+	name = InstanceName + "_root"
+	$ObjectBody/RollableObjectMesh.name = InstanceName + "_M"
+	$ObjectBody/RollableObjectCollision.name = InstanceName + "_C"
+	$ObjectBody/OnKatamariCollisionShape.name = InstanceName + "_K"
+	$ObjectBody/ObjectAttachArea/RollableObjectAttachCollision.name = InstanceName + "_AC"
+	$ObjectBody/ObjectAttachArea.name = InstanceName + "_A"
+	
+	$ObjectAnimation.speed_scale = AnimationSpeed
+	$ObjectAnimation.play(AnimationName, AnimationPhase)
 
 func _process(_delta):
-	collision_layer = 2 if Katamari.Size < ObjectKnockSize else 0
+	$ObjectBody.collision_layer = 2 if Katamari.Size < ObjectKnockSize else 0
+	$ObjectBody.position = ((Vector3.UP * 0.5) + BodyPositionOffset) * ObjHeightOffset
+	rotation = ObjectBaseRotation + ObjectRotationOffset
 
 func _on_katamari_entered(_rid, body, shape, _locshape):
 	print_debug(body.to_string() + "'s shape %d collided with %s (instance %s)."%[shape, ObjectID, InstanceName])
 	if body == Katamari.get_node("KatamariBody") and shape == 0:
 		if Katamari.Size >= ObjectRollSize:
-			get_node(InstanceName + "_M").material_override.set("shader_parameter/Rolled", true)
-			get_node(InstanceName + "_C").queue_free()
-			get_node(InstanceName + "_K").reparent(body, true)
-			get_node(InstanceName + "_M").reparent(body.get_node("KatamariMeshPivot"))
+			$ObjectBody.get_node(InstanceName + "_M").material_override.set("shader_parameter/Rolled", true)
+			$ObjectBody.get_node(InstanceName + "_C").queue_free()
+			$ObjectBody.get_node(InstanceName + "_K").reparent(body, true)
+			$ObjectBody.get_node(InstanceName + "_M").reparent(body.get_node("KatamariMeshPivot"))
 			Katamari.grabObject(ObjectGrowSize, ObjectID, InstanceName)
-			body.get_parent().playRollSound()
+			Katamari.playRollSound()
+			for child in $SubObjectsRoot.get_children():
+				if child is RollableObject3D:
+					child.reparent(get_parent())
 			queue_free()
 			return
-		if Katamari.Size >= ObjectKnockSize:
+		elif Katamari.Size >= ObjectKnockSize:
 			return
