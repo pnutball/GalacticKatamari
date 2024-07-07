@@ -165,6 +165,8 @@ func _ready():
 	CanDash = mode.get("katamari", {}).get("can_dash", true)
 	CanQuickTurn = mode.get("katamari", {}).get("can_turn", true)
 	Pausable = true
+	if $SizeMeter/OffsetBase.position.x == -500:
+		$SizeMeter/SizeAnimation.play("Appear_Fast")
 	if has_node("Timer"):
 		$Timer.enabled = true
 		await $Timer.timeout
@@ -249,7 +251,7 @@ func _process(delta):
 	%KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfB.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-55, 0, 30) / 30)), 0.2)
 	
 	$KatamariBody/ShadowDecal.size = Vector3(0.9, 5, 0.9) * Size
-	$KatamariBody/ShadowDecal.position = Vector3.DOWN * 0.5 * Size
+	$KatamariBody/ShadowDecal.position = Vector3.DOWN * 2.5 * Size
 	
 	# Adjust cam. shader parameters
 	if not is_zero_approx(%ViewportRect.material.get("shader_parameter/FX_opacity")):

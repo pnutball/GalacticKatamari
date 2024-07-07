@@ -25,6 +25,30 @@ var ObjHeightOffset:float = 0
 var BodyPositionOffset:Vector3 = Vector3.ZERO
 @onready var ObjectBaseRotation:Vector3 = rotation
 var ObjectRotationOffset:Vector3 = Vector3.ZERO
+var ObjectRollable: bool = true:
+	set(new):
+		if has_node("ObjectBody"):
+			$ObjectBody.process_mode = Node.PROCESS_MODE_INHERIT if new else Node.PROCESS_MODE_DISABLED
+	#get:
+		#return $ObjectBody.process_mode == Node.PROCESS_MODE_INHERIT
+
+func has_parent_rollable_object() -> bool:
+	return has_node(^"../..") and get_node(^"../..") is RollableObject3D
+
+func get_parent_rollable_object() -> RollableObject3D:
+	var doubleParent = get_node_or_null(^"../..")
+	return doubleParent if doubleParent != null and doubleParent is RollableObject3D else null
+
+func get_sub_objects() -> Array[RollableObject3D]:
+	var output:Array[RollableObject3D] = []
+	output.assign($SubObjectsRoot.get_children().filter(func(node): return node is RollableObject3D))
+	return output
+
+func has_body() -> bool:
+	return has_node("ObjectBody")
+
+func has_body_recursive() -> bool:
+	return has_body() or get_sub_objects().any(func(object): return object.has_body_recursive())
 
 func _ready():
 	Katamari = StageLoader.currentKatamari
@@ -56,6 +80,14 @@ func _physics_process(_delta):
 		$ObjectBody.collision_layer = 2 if Katamari.Size < ObjectKnockSize else 0
 		$ObjectBody.position = ((Vector3.UP * 0.5) + BodyPositionOffset) * ObjHeightOffset
 	rotation = ObjectBaseRotation + ObjectRotationOffset
+	if has_parent_rollable_object() and not get_parent_rollable_object().has_body():
+		ObjectRollable = false
+		var global_trans:Transform3D = global_transform
+		reparent(get_node("/root/KatamariStageRoot"))
+		global_transform = global_trans#.translated_local(Vector3.DOWN * (ObjHeightOffset * 0.5))
+		ObjectRollable = true
+	if not has_body_recursive():
+		queue_free()
 
 func _on_katamari_entered(_rid, body, shape, _locshape):
 	print_debug(body.to_string() + "'s shape %d collided with %s (instance %s)."%[shape, ObjectID, InstanceName])
@@ -70,9 +102,7 @@ func _on_katamari_entered(_rid, body, shape, _locshape):
 			Katamari.grabObject(ObjectGrowSize, ObjectID, InstanceName)
 			Katamari.playRollSound()
 			$ObjectAnimation.pause()
-			#for child in $SubObjectsRoot.get_children():
-				#if child is RollableObject3D:
-					#child.reparent(get_node("/root/KatamariStageRoot"))
+			$ObjectAnimation.queue_free()
 			$ObjectBody.queue_free()
 			return
 		elif Katamari.Size >= ObjectKnockSize:
