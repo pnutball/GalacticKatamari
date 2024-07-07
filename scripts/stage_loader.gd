@@ -162,7 +162,7 @@ func _preload_object(object:Dictionary, root:Node3D, area:int = currentArea + 1)
 	instantiated.ObjectScale = objectList.get(object.id, "debug_cube").scale
 	instantiated.AnimationName = object.animation if object.animation != "" else &"RESET"
 	instantiated.AnimationSpeed = object.animation_speed
-	instantiated.AnimationPhase = fmod(object.animation_phase, 1)
+	instantiated.AnimationPhase = fposmod(object.animation_phase, 1)
 	
 	for subobject in object.get("sub_objects", []):
 		await _preload_object(subobject, instantiated.get_node("SubObjectsRoot"), area)

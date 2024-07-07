@@ -550,14 +550,14 @@
 									"physics_speed": 0,
 									"launch_vector": [0,0,0],
 									"animation": "wobble",
-									"animation_speed": 1,
+									"animation_speed": 0.25,
 									"animation_phase": 0,
 									"sub_objects": [
 										{
 											"id": "debug_cube",
 											"position": [
 												0,
-												1,
+												0.45,
 												0
 											],
 											"rotation": [
@@ -573,14 +573,14 @@
 											"physics_speed": 0,
 											"launch_vector": [0,0,0],
 											"animation": "wobble",
-											"animation_speed": 1,
-											"animation_phase": 0,
+											"animation_speed": 0.25,
+											"animation_phase": 0.05,
 											"sub_objects": [
 												{
 													"id": "debug_cube",
 													"position": [
 														0,
-														1,
+														0.45,
 														0
 													],
 													"rotation": [
@@ -596,14 +596,14 @@
 													"physics_speed": 0,
 													"launch_vector": [0,0,0],
 													"animation": "wobble",
-													"animation_speed": 1,
-													"animation_phase": 0,
+													"animation_speed": 0.25,
+													"animation_phase": 0.1,
 													"sub_objects": [
 														{
 															"id": "debug_cube",
 															"position": [
 																0,
-																1,
+																0.45,
 																0
 															],
 															"rotation": [
@@ -619,14 +619,14 @@
 															"physics_speed": 0,
 															"launch_vector": [0,0,0],
 															"animation": "wobble",
-															"animation_speed": 1,
-															"animation_phase": 0,
+															"animation_speed": 0.25,
+															"animation_phase": 0.15,
 															"sub_objects": [
 																{
 																	"id": "debug_cube",
 																	"position": [
 																		0,
-																		1,
+																		0.45,
 																		0
 																	],
 																	"rotation": [
@@ -642,10 +642,218 @@
 																	"physics_speed": 0,
 																	"launch_vector": [0,0,0],
 																	"animation": "wobble",
-																	"animation_speed": 1,
-																	"animation_phase": 0,
+																	"animation_speed": 0.25,
+																	"animation_phase": 0.2,
 																	"sub_objects": [
-																		
+																		{
+																			"id": "debug_cube",
+																			"position": [
+																				0,
+																				0.45,
+																				0
+																			],
+																			"rotation": [
+																				0,
+																				0,
+																				0
+																			],
+																			"approach_behavior": 0,
+																			"approaches_small_katamari": false,
+																			"approach_speed": 0,
+																			"physics_behavior": 0,
+																			"physics_file": "",
+																			"physics_speed": 0,
+																			"launch_vector": [0,0,0],
+																			"animation": "wobble",
+																			"animation_speed": 0.25,
+																			"animation_phase": 0.25,
+																			"sub_objects": [
+																				{
+																					"id": "debug_cube",
+																					"position": [
+																						0,
+																						0.45,
+																						0
+																					],
+																					"rotation": [
+																						0,
+																						0,
+																						0
+																					],
+																					"approach_behavior": 0,
+																					"approaches_small_katamari": false,
+																					"approach_speed": 0,
+																					"physics_behavior": 0,
+																					"physics_file": "",
+																					"physics_speed": 0,
+																					"launch_vector": [0,0,0],
+																					"animation": "wobble",
+																					"animation_speed": 0.25,
+																					"animation_phase": 0.3,
+																					"sub_objects": [
+																						{
+																							"id": "debug_cube",
+																							"position": [
+																								0,
+																								0.45,
+																								0
+																							],
+																							"rotation": [
+																								0,
+																								0,
+																								0
+																							],
+																							"approach_behavior": 0,
+																							"approaches_small_katamari": false,
+																							"approach_speed": 0,
+																							"physics_behavior": 0,
+																							"physics_file": "",
+																							"physics_speed": 0,
+																							"launch_vector": [0,0,0],
+																							"animation": "wobble",
+																							"animation_speed": 0.25,
+																							"animation_phase": 0.35,
+																							"sub_objects": [
+																								{
+																									"id": "debug_cube",
+																									"position": [
+																										0,
+																										0.45,
+																										0
+																									],
+																									"rotation": [
+																										0,
+																										0,
+																										0
+																									],
+																									"approach_behavior": 0,
+																									"approaches_small_katamari": false,
+																									"approach_speed": 0,
+																									"physics_behavior": 0,
+																									"physics_file": "",
+																									"physics_speed": 0,
+																									"launch_vector": [0,0,0],
+																									"animation": "wobble",
+																									"animation_speed": 0.25,
+																									"animation_phase": 0.4,
+																									"sub_objects": [
+																										{
+																										"id": "debug_cube",
+																										"position": [
+																											0,
+																											0.45,
+																											0
+																										],
+																										"rotation": [
+																											0,
+																											0,
+																											0
+																										],
+																										"approach_behavior": 0,
+																										"approaches_small_katamari": false,
+																										"approach_speed": 0,
+																										"physics_behavior": 0,
+																										"physics_file": "",
+																										"physics_speed": 0,
+																										"launch_vector": [0,0,0],
+																										"animation": "wobble",
+																										"animation_speed": 0.25,
+																										"animation_phase": 0.45,
+																										"sub_objects": [
+																											{
+																												"id": "debug_cube",
+																												"position": [
+																													0,
+																													0.45,
+																													0
+																												],
+																												"rotation": [
+																													0,
+																													0,
+																													0
+																												],
+																												"approach_behavior": 0,
+																												"approaches_small_katamari": false,
+																												"approach_speed": 0,
+																												"physics_behavior": 0,
+																												"physics_file": "",
+																												"physics_speed": 0,
+																												"launch_vector": [0,0,0],
+																												"animation": "wobble",
+																												"animation_speed": 0.25,
+																												"animation_phase": 0.5,
+																												"sub_objects": [
+																													{
+																														"id": "debug_cube",
+																														"position": [
+																															0,
+																															0.45,
+																															0
+																														],
+																														"rotation": [
+																															0,
+																															0,
+																															0
+																														],
+																														"approach_behavior": 0,
+																														"approaches_small_katamari": false,
+																														"approach_speed": 0,
+																														"physics_behavior": 0,
+																														"physics_file": "",
+																														"physics_speed": 0,
+																														"launch_vector": [0,0,0],
+																														"animation": "wobble",
+																														"animation_speed": 0.25,
+																														"animation_phase": 0.55,
+																														"sub_objects": [
+																															{
+																																"id": "debug_cube",
+																																"position": [
+																																	0,
+																																	0.45,
+																																	0
+																																],
+																																"rotation": [
+																																	0,
+																																	0,
+																																	0
+																																],
+																																"approach_behavior": 0,
+																																"approaches_small_katamari": false,
+																																"approach_speed": 0,
+																																"physics_behavior": 0,
+																																"physics_file": "",
+																																"physics_speed": 0,
+																																"launch_vector": [0,0,0],
+																																"animation": "wobble",
+																																"animation_speed": 0.25,
+																																"animation_phase": 0.6,
+																																"sub_objects": [
+																																	
+																																],
+																																"unload_size": -1
+																															}
+																														],
+																														"unload_size": -1
+																													}
+																												],
+																												"unload_size": -1
+																											}
+																										],
+																										"unload_size": -1
+																									}
+																									],
+																									"unload_size": -1
+																								}
+																							],
+																							"unload_size": -1
+																						}
+																					],
+																					"unload_size": -1
+																				}
+																			],
+																			"unload_size": -1
+																		}
 																	],
 																	"unload_size": -1
 																}
