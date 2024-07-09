@@ -61,8 +61,9 @@ func _process(delta):
 	$PointerLine.modulate = Color(1,1,1,clampf((object_display_timer - 4.75) * 4,0,1))
 
 func push_object(object_id:StringName, object_instance:StringName, camera:Camera3D):
-	if object_list.get(String(object_id), {}).get("mesh") != null and ResourceLoader.exists(object_list.get(String(object_id), {}).get("mesh"), "Mesh"):
-		%"3DView/3DViewport/ObjectMesh".mesh = load(object_list[String(object_id)].mesh)
+	if object_list.get(String(object_id), {}).get("view_mesh") != null and ResourceLoader.exists(object_list.get(String(object_id), {}).get("view_mesh")):
+		%"3DView/3DViewport/ObjectMesh".mesh = load(object_list[String(object_id)].view_mesh)
+		%"3DView/3DViewport/ObjectMesh".get("surface_material_override/0").set("shader_parameter/Texture", load(object_list[String(object_id)].texture_rolledup))
 		%"3DView/3DViewport/ObjectMesh".scale = Vector3.ONE * object_list.get(String(object_id), {}).get("view_scale", 1)
 	pointer_line_target = get_node("../KatamariBody/KatamariMeshPivot/%s_M" % String(object_instance))
 	pointer_line_camera = camera

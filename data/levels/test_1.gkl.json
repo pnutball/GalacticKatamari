@@ -12,7 +12,9 @@
 			"modes": {
 				"normal": {
 					"name": {
-						"en": "Normal"
+						"en": {
+							"en": "Normal"
+						}
 					},
 					"music": {
 						"default": "everlasting_love_plus_you",
@@ -36,10 +38,48 @@
 					"result_dialogue": {
 						"en": "|face:happy|And here We return! With your |color:#F389F5|beautiful katamari|color:#FFF|!|break|...what? What game?\nWe didn't mention any game.|break|Anyhoo... this katamari here!\nOf course, it could've been much bigger.|break|We would do a lot better at this demo!|break|Speaking of, kewpie-kewpie! What did you think?|break|Was the demo good? Fun? Entertaining?|break||face:happy||color:#00CDF9||vwave|Did it serve you pot pie\nand put an apron on you?|break|We hope so! Hopefully this will get you excited for\nthe full release of |color:#00CDF9|Galactic Katamari|color:#FFF|!|break|This is only a taste of the game, so get excited!|break|Just don't cause |color:#F7532E|too|color:#FFF| much of a ruckus.|break|Anyhoo, Us and |OUJI_1| have a very important\nice cream meeting. |face:happy|Toodeloo, honey boo!"
 					},
+					"katamari": {
+						"size": 1,
+						"speed": 4.5,
+						"can_dash": true,
+						"can_turn": true,
+						"can_dialogue_move": false
+					},
+					"goal_type": 1,
+					"end_at_120pts": false,
+					"hide_ui": false,
+					"goal_type_size": {
+						"goal_minimum": 2,
+						"goal_100pts": 6,
+						"goal_120pts": 0
+					},
+					"goal_type_points": {
+						"goal_minimum": 10,
+						"goal_100pts": 0,
+						"goal_120pts": 0,
+						"point_objects": {
+							"debug_cube": 1
+						},
+						"point_name": {
+							"en": [
+								"{points} pts.",
+								"{points} pt.",
+								"{points} pts."
+							]
+						}
+					},
+					"goal_type_none": {
+						"show_object_count": false,
+						"can_quit_early": false
+					},
+					"time": 240,
+					"time_100pts": 0,
+					"time_120pts": 0,
+					"skip_results": false,
 					"map_zones": [
 						{
-							"advance_size": -1,
 							"preload_size": -1,
+							"advance_size": -1,
 							"scale": 1,
 							"warp_height": -6,
 							"audio_size": "M",
@@ -59,7 +99,7 @@
 									"id": "debug_cube",
 									"position": [
 										-2,
-										0.15,
+										0.150000005960464,
 										-5
 									],
 									"rotation": [
@@ -73,7 +113,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "hop",
 									"animation_speed": 0.5,
 									"animation_phase": 0,
@@ -84,7 +128,7 @@
 									"id": "debug_cube",
 									"position": [
 										-1,
-										0.15,
+										0.150000005960464,
 										-5
 									],
 									"rotation": [
@@ -98,7 +142,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -109,7 +157,7 @@
 									"id": "debug_cube",
 									"position": [
 										0,
-										0.15,
+										0.150000005960464,
 										-5
 									],
 									"rotation": [
@@ -123,7 +171,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -134,7 +186,7 @@
 									"id": "debug_cube",
 									"position": [
 										1,
-										0.15,
+										0.150000005960464,
 										-5
 									],
 									"rotation": [
@@ -148,7 +200,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -159,7 +215,7 @@
 									"id": "debug_cube",
 									"position": [
 										2,
-										0.15,
+										0.150000005960464,
 										-5
 									],
 									"rotation": [
@@ -173,7 +229,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -184,7 +244,7 @@
 									"id": "debug_cube",
 									"position": [
 										-2,
-										0.15,
+										0.150000005960464,
 										-6
 									],
 									"rotation": [
@@ -198,7 +258,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -209,7 +273,7 @@
 									"id": "debug_cube",
 									"position": [
 										-1,
-										0.15,
+										0.150000005960464,
 										-6
 									],
 									"rotation": [
@@ -223,7 +287,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -234,7 +302,7 @@
 									"id": "debug_cube",
 									"position": [
 										0,
-										0.15,
+										0.150000005960464,
 										-6
 									],
 									"rotation": [
@@ -248,7 +316,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -259,7 +331,7 @@
 									"id": "debug_cube",
 									"position": [
 										1,
-										0.15,
+										0.150000005960464,
 										-6
 									],
 									"rotation": [
@@ -273,7 +345,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -284,7 +360,7 @@
 									"id": "debug_cube",
 									"position": [
 										2,
-										0.15,
+										0.150000005960464,
 										-6
 									],
 									"rotation": [
@@ -298,7 +374,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -309,7 +389,7 @@
 									"id": "debug_cube",
 									"position": [
 										-2,
-										0.15,
+										0.150000005960464,
 										-7
 									],
 									"rotation": [
@@ -323,7 +403,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -334,7 +418,7 @@
 									"id": "debug_cube",
 									"position": [
 										-1,
-										0.15,
+										0.150000005960464,
 										-7
 									],
 									"rotation": [
@@ -348,7 +432,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -359,7 +447,7 @@
 									"id": "debug_cube",
 									"position": [
 										0,
-										0.15,
+										0.150000005960464,
 										-7
 									],
 									"rotation": [
@@ -373,7 +461,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -384,7 +476,7 @@
 									"id": "debug_cube",
 									"position": [
 										1,
-										0.15,
+										0.150000005960464,
 										-7
 									],
 									"rotation": [
@@ -398,7 +490,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -409,7 +505,7 @@
 									"id": "debug_cube",
 									"position": [
 										2,
-										0.15,
+										0.150000005960464,
 										-7
 									],
 									"rotation": [
@@ -423,7 +519,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -434,7 +534,7 @@
 									"id": "debug_cube",
 									"position": [
 										-2,
-										0.15,
+										0.150000005960464,
 										-8
 									],
 									"rotation": [
@@ -448,7 +548,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -459,7 +563,7 @@
 									"id": "debug_cube",
 									"position": [
 										-1,
-										0.15,
+										0.150000005960464,
 										-8
 									],
 									"rotation": [
@@ -473,7 +577,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -484,7 +592,7 @@
 									"id": "debug_cube",
 									"position": [
 										0,
-										0.15,
+										0.150000005960464,
 										-8
 									],
 									"rotation": [
@@ -498,7 +606,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -509,7 +621,7 @@
 									"id": "debug_cube",
 									"position": [
 										1,
-										0.15,
+										0.150000005960464,
 										-8
 									],
 									"rotation": [
@@ -523,7 +635,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "",
 									"animation_speed": 1,
 									"animation_phase": 0,
@@ -534,7 +650,7 @@
 									"id": "debug_cube",
 									"position": [
 										2,
-										0.15,
+										0.150000005960464,
 										-8
 									],
 									"rotation": [
@@ -548,7 +664,11 @@
 									"physics_behavior": 0,
 									"physics_file": "",
 									"physics_speed": 0,
-									"launch_vector": [0,0,0],
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
 									"animation": "wobble",
 									"animation_speed": 0.25,
 									"animation_phase": 0,
@@ -557,7 +677,7 @@
 											"id": "debug_cube",
 											"position": [
 												0,
-												0.45,
+												0.449999988079071,
 												0
 											],
 											"rotation": [
@@ -571,7 +691,11 @@
 											"physics_behavior": 0,
 											"physics_file": "",
 											"physics_speed": 0,
-											"launch_vector": [0,0,0],
+											"launch_vector": [
+												0,
+												0,
+												0
+											],
 											"animation": "wobble",
 											"animation_speed": 0.25,
 											"animation_phase": 0.05,
@@ -580,7 +704,7 @@
 													"id": "debug_cube",
 													"position": [
 														0,
-														0.45,
+														0.449999988079071,
 														0
 													],
 													"rotation": [
@@ -594,7 +718,11 @@
 													"physics_behavior": 0,
 													"physics_file": "",
 													"physics_speed": 0,
-													"launch_vector": [0,0,0],
+													"launch_vector": [
+														0,
+														0,
+														0
+													],
 													"animation": "wobble",
 													"animation_speed": 0.25,
 													"animation_phase": 0.1,
@@ -603,7 +731,7 @@
 															"id": "debug_cube",
 															"position": [
 																0,
-																0.45,
+																0.449999988079071,
 																0
 															],
 															"rotation": [
@@ -617,7 +745,11 @@
 															"physics_behavior": 0,
 															"physics_file": "",
 															"physics_speed": 0,
-															"launch_vector": [0,0,0],
+															"launch_vector": [
+																0,
+																0,
+																0
+															],
 															"animation": "wobble",
 															"animation_speed": 0.25,
 															"animation_phase": 0.15,
@@ -626,7 +758,7 @@
 																	"id": "debug_cube",
 																	"position": [
 																		0,
-																		0.45,
+																		0.449999988079071,
 																		0
 																	],
 																	"rotation": [
@@ -640,7 +772,11 @@
 																	"physics_behavior": 0,
 																	"physics_file": "",
 																	"physics_speed": 0,
-																	"launch_vector": [0,0,0],
+																	"launch_vector": [
+																		0,
+																		0,
+																		0
+																	],
 																	"animation": "wobble",
 																	"animation_speed": 0.25,
 																	"animation_phase": 0.2,
@@ -649,7 +785,7 @@
 																			"id": "debug_cube",
 																			"position": [
 																				0,
-																				0.45,
+																				0.449999988079071,
 																				0
 																			],
 																			"rotation": [
@@ -663,7 +799,11 @@
 																			"physics_behavior": 0,
 																			"physics_file": "",
 																			"physics_speed": 0,
-																			"launch_vector": [0,0,0],
+																			"launch_vector": [
+																				0,
+																				0,
+																				0
+																			],
 																			"animation": "wobble",
 																			"animation_speed": 0.25,
 																			"animation_phase": 0.25,
@@ -672,7 +812,7 @@
 																					"id": "debug_cube",
 																					"position": [
 																						0,
-																						0.45,
+																						0.449999988079071,
 																						0
 																					],
 																					"rotation": [
@@ -686,7 +826,11 @@
 																					"physics_behavior": 0,
 																					"physics_file": "",
 																					"physics_speed": 0,
-																					"launch_vector": [0,0,0],
+																					"launch_vector": [
+																						0,
+																						0,
+																						0
+																					],
 																					"animation": "wobble",
 																					"animation_speed": 0.25,
 																					"animation_phase": 0.3,
@@ -695,7 +839,7 @@
 																							"id": "debug_cube",
 																							"position": [
 																								0,
-																								0.45,
+																								0.449999988079071,
 																								0
 																							],
 																							"rotation": [
@@ -709,7 +853,11 @@
 																							"physics_behavior": 0,
 																							"physics_file": "",
 																							"physics_speed": 0,
-																							"launch_vector": [0,0,0],
+																							"launch_vector": [
+																								0,
+																								0,
+																								0
+																							],
 																							"animation": "wobble",
 																							"animation_speed": 0.25,
 																							"animation_phase": 0.35,
@@ -718,7 +866,7 @@
 																									"id": "debug_cube",
 																									"position": [
 																										0,
-																										0.45,
+																										0.449999988079071,
 																										0
 																									],
 																									"rotation": [
@@ -732,116 +880,134 @@
 																									"physics_behavior": 0,
 																									"physics_file": "",
 																									"physics_speed": 0,
-																									"launch_vector": [0,0,0],
+																									"launch_vector": [
+																										0,
+																										0,
+																										0
+																									],
 																									"animation": "wobble",
 																									"animation_speed": 0.25,
 																									"animation_phase": 0.4,
 																									"sub_objects": [
 																										{
-																										"id": "debug_cube",
-																										"position": [
-																											0,
-																											0.45,
-																											0
-																										],
-																										"rotation": [
-																											0,
-																											0,
-																											0
-																										],
-																										"approach_behavior": 0,
-																										"approaches_small_katamari": false,
-																										"approach_speed": 0,
-																										"physics_behavior": 0,
-																										"physics_file": "",
-																										"physics_speed": 0,
-																										"launch_vector": [0,0,0],
-																										"animation": "wobble",
-																										"animation_speed": 0.25,
-																										"animation_phase": 0.45,
-																										"sub_objects": [
-																											{
-																												"id": "debug_cube",
-																												"position": [
-																													0,
-																													0.45,
-																													0
-																												],
-																												"rotation": [
-																													0,
-																													0,
-																													0
-																												],
-																												"approach_behavior": 0,
-																												"approaches_small_katamari": false,
-																												"approach_speed": 0,
-																												"physics_behavior": 0,
-																												"physics_file": "",
-																												"physics_speed": 0,
-																												"launch_vector": [0,0,0],
-																												"animation": "wobble",
-																												"animation_speed": 0.25,
-																												"animation_phase": 0.5,
-																												"sub_objects": [
-																													{
-																														"id": "debug_cube",
-																														"position": [
-																															0,
-																															0.45,
-																															0
-																														],
-																														"rotation": [
-																															0,
-																															0,
-																															0
-																														],
-																														"approach_behavior": 0,
-																														"approaches_small_katamari": false,
-																														"approach_speed": 0,
-																														"physics_behavior": 0,
-																														"physics_file": "",
-																														"physics_speed": 0,
-																														"launch_vector": [0,0,0],
-																														"animation": "wobble",
-																														"animation_speed": 0.25,
-																														"animation_phase": 0.55,
-																														"sub_objects": [
-																															{
-																																"id": "debug_cube",
-																																"position": [
-																																	0,
-																																	0.45,
-																																	0
-																																],
-																																"rotation": [
-																																	0,
-																																	0,
-																																	0
-																																],
-																																"approach_behavior": 0,
-																																"approaches_small_katamari": false,
-																																"approach_speed": 0,
-																																"physics_behavior": 0,
-																																"physics_file": "",
-																																"physics_speed": 0,
-																																"launch_vector": [0,0,0],
-																																"animation": "wobble",
-																																"animation_speed": 0.25,
-																																"animation_phase": 0.6,
-																																"sub_objects": [
-																																	
-																																],
-																																"unload_size": -1
-																															}
-																														],
-																														"unload_size": -1
-																													}
-																												],
-																												"unload_size": -1
-																											}
-																										],
-																										"unload_size": -1
-																									}
+																											"id": "debug_cube",
+																											"position": [
+																												0,
+																												0.449999988079071,
+																												0
+																											],
+																											"rotation": [
+																												0,
+																												0,
+																												0
+																											],
+																											"approach_behavior": 0,
+																											"approaches_small_katamari": false,
+																											"approach_speed": 0,
+																											"physics_behavior": 0,
+																											"physics_file": "",
+																											"physics_speed": 0,
+																											"launch_vector": [
+																												0,
+																												0,
+																												0
+																											],
+																											"animation": "wobble",
+																											"animation_speed": 0.25,
+																											"animation_phase": 0.45,
+																											"sub_objects": [
+																												{
+																													"id": "debug_cube",
+																													"position": [
+																														0,
+																														0.449999988079071,
+																														0
+																													],
+																													"rotation": [
+																														0,
+																														0,
+																														0
+																													],
+																													"approach_behavior": 0,
+																													"approaches_small_katamari": false,
+																													"approach_speed": 0,
+																													"physics_behavior": 0,
+																													"physics_file": "",
+																													"physics_speed": 0,
+																													"launch_vector": [
+																														0,
+																														0,
+																														0
+																													],
+																													"animation": "wobble",
+																													"animation_speed": 0.25,
+																													"animation_phase": 0.5,
+																													"sub_objects": [
+																														{
+																															"id": "debug_cube",
+																															"position": [
+																																0,
+																																0.449999988079071,
+																																0
+																															],
+																															"rotation": [
+																																0,
+																																0,
+																																0
+																															],
+																															"approach_behavior": 0,
+																															"approaches_small_katamari": false,
+																															"approach_speed": 0,
+																															"physics_behavior": 0,
+																															"physics_file": "",
+																															"physics_speed": 0,
+																															"launch_vector": [
+																																0,
+																																0,
+																																0
+																															],
+																															"animation": "wobble",
+																															"animation_speed": 0.25,
+																															"animation_phase": 0.55,
+																															"sub_objects": [
+																																{
+																																	"id": "debug_cube",
+																																	"position": [
+																																		0,
+																																		0.449999988079071,
+																																		0
+																																	],
+																																	"rotation": [
+																																		0,
+																																		0,
+																																		0
+																																	],
+																																	"approach_behavior": 0,
+																																	"approaches_small_katamari": false,
+																																	"approach_speed": 0,
+																																	"physics_behavior": 0,
+																																	"physics_file": "",
+																																	"physics_speed": 0,
+																																	"launch_vector": [
+																																		0,
+																																		0,
+																																		0
+																																	],
+																																	"animation": "wobble",
+																																	"animation_speed": 0.25,
+																																	"animation_phase": 0.6,
+																																	"sub_objects": [],
+																																	"unload_size": -1
+																																}
+																															],
+																															"unload_size": -1
+																														}
+																													],
+																													"unload_size": -1
+																												}
+																											],
+																											"unload_size": -1
+																										}
 																									],
 																									"unload_size": -1
 																								}
@@ -873,7 +1039,7 @@
 							"spawn_positions": [
 								[
 									0,
-									0.3,
+									0.300000011920929,
 									0,
 									0
 								]
@@ -888,42 +1054,140 @@
 							"Shift": 0.25,
 							"DOF": 20
 						}
-					],
+					]
+				},
+				"object_test": {
+					"name": {
+						"en": "Object Test"
+					},
+					"music": {
+						"default": "final_fugue",
+						"force_default": false
+					},
+					"pre_dialogue": {
+						"en": "Put Our dialogue here..."
+					},
+					"start_dialogue": {
+						"en": "Put Our dialogue here."
+					},
+					"retry_dialogue": {
+						"en": "Put Our dialogue here."
+					},
+					"win_dialogue": {
+						"en": "Put Our dialogue here!"
+					},
+					"fail_dialogue": {
+						"en": "PUT OUR DIALOGUE HERE!!!"
+					},
+					"result_dialogue": {
+						"en": "Put Our dialogue here."
+					},
 					"katamari": {
-						"size": 1,
+						"size": 0.05,
 						"speed": 4.5,
 						"can_dash": true,
 						"can_turn": true,
-						"can_dialogue_move": false
+						"can_dialogue_move": true
 					},
-					"goal_type": 1,
+					"goal_type": 0,
+					"end_at_120pts": false,
+					"hide_ui": false,
 					"goal_type_size": {
-						"goal_minimum": 2,
-						"goal_100pts": 6,
-						"goal_120pts": 0,
-						"end_at_120pts": false
+						"goal_minimum": 0,
+						"goal_100pts": 0,
+						"goal_120pts": 0
 					},
 					"goal_type_points": {
-						"goal_minimum": 10,
+						"goal_minimum": 0,
 						"goal_100pts": 0,
 						"goal_120pts": 0,
-						"end_at_120pts": false,
 						"point_objects": {
-							"debug_cube": 1
+
 						},
 						"point_name": {
-							"en": ["{points} pts.", "{points} pt.", "{points} pts."]
+							"en": [
+								"{points} pts.",
+								"{points} pt.",
+								"{points} pts."
+							]
 						}
 					},
-					"goal_type_none":{
+					"goal_type_none": {
 						"show_object_count": false,
-						"can_quit_early": false,
-						"hide_ui": false
+						"can_quit_early": false
 					},
-					"time": 240,
+					"time": 0,
 					"time_100pts": 0,
 					"time_120pts": 0,
-					"skip_results": false
+					"skip_results": false,
+					"map_zones": [
+						{
+							"preload_size": -1,
+							"advance_size": -1,
+							"scale": 10,
+							"warp_height": -6,
+							"audio_size": "XS",
+							"core_model": "res://assets/models/core/core_generic.obj",
+							"core_texture": "res://assets/textures/core/core_test.png",
+							"time_bonus": 0,
+							"static": [
+								[
+									"res://scenes/environment/env_sunset.tscn"
+								],
+								[
+									"res://assets/models/map/map_plane.tscn"
+								]
+							],
+							"objects": [
+								{
+									"id": "caramel",
+									"position": [
+										0,
+										0,
+										-1
+									],
+									"rotation": [
+										-0,
+										0,
+										0
+									],
+									"approach_behavior": 0,
+									"approaches_small_katamari": false,
+									"approach_speed": 1,
+									"physics_behavior": 0,
+									"physics_file": "",
+									"physics_speed": 1,
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
+									"animation": "",
+									"animation_speed": 1,
+									"animation_phase": 0,
+									"sub_objects": [],
+									"unload_size": -1
+								}
+							],
+							"spawn_positions": [
+								[
+									0,
+									0,
+									0,
+									0
+								]
+							]
+						}
+					],
+					"cam_zones": [
+						{
+							"Bound": 0,
+							"Scale": 0.15,
+							"Tilt": -15,
+							"Shift": 0.25,
+							"DOF": 20
+						}
+					]
 				}
 			}
 		}

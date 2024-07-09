@@ -149,6 +149,7 @@ func _preload_object(object:Dictionary, root:Node3D, area:int = currentArea + 1)
 	while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).texture_rolledup) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
 		await get_tree().create_timer(0.1).timeout
 	
+	instantiated.ObjectID = object.id
 	instantiated.InstanceName = str(area) + "_" + str(preload_object_index)
 	if ResourceLoader.exists(objectList.get(object.id, objectList["debug_cube"]).view_mesh): instantiated.ObjectMesh = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").view_mesh)
 	if ResourceLoader.exists(objectList.get(object.id, objectList["debug_cube"]).collision_mesh): instantiated.ObjectCol = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").collision_mesh)

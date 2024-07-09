@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dc8pb2cvccxjs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_843ry"]
+sky_top_color = Color(0.583648, 0, 0.075046, 1)
+sky_horizon_color = Color(0.96311, 0.454761, 0, 1)
+ground_bottom_color = Color(0.364208, 0.137066, 0, 1)
+ground_horizon_color = Color(0.96311, 0.454761, 0, 1)
+
+[sub_resource type="Sky" id="Sky_vrg6f"]
+sky_material = SubResource("ProceduralSkyMaterial_843ry")
+
+[sub_resource type="Environment" id="Environment_04ipx"]
+background_mode = 2
+background_color = Color(0.865821, 0.401068, 0.0492456, 1)
+sky = SubResource("Sky_vrg6f")
+sky_rotation = Vector3(0, 0.823795, 0.0872665)
+ambient_light_source = 2
+ambient_light_color = Color(0.6, 0.264, 0.096, 1)
+reflected_light_source = 1
+
+[node name="EnvSunset" type="Node3D"]
+
+[node name="WorldEnv" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_04ipx")
+
+[node name="WorldSun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0.241845, 0.664463, -2.98023e-08, -0.939693, 0.34202, 0.707107, -0.241845, -0.664463, 0, 3, 0)
+light_color = Color(1, 0.922667, 0.84, 1)
+directional_shadow_mode = 0
+sky_mode = 1

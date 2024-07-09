@@ -248,6 +248,7 @@ common/max_physics_steps_per_frame=16
 3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=14.0
 3d/solver/solver_iterations=32
+jolt_3d/sleep/enabled=false
 jolt_3d/collisions/areas_detect_static_bodies=true
 jolt_3d/continuous_cd/max_penetration=5.0
 jolt_3d/limits/max_linear_velocity=1000.0

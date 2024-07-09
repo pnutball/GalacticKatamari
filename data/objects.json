@@ -20,6 +20,27 @@
 			"roll_sound": "",
 			"animations": "",
 			"collection_category": ""
+		},
+		"caramel": {
+			"view_mesh": "res://assets/models/object/caramel.obj",
+			"collision_mesh": "res://assets/models/object/caramel.shape",
+			"knock_size": 0.044,
+			"roll_size": 0.044,
+			"pickup_size": 0.022,
+			"scale": 1,
+			"view_scale": 6.81,
+			"texture": "res://assets/textures/object/caramel.png",
+			"texture_rolledup": "res://assets/textures/object/caramel_roll.png",
+			"name": {
+				"en": "Wrapped Caramel"
+			},
+			"description": {
+				"en": "Dummy"
+			},
+			"bump_sound": "",
+			"roll_sound": "",
+			"animations": "",
+			"collection_category": "sweets"
 		}
 	}
 }

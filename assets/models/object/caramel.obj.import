@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://drvpr5oita18c"
+path="res://.godot/imported/caramel.obj-af7e04374e976574bec34356d7f200eb.mesh"
+
+[deps]
+
+files=["res://.godot/imported/caramel.obj-af7e04374e976574bec34356d7f200eb.mesh"]
+
+source_file="res://assets/models/object/caramel.obj"
+dest_files=["res://.godot/imported/caramel.obj-af7e04374e976574bec34356d7f200eb.mesh", "res://.godot/imported/caramel.obj-af7e04374e976574bec34356d7f200eb.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(0.014, 0.014, 0.014)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
