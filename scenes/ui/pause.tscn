@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2n7fqkxxktdj"]
+[gd_scene load_steps=6 format=3 uid="uid://c2n7fqkxxktdj"]
 
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="1_b5jee"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_gvuf4"]
 [ext_resource type="Texture2D" uid="uid://h5ig1amhsvwp" path="res://assets/textures/ui/pause_back.png" id="2_wkw1r"]
 [ext_resource type="AudioStream" uid="uid://cfrpjiychgu6s" path="res://assets/sounds/game/pause.wav" id="3_dsb0h"]
+[ext_resource type="PackedScene" uid="uid://bvm3eub6h5wow" path="res://scenes/ui/controls_viewer.tscn" id="4_h3u7n"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -40,6 +41,20 @@ offset_bottom = 88.0
 theme_override_fonts/font = ExtResource("1_b5jee")
 theme_override_font_sizes/font_size = 48
 text = "Paused..."
+
+[node name="ControlsViewer" parent="PauseBG" instance=ExtResource("4_h3u7n")]
+process_mode = 2
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 32.0
+offset_top = -678.0
+offset_right = 1296.0
+offset_bottom = -32.0
+grow_horizontal = 1
+grow_vertical = 0
+TextShown = false
 
 [node name="PauseSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_dsb0h")

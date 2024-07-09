@@ -84,9 +84,10 @@ var usingController:bool = false:
 	get:
 		return usingController
 	set(new):
-		if usingController != new:
-			controller_changed.emit(0)
+		var old = usingController
 		usingController = new
+		if old != new:
+			controller_changed.emit(0)
 
 const _KEY_IMG:Image = preload("uid://dmfusfg3uysus")
 const _KEY_IMG_SIZE:Vector2i = Vector2i(52,26)
@@ -193,12 +194,13 @@ func get_key(key:Key, pressed:bool = false) -> ImageTexture:
 	)
 	if is_key_valid(key):
 		key_image.blend_rect(_KEY_IMG, Rect2i(_KEY_IMG_MAP[key], _KEY_IMG_SIZE), Vector2i(8,21))
-	else: push_warning("Invalid key \"" + OS.get_keycode_string(key) + "\", resulting keycap texture has no label.")
+	#else: push_warning("Invalid key \"" + OS.get_keycode_string(key) + "\", resulting keycap texture has no label.")
 	key_image.fix_alpha_edges()
 	return ImageTexture.create_from_image(key_image)
 
 #region ControllerButton enum
-enum ControllerButton {BUTTON_GUIDE=0, BUTTON_A=1, BUTTON_B=2, BUTTON_X=3, BUTTON_Y=4, BUTTON_START=5, BUTTON_BACK=6, BUTTON_LEFT_SHOULDER=7, BUTTON_RIGHT_SHOULDER=8, BUTTON_LEFT_TRIGGER=9, BUTTON_RIGHT_TRIGGER=10, BUTTON_LEFT_STICK=11, BUTTON_RIGHT_STICK=12}
+enum ControllerButton {BUTTON_NONE = -1, BUTTON_GUIDE=0, BUTTON_A=1, BUTTON_B=2, BUTTON_X=3, BUTTON_Y=4, BUTTON_START=5, BUTTON_BACK=6, BUTTON_LEFT_SHOULDER=7, BUTTON_RIGHT_SHOULDER=8, BUTTON_LEFT_TRIGGER=9, BUTTON_RIGHT_TRIGGER=10, BUTTON_LEFT_STICK=11, BUTTON_RIGHT_STICK=12}
+const BUTTON_NONE:ControllerButton = ControllerButton.BUTTON_NONE
 const BUTTON_GUIDE:ControllerButton = ControllerButton.BUTTON_GUIDE
 const BUTTON_A:ControllerButton = ControllerButton.BUTTON_A
 const BUTTON_B:ControllerButton = ControllerButton.BUTTON_B
@@ -225,6 +227,7 @@ const BRAND_NINTENDO:Brand = Brand.BRAND_NINTENDO
 const _BUTTON_IMG:Image = preload("uid://bv2kf17wopqad")
 const _BUTTON_IMG_SIZE:Vector2i = Vector2i(52,26)
 const _BUTTON_IMG_MAP:Dictionary = {
+	BUTTON_NONE: Vector2i.ZERO,
 	BUTTON_GUIDE: Vector2i.ZERO,
 	BUTTON_A: Vector2i(52, 0),
 	BUTTON_B: Vector2i(52, 26),
@@ -342,10 +345,29 @@ func get_brand(device:int = 0) -> Brand:
 	else:
 		return BRAND_GENERIC
 
+func get_controller_texture(device:int = 0) -> Texture2D:
+	var brand = get_brand(device)
+	if device == 0 and not usingController:
+		return preload("res://assets/textures/input/controller_keyboard.png")
+	elif brand == BRAND_PLAYSTATION:
+		return preload("res://assets/textures/input/controller_playstation.png")
+	elif brand == BRAND_PLAYSTATION_3:
+		return preload("res://assets/textures/input/controller_playstation_3.png")
+	elif brand == BRAND_XBOX:
+		return preload("res://assets/textures/input/controller_xbox.png")
+	elif brand == BRAND_XBOX_360:
+		return preload("res://assets/textures/input/controller_xbox_360.png")
+	elif Input.get_joy_name(device).contains("Wii U"):
+		return preload("res://assets/textures/input/controller_wii_u.png")
+	elif brand == BRAND_NINTENDO:
+		return preload("res://assets/textures/input/controller_nintendo.png")
+	else:
+		return preload("res://assets/textures/input/controller_generic.png")
+
 func _input(event):
-	if (event is InputEventKey or event is InputEventMouseButton) and usingController:
+	if (event is InputEventKey or event is InputEventMouseButton):
 		usingController = false
-	elif (event is InputEventJoypadButton) and event.device == 0 and not usingController:
+	elif (event is InputEventJoypadButton) and event.device == 0:
 		usingController = true
 	if Input.is_action_just_pressed("Fullscreen"):
 		if get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN:

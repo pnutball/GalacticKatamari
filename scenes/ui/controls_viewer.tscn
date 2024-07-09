@@ -1,0 +1,233 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvm3eub6h5wow"]
+
+[ext_resource type="Texture2D" uid="uid://d4dsodk54raju" path="res://assets/textures/input/controller_keyboard.png" id="1_3tml6"]
+[ext_resource type="Script" path="res://scripts/controls_viewer.gd" id="1_5bou0"]
+[ext_resource type="PackedScene" uid="uid://djirvsnmdw1m3" path="res://scenes/ui/input_label.tscn" id="1_ap25v"]
+[ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="3_03roj"]
+
+[node name="ControlsViewer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_5bou0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="LeftControls" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="Forward" parent="HBoxContainer/LeftControls" instance=ExtResource("1_ap25v")]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+InputNameLocalized = {
+"en": "Roll Forward"
+}
+LeftInputKey1 = 87
+LeftInputVector = Vector2(0, 1)
+RightInputKey1 = 73
+RightInputVector = Vector2(0, 1)
+
+[node name="Backward" parent="HBoxContainer/LeftControls" instance=ExtResource("1_ap25v")]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+InputNameLocalized = {
+"en": "Roll Backwards"
+}
+LeftInputKey1 = 83
+LeftInputVector = Vector2(0, -1)
+RightInputKey1 = 75
+RightInputVector = Vector2(0, -1)
+
+[node name="Turn" parent="HBoxContainer/LeftControls" instance=ExtResource("1_ap25v")]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+InputNameLocalized = {
+"en": "Turn"
+}
+LeftInputKey1 = 65
+LeftInputKey2 = 87
+LeftInputVector = Vector2(-1, 1)
+LeftAltInputKey1 = 87
+LeftAltInputKey2 = 68
+LeftAltInputVector = Vector2(1, 1)
+RightInputKey1 = 74
+RightInputKey2 = 73
+RightInputVector = Vector2(-1, 1)
+RightAltInputKey1 = 73
+RightAltInputKey2 = 76
+RightAltInputVector = Vector2(1, 1)
+
+[node name="Side" parent="HBoxContainer/LeftControls" instance=ExtResource("1_ap25v")]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+InputNameLocalized = {
+"en": "Roll Sideways"
+}
+LeftInputKey1 = 65
+LeftInputVector = Vector2(-1, 0)
+LeftAltInputKey1 = 68
+LeftAltInputVector = Vector2(1, 0)
+RightInputKey1 = 74
+RightInputVector = Vector2(-1, 0)
+RightAltInputKey1 = 76
+RightAltInputVector = Vector2(1, 0)
+
+[node name="Middle" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="TopControls" type="GridContainer" parent="HBoxContainer/Middle"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 16
+columns = 2
+
+[node name="Dash" parent="HBoxContainer/Middle/TopControls" instance=ExtResource("1_ap25v")]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+InputNameLocalized = {
+"en": "Dash"
+}
+LeftInputKey1 = 87
+LeftInputVector = Vector2(0, 1)
+LeftPressed = true
+LeftAltInputVector = Vector2(0, -1)
+RightInputKey1 = 73
+RightInputVector = Vector2(0, -1)
+RightAltInputVector = Vector2(0, 1)
+RightAltPressed = true
+
+[node name="QuickTurn" parent="HBoxContainer/Middle/TopControls" instance=ExtResource("1_ap25v")]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+InputNameLocalized = {
+"en": "Quick Turn"
+}
+LeftInputKey1 = 32
+LeftIsStick = false
+LeftInputController = 11
+LeftAltPressed = true
+RightIsStick = false
+RightInputController = 12
+RightAltPressed = true
+
+[node name="Vibrate" parent="HBoxContainer/Middle/TopControls" instance=ExtResource("1_ap25v")]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0.952941, 0.537255, 0.960784, 1)
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+InputNameLocalized = {
+"en": "Vibration ON/OFF"
+}
+LeftIsStick = false
+LeftInputController = 6
+RightIsStick = false
+
+[node name="Pause" parent="HBoxContainer/Middle/TopControls" instance=ExtResource("1_ap25v")]
+self_modulate = Color(0.952941, 0.537255, 0.960784, 1)
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+InputNameLocalized = {
+"en": "Pause"
+}
+LeftInputKey1 = 4194305
+LeftIsStick = false
+LeftInputController = 5
+RightIsStick = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Middle"]
+layout_mode = 2
+size_flags_vertical = 2
+alignment = 1
+
+[node name="ControllerTexture" type="TextureRect" parent="HBoxContainer/Middle/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("1_3tml6")
+stretch_mode = 3
+
+[node name="InfoLabel" type="Label" parent="HBoxContainer/Middle/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("3_03roj")
+theme_override_font_sizes/font_size = 48
+text = "This game is played with both sticks.
+(If you don't know this, why are you
+even doing a Katamari month?)"
+horizontal_alignment = 1
+
+[node name="RightControls" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="ShiftRight" parent="HBoxContainer/RightControls" instance=ExtResource("1_ap25v")]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+InputNameLocalized = {
+"en": "Shift Right"
+}
+LeftInputKey1 = 87
+LeftInputVector = Vector2(0, 1)
+LeftPressed = true
+LeftAltPressed = true
+RightInputKey1 = 73
+
+[node name="ShiftLeft" parent="HBoxContainer/RightControls" instance=ExtResource("1_ap25v")]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+InputNameLocalized = {
+"en": "Shift Left"
+}
+LeftInputKey1 = 87
+RightInputKey1 = 73
+RightInputVector = Vector2(0, 1)
+RightPressed = true
+RightAltPressed = true
+
+[node name="QuickShift" parent="HBoxContainer/RightControls" instance=ExtResource("1_ap25v")]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+InputNameLocalized = {
+"en": "Quick Shift"
+}
+LeftInputKey1 = 87
+LeftInputVector = Vector2(0, 1)
+LeftAltInputKey1 = 83
+LeftAltInputVector = Vector2(0, -1)
+RightInputKey1 = 75
+RightInputVector = Vector2(0, -1)
+RightAltInputKey1 = 73
+RightAltInputVector = Vector2(0, 1)
+
+[node name="UpOver" parent="HBoxContainer/RightControls" instance=ExtResource("1_ap25v")]
+custom_minimum_size = Vector2(304, 0)
+layout_mode = 2
+InputNameLocalized = {
+"en": "Roll Up & Over"
+}
+LeftInputKey1 = 87
+LeftInputVector = Vector2(0, 1)
+RightInputKey1 = 73
+RightInputVector = Vector2(0, 1)
