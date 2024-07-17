@@ -1420,7 +1420,6 @@ states/talk/position = Vector2(484, 100)
 transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_jnyep"), "RESET", "talk", SubResource("AnimationNodeStateMachineTransition_soblo"), "talk", "RESET", SubResource("AnimationNodeStateMachineTransition_xss05")]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4vhce"]
-graph_offset = Vector2(-202.85, -96.1115)
 nodes/BlinkState/node = SubResource("AnimationNodeStateMachine_j5avm")
 nodes/BlinkState/position = Vector2(-140, 120)
 nodes/Emotion/node = SubResource("AnimationNodeAdd2_vm3w7")
@@ -1661,7 +1660,7 @@ transform = Transform3D(1.4, 0, 0, 0, -6.11959e-08, -1.4, 0, 1.4, -6.11959e-08, 
 rotation_order = 1
 mesh = ExtResource("2_xksay")
 skeleton = NodePath("")
-blend_shapes/moya2 = 0.346667
+blend_shapes/moya2 = 0.0735109
 surface_material_override/0 = SubResource("ShaderMaterial_birm0")
 
 [node name="KingFace" parent="MoyaPos/SubViewportContainer/SubViewport/Moya3DOffset" instance=ExtResource("5_ganpw")]
