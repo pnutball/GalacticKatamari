@@ -48,19 +48,24 @@ func summon_face(to:Node3D):
 	$MoyaPos/SubViewportContainer.visible = false
 
 func recall_face():
+	$MoyaInOutAnimation.play("in_moya_only_trans_start")
+	%Moya3DOffset/Moya.visible = false
+	$MoyaPos/SubViewportContainer/SubViewport/Camera3D.position = RemoteCamera.global_position
+	$MoyaPos/SubViewportContainer/SubViewport/Camera3D.rotation = RemoteCamera.global_rotation
+	var tween = get_tree().create_tween()
+	tween.tween_property(FaceNode, "global_position", Vector3.ZERO, 0.5)
+	tween.parallel().tween_property(FaceNode, "global_rotation", Vector3(0,PI,0), 0.5)
+	tween.parallel().tween_property(FaceNode, "scale", Vector3.ONE * 0.315, 0.5)
+	tween.parallel().tween_property(RemoteCamera, "global_position", Vector3(0,0.245,-4.8), 0.5)
+	tween.parallel().tween_property(RemoteCamera, "global_rotation", Vector3(0,PI,0), 0.5)
+	tween.parallel().tween_property(RemoteCamera, "scale", Vector3.ONE, 0.5)
+	await get_tree().create_timer(0.5).timeout
+	RemoteCamera = $MoyaPos/SubViewportContainer/SubViewport/Camera3D
 	FaceNode.reparent(%Moya3DOffset, true)
 	$KingFaceAnimation.anim_player = FaceNode.get_node("KingAnimation").get_path()
-	$MoyaPos/SubViewportContainer/SubViewport/Camera3D.transform = RemoteCamera.global_transform
-	%Moya3DOffset/Moya.visible = false
-	$MoyaPos/SubViewportContainer.visible = true
-	RemoteCamera = $MoyaPos/SubViewportContainer/SubViewport/Camera3D
-	var tween := get_tree().create_tween()
-	tween.tween_property($MoyaPos/SubViewportContainer/SubViewport/Camera3D, "transform", CAMERA_DEFAULT_TRANSFORM, 0.5)
-	tween.parallel().tween_property(FaceNode, "transform", FACE_DEFAULT_TRANSFORM, 0.5)
-	await tween.finished
 	$Moya3D2DTransition.play("transition")
-	await $Moya3D2DTransition.animation_finished
-	$MoyaInOutAnimation.play("in_moya_only")
+	#await $Moya3D2DTransition.animation_finished
+	#$MoyaInOutAnimation.play("in_moya_only")
 	await $MoyaInOutAnimation.animation_finished
 
 func _process(_delta):

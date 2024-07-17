@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b01ud1q5jh38u"]
+[gd_scene load_steps=17 format=3 uid="uid://b01ud1q5jh38u"]
 
 [ext_resource type="Script" path="res://scripts/hub.gd" id="1_8hexb"]
 [ext_resource type="Shader" path="res://assets/materials/shaders/KDTerrain.gdshader" id="1_tmfci"]
@@ -47,6 +47,9 @@ shader_parameter/texture_albedo = ExtResource("2_x8ovx")
 material = SubResource("ShaderMaterial_38w0x")
 size = Vector2(10, 10)
 orientation = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uhx56"]
+size = Vector3(3, 1, 2)
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_8hexb")
@@ -105,3 +108,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1.376, -2)
 
 [node name="KingFull" parent="." instance=ExtResource("8_li04h")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 42.51)
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 3, -10)
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5)
+shape = SubResource("BoxShape3D_uhx56")
+
+[connection signal="body_entered" from="Area3D" to="." method="_area_entered" unbinds=1]
