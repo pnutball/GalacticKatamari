@@ -15,8 +15,8 @@ material = SubResource("ShaderMaterial_3a0vu")
 size = Vector2(20, 20)
 orientation = 1
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ws3sk"]
-data = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, 10, -10, 0, -10, 10, 0, -10)
+[sub_resource type="BoxShape3D" id="BoxShape3D_c7dgi"]
+size = Vector3(20, 0.2, 20)
 
 [node name="TestRoomPlane" type="Node3D"]
 
@@ -28,4 +28,5 @@ collision_layer = 32772
 collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_ws3sk")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_c7dgi")

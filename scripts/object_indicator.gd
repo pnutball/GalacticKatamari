@@ -64,7 +64,7 @@ func push_object(object_id:StringName, object_instance:StringName, camera:Camera
 	if object_list.get(String(object_id), {}).get("view_mesh") != null and ResourceLoader.exists(object_list.get(String(object_id), {}).get("view_mesh")):
 		%"3DView/3DViewport/ObjectMesh".mesh = load(object_list[String(object_id)].view_mesh)
 		%"3DView/3DViewport/ObjectMesh".get("surface_material_override/0").set("shader_parameter/Texture", load(object_list[String(object_id)].texture_rolledup))
-		%"3DView/3DViewport/ObjectMesh".scale = Vector3.ONE * object_list.get(String(object_id), {}).get("view_scale", 1)
+		%"3DView/3DViewport/ObjectMesh".scale = Vector3.ONE * object_list.get(String(object_id), {}).get("view_scale", 1) * 3
 	pointer_line_target = get_node("../KatamariBody/KatamariMeshPivot/%s_M" % String(object_instance))
 	pointer_line_camera = camera
 	_make_text(object_id)

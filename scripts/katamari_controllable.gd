@@ -285,19 +285,19 @@ func _physics_process(delta):
 	
 	# Adjust physics settings
 	$KatamariBody.gravity_scale = $"..".scale.y * Size
-	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size * 1.15 * $"..".scale.y
-	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size * $"..".scale.y
+	$KatamariBody/KatamariMeshPivot/KatamariMesh.scale = Vector3.ONE * Size * 1.15# * $"..".scale.y
+	$KatamariBody/KatamariBaseCollision.scale = Vector3.ONE * Size# * $"..".scale.y
 	
 	$FloorBumpDetect/FloorBumpCollide.scale = Vector3.ONE * Size
 	#$FloorBumpDetect.position = $KatamariBody.position + (0.3 * Vector3.DOWN * Size)
-	$KatamariBody/FloorBumpCast.scale = Vector3.ONE * Size * $"..".scale.y
+	$KatamariBody/FloorBumpCast.scale = Vector3.ONE * Size# * $"..".scale.y
 	$KatamariBody/FloorBumpCast.position = Vector3.DOWN * 2.5 * Size
 	if $KatamariBody/FloorBumpCast.get_collision_count() > 0:
 		$FloorBumpDetect.global_position = $KatamariBody/FloorBumpCast.get_collision_point(0) + (0.1 * Vector3.UP * Size)
 	
 	$WallBumpDetect/WallBumpCollide.scale = Vector3.ONE * Size
 	#$WallBumpDetect.position = $KatamariBody.position + (0.2 * (($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() if $KatamariBody.linear_velocity.length() > 0 else Vector3.ZERO) * Size)
-	$KatamariBody/WallBumpCast.scale = Vector3.ONE * Size * $"..".scale.y
+	$KatamariBody/WallBumpCast.scale = Vector3.ONE * Size# * $"..".scale.y
 	$KatamariBody/WallBumpCast.position = (2.5 * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() * Size)
 	$KatamariBody/WallBumpCast.target_position = (-2.5 * ($KatamariBody.linear_velocity * Vector3(1,0,1)).normalized() * Size)
 	if $KatamariBody/WallBumpCast.get_collision_count() > 0:
@@ -311,7 +311,7 @@ func _physics_process(delta):
 	
 	$WallClimbDetect/WallClimbCollide.scale = Vector3.ONE * Size
 	#$WallClimbDetect.position = $KatamariBody.position + ((Vector3(0, 0.1, 0) + (0.3 * Vector3.FORWARD.rotated(Vector3.UP, CameraRotation))) * Size)
-	$KatamariBody/WallClimbCast.scale = Vector3.ONE * Size * $"..".scale.y
+	$KatamariBody/WallClimbCast.scale = Vector3.ONE * Size# * $"..".scale.y
 	$KatamariBody/WallClimbCast.position = (2.5 * (Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size)
 	$KatamariBody/WallClimbCast.target_position = (-2.5 * (Vector3.FORWARD.rotated(Vector3.UP, CameraRotation)) * Size)
 	if $KatamariBody/WallClimbCast.get_collision_count() > 0:

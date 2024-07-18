@@ -26,7 +26,7 @@
 			"collision_mesh": "res://assets/models/object/caramel.shape",
 			"knock_size": 0.044,
 			"roll_size": 0.044,
-			"pickup_size": 0.022,
+			"pickup_size": 0.001,
 			"scale": 1,
 			"view_scale": 6.81,
 			"texture": "res://assets/textures/object/caramel.png",

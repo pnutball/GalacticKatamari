@@ -16,7 +16,7 @@ dest_files=["res://.godot/imported/caramel.obj-af7e04374e976574bec34356d7f200eb.
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3(0.014, 0.014, 0.014)
+scale_mesh=Vector3(0.007, 0.007, 0.007)
 offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true
 force_disable_mesh_compression=false

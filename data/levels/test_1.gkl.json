@@ -12,9 +12,7 @@
 			"modes": {
 				"normal": {
 					"name": {
-						"en": {
-							"en": "Normal"
-						}
+						"en": "Normal"
 					},
 					"music": {
 						"default": "everlasting_love_plus_you",
