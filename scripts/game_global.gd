@@ -2,6 +2,8 @@ extends Node
 
 func _init(): process_mode = Node.PROCESS_MODE_ALWAYS
 
+const is_demo:bool = preload("res://flags.json").data.demo
+
 const ANGLE_SNAP_CURVE:Curve = preload("res://data/input_angle_curve.tres")
 
 ## An array of info for each Ouji ID.

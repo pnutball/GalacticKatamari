@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cyliyh8q1wuj5"]
+[gd_scene load_steps=28 format=3 uid="uid://cyliyh8q1wuj5"]
 
 [ext_resource type="Script" path="res://scripts/title_screen.gd" id="1_6st85"]
 [ext_resource type="PackedScene" uid="uid://bf6vo23yhq2oy" path="res://scenes/ui/title_logo.tscn" id="2_f7ydy"]
@@ -6,19 +6,11 @@
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="4_x5xj5"]
 [ext_resource type="PackedScene" uid="uid://ddvym7hjeiewb" path="res://assets/ouji/rig/Ouji01.tscn" id="5_6mot5"]
 [ext_resource type="AudioStream" uid="uid://y3b2s8om4dm0" path="res://assets/sounds/ui/confirm.wav" id="6_kxnsq"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qendg"]
-sky_top_color = Color(1, 1, 1, 1)
-sky_horizon_color = Color(1, 1, 1, 1)
-ground_bottom_color = Color(1, 1, 1, 1)
-ground_horizon_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Sky" id="Sky_iohxl"]
-sky_material = SubResource("ProceduralSkyMaterial_qendg")
-
-[sub_resource type="Environment" id="Environment_von1c"]
-background_mode = 2
-sky = SubResource("Sky_iohxl")
+[ext_resource type="PackedScene" uid="uid://dx4skkxtb28gf" path="res://scenes/environment/env_day.tscn" id="7_we3ft"]
+[ext_resource type="PackedScene" uid="uid://bvm3eub6h5wow" path="res://scenes/ui/controls_viewer.tscn" id="8_uu2i0"]
+[ext_resource type="AudioStream" uid="uid://b8gg7yfqeuo21" path="res://assets/sounds/ui/demo_controls.wav" id="9_b4y0p"]
+[ext_resource type="PackedScene" uid="uid://cr1eqg7hqfcgy" path="res://scenes/ui/mini_input_label.tscn" id="9_cyiwi"]
+[ext_resource type="Texture2D" uid="uid://ddxu224w4kh7p" path="res://assets/textures/ui/input_bottom_bar.png" id="9_rlfg0"]
 
 [sub_resource type="Animation" id="Animation_13odj"]
 resource_name = "FadeIn"
@@ -54,7 +46,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../TitleMusic:volume_db")
+tracks/1/path = NodePath("../../TitleMusic:volume_db")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -81,7 +73,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../TitleMusic:volume_db")
+tracks/1/path = NodePath("../../TitleMusic:volume_db")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -96,6 +88,60 @@ _data = {
 "FadeIn": SubResource("Animation_13odj"),
 "FadeOut": SubResource("Animation_r5f6s"),
 "RESET": SubResource("Animation_4cb67")
+}
+
+[sub_resource type="Animation" id="Animation_idmgn"]
+resource_name = "fade_in"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vbm3a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7vvng"]
+resource_name = "fade_out"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8ta1h"]
+_data = {
+"RESET": SubResource("Animation_vbm3a"),
+"fade_in": SubResource("Animation_idmgn"),
+"fade_out": SubResource("Animation_7vvng")
 }
 
 [sub_resource type="Animation" id="Animation_vt6m8"]
@@ -135,6 +181,150 @@ _data = {
 "RESET": SubResource("Animation_1ahd3")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rrsil"]
+bg_color = Color(0, 0, 0, 0.392157)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oj08o"]
+content_margin_left = 16.0
+content_margin_top = 24.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+texture = ExtResource("9_rlfg0")
+texture_margin_top = 16.0
+modulate_color = Color(0, 0, 0, 0.392157)
+
+[sub_resource type="Animation" id="Animation_j30vh"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/ControlsViewer:anchor_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [-1.5, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Control/ControlsViewer:anchor_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [-0.5, 1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ControlSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.0166667),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_88i8o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/Control/ControlsViewer:anchor_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MarginContainer/Control/ControlsViewer:anchor_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ControlSound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("..:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("..:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_261r2"]
+_data = {
+"RESET": SubResource("Animation_88i8o"),
+"fade_in": SubResource("Animation_j30vh")
+}
+
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -144,10 +334,33 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6st85")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_von1c")
+[node name="TitleMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lrv7y")
+bus = &"Music"
 
-[node name="FadeOverlay" type="ColorRect" parent="."]
+[node name="ConfirmSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_kxnsq")
+bus = &"SFX"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.585, 1.16)
+fov = 23.1
+near = 0.001
+
+[node name="Ouji" parent="." instance=ExtResource("5_6mot5")]
+transform = Transform3D(0.0246345, 0, 0.0171214, 0, 0.03, 0, -0.0171214, 0, 0.0246345, -1.31, -0.215, -3.295)
+
+[node name="EnvDay" parent="." instance=ExtResource("7_we3ft")]
+
+[node name="Title" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FadeOverlay" type="ColorRect" parent="Title"]
 modulate = Color(0, 0, 0, 1)
 top_level = true
 layout_mode = 1
@@ -158,13 +371,13 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="FadeOverlayAnim" type="AnimationPlayer" parent="FadeOverlay"]
+[node name="FadeOverlayAnim" type="AnimationPlayer" parent="Title/FadeOverlay"]
 deterministic = true
 libraries = {
 "": SubResource("AnimationLibrary_kyndt")
 }
 
-[node name="TitleLogo" parent="." instance=ExtResource("2_f7ydy")]
+[node name="TitleLogo" parent="Title" instance=ExtResource("2_f7ydy")]
 layout_mode = 1
 anchors_preset = 5
 anchor_top = 0.0
@@ -176,7 +389,8 @@ offset_bottom = 360.0
 grow_vertical = 1
 scale = Vector2(0.85, 0.85)
 
-[node name="CopyrightText" type="Label" parent="."]
+[node name="CopyrightText" type="Label" parent="Title"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -184,19 +398,24 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -938.5
-offset_top = -91.0
+offset_top = -93.0
 offset_right = 938.5
 offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0.0235294, 0.137255, 0.643137, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("4_x5xj5")
 theme_override_font_sizes/font_size = 24
 text = "Katamari Damacy and related properties are owned by Bandai Namco Entertainment.
 All registered trademarks belong to their respective owners. \"Galactic Katamari\" is a free fangame and should not be sold."
 horizontal_alignment = 1
 
-[node name="StartText" type="Label" parent="."]
+[node name="CopyrightFade" type="AnimationPlayer" parent="Title/CopyrightText"]
+libraries = {
+"": SubResource("AnimationLibrary_8ta1h")
+}
+
+[node name="StartText" type="Label" parent="Title"]
 visible = false
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -220,25 +439,77 @@ text = "Press Enter"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StartFadeAnim" type="AnimationPlayer" parent="StartText"]
+[node name="StartFadeAnim" type="AnimationPlayer" parent="Title/StartText"]
 deterministic = true
 libraries = {
 "": SubResource("AnimationLibrary_ibi4j")
 }
 speed_scale = 0.8
 
-[node name="TitleMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_lrv7y")
-bus = &"Music"
+[node name="Controls" type="PanelContainer" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rrsil")
 
-[node name="ConfirmSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_kxnsq")
+[node name="ControlVbox" type="VBoxContainer" parent="Controls"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Controls/ControlVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 64
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 64
+
+[node name="Control" type="Control" parent="Controls/ControlVbox/MarginContainer"]
+layout_mode = 2
+
+[node name="ControlsViewer" parent="Controls/ControlVbox/MarginContainer/Control" instance=ExtResource("8_uu2i0")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -1.5
+anchor_bottom = -0.5
+
+[node name="MiniControlsMargin" type="PanelContainer" parent="Controls/ControlVbox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_oj08o")
+
+[node name="MiniControlsContainer" type="HBoxContainer" parent="Controls/ControlVbox/MiniControlsMargin"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="FullLabel" parent="Controls/ControlVbox/MiniControlsMargin/MiniControlsContainer" instance=ExtResource("9_cyiwi")]
+layout_mode = 2
+InputNameLocalized = {
+"en": "Fullscreen"
+}
+InputKey = 4194342
+IsStick = false
+InputController = 0
+
+[node name="ContLabel" parent="Controls/ControlVbox/MiniControlsMargin/MiniControlsContainer" instance=ExtResource("9_cyiwi")]
+layout_mode = 2
+InputNameLocalized = {
+"en": "Continue"
+}
+InputKey = 4194309
+IsStick = false
+InputController = 1
+
+[node name="ControlsFadeAnim" type="AnimationPlayer" parent="Controls"]
+root_node = NodePath("../ControlVbox")
+libraries = {
+"": SubResource("AnimationLibrary_261r2")
+}
+
+[node name="ControlSound" type="AudioStreamPlayer" parent="Controls"]
+stream = ExtResource("9_b4y0p")
 bus = &"SFX"
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.585, 1.16)
-fov = 23.1
-near = 0.001
-
-[node name="Ouji" parent="." instance=ExtResource("5_6mot5")]
-transform = Transform3D(0.0246345, 0, 0.0171214, 0, 0.03, 0, -0.0171214, 0, 0.0246345, -1.31, -0.215, -3.295)
