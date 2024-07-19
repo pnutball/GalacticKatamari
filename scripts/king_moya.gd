@@ -42,6 +42,7 @@ var Talking:bool = false:
 func summon_face(to:Node3D):
 	FaceNode.reparent(to, false)
 	FaceNode.global_position = to.global_position
+	FaceNode.scale = Vector3.ONE
 	$KingFaceAnimation.anim_player = FaceNode.get_node("KingAnimation").get_path()
 	RemoteCamera = to.get_viewport().get_camera_3d()
 	%Moya3DOffset/Moya.visible = false
