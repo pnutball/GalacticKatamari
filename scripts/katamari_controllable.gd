@@ -244,7 +244,7 @@ func _process(delta):
 			if Input.is_action_just_pressed("LS Dash Down"): DashDir = 1
 			if Input.is_action_just_pressed("LS Dash Up"): DashDir = -1
 	
-	%KatamariDashEfPivot.scale = Vector3.ONE * Size * 1.15 * $"..".scale.y
+	%KatamariDashEfPivot.scale = Vector3.ONE * Size * 1.15
 	%KatamariDashEfPivot.rotation.y = %KatamariCameraPivot.rotation.y
 	%KatamariDashEfPivot.rotation.x -= (4*PI) * delta
 	%KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color = %KatamariDashEfPivot/KatamariDashEfA.material_override.albedo_color.lerp(Color(1, 1.2, 2, 1) * ((clampf(DashCharge-25, 0, 30) / 30)), 0.2)
@@ -385,10 +385,11 @@ func _physics_process(delta):
 	if CanDash and not Fatigued:
 		if DashCharge < 100 and DashCharge >= 25 and not is_equal_approx(DashCharge, 100):
 			$KatamariBody.apply_central_force(Vector3(
-				(Speed * -20 * sin(%KatamariCamera.global_rotation.y)) * Size,
-				0,
+				(Speed * -20 * sin(%KatamariCamera.global_rotation.y)) * Size
+				,0,
 				(Speed * -20 * cos(%KatamariCamera.global_rotation.y)) * Size
-			) * $"..".scale.y * delta)
+			) * StageLoader.stageRoot.scale
+			 * delta)
 			
 			var zRotDash:float = (24 * delta * sin(%KatamariCamera.global_rotation.y))
 			var xRotDash:float = (-24 * delta * cos(%KatamariCamera.global_rotation.y))
@@ -406,10 +407,10 @@ func _physics_process(delta):
 			$KatamariDashAudio.stream = preload("uid://t5sdks8wbp58")
 			$KatamariDashAudio.play()
 			$KatamariBody.apply_central_impulse(Vector3(
-				(Speed * -4.5 / $"..".scale.x * sin(%KatamariCamera.global_rotation.y)) * Size,
+				(Speed * -4.5 * sin(%KatamariCamera.global_rotation.y)) * Size,
 				0,
-				(Speed * -4.5 / $"..".scale.z * cos(%KatamariCamera.global_rotation.y)) * Size
-			) * $"..".scale.y)
+				(Speed * -4.5 * cos(%KatamariCamera.global_rotation.y)) * Size
+			) * StageLoader.stageRoot.scale)
 			DashCharge = -10
 			DashFatigue += 30
 			MovementEnabled = true
