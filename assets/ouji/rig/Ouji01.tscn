@@ -223,6 +223,7 @@ bones/13/rotation = Quaternion(-1.32704e-14, 1.14e-07, -3.65487e-21, 1)
 bones/13/scale = Vector3(1, 0.999999, 1)
 
 [node name="Ouji" type="MeshInstance3D" parent="OujiArmature/OujiSkeleton"]
+layers = 65536
 gi_mode = 0
 mesh = SubResource("ArrayMesh_qwxhw")
 skin = SubResource("Skin_ucuiy")
@@ -236,6 +237,7 @@ blend_shapes/Jaw = 0.0
 surface_material_override/0 = SubResource("ShaderMaterial_q0njk")
 
 [node name="Ouji_face" type="MeshInstance3D" parent="OujiArmature/OujiSkeleton"]
+layers = 65536
 gi_mode = 0
 mesh = SubResource("ArrayMesh_wylwa")
 skin = SubResource("Skin_ucuiy")

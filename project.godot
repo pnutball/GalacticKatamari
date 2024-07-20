@@ -233,6 +233,7 @@ locale/translation_remaps={
 
 [layer_names]
 
+3d_render/layer_17="Ouji View"
 3d_render/layer_20="Level Geometry"
 3d_physics/layer_1="Katamari"
 3d_physics/layer_2="Objects"

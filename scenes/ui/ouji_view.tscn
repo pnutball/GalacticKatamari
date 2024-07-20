@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://bfk4h2p6ortti"]
+[gd_scene load_steps=61 format=3 uid="uid://bfk4h2p6ortti"]
 
 [ext_resource type="Script" path="res://scripts/ouji_view.gd" id="1_g71is"]
 [ext_resource type="Texture2D" uid="uid://ddhgqxa1uojmq" path="res://assets/textures/ui/ouji_cam/back_glow.png" id="2_ds4g1"]
@@ -7,9 +7,6 @@
 [sub_resource type="Environment" id="Environment_d2jpm"]
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-
-[sub_resource type="World3D" id="World3D_kidyq"]
-environment = SubResource("Environment_d2jpm")
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_7b822"]
 
@@ -312,7 +309,6 @@ transitions = ["Ouji_Idle", "Ouji_Roll", SubResource("AnimationNodeStateMachineT
 graph_offset = Vector2(-34.3785, -5.7588)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
-graph_offset = Vector2(-104.526, 30.3168)
 nodes/MovementScale/node = SubResource("AnimationNodeTimeScale_7b822")
 nodes/MovementScale/position = Vector2(580, 60)
 nodes/TiredAdd/node = SubResource("AnimationNodeAdd2_85gch")
@@ -349,26 +345,26 @@ grow_vertical = 0
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="OujiViewportContainer"]
-own_world_3d = true
-world_3d = SubResource("World3D_kidyq")
 transparent_bg = true
 handle_input_locally = false
 msaa_3d = 3
 size = Vector2i(640, 1080)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="OujiViewportContainer/SubViewport"]
-transform = Transform3D(0.848048, 0.0369653, 0.528628, 0, 0.997564, -0.0697565, -0.529919, 0.0591568, 0.845982, 1.915, 0.17, 2.415)
+[node name="OujiViewRoot" type="Node3D" parent="OujiViewportContainer/SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="OujiViewportContainer/SubViewport/OujiViewRoot"]
+transform = Transform3D(0.848048, 0.0369653, 0.528628, 0, 0.997564, -0.0697564, -0.529919, 0.0591568, 0.845982, 1.865, 1.005, 3.925)
+cull_mask = 65536
+environment = SubResource("Environment_d2jpm")
 fov = 35.9
 
-[node name="OujiAnimTree" type="AnimationTree" parent="OujiViewportContainer/SubViewport"]
+[node name="OujiAnimTree" type="AnimationTree" parent="OujiViewportContainer/SubViewport/OujiViewRoot"]
 unique_name_in_owner = true
 process_mode = 1
 active = false
-root_node = NodePath("%OujiAnimTree/../Ouji")
 tree_root = SubResource("AnimationNodeBlendTree_5ly86")
-advance_expression_base_node = NodePath("../../../..")
-anim_player = NodePath("../Ouji/OujiAnimation")
+advance_expression_base_node = NodePath("../../../../..")
 parameters/MovementScale/scale = 1.0
 parameters/TiredAdd/add_amount = 0
 parameters/WalkState/conditions/idle_speed_reached = false

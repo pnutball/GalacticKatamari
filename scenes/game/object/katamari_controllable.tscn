@@ -263,7 +263,7 @@ libraries = {
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
 process_mode = 3
-size = Vector2i(2, 2)
+size = Vector2i(975, 412)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
@@ -317,7 +317,7 @@ size = Vector3(0.95, 5, 0.95)
 texture_albedo = ExtResource("8_5y6a3")
 upper_fade = 1e-05
 lower_fade = 0.1
-cull_mask = 1048574
+cull_mask = 983038
 
 [node name="FloorBumpCast" type="ShapeCast3D" parent="KatamariBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
