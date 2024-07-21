@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ox3xhqn3rpcx"
+path="res://.godot/imported/over_sign.obj-b6ab0eaeb3c154e4014d513157c6bde5.mesh"
+
+[deps]
+
+files=["res://.godot/imported/over_sign.obj-b6ab0eaeb3c154e4014d513157c6bde5.mesh"]
+
+source_file="res://assets/models/object/over_sign.obj"
+dest_files=["res://.godot/imported/over_sign.obj-b6ab0eaeb3c154e4014d513157c6bde5.mesh", "res://.godot/imported/over_sign.obj-b6ab0eaeb3c154e4014d513157c6bde5.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

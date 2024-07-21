@@ -37,10 +37,43 @@
 			"description": {
 				"en": "Dummy"
 			},
-			"bump_sound": "",
-			"roll_sound": "",
-			"animations": "",
 			"collection_category": "sweets"
+		},
+		"onigiri_kd": {
+			"view_mesh": "res://assets/models/object/onigiri.obj",
+			"collision_mesh": "res://assets/models/object/onigiri.shape",
+			"knock_size": 0.175,
+			"roll_size": 0.175,
+			"pickup_size": 0.065,
+			"scale": 1,
+			"view_scale": 6.81,
+			"texture": "res://assets/textures/object/onigiri_kd.png",
+			"texture_rolledup": "res://assets/textures/object/onigiri_kd_roll.png",
+			"name": {
+				"en": "Rice Ball with Seaweed"
+			},
+			"description": {
+				"en": "A rice ball wrapped in seaweed. It tastes better than it sounds."
+			},
+			"collection_category": "snacks"
+		},
+		"onigiri_wlk": {
+			"view_mesh": "res://assets/models/object/onigiri.obj",
+			"collision_mesh": "res://assets/models/object/onigiri.shape",
+			"knock_size": 0.175,
+			"roll_size": 0.175,
+			"pickup_size": 0.065,
+			"scale": 1,
+			"view_scale": 6.81,
+			"texture": "res://assets/textures/object/onigiri_wlk.png",
+			"texture_rolledup": "res://assets/textures/object/onigiri_wlk_roll.png",
+			"name": {
+				"en": "Onigiri (Rice Ball)"
+			},
+			"description": {
+				"en": "A ball of packed rice and filling. It's easy to forget what's inside after making one."
+			},
+			"collection_category": "snacks"
 		}
 	}
 }
