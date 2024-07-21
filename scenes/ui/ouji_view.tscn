@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://bfk4h2p6ortti"]
+[gd_scene load_steps=77 format=3 uid="uid://bfk4h2p6ortti"]
 
 [ext_resource type="Script" path="res://scripts/ouji_view.gd" id="1_g71is"]
 [ext_resource type="Texture2D" uid="uid://ddhgqxa1uojmq" path="res://assets/textures/ui/ouji_cam/back_glow.png" id="2_ds4g1"]
@@ -7,6 +7,12 @@
 [sub_resource type="Environment" id="Environment_d2jpm"]
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_riy3c"]
+animation = &"Ouji_Flip"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_jnip6"]
+fadeout_time = 0.05
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_7b822"]
 
@@ -18,8 +24,62 @@ animation = &"Internal_OujiShock"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ptnkm"]
 animation = &"Ouji_Climb"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pqmwy"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g6wu3"]
 animation = &"Ouji_Idle"
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_m771w"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ggkcq"]
+animation = &"Ouji_Walk_Forward"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5yp3g"]
+animation = &"Internal_OujiHeadTurn"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7panr"]
+animation = &"Internal_OujiRootTurn"
+
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_uj0l7"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4bqoi"]
+graph_offset = Vector2(-277.809, -15.7144)
+"nodes/Add2 2/node" = SubResource("AnimationNodeAdd2_m771w")
+"nodes/Add2 2/position" = Vector2(100, 260)
+nodes/Ouji_Forward/node = SubResource("AnimationNodeAnimation_ggkcq")
+nodes/Ouji_Forward/position = Vector2(-200, 100)
+nodes/Ouji_Head_Turn/node = SubResource("AnimationNodeAnimation_5yp3g")
+nodes/Ouji_Head_Turn/position = Vector2(-200, 340)
+nodes/Ouji_Root_Turn/node = SubResource("AnimationNodeAnimation_7panr")
+nodes/Ouji_Root_Turn/position = Vector2(-200, 220)
+nodes/TurnAdd/node = SubResource("AnimationNodeAdd2_uj0l7")
+nodes/TurnAdd/position = Vector2(280, 100)
+nodes/output/position = Vector2(460, 120)
+node_connections = [&"Add2 2", 0, &"Ouji_Root_Turn", &"Add2 2", 1, &"Ouji_Head_Turn", &"TurnAdd", 0, &"Ouji_Forward", &"TurnAdd", 1, &"Add2 2", &"output", 0, &"TurnAdd"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dujw2"]
+advance_mode = 2
+advance_expression = "is_zero_approx(StickAngle)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sgwkq"]
+advance_mode = 2
+advance_expression = "not is_zero_approx(StickAngle)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a4uxr"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "is_zero_approx(StickAngle)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_03x54"]
+xfade_time = 0.2
+advance_mode = 2
+advance_expression = "not is_zero_approx(StickAngle)"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mdj61"]
+states/Ouji_Idle/node = SubResource("AnimationNodeAnimation_g6wu3")
+states/Ouji_Idle/position = Vector2(409, 32)
+states/Ouji_Turn/node = SubResource("AnimationNodeBlendTree_4bqoi")
+states/Ouji_Turn/position = Vector2(409, 136)
+transitions = ["Start", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_dujw2"), "Start", "Ouji_Turn", SubResource("AnimationNodeStateMachineTransition_sgwkq"), "Ouji_Turn", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_a4uxr"), "Ouji_Idle", "Ouji_Turn", SubResource("AnimationNodeStateMachineTransition_03x54")]
+graph_offset = Vector2(0, -17.4108)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1gu1e"]
 animation = &"Ouji_Roll_Backward"
@@ -297,28 +357,119 @@ advance_condition = &"idle_speed_reached"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_lygbi"]
 states/Ouji_Climb/node = SubResource("AnimationNodeAnimation_ptnkm")
-states/Ouji_Climb/position = Vector2(732.047, 115.132)
-states/Ouji_Idle/node = SubResource("AnimationNodeAnimation_pqmwy")
-states/Ouji_Idle/position = Vector2(314, 100)
+states/Ouji_Climb/position = Vector2(777.047, 153.132)
+states/Ouji_Idle/node = SubResource("AnimationNodeStateMachine_mdj61")
+states/Ouji_Idle/position = Vector2(366.621, 121.241)
 states/Ouji_Roll/node = SubResource("AnimationNodeStateMachine_a1aq2")
-states/Ouji_Roll/position = Vector2(520.047, 68)
+states/Ouji_Roll/position = Vector2(647.047, 20)
 states/Ouji_Walk/node = SubResource("AnimationNodeStateMachine_3vv05")
-states/Ouji_Walk/position = Vector2(520.047, 155)
+states/Ouji_Walk/position = Vector2(647.047, 259)
 states/Start/position = Vector2(158, 90)
 transitions = ["Ouji_Idle", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_m8qfg"), "Ouji_Roll", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_27yf4"), "Ouji_Roll", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_3p50r"), "Ouji_Walk", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_wvdnn"), "Ouji_Idle", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_xh258"), "Ouji_Walk", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_73w21"), "Start", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_kabmr"), "Ouji_Idle", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_ct57w"), "Ouji_Climb", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_toiim"), "Ouji_Climb", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_bjkcn"), "Ouji_Roll", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_e5b03"), "Ouji_Walk", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_cvxrq"), "Ouji_Climb", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_p3vbo")]
-graph_offset = Vector2(-34.3785, -5.7588)
+graph_offset = Vector2(-9.3785, 60.2412)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
+graph_offset = Vector2(-54.5245, 3.25276)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_riy3c")
+nodes/Animation/position = Vector2(400, 200)
+nodes/FlipOneShot/node = SubResource("AnimationNodeOneShot_jnip6")
+nodes/FlipOneShot/position = Vector2(620, 60)
 nodes/MovementScale/node = SubResource("AnimationNodeTimeScale_7b822")
-nodes/MovementScale/position = Vector2(580, 60)
+nodes/MovementScale/position = Vector2(400, 60)
 nodes/TiredAdd/node = SubResource("AnimationNodeAdd2_85gch")
 nodes/TiredAdd/position = Vector2(820, 140)
 nodes/TiredAnim/node = SubResource("AnimationNodeAnimation_vut82")
 nodes/TiredAnim/position = Vector2(520, 300)
 nodes/WalkState/node = SubResource("AnimationNodeStateMachine_lygbi")
-nodes/WalkState/position = Vector2(400, 100)
+nodes/WalkState/position = Vector2(240, 60)
 nodes/output/position = Vector2(980, 200)
-node_connections = [&"MovementScale", 0, &"WalkState", &"TiredAdd", 0, &"MovementScale", &"TiredAdd", 1, &"TiredAnim", &"output", 0, &"TiredAdd"]
+node_connections = [&"FlipOneShot", 0, &"MovementScale", &"FlipOneShot", 1, &"Animation", &"MovementScale", 0, &"WalkState", &"TiredAdd", 0, &"FlipOneShot", &"TiredAdd", 1, &"TiredAnim", &"output", 0, &"TiredAdd"]
+
+[sub_resource type="Animation" id="Animation_nay2n"]
+resource_name = "flip"
+length = 0.400002
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:HeightMix")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(0.5, 2, 1),
+"update": 0,
+"values": [1.0, -1.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flipping")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:DistMix")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, -1.0]
+}
+
+[sub_resource type="Animation" id="Animation_x1rj8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:HeightMix")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flipping")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:DistMix")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xc2wu"]
+_data = {
+"RESET": SubResource("Animation_x1rj8"),
+"flip": SubResource("Animation_nay2n")
+}
 
 [node name="OujiView" type="Control"]
 process_mode = 1
@@ -365,10 +516,15 @@ process_mode = 1
 active = false
 tree_root = SubResource("AnimationNodeBlendTree_5ly86")
 advance_expression_base_node = NodePath("../../../../..")
+parameters/FlipOneShot/active = false
+parameters/FlipOneShot/internal_active = false
+parameters/FlipOneShot/request = 0
 parameters/MovementScale/scale = 1.0
 parameters/TiredAdd/add_amount = 0
 parameters/WalkState/conditions/idle_speed_reached = false
 parameters/WalkState/conditions/walk_speed_reached = false
+"parameters/WalkState/Ouji_Idle/Ouji_Turn/Add2 2/add_amount" = 0
+parameters/WalkState/Ouji_Idle/Ouji_Turn/TurnAdd/add_amount = 0
 parameters/WalkState/Ouji_Roll/conditions/backward_condition = false
 parameters/WalkState/Ouji_Roll/conditions/forward_condition = false
 parameters/WalkState/Ouji_Roll/conditions/side_condition = false
@@ -377,6 +533,12 @@ parameters/WalkState/Ouji_Walk/conditions/backward_condition = false
 parameters/WalkState/Ouji_Walk/conditions/not_backward_condition = false
 parameters/WalkState/Ouji_Walk/Forward/BodyRotAdd/add_amount = 0
 parameters/WalkState/Ouji_Walk/Forward/HeadRotAdd/add_amount = 0
+
+[node name="OujiFlipAnim" type="AnimationPlayer" parent="OujiViewportContainer/SubViewport/OujiViewRoot"]
+root_node = NodePath("../../../..")
+libraries = {
+"": SubResource("AnimationLibrary_xc2wu")
+}
 
 [node name="OujiViewBGGlow" type="TextureRect" parent="."]
 z_index = -1

@@ -468,6 +468,7 @@ func doQuickTurn():
 		CameraSmoothing = 0.1
 		$KatamariQTAudio.stream = preload("uid://ctdba4rcx3s41")
 		$KatamariQTAudio.play()
+		$OujiView.flip()
 		QTRotTween.tween_property(self, "CameraRotation", CameraRotation + PI, 0.4).set_trans(Tween.TRANS_LINEAR)
 		QTTiltTween.tween_property(self, "CameraTilt", ((-16 * PI) / 32), 0.2).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 		QTTiltTween.tween_property(self, "CameraTilt", deg_to_rad(CameraZones[CurrentZone].Tilt), 0.2).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_IN)
