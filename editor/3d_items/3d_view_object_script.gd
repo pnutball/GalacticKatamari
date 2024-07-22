@@ -40,14 +40,14 @@ func _ready():
 			gizmo.get_node("Detect").mouse_exited.connect(_gizmo_hover.bind(gizmo, false))
 
 func _process(delta):
-	if mesh != objectList.get("", objectList["debug_cube"])["view_mesh"]:
-		mesh = objectList.get("", objectList["debug_cube"])["view_mesh"]
+	if mesh != objectList.get(Source.object_id, objectList["debug_cube"])["view_mesh"]:
+		mesh = objectList.get(Source.object_id, objectList["debug_cube"])["view_mesh"]
 		%RollableObjectMesh.mesh = load(mesh)
-	if texture != objectList.get("", objectList["debug_cube"])["texture"]:
-		texture = objectList.get("", objectList["debug_cube"])["texture"]
+	if texture != objectList.get(Source.object_id, objectList["debug_cube"])["texture"]:
+		texture = objectList.get(Source.object_id, objectList["debug_cube"])["texture"]
 		%RollableObjectMesh.material_override.set("shader_parameter/Texture", load(texture))
-	if texture_selected != objectList.get("", objectList["debug_cube"])["texture_rolledup"]:
-		texture_selected = objectList.get("", objectList["debug_cube"])["texture_rolledup"]
+	if texture_selected != objectList.get(Source.object_id, objectList["debug_cube"])["texture_rolledup"]:
+		texture_selected = objectList.get(Source.object_id, objectList["debug_cube"])["texture_rolledup"]
 		%RollableObjectMesh.material_override.set("shader_parameter/Texture_Rolled", load(texture_selected))
 	$Gizmos.position = global_position
 	$Gizmos.rotation = global_rotation if editor.transform_local else Vector3.ZERO
