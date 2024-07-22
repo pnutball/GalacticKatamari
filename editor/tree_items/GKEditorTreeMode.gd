@@ -76,9 +76,7 @@ enum GoalType {NONE, SIZE, POINTS, EXACT_SIZE}
 ## Returns a JSON-compatible representation of this tree item and its children.
 func to_json():
 	var dict:Dictionary = {
-		"name": {
-			"en": mode_name
-		},
+		"name": mode_name,
 		"music": {
 			"default": default_music,
 			"force_default": force_default_music
