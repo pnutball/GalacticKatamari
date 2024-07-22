@@ -167,6 +167,7 @@ texture = ExtResource("1_3tml6")
 stretch_mode = 3
 
 [node name="InfoLabel" type="Label" parent="HBoxContainer/Middle/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12

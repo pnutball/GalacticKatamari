@@ -14,6 +14,16 @@ func _input(_event):
 		$"../ObjectIndicator".visible = not get_tree().paused
 		DialogueBox.visible = not get_tree().paused
 		KingFace.visible = not get_tree().paused
+		$PauseBG/RightSidePanel/ObjectCollect/ObjectCollectNumber.text = str($"..".ObjectQueue.size())
+		var ranking = GKGlobal.calculate_rank_percentage($"..".ObjectCategoryNames, $"..".ObjectCategoryCounts)
+		$PauseBG/RightSidePanel/CatRank/First/FirstTexture.texture = GKGlobal.RANK_IMAGES[ranking[0][0]]
+		$PauseBG/RightSidePanel/CatRank/First/FirstLabel.text = ranking[0][1]
+		$PauseBG/RightSidePanel/CatRank/Second/SecondTexture.texture = GKGlobal.RANK_IMAGES[ranking[1][0]]
+		$PauseBG/RightSidePanel/CatRank/Second/SecondLabel.text = ranking[1][1]
+		$PauseBG/RightSidePanel/CatRank/Third/ThirdTexture.texture = GKGlobal.RANK_IMAGES[ranking[2][0]]
+		$PauseBG/RightSidePanel/CatRank/Third/ThirdLabel.text = ranking[2][1]
+		
+		$PauseBG/RightSidePanel/Actions/DebugInputLabel.visible = OS.is_debug_build()
 		_pause_in_progress = false
 	elif Input.is_action_just_pressed("Pause") and not $"..".Pausable and not DialogueBox.MessageQueue.is_empty():
 		DialogueBox.interrupt_queue()

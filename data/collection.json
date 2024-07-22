@@ -1,0 +1,14 @@
+{
+	"collection": {
+		"snacks": {
+			"name": {
+				"en": "Snacks"
+			}
+		},
+		"japanese_food": {
+			"name": {
+				"en": "Japanese Food"
+			}
+		}
+	}
+}

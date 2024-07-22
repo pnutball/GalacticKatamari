@@ -47,6 +47,33 @@ func get_music(id:String) -> Array:
 	var song_name:String = "" if not MusicList.has(id) else get_localized_string(MusicList[id].name)
 	return [stream, song_name]
 
+const RANK_IMAGES:Array[Texture2D] = [
+	preload("res://assets/textures/ui/rank_1st.png"),
+	preload("res://assets/textures/ui/rank_2nd.png"),
+	preload("res://assets/textures/ui/rank_3rd.png"),
+	preload("res://assets/textures/ui/rank_blank.png")
+]
+
+func calculate_rank_percentage(names:Array[String], counts:Array[int]) -> Array[Array]:
+	var combo:Array[Array] = []
+	for index in names.size():
+		combo.push_back([names[index],counts[index]])
+	combo.sort_custom(func(a,b): return a[1] > b[1])
+	
+	var rank:Array[Array] = []
+	rank.resize(3)
+	rank.fill([3, "--------------------"])
+	if not names.is_empty():
+		var total:int = counts.reduce(func(accum, number): return accum + number)
+		for index in mini(combo.size(), 3):
+			var rank_entry = [0]
+			if index > 0:
+				rank_entry[0] = rank[index - 1][0]
+				if combo[index - 1][1] != combo[index][1]: rank_entry[0] += 1
+			rank_entry.push_back("%d%% %s"%[int(combo[index][1] * 100 / total), get_localized_string(preload("res://data/collection.json").data.collection.get(combo[index][0], {}).get("name", {}))])
+			rank[index] = rank_entry
+	return rank
+
 var resultsKatamariImage:Image
 var resultsKatamariScale:float
 

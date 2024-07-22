@@ -28,7 +28,7 @@
 			"roll_size": 0.044,
 			"pickup_size": 0.001,
 			"scale": 1,
-			"view_scale": 6.81,
+			"view_scale": 13.62,
 			"texture": "res://assets/textures/object/caramel.png",
 			"texture_rolledup": "res://assets/textures/object/caramel_roll.png",
 			"name": {
@@ -37,7 +37,7 @@
 			"description": {
 				"en": "Dummy"
 			},
-			"collection_category": "sweets"
+			"collection_category": "snacks"
 		},
 		"onigiri_kd": {
 			"view_mesh": "res://assets/models/object/onigiri.obj",
@@ -46,7 +46,7 @@
 			"roll_size": 0.175,
 			"pickup_size": 0.065,
 			"scale": 1,
-			"view_scale": 6.81,
+			"view_scale": 4.5,
 			"texture": "res://assets/textures/object/onigiri_kd.png",
 			"texture_rolledup": "res://assets/textures/object/onigiri_kd_roll.png",
 			"name": {
@@ -55,7 +55,7 @@
 			"description": {
 				"en": "A rice ball wrapped in seaweed. It tastes better than it sounds."
 			},
-			"collection_category": "snacks"
+			"collection_category": "japanese_food"
 		},
 		"onigiri_wlk": {
 			"view_mesh": "res://assets/models/object/onigiri.obj",
@@ -64,7 +64,7 @@
 			"roll_size": 0.175,
 			"pickup_size": 0.065,
 			"scale": 1,
-			"view_scale": 6.81,
+			"view_scale": 4.5,
 			"texture": "res://assets/textures/object/onigiri_wlk.png",
 			"texture_rolledup": "res://assets/textures/object/onigiri_wlk_roll.png",
 			"name": {
@@ -73,7 +73,7 @@
 			"description": {
 				"en": "A ball of packed rice and filling. It's easy to forget what's inside after making one."
 			},
-			"collection_category": "snacks"
+			"collection_category": "japanese_food"
 		}
 	}
 }

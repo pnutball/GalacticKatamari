@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2n7fqkxxktdj"]
+[gd_scene load_steps=10 format=3 uid="uid://c2n7fqkxxktdj"]
 
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="1_b5jee"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_gvuf4"]
 [ext_resource type="Texture2D" uid="uid://h5ig1amhsvwp" path="res://assets/textures/ui/pause_back.png" id="2_wkw1r"]
 [ext_resource type="AudioStream" uid="uid://cfrpjiychgu6s" path="res://assets/sounds/game/pause.wav" id="3_dsb0h"]
 [ext_resource type="PackedScene" uid="uid://bvm3eub6h5wow" path="res://scenes/ui/controls_viewer.tscn" id="4_h3u7n"]
+[ext_resource type="Texture2D" uid="uid://jpajokrvlcju" path="res://assets/textures/ui/rank_1st.png" id="6_lig34"]
+[ext_resource type="Texture2D" uid="uid://bw8hxhyk30rp5" path="res://assets/textures/ui/rank_2nd.png" id="7_yonp5"]
+[ext_resource type="Texture2D" uid="uid://cjrft4rqi752y" path="res://assets/textures/ui/rank_3rd.png" id="8_c2a81"]
+[ext_resource type="PackedScene" uid="uid://cr1eqg7hqfcgy" path="res://scenes/ui/mini_input_label.tscn" id="9_dteet"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -46,15 +50,157 @@ text = "Paused..."
 process_mode = 2
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.0
+anchor_bottom = 0.5
 offset_left = 32.0
-offset_top = -678.0
+offset_top = -323.0
 offset_right = 1296.0
-offset_bottom = -32.0
+offset_bottom = 323.0
 grow_horizontal = 1
-grow_vertical = 0
 TextShown = false
+
+[node name="RightSidePanel" type="VBoxContainer" parent="PauseBG"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -72.0
+offset_top = 32.0
+offset_right = -32.0
+offset_bottom = 72.0
+grow_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="ObjectCollect" type="VBoxContainer" parent="PauseBG/RightSidePanel"]
+layout_mode = 2
+theme_override_constants/separation = -16
+
+[node name="ObjectCollectHeader" type="Label" parent="PauseBG/RightSidePanel/ObjectCollect"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.8)
+theme_override_fonts/font = ExtResource("1_b5jee")
+theme_override_font_sizes/font_size = 32
+text = "Objects Collected:"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="ObjectCollectNumber" type="Label" parent="PauseBG/RightSidePanel/ObjectCollect"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("1_b5jee")
+theme_override_font_sizes/font_size = 40
+text = "0"
+horizontal_alignment = 2
+
+[node name="CatRank" type="VBoxContainer" parent="PauseBG/RightSidePanel"]
+layout_mode = 2
+theme_override_constants/separation = -8
+
+[node name="ObjectCollectHeader" type="Label" parent="PauseBG/RightSidePanel/CatRank"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.8)
+theme_override_fonts/font = ExtResource("1_b5jee")
+theme_override_font_sizes/font_size = 32
+text = "Category Ranking:"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="First" type="HBoxContainer" parent="PauseBG/RightSidePanel/CatRank"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="FirstTexture" type="TextureRect" parent="PauseBG/RightSidePanel/CatRank/First"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_lig34")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="FirstLabel" type="Label" parent="PauseBG/RightSidePanel/CatRank/First"]
+custom_minimum_size = Vector2(384, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_b5jee")
+theme_override_font_sizes/font_size = 40
+text = "--------------------"
+
+[node name="Second" type="HBoxContainer" parent="PauseBG/RightSidePanel/CatRank"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SecondTexture" type="TextureRect" parent="PauseBG/RightSidePanel/CatRank/Second"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("7_yonp5")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SecondLabel" type="Label" parent="PauseBG/RightSidePanel/CatRank/Second"]
+custom_minimum_size = Vector2(384, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_b5jee")
+theme_override_font_sizes/font_size = 40
+text = "--------------------"
+
+[node name="Third" type="HBoxContainer" parent="PauseBG/RightSidePanel/CatRank"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="ThirdTexture" type="TextureRect" parent="PauseBG/RightSidePanel/CatRank/Third"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("8_c2a81")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ThirdLabel" type="Label" parent="PauseBG/RightSidePanel/CatRank/Third"]
+custom_minimum_size = Vector2(384, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_b5jee")
+theme_override_font_sizes/font_size = 40
+text = "--------------------"
+
+[node name="Control" type="Control" parent="PauseBG/RightSidePanel"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Actions" type="VBoxContainer" parent="PauseBG/RightSidePanel"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="RetryInputLabel" parent="PauseBG/RightSidePanel/Actions" instance=ExtResource("9_dteet")]
+layout_mode = 2
+size_flags_horizontal = 0
+InputNameLocalized = {
+"en": "Retry"
+}
+InputKey = 4194308
+IsStick = false
+InputController = 2
+
+[node name="TitleInputLabel" parent="PauseBG/RightSidePanel/Actions" instance=ExtResource("9_dteet")]
+layout_mode = 2
+size_flags_horizontal = 0
+InputNameLocalized = {
+"en": "Title Screen"
+}
+InputKey = 74
+IsStick = false
+InputController = 3
+
+[node name="DebugInputLabel" parent="PauseBG/RightSidePanel/Actions" instance=ExtResource("9_dteet")]
+layout_mode = 2
+size_flags_horizontal = 0
+InputNameLocalized = {
+"en": "Debug Menu"
+}
+InputKey = 32
+IsStick = false
+InputController = 11
 
 [node name="PauseSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_dsb0h")

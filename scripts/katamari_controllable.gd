@@ -16,7 +16,10 @@ var MinimumSize:float = Size
 ## Sets the spawn points this katamari can choose.
 @export var SpawnPoints:Array = [Vector4.ZERO]
 
-var ObjectQueue:Array[StringName] = []
+var ObjectQueue:PackedStringArray = []
+var ObjectIDQueue:PackedStringArray = []
+var ObjectCategoryNames:Array[String] = []
+var ObjectCategoryCounts:Array[int] = []
 #endregion
 #region Physics
 @export_group("Physics")
@@ -523,6 +526,14 @@ func respawn(noAnimation:bool = false):
 
 func grabObject(ObjectSize:float, ObjectID:StringName, ObjectInstance:StringName):
 	ObjectQueue.push_back(ObjectID)
+	ObjectIDQueue.push_back(ObjectInstance)
+	var object_cat:StringName = preload("res://data/objects.json").data.objects.get(ObjectID, {}).get("collection_category", "")
+	if not object_cat.is_empty(): 
+		if not ObjectCategoryNames.has(object_cat):
+			ObjectCategoryNames.push_back(object_cat)
+			ObjectCategoryCounts.push_back(1)
+		else: 
+			ObjectCategoryCounts[ObjectCategoryNames.find(object_cat)] += 1
 	Size += ObjectSize * GrowthMultiplier
 	$ObjectIndicator.push_object(ObjectID, ObjectInstance, %KatamariCamera)
 	if ScoringList != {} and ScoringList.get(String(ObjectID)) != null:
