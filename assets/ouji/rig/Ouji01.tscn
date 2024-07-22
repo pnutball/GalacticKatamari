@@ -8,7 +8,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1jjhi"]
 vertex_color_use_as_albedo = true
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_qwxhw"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_rjs5r"]
 resource_name = "OUJI_01_Vert"
 _blend_shape_names = PackedStringArray("Top Lip", "Bottom Lip", "Jaw", "Show Smile", "Eye Shift", "Eye Squint", "Eye Size")
 _surfaces = [{
@@ -87,7 +87,7 @@ shader_parameter/OverlayTexture = ExtResource("3_5d5ts")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rj8m3"]
 vertex_color_use_as_albedo = true
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_wylwa"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_rskb3"]
 resource_name = "OUJI_01_Vert_001"
 _blend_shape_names = PackedStringArray("Top Lip", "Bottom Lip", "Jaw", "Show Smile", "Eye Shift", "Eye Squint", "Eye Size")
 _surfaces = [{
@@ -225,7 +225,7 @@ bones/13/scale = Vector3(1, 1, 0.999999)
 [node name="Ouji" type="MeshInstance3D" parent="OujiArmature/OujiSkeleton"]
 layers = 65536
 gi_mode = 0
-mesh = SubResource("ArrayMesh_qwxhw")
+mesh = SubResource("ArrayMesh_rjs5r")
 skin = SubResource("Skin_ucuiy")
 "blend_shapes/Bottom Lip" = 0.0
 "blend_shapes/Eye Shift" = 0.0
@@ -239,7 +239,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_q0njk")
 [node name="Ouji_face" type="MeshInstance3D" parent="OujiArmature/OujiSkeleton"]
 layers = 65536
 gi_mode = 0
-mesh = SubResource("ArrayMesh_wylwa")
+mesh = SubResource("ArrayMesh_rskb3")
 skin = SubResource("Skin_ucuiy")
 "blend_shapes/Bottom Lip" = 0.0
 "blend_shapes/Eye Shift" = 0.0
@@ -251,7 +251,7 @@ blend_shapes/Jaw = 0.0
 surface_material_override/0 = SubResource("ShaderMaterial_ticd3")
 
 [node name="HeadAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
-transform = Transform3D(1, 1.94557e-08, 2.3335e-07, 9.56007e-10, 0.996194, -0.0871553, -2.34158e-07, 0.0871553, 0.996194, 5.54258e-07, 13.7137, 2.38856)
+transform = Transform3D(1, 8.17124e-14, 2.38419e-07, -1.35968e-14, 1, -2.98023e-07, -2.38419e-07, 3.05474e-07, 0.999999, 3.2744e-13, 14.525, 1.69873e-06)
 bone_name = "Head"
 bone_idx = 6
 
@@ -262,7 +262,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43, 2.73)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.19785e-16, 3.16, -8.94079e-09)
 
 [node name="ChestAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
-transform = Transform3D(1, 7.75602e-08, 2.14311e-07, 1.79899e-08, 0.91052, -0.413465, -2.27203e-07, 0.413465, 0.910519, 1.05282e-07, 8.44298, -0.00488615)
+transform = Transform3D(1, 1.06581e-13, 2.38419e-07, 1.83855e-08, 0.997022, -0.0771147, -2.37709e-07, 0.0771146, 0.997021, -3.05244e-13, 8.7535, -0.446395)
 bone_name = "Chest"
 bone_idx = 2
 
@@ -270,7 +270,7 @@ bone_idx = 2
 transform = Transform3D(1, -4.15592e-08, 5.68434e-14, 4.14011e-08, 0.996195, -0.0871558, 3.62233e-09, 0.0871558, 0.996195, 3.21799e-07, 1.50039, -1.34972)
 
 [node name="TorsoAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
-transform = Transform3D(1, 4.14008e-08, 2.34796e-07, -4.18519e-08, 0.999998, 0.00192144, -2.34716e-07, -0.00192144, 0.999998, 0, 5.9, 0)
+transform = Transform3D(1, -1.1724e-13, 2.38419e-07, -4.18519e-08, 0.984472, 0.17554, -2.34717e-07, -0.175539, 0.984471, 0, 6.25, 0)
 bone_name = "Torso"
 bone_idx = 1
 
