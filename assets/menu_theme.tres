@@ -1,0 +1,73 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://d25kxadhvp5wu"]
+
+[ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="1_11glu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qvtc3"]
+content_margin_left = 16.0
+content_margin_top = 16.0
+content_margin_right = 16.0
+content_margin_bottom = 16.0
+bg_color = Color(0, 0.101961, 0.482353, 0.690196)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m46ic"]
+content_margin_left = 20.0
+content_margin_top = 4.0
+content_margin_right = 20.0
+content_margin_bottom = 4.0
+bg_color = Color(0.45, 0.45, 0.45, 0.321569)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnljh"]
+content_margin_left = 20.0
+content_margin_top = 4.0
+content_margin_right = 20.0
+content_margin_bottom = 4.0
+bg_color = Color(0.223445, 0.67, 0.0469, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y2164"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmdhi"]
+content_margin_left = 20.0
+content_margin_top = 4.0
+content_margin_right = 20.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.254902)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j6gu3"]
+content_margin_left = 20.0
+content_margin_top = 4.0
+content_margin_right = 20.0
+content_margin_bottom = 4.0
+bg_color = Color(0.116725, 0.35, 0.0245, 1)
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+
+[resource]
+AcceptDialog/constants/buttons_separation = 24
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_qvtc3")
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_11glu")
+Button/styles/disabled = SubResource("StyleBoxFlat_m46ic")
+Button/styles/focus = SubResource("StyleBoxFlat_rnljh")
+Button/styles/hover = SubResource("StyleBoxEmpty_y2164")
+Button/styles/normal = SubResource("StyleBoxFlat_hmdhi")
+Button/styles/pressed = SubResource("StyleBoxFlat_j6gu3")
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_11glu")

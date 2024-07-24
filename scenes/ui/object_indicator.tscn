@@ -6,11 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://ca41yenpydmmu" path="res://assets/textures/ui/object_view/object_view_danger_radar.png" id="3_jjvay"]
 [ext_resource type="Texture2D" uid="uid://cwck8s0w4tont" path="res://assets/textures/ui/object_view/object_view_mask.png" id="3_l7t3k"]
 [ext_resource type="PackedScene" uid="uid://dqojpyii1gskp" path="res://scenes/environment/env_preview.tscn" id="4_07xd1"]
-[ext_resource type="FontVariation" uid="uid://jimsv6e58fx7" path="res://assets/fonts/hud_small.tres" id="4_peft0"]
 [ext_resource type="Shader" path="res://assets/materials/shaders/object.gdshader" id="5_2yh0l"]
 [ext_resource type="Texture2D" uid="uid://b5s6imj42yi85" path="res://assets/textures/ui/object_view/object_view_danger_arrow.png" id="6_q6cs7"]
 [ext_resource type="Texture2D" uid="uid://xkm85sech75n" path="res://assets/textures/ui/object_view/object_point_line.png" id="7_xm5um"]
 [ext_resource type="Texture2D" uid="uid://bforuxlngb4mx" path="res://assets/textures/ui/object_view/object_point_dot.png" id="8_jlr4l"]
+[ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="9_anh8g"]
 [ext_resource type="AudioStream" uid="uid://coxuk5diih87k" path="res://assets/sounds/game/look_out.wav" id="11_fvm7v"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nk3a2"]
@@ -164,7 +164,7 @@ unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("4_peft0")
+theme_override_fonts/normal_font = ExtResource("9_anh8g")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[rainbow sat=0.3 val=1 freq=0.5]"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2n7fqkxxktdj"]
+[gd_scene load_steps=12 format=3 uid="uid://c2n7fqkxxktdj"]
 
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="1_b5jee"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_gvuf4"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://bw8hxhyk30rp5" path="res://assets/textures/ui/rank_2nd.png" id="7_yonp5"]
 [ext_resource type="Texture2D" uid="uid://cjrft4rqi752y" path="res://assets/textures/ui/rank_3rd.png" id="8_c2a81"]
 [ext_resource type="PackedScene" uid="uid://cr1eqg7hqfcgy" path="res://scenes/ui/mini_input_label.tscn" id="9_dteet"]
+[ext_resource type="Theme" uid="uid://d25kxadhvp5wu" path="res://assets/menu_theme.tres" id="10_0iadn"]
+[ext_resource type="Script" path="res://scripts/GKConfirmationDialog.gd" id="11_u0od4"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -205,3 +207,40 @@ InputController = 11
 [node name="PauseSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_dsb0h")
 bus = &"SFX"
+
+[node name="RetryConfirmation" type="ConfirmationDialog" parent="."]
+transparent_bg = true
+initial_position = 2
+size = Vector2i(593, 214)
+unresizable = true
+borderless = true
+transparent = true
+popup_window = true
+content_scale_mode = 1
+content_scale_aspect = 3
+auto_translate = false
+theme = ExtResource("10_0iadn")
+ok_button_text = "Retry"
+dialog_text = "Retry this stage?
+Your current katamari will not be saved."
+dialog_close_on_escape = false
+script = ExtResource("11_u0od4")
+highlight_cancel = true
+
+[node name="QuitConfirmation" type="ConfirmationDialog" parent="."]
+transparent_bg = true
+initial_position = 2
+size = Vector2i(675, 214)
+unresizable = true
+borderless = true
+transparent = true
+popup_window = true
+content_scale_mode = 1
+content_scale_aspect = 3
+auto_translate = false
+theme = ExtResource("10_0iadn")
+dialog_text = "Quit this stage and return to the Title Screen?
+Your current katamari will not be saved."
+dialog_close_on_escape = false
+script = ExtResource("11_u0od4")
+highlight_cancel = true
