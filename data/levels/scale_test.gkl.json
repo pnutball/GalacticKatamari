@@ -1,0 +1,213 @@
+{
+	"levels": {
+		"scale_test": {
+			"description": {
+				"en": "MONEY OR LOVE WHICH WILL YOU CHOOSE"
+			},
+			"modes": {
+				"normal": {
+					"cam_zones": [
+						{
+							"Bound": 0,
+							"DOF": 1,
+							"Scale": 0.1,
+							"Shift": 0.25,
+							"Tilt": -15
+						},
+						{
+							"Bound": 0.3,
+							"DOF": 2,
+							"Scale": 0.6,
+							"Shift": 0.25,
+							"Tilt": -15
+						}
+					],
+					"end_at_120pts": false,
+					"fail_dialogue": {
+						"en": "PUT OUR DIALOGUE HERE!!!"
+					},
+					"goal_type": 0,
+					"goal_type_none": {
+						"can_quit_early": false,
+						"show_object_count": false
+					},
+					"goal_type_points": {
+						"goal_100pts": 0,
+						"goal_120pts": 0,
+						"goal_minimum": 0,
+						"point_name": {
+							"en": [
+								"{points} pts.",
+								"{points} pt.",
+								"{points} pts."
+							]
+						},
+						"point_objects": {
+
+						}
+					},
+					"goal_type_size": {
+						"goal_100pts": 0,
+						"goal_120pts": 0,
+						"goal_minimum": 0
+					},
+					"hide_ui": false,
+					"katamari": {
+						"can_dash": true,
+						"can_dialogue_move": true,
+						"can_turn": true,
+						"size": 0.05,
+						"speed": 4.5
+					},
+					"map_zones": [
+						{
+							"advance_size": 0.3,
+							"audio_size": "XS",
+							"core_model": "res://assets/models/core/core_generic.obj",
+							"core_texture": "res://assets/textures/core/core_test.png",
+							"environment": "res://scenes/environment/env_day_env.tres",
+							"objects": [
+								{
+									"animation": "roll",
+									"animation_phase": 0,
+									"animation_speed": 1,
+									"approach_behavior": 0,
+									"approach_speed": 1,
+									"approaches_small_katamari": false,
+									"id": "onigiri_kd",
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
+									"physics_behavior": 0,
+									"physics_file": "",
+									"physics_speed": 1,
+									"position": [
+										-0.49000000953674,
+										0.0450000017881393,
+										0.230000004172325
+									],
+									"rotation": [
+										-0,
+										0,
+										0
+									],
+									"sub_objects": [],
+									"unload_size": -1
+								}
+							],
+							"preload_size": 0.15,
+							"scale": 10,
+							"spawn_positions": [
+								[
+									0,
+									0,
+									0,
+									0
+								]
+							],
+							"static": [
+								[
+									"res://scenes/environment/env_day_lights.tscn"
+								],
+								[
+									"res://assets/models/map/map_plane.tscn"
+								]
+							],
+							"time_bonus": 0,
+							"warp_height": -6
+						},
+						{
+							"advance_size": -1,
+							"audio_size": "C",
+							"core_model": "res://assets/models/core/core_generic.obj",
+							"core_texture": "res://assets/textures/core/core_test.png",
+							"environment": "res://scenes/environment/env_sunset_env.tres",
+							"objects": [
+								{
+									"animation": "roll",
+									"animation_phase": 0,
+									"animation_speed": 1,
+									"approach_behavior": 0,
+									"approach_speed": 1,
+									"approaches_small_katamari": false,
+									"id": "onigiri_wlk",
+									"launch_vector": [
+										0,
+										0,
+										0
+									],
+									"physics_behavior": 0,
+									"physics_file": "",
+									"physics_speed": 1,
+									"position": [
+										-0.49500000476837,
+										0.0450000017881393,
+										-0.20499999821186
+									],
+									"rotation": [
+										-0,
+										0,
+										0
+									],
+									"sub_objects": [],
+									"unload_size": -1
+								}
+							],
+							"preload_size": -1,
+							"scale": 1,
+							"spawn_positions": [
+								[
+									0,
+									0,
+									0,
+									0
+								]
+							],
+							"static": [
+								[
+									"res://scenes/environment/env_sunset_lights.tscn"
+								],
+								[
+									"res://assets/models/map/map_plane.tscn"
+								]
+							],
+							"time_bonus": 0,
+							"warp_height": 0
+						}
+					],
+					"music": {
+						"default": "final_fugue",
+						"force_default": false
+					},
+					"name": {
+						"en": "Normal"
+					},
+					"pre_dialogue": {
+						"en": "Put Our dialogue here..."
+					},
+					"result_dialogue": {
+						"en": "Put Our dialogue here."
+					},
+					"retry_dialogue": {
+						"en": "Put Our dialogue here."
+					},
+					"skip_results": false,
+					"start_dialogue": {
+						"en": "Put Our dialogue here."
+					},
+					"time": 0,
+					"time_100pts": 0,
+					"time_120pts": 0,
+					"win_dialogue": {
+						"en": "Put Our dialogue here!"
+					}
+				}
+			},
+			"name": {
+				"en": "Scale Test"
+			}
+		}
+	}
+}

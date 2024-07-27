@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://lu7isv38uwrm"]
+
+[node name="EnvSunset" type="Node3D"]
+
+[node name="WorldSun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0.241845, 0.664463, -2.98023e-08, -0.939693, 0.34202, 0.707107, -0.241845, -0.664463, 0, 3, 0)
+light_color = Color(1, 0.922667, 0.84, 1)
+directional_shadow_mode = 0
+sky_mode = 1

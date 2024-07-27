@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3 uid="uid://booya1ipvfpb2"]
+
+[ext_resource type="Script" path="res://addons/gk_editor_tools/node_classes/gk_level.gd" id="1_kg8lv"]
+[ext_resource type="Script" path="res://addons/gk_editor_tools/node_classes/gk_mode.gd" id="2_egovg"]
+[ext_resource type="Script" path="res://addons/gk_editor_tools/node_classes/gk_area.gd" id="3_htpur"]
+[ext_resource type="Script" path="res://addons/gk_editor_tools/node_classes/gk_spawn.gd" id="4_bmun1"]
+[ext_resource type="Script" path="res://addons/gk_editor_tools/node_classes/gk_static.gd" id="5_payiv"]
+[ext_resource type="Script" path="res://addons/gk_editor_tools/node_classes/gk_object.gd" id="6_fc5n2"]
+[ext_resource type="Script" path="res://addons/gk_editor_tools/node_classes/gk_cam_zone.gd" id="7_232ua"]
+
+[node name="scale_test" type="Node"]
+script = ExtResource("1_kg8lv")
+export_path = "D:/Documents/GitHub/clover/data/levels/scale_test.gkl.json"
+level_name = {
+"en": "Scale Test"
+}
+level_description = {
+"en": "MONEY OR LOVE WHICH WILL YOU CHOOSE"
+}
+
+[node name="normal" type="Node" parent="."]
+script = ExtResource("2_egovg")
+default_music = "final_fugue"
+katamari_size = 0.05
+goal_type = 0
+
+[node name="Area1" type="Node3D" parent="normal"]
+script = ExtResource("3_htpur")
+preload_size = 0.15
+advance_size = 0.3
+area_scale = 10.0
+warp_height = -6.0
+audio_size = 0
+environment = "res://scenes/environment/env_day_env.tres"
+
+[node name="Spawn1" type="Node3D" parent="normal/Area1"]
+script = ExtResource("4_bmun1")
+
+[node name="Skybox" type="Node3D" parent="normal/Area1"]
+script = ExtResource("5_payiv")
+path = "res://scenes/environment/env_day_lights.tscn"
+
+[node name="Map" type="Node3D" parent="normal/Area1"]
+script = ExtResource("5_payiv")
+path = "res://assets/models/map/map_plane.tscn"
+
+[node name="GKObject" type="Node3D" parent="normal/Area1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.49, 0.045, 0.23)
+script = ExtResource("6_fc5n2")
+object_id = &"onigiri_kd"
+animation = &"roll"
+
+[node name="Area2" type="Node3D" parent="normal"]
+script = ExtResource("3_htpur")
+audio_size = 5
+environment = "res://scenes/environment/env_sunset_env.tres"
+core_texture = "res://assets/textures/core/core_tut.png"
+
+[node name="Spawn1" type="Node3D" parent="normal/Area2"]
+script = ExtResource("4_bmun1")
+
+[node name="Skybox" type="Node3D" parent="normal/Area2"]
+script = ExtResource("5_payiv")
+path = "res://scenes/environment/env_sunset_lights.tscn"
+
+[node name="Map" type="Node3D" parent="normal/Area2"]
+script = ExtResource("5_payiv")
+path = "res://assets/models/map/map_plane.tscn"
+
+[node name="GKObject" type="Node3D" parent="normal/Area2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.495, 0.045, -0.205)
+script = ExtResource("6_fc5n2")
+object_id = &"onigiri_wlk"
+animation = &"roll"
+
+[node name="GKCamZone" type="Node" parent="normal"]
+script = ExtResource("7_232ua")
+camera_scale = 0.1
+depth_of_field = 1.0
+
+[node name="GKCamZone2" type="Node" parent="normal"]
+script = ExtResource("7_232ua")
+lower_bound = 0.3
+camera_scale = 0.6
+depth_of_field = 2.0

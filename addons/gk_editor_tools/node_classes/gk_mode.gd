@@ -73,6 +73,40 @@ enum GoalType {NONE, SIZE, POINTS, EXACT_SIZE}
 @export_range(-1, 1200, 1, "or_greater", "suffix:sec.") var time_100pts:float = 0
 @export_range(-1, 1200, 1, "or_greater", "suffix:sec.") var time_120pts:float = 0
 
+func _init():
+	mode_name = {"en": "Normal"}
+	default_music = ""
+	force_default_music = false
+	pre_dialogue = {"en": "Put Our dialogue here..."}
+	start_dialogue = {"en": "Put Our dialogue here."}
+	retry_dialogue = {"en": "Put Our dialogue here."}
+	win_dialogue = {"en": "Put Our dialogue here!"}
+	fail_dialogue = {"en": "PUT OUR DIALOGUE HERE!!!"}
+	result_dialogue = {"en": "Put Our dialogue here."}
+	katamari_size = 1
+	katamari_speed = 4.5
+	can_katamari_dash = true
+	can_katamari_turn = true
+	can_katamari_dialogue_move = true
+	goal_type = GoalType.SIZE
+	end_at_120pts = false
+	skip_results = false
+	hide_ui = false
+	size_goal_minimum = 0
+	size_goal_100pts = 0
+	size_goal_120pts = 0
+	point_goal_minimum = 0
+	point_goal_100pts = 0
+	point_goal_120pts = 0
+	point_objects = {}
+	point_name = {"en": ["{points} pts.", "{points} pt.", "{points} pts."]}
+	none_show_object_count = false
+	none_can_quit_early = false
+	time = 0
+	time_100pts = 0
+	time_120pts = 0
+
+
 ## Returns a JSON-compatible representation of this tree item and its children.
 func to_json():
 	var dict:Dictionary = {

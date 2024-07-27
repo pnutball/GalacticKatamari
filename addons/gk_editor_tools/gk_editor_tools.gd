@@ -9,11 +9,13 @@ func _enter_tree():
 	# Initialization of the plugin goes here.
 	get_export_as_menu().add_item("Galactic Katamari Level...", EXPORT_ENTRY_ID)
 	get_export_as_menu().set_item_metadata(get_export_as_menu().get_item_index(EXPORT_ENTRY_ID), _export_gkl)
+	get_export_as_menu().set_item_tooltip(get_export_as_menu().get_item_index(EXPORT_ENTRY_ID), "Hold Shift to force Export As mode.")
 	if not ProjectSettings.has_setting("plugins/gk_tools/object_data_folder"):
 		ProjectSettings.set_setting("plugins/gk_tools/object_data_folder", "res://data")
 		ProjectSettings.save()
 	ProjectSettings.add_property_info({
 		"name": "plugins/gk_tools/object_data_folder",
+		"description": "The folder containing objects.json and collection.json.\nIf invalid, objects will not appear in-editor.",
 		"type": TYPE_STRING,
 		"hint": PROPERTY_HINT_DIR
 	})
@@ -56,6 +58,7 @@ func _export_gkl(force_export_as:bool = false):
 			return
 		file.store_string(JSON.stringify({"levels":EditorInterface.get_edited_scene_root().to_json()}, "\t"))
 		file.close()
+		print("Level exported successfully to \'%s\'"%EditorInterface.get_edited_scene_root().export_path)
 
 signal export_dialog_closed(path_empty:bool)
 

@@ -3,12 +3,15 @@
 class_name GKStatic
 extends Node3D
 
-@onready @export_file("*.tscn") var path:String = "":
+@export_file("*.tscn") var path:String = "":
 	get:
 		return path
 	set(new):
 		path = new
 		update_static()
+
+func _init():
+	path = ""
 
 func _ready():
 	update_static()

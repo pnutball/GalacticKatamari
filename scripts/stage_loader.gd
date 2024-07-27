@@ -29,7 +29,7 @@ func getStages(path:String):
 		return ERR_FILE_BAD_PATH
 	ResourceLoader.load_threaded_request(path)
 	while ResourceLoader.load_threaded_get_status(path) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().process_frame
 	if ResourceLoader.load_threaded_get_status(path) != ResourceLoader.THREAD_LOAD_LOADED:
 		return ERR_FILE_CANT_OPEN
 	else:
@@ -48,7 +48,7 @@ func loadStage(path:String, stage_name:String):
 		return ERR_FILE_BAD_PATH
 	ResourceLoader.load_threaded_request(path)
 	while ResourceLoader.load_threaded_get_status(path) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().process_frame
 	if ResourceLoader.load_threaded_get_status(path) != ResourceLoader.THREAD_LOAD_LOADED:
 		return ERR_FILE_CANT_OPEN
 	else:
@@ -123,7 +123,7 @@ func preloadArea(area:int = currentArea + 1):
 	for scene in currentStage.modes.get(currentMode).map_zones[area].static:
 		ResourceLoader.load_threaded_request(scene[0])
 		while ResourceLoader.load_threaded_get_status(scene[0]) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-			await get_tree().create_timer(0.1).timeout
+			await get_tree().process_frame
 		var instantiated:Node = ResourceLoader.load_threaded_get(scene[0]).instantiate()
 		instantiated.set_script(null)
 		currentStatics.add_child(instantiated)
@@ -138,16 +138,16 @@ func _preload_object(object:Dictionary, root:Node3D, area:int = currentArea + 1)
 		
 	ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).view_mesh)
 	while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).view_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().process_frame
 	ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).collision_mesh)
 	while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).collision_mesh) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().process_frame
 	ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).texture)
 	while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).texture) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().process_frame
 	ResourceLoader.load_threaded_request(objectList.get(object.id, objectList["debug_cube"]).texture_rolledup)
 	while ResourceLoader.load_threaded_get_status(objectList.get(object.id, objectList["debug_cube"]).texture_rolledup) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().process_frame
 	
 	instantiated.ObjectID = object.id
 	instantiated.InstanceName = str(area) + "_" + str(preload_object_index)
@@ -165,12 +165,14 @@ func _preload_object(object:Dictionary, root:Node3D, area:int = currentArea + 1)
 	instantiated.AnimationSpeed = object.animation_speed
 	instantiated.AnimationPhase = fposmod(object.animation_phase, 1)
 	
+	preload_object_index += 1
+	
 	for subobject in object.get("sub_objects", []):
 		await _preload_object(subobject, instantiated.get_node("SubObjectsRoot"), area)
 	
 	root.add_child(instantiated)
 		
-	preload_object_index += 1
+	
 
 ## Instantiates a size area into the stage root.
 func instantiateArea(area:int = currentArea + 1):
@@ -178,7 +180,7 @@ func instantiateArea(area:int = currentArea + 1):
 		currentArea = area
 		await preloadArea(area)
 	while not loadFinished:
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().process_frame
 
 	for child in preloadRoot.get_children():
 		preloadRoot.remove_child(child)
@@ -190,6 +192,7 @@ func instantiateArea(area:int = currentArea + 1):
 	var newScale = currentStage.modes.get(currentMode).map_zones[currentArea].scale
 	stageRoot.scale = Vector3(newScale, newScale, newScale)
 	
+	currentKatamari.CurrentEnvironment = load(currentStage.modes.get(currentMode).map_zones[currentArea].environment)
 	currentKatamari.RoyalWarpHeight = currentStage.modes.get(currentMode).map_zones[currentArea].warp_height
 	currentKatamari.SpawnPoints = currentStage.modes.get(currentMode).map_zones[currentArea].spawn_positions.map(func(pos): return Vector4(pos[0], pos[1], pos[2], pos[3]))
 	currentKatamari.SoundSize = currentStage.modes.get(currentMode).map_zones[currentArea].audio_size

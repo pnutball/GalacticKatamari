@@ -17,6 +17,10 @@ class_name GKLevel
 ## Each entry is the internal language code & the corresponding text string.
 @export var level_description:Dictionary = {"en": "Enter a description here"}
 
+func _init():
+	level_name = {"en": "New level"}
+	level_description = {"en": "Enter a description here"}
+
 ## Returns a JSON-compatible representation of this tree item and its children.
 func to_json():
 	var modes_dict:Dictionary = {}

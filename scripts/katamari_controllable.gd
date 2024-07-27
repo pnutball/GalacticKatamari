@@ -115,6 +115,7 @@ var RoyalWarping:bool = false
 #region Visual
 @export_file("*.obj") var CoreModel:String = "res://assets/models/core/core_generic.obj"
 @export_file("*.png") var CoreTexture:String = "res://assets/textures/core/core_test.png"
+@export var CurrentEnvironment:Environment = null
 #endregion
 
 @export var Music:String = ""
@@ -140,11 +141,17 @@ const BumpSounds = {
 }
 #endregion
 
+var currentArea_preload:int = 0
+var currentArea_load:int = 0
+var instantiateFinished:bool = true
+var CamSmoothEnabled:bool = true
+
 func _ready():
 	loadCore(CoreTexture, CoreModel)
 	changeCamArea(0, true)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt)
 	respawn(true)
+	%KatamariCamera.environment = CurrentEnvironment
 	
 	# Now let's init the dialogue
 	var mode:Dictionary = StageLoader.currentStage.get("modes", {}).get(StageLoader.currentMode, {})
@@ -216,6 +223,7 @@ func capture_katamari_image() -> void:
 	%KatamariCamera.cull_mask = 786431
 
 func _process(delta):
+	
 	$SubViewport.size = %ViewportRect.get_viewport_rect().size
 	$SubViewportFeedback.size = %ViewportRect.get_viewport_rect().size
 	
@@ -225,7 +233,7 @@ func _process(delta):
 	# Transform camera
 	%KatamariCamera.transform = Transform3D.IDENTITY.translated_local(Vector3(0, CameraShift, 2)).scaled(Vector3(CameraScale, CameraScale, CameraScale) * $"..".scale)
 	%KatamariCameraPivot.transform = Transform3D.IDENTITY.translated(position * $"..".scale).translated_local($KatamariBody.position * $"..".scale).rotated_local(Vector3.UP, CameraRotation).rotated_local(Vector3.RIGHT, CameraTilt).interpolate_with(%KatamariCameraPivot.transform,
-	 clamp(CameraSmoothing*((1.0 / 60)/delta), 0, 1))
+	 clamp(CameraSmoothing*((1.0 / 60)/delta) if CamSmoothEnabled else 1, 0, 1))
 	
 	DashFatigue -= (5.0 if not Fatigued else 7.5) * delta
 	
@@ -275,6 +283,7 @@ func _process(delta):
 		$Debug/StickDisplay/DashTireBar.value = DashFatigue
 
 func _physics_process(delta):
+	if not CamSmoothEnabled: CamSmoothEnabled = true
 	# Handle movement inputs
 	LeftStick = GKGlobal.snap_input_angle(Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5))
 	RightStick = GKGlobal.snap_input_angle(Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5))
@@ -326,8 +335,9 @@ func _physics_process(delta):
 	# Rotate katamari model
 	var zRot:float = ($KatamariBody.linear_velocity.x * -PI / $"..".scale.x * delta) / (Size * 1.15)
 	var xRot:float = ($KatamariBody.linear_velocity.z * PI / $"..".scale.z * delta) / (Size * 1.15)
-	$KatamariBody/KatamariMeshPivot.rotate_z(zRot)
-	$KatamariBody/KatamariMeshPivot.rotate_x(xRot)
+	#$KatamariBody/KatamariMeshPivot.rotate_z(zRot)
+	#$KatamariBody/KatamariMeshPivot.rotate_x(xRot)
+	$KatamariBody/KatamariMeshPivot.transform = $KatamariBody/KatamariMeshPivot.transform.rotated(Vector3.BACK, zRot).rotated(Vector3.RIGHT, xRot)
 	
 	# Rotate object collision
 	for collider:Node3D in $KatamariBody.get_children():
@@ -418,12 +428,6 @@ func _physics_process(delta):
 			DashFatigue += 30
 			MovementEnabled = true
 	
-	# Detect size/camera area changes
-	if Size < CurrentZoneBounds.x and CurrentZone > 0:
-		changeCamArea(CurrentZone - 1) # Decrease camera area
-	elif Size > CurrentZoneBounds.y:
-		changeCamArea(CurrentZone + 1) # Decrease camera area
-	
 	# Detect quick turn
 	if Input.is_action_just_pressed("Quick Turn Left") and Input.is_action_just_pressed("Quick Turn Right") and CanQuickTurn:
 		doQuickTurn()
@@ -432,6 +436,29 @@ func _physics_process(delta):
 	if $KatamariBody.position.y <= RoyalWarpHeight and not RoyalWarping:
 		RoyalWarping = true
 		respawn()
+	
+	var area_count:int = StageLoader.currentStage.modes.get(StageLoader.currentMode).map_zones.size()
+	var preload_size:float = StageLoader.currentStage.modes.get(StageLoader.currentMode).map_zones[StageLoader.currentArea].preload_size
+	var load_size:float = StageLoader.currentStage.modes.get(StageLoader.currentMode).map_zones[StageLoader.currentArea].advance_size
+	if Size > preload_size and preload_size >= 0 and area_count - 1 > StageLoader.currentArea and currentArea_preload == StageLoader.currentArea:
+		currentArea_preload += 1
+		StageLoader.preloadArea()
+	if Size > load_size and load_size >= 0 and area_count - 1 > StageLoader.currentArea and currentArea_load == StageLoader.currentArea:
+		currentArea_load += 1
+		instantiateFinished = false
+		await StageLoader.instantiateArea()
+		instantiateFinished = true
+		loadCore(CoreTexture, CoreModel)
+		%KatamariCamera.environment = CurrentEnvironment
+		CamSmoothEnabled = false
+		
+	if instantiateFinished:
+		# Detect size/camera area changes
+		if Size < CurrentZoneBounds.x and CurrentZone > 0:
+			changeCamArea(CurrentZone - 1) # Decrease camera area
+		elif Size > CurrentZoneBounds.y:
+			changeCamArea(CurrentZone + 1) # Increase camera area
+	
 
 ## Changes the current camera zone to CameraZones[index].
 func changeCamArea(index:int, skipAnimation:bool = false):

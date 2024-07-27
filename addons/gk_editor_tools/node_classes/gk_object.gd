@@ -22,7 +22,7 @@ enum ApproachBehavior {STATIC, SHOOT, FLEE, CHARGE, CLOWN}
 enum PhysicsBehavior {STATIC, GRAVITY, ROAM, PATH, LAUNCH}
 
 
-@onready @export var object_id:StringName = "debug_cube":
+@export var object_id:StringName = "debug_cube":
 	get: return object_id
 	set(new):
 		object_id = new
@@ -42,6 +42,20 @@ enum PhysicsBehavior {STATIC, GRAVITY, ROAM, PATH, LAUNCH}
 @export var animation_speed:float = 1
 @export_range(0, 1) var animation_phase:float = 0
 @export var unload_size:float = -1
+
+func _init():
+	object_id = "debug_cube"
+	approach_behavior = ApproachBehavior.STATIC
+	approach_speed = 1
+	approaches_small_katamari = false
+	physics_behavior = PhysicsBehavior.STATIC
+	physics_file = ""
+	physics_speed = 1
+	launch_vector = Vector3.ZERO
+	animation = &""
+	animation_speed = 1
+	animation_phase = 0
+	unload_size = -1
 
 ## Returns a JSON-compatible representation of this tree item and its children.
 func to_json():
@@ -98,5 +112,5 @@ func update_object():
 		$_ObjectInstance.mesh = load(object_data.get("view_mesh", "res://addons/gk_editor_tools/assets/unknown_object.tres"))
 		$_ObjectInstance.material_override.set_shader_parameter(&"Texture", load(object_data.get("texture", "res://addons/gk_editor_tools/assets/unknown_object_tex.tres")))
 		$_ObjectInstance.material_override.set_shader_parameter(&"Texture_Rolled", load(object_data.get("texture_rolledup", "res://addons/gk_editor_tools/assets/unknown_object_tex.tres")))
-		$_ObjectInstance.position = Vector3.UP * $_ObjectInstance.mesh.get_aabb().size.y * 0.5 * object_data.get("scale", 1)
+		$_ObjectInstance.position = Vector3.ZERO#Vector3.UP * $_ObjectInstance.mesh.get_aabb().size.y * 0.5 * object_data.get("scale", 1)
 		$_ObjectInstance.scale = Vector3.ONE * object_data.get("scale", 1)

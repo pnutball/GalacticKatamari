@@ -11,10 +11,21 @@ enum AudioSize {XS, S, M, L, XL, C}
 @export var area_scale:float = 1
 @export_range(0, 0, 0.01, "hide_slider", "or_greater", "or_less", "suffix:m") var warp_height:float = 0
 @export var audio_size:AudioSize = AudioSize.M
+@export_file("*.tres", "*.res") var environment:String = ""
 @export_file("*.obj") var core_model:String = "res://assets/models/core/core_generic.obj"
 @export_file("*.png") var core_texture:String = "res://assets/textures/core/core_test.png"
 @export_range(0, 0, 0.01, "hide_slider", "or_greater", "suffix:sec.") var time_bonus:float = 0
 #endregion
+
+func _init():
+	preload_size = -1
+	advance_size = -1
+	area_scale = 1
+	warp_height = 0
+	audio_size = AudioSize.M
+	core_model = "res://assets/models/core/core_generic.obj"
+	core_texture = "res://assets/textures/core/core_test.png"
+	time_bonus = 0
 
 ## Returns a JSON-compatible representation of this tree item and its children.
 func to_json():
@@ -29,6 +40,7 @@ func to_json():
 		"preload_size": preload_size,
 		"advance_size": advance_size,
 		"scale": area_scale,
+		"environment": environment,
 		"warp_height": warp_height,
 		"audio_size": AudioSize.keys()[audio_size],
 		"core_model": "res://assets/models/core/core_generic.obj",
