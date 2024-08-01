@@ -75,11 +75,12 @@ advance_expression = "not is_zero_approx(StickAngle)"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_mdj61"]
 states/Ouji_Idle/node = SubResource("AnimationNodeAnimation_g6wu3")
-states/Ouji_Idle/position = Vector2(409, 32)
+states/Ouji_Idle/position = Vector2(409, 19)
 states/Ouji_Turn/node = SubResource("AnimationNodeBlendTree_4bqoi")
-states/Ouji_Turn/position = Vector2(409, 136)
+states/Ouji_Turn/position = Vector2(409, 233)
+states/Start/position = Vector2(337, 120)
 transitions = ["Start", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_dujw2"), "Start", "Ouji_Turn", SubResource("AnimationNodeStateMachineTransition_sgwkq"), "Ouji_Turn", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_a4uxr"), "Ouji_Idle", "Ouji_Turn", SubResource("AnimationNodeStateMachineTransition_03x54")]
-graph_offset = Vector2(0, -17.4108)
+graph_offset = Vector2(16, -34.4108)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1gu1e"]
 animation = &"Ouji_Roll_Backward"
@@ -222,7 +223,7 @@ states/Right/node = SubResource("AnimationNodeAnimation_ipqxi")
 states/Right/position = Vector2(953, 345)
 states/Start/position = Vector2(699, 422)
 transitions = ["Start", "Right", SubResource("AnimationNodeStateMachineTransition_cxbke"), "Start", "Backward", SubResource("AnimationNodeStateMachineTransition_r0gw6"), "Start", "Left", SubResource("AnimationNodeStateMachineTransition_vy1ni"), "Backward", "Right", SubResource("AnimationNodeStateMachineTransition_tywnn"), "Right", "Backward", SubResource("AnimationNodeStateMachineTransition_gafef"), "Backward", "Left", SubResource("AnimationNodeStateMachineTransition_addj7"), "Left", "Backward", SubResource("AnimationNodeStateMachineTransition_nyvk3"), "Right", "Left", SubResource("AnimationNodeStateMachineTransition_7c1fb"), "Left", "Right", SubResource("AnimationNodeStateMachineTransition_y83c1"), "Start", "Forward", SubResource("AnimationNodeStateMachineTransition_mr223"), "Forward", "Backward", SubResource("AnimationNodeStateMachineTransition_yggki"), "Backward", "Forward", SubResource("AnimationNodeStateMachineTransition_ckqgm"), "Forward", "Right", SubResource("AnimationNodeStateMachineTransition_il8yv"), "Right", "Forward", SubResource("AnimationNodeStateMachineTransition_rx1eu"), "Forward", "Left", SubResource("AnimationNodeStateMachineTransition_xk25a"), "Left", "Forward", SubResource("AnimationNodeStateMachineTransition_xny26")]
-graph_offset = Vector2(91.3457, 273.086)
+graph_offset = Vector2(199.346, -17.914)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lqhe6"]
 animation = &"Ouji_Walk_Backward"
@@ -366,10 +367,10 @@ states/Ouji_Walk/node = SubResource("AnimationNodeStateMachine_3vv05")
 states/Ouji_Walk/position = Vector2(647.047, 259)
 states/Start/position = Vector2(158, 90)
 transitions = ["Ouji_Idle", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_m8qfg"), "Ouji_Roll", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_27yf4"), "Ouji_Roll", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_3p50r"), "Ouji_Walk", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_wvdnn"), "Ouji_Idle", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_xh258"), "Ouji_Walk", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_73w21"), "Start", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_kabmr"), "Ouji_Idle", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_ct57w"), "Ouji_Climb", "Ouji_Roll", SubResource("AnimationNodeStateMachineTransition_toiim"), "Ouji_Climb", "Ouji_Walk", SubResource("AnimationNodeStateMachineTransition_bjkcn"), "Ouji_Roll", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_e5b03"), "Ouji_Walk", "Ouji_Climb", SubResource("AnimationNodeStateMachineTransition_cvxrq"), "Ouji_Climb", "Ouji_Idle", SubResource("AnimationNodeStateMachineTransition_p3vbo")]
-graph_offset = Vector2(-9.3785, 60.2412)
+graph_offset = Vector2(102.621, -9.7588)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
-graph_offset = Vector2(-129.872, 33.7698)
+graph_offset = Vector2(-43.5408, -28.1658)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_riy3c")
 nodes/Animation/position = Vector2(400, 200)
 nodes/FlipOneShot/node = SubResource("AnimationNodeOneShot_jnip6")
