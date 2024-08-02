@@ -192,6 +192,7 @@ func _end_stage():
 	$KatamariBody.process_mode = Node.PROCESS_MODE_DISABLED
 	var won:bool = $SizeMeter.goal_reached(Size, Score)
 	if has_node("Timer"): $Timer.play_gong(won)
+	$OujiView.shot_finish()
 	$GameMusic.stop()
 	if won:
 		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("win_dialogue", {})), DialogueBox.MODE_IN)
@@ -201,6 +202,7 @@ func _end_stage():
 		$SizeMeter/SizeAnimation.play("Disappear")
 		await $SizeMeter/SizeAnimation.animation_finished
 		KingFace.get_node("RoyalRainbowAnimation").play("rainbow")
+		$OujiView.shot_finish_end()
 		await get_tree().create_timer(4).timeout
 		capture_katamari_image()
 		await KingFace.get_node("MoyaInOutAnimation").animation_finished

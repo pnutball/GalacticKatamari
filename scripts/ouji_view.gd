@@ -22,6 +22,14 @@ func flip():
 	await $OujiViewportContainer/SubViewport/OujiViewRoot/OujiFlipAnim.animation_finished
 	DistMix = 1
 
+func shot_finish():
+	%OujiAnimTree.set("parameters/FinishMachine/conditions/StageEnding", false)
+	%OujiAnimTree.set("parameters/FinishMachine/conditions/won", $"../SizeMeter".goal_reached($"..".Size, $"..".Score))
+	%OujiAnimTree.set("parameters/FinishShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+func shot_finish_end():
+	%OujiAnimTree.set("parameters/FinishMachine/conditions/StageEnding", true)
+
 func _process(delta):
 	if not flipping:
 		GroundOffset = ($"../FloorBumpDetect".global_position - $"../KatamariBody".global_position).y

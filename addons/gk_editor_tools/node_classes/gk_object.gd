@@ -100,7 +100,6 @@ func _process(_delta):
 func update_object():
 	if has_node(^"_ObjectInstance"):
 		var path:String = (ProjectSettings.get_setting("plugins/gk_tools/object_data_folder") + "/objects.json")
-		print(path)
 		var object_data:Dictionary = {}
 		if ResourceLoader.exists(path):
 			object_data = load(path).data.get("objects", {}).get(object_id, {
