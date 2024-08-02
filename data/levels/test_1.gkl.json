@@ -84,12 +84,13 @@
 							"core_model": "res://assets/models/core/core_generic.obj",
 							"core_texture": "res://assets/textures/core/core_test.png",
 							"time_bonus": 0,
+							"environment": "res://scenes/environment/env_day_env.tres",
 							"static": [
 								[
 									"res://assets/models/map/map_test.tscn"
 								],
 								[
-									"res://scenes/environment/env_day.tscn"
+									"res://scenes/environment/env_day_lights.tscn"
 								]
 							],
 							"objects": [

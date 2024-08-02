@@ -82,9 +82,10 @@
 							"core_model": "res://assets/models/core/core_generic.obj",
 							"core_texture": "res://assets/textures/core/core_test.png",
 							"time_bonus": 0,
+							"environment": "res://scenes/environment/env_sunset_env.tres",
 							"static": [
 								[
-									"res://scenes/environment/env_sunset.tscn"
+									"res://scenes/environment/env_sunset_lights.tscn"
 								],
 								[
 									"res://assets/models/map/map_plane.tscn"

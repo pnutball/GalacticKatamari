@@ -44,9 +44,10 @@
 							"core_model": "res://assets/models/core/core_generic.obj",
 							"core_texture": "res://assets/textures/core/core_tut.png",
 							"time_bonus": 0,
+							"environment": "res://scenes/environment/env_day_env.tres",
 							"static": [
 								[
-									"res://scenes/environment/env_day.tscn"
+									"res://scenes/environment/env_day_lights.tscn"
 								],
 								[
 									"res://assets/models/map/map_tut_holder.tscn"
