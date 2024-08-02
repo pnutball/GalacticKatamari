@@ -158,14 +158,14 @@ bones/4/rest = Transform3D(1, -1.12097e-10, 8.44268e-09, 1.12097e-10, 1, -1.4494
 bones/4/enabled = true
 bones/4/position = Vector3(9.53218e-07, 2.05, 1.16351e-13)
 bones/4/rotation = Quaternion(7.24704e-10, 4.22134e-09, 5.60486e-11, 1)
-bones/4/scale = Vector3(0.999999, 1, 0.999999)
+bones/4/scale = Vector3(0.999999, 1, 0.999998)
 bones/5/name = "R Hand"
 bones/5/parent = 4
 bones/5/rest = Transform3D(1, -6.2938e-18, -1.42109e-14, 6.2938e-18, 1, 1.11022e-16, 1.42109e-14, -1.11022e-16, 1, 9.53674e-07, 2.5875, 3.83402e-14)
 bones/5/enabled = true
 bones/5/position = Vector3(9.53674e-07, 2.5875, 3.83402e-14)
 bones/5/rotation = Quaternion(-5.55112e-17, -7.10543e-15, 3.1469e-18, 1)
-bones/5/scale = Vector3(1, 1.00001, 0.99999)
+bones/5/scale = Vector3(1, 1.00002, 0.999985)
 bones/6/name = "Head"
 bones/6/parent = 2
 bones/6/rest = Transform3D(1, 1.83855e-08, 7.09894e-10, -1.83855e-08, 0.997022, 0.0771144, 7.10007e-10, -0.0771144, 0.997022, -5.62548e-15, 5.78874, 8.94957e-08)
@@ -179,21 +179,21 @@ bones/7/rest = Transform3D(5.96046e-08, 1, -2.42144e-07, -0.997022, 5.96046e-08,
 bones/7/enabled = true
 bones/7/position = Vector3(2.025, 3.05939, 0.211101)
 bones/7/rotation = Quaternion(-0.0272843, -0.0272845, -0.70658, 0.70658)
-bones/7/scale = Vector3(1, 1, 0.999997)
+bones/7/scale = Vector3(1, 1, 0.999996)
 bones/8/name = "L Forearm"
 bones/8/parent = 7
 bones/8/rest = Transform3D(1, -1.12097e-10, -8.44267e-09, 1.12097e-10, 1, 1.44941e-09, 8.44267e-09, -1.44941e-09, 1, -4.56804e-10, 2.05, -1.0969e-13)
 bones/8/enabled = true
 bones/8/position = Vector3(-4.56804e-10, 2.05, -1.0969e-13)
 bones/8/rotation = Quaternion(-7.24704e-10, -4.22133e-09, 5.60486e-11, 1)
-bones/8/scale = Vector3(1, 1, 0.999996)
+bones/8/scale = Vector3(1, 1, 0.999995)
 bones/9/name = "L Hand"
 bones/9/parent = 8
 bones/9/rest = Transform3D(1, 6.43063e-19, 3.56973e-35, -6.43063e-19, 1, 1.11023e-16, 3.56973e-35, -1.11023e-16, 1, -8.88178e-15, 2.5875, -3.27141e-14)
 bones/9/enabled = true
 bones/9/position = Vector3(-8.88178e-15, 2.5875, -3.27141e-14)
 bones/9/rotation = Quaternion(-5.55114e-17, 2.52234e-42, -3.21531e-19, 1)
-bones/9/scale = Vector3(1, 1.00002, 0.99998)
+bones/9/scale = Vector3(1, 1.00003, 0.999974)
 bones/10/name = "R Thigh"
 bones/10/parent = 0
 bones/10/rest = Transform3D(-1, 2.14204e-21, 1.61415e-07, 2.14204e-21, -1, 2.65409e-14, 1.61415e-07, 2.65409e-14, 1, -1.275, 6.2, 0)
@@ -207,7 +207,7 @@ bones/11/rest = Transform3D(1, -4.28409e-21, -2.28e-07, 1.03354e-20, 1, 2.65409e
 bones/11/enabled = true
 bones/11/position = Vector3(0, 2.9, -4.6498e-15)
 bones/11/rotation = Quaternion(-1.32704e-14, -1.14e-07, 3.65487e-21, 1)
-bones/11/scale = Vector3(1, 1, 0.999994)
+bones/11/scale = Vector3(1, 0.999998, 0.999995)
 bones/12/name = "L Thigh"
 bones/12/parent = 0
 bones/12/rest = Transform3D(-1, -2.14204e-21, -1.61415e-07, -2.14204e-21, -1, 2.65409e-14, -1.61415e-07, 2.65409e-14, 1, 1.275, 6.2, 0)
@@ -221,7 +221,7 @@ bones/13/rest = Transform3D(1, 4.28409e-21, 2.28e-07, -1.03354e-20, 1, 2.65409e-
 bones/13/enabled = true
 bones/13/position = Vector3(0, 2.9, -4.6498e-15)
 bones/13/rotation = Quaternion(-1.32704e-14, 1.14e-07, -3.65487e-21, 1)
-bones/13/scale = Vector3(1, 1, 0.999995)
+bones/13/scale = Vector3(1, 0.999998, 0.999996)
 
 [node name="Ouji" type="MeshInstance3D" parent="OujiArmature/OujiSkeleton"]
 layers = 65536
@@ -252,7 +252,7 @@ blend_shapes/Jaw = -1.0
 surface_material_override/0 = SubResource("ShaderMaterial_ticd3")
 
 [node name="HeadAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
-transform = Transform3D(0.990423, -0.0583491, 0.12513, -1.02445e-07, 0.906308, 0.422619, -0.138066, -0.418571, 0.897626, -0.0529061, 13.9416, -3.03984e-06)
+transform = Transform3D(1, -7.63833e-14, 2.38418e-07, -1.8447e-14, 1, 3.27826e-07, -2.38418e-07, -3.35276e-07, 0.999999, -6.76125e-13, 14.525, -3.06964e-06)
 bone_name = "Head"
 bone_idx = 6
 
@@ -263,7 +263,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43, 2.73)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.19785e-16, 3.16, -8.94079e-09)
 
 [node name="ChestAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
-transform = Transform3D(1, -1.06581e-13, 2.38418e-07, 1.83855e-08, 0.997022, -0.0771141, -2.37708e-07, 0.077114, 0.997021, -0.0529061, 8.17008, -0.446396)
+transform = Transform3D(1, -1.06581e-13, 2.38418e-07, 1.83855e-08, 0.997022, -0.0771141, -2.37708e-07, 0.077114, 0.997021, -7.48643e-14, 8.7535, -0.446396)
 bone_name = "Chest"
 bone_idx = 2
 
@@ -271,7 +271,7 @@ bone_idx = 2
 transform = Transform3D(1, -4.15592e-08, 5.68434e-14, 4.14011e-08, 0.996195, -0.0871558, 3.62233e-09, 0.0871558, 0.996195, 3.21799e-07, 1.50039, -1.34972)
 
 [node name="TorsoAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
-transform = Transform3D(1, -2.66453e-14, 2.38418e-07, -4.18519e-08, 0.984472, 0.17554, -2.34716e-07, -0.17554, 0.984471, -0.0529061, 5.66657, 0)
+transform = Transform3D(1, -2.66453e-14, 2.38418e-07, -4.18519e-08, 0.984472, 0.17554, -2.34716e-07, -0.17554, 0.984471, 0, 6.25, 0)
 bone_name = "Torso"
 bone_idx = 1
 
