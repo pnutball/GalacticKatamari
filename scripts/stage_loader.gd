@@ -3,6 +3,10 @@ extends Node
 signal stage_loaded
 signal stage_instantiated
 
+var queued_file:String = "res://data/levels/test_1.gkl.json"
+var queued_stage:String = "test_1"
+var queued_mode:String = "normal"
+
 var objectList:Dictionary = load("res://data/objects.json").data["objects"]
 var currentStage:Dictionary
 var currentMode:String
@@ -22,6 +26,12 @@ func _init():
 
 func _ready():
 	preloadRoot.process_mode = Node.PROCESS_MODE_DISABLED
+
+func queue_stage(parent:Node = get_tree().get_root()):
+	if queued_stage in await getStages(queued_file):
+		loadStage(queued_file, queued_stage)
+		if queued_mode in getModes():
+			instantiateStage(queued_mode, parent)
 
 ## Returns an array of stage names located in the file at path, or an Error.
 func getStages(path:String):

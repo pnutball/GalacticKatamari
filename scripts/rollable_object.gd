@@ -83,7 +83,7 @@ func _physics_process(_delta):
 	if has_parent_rollable_object() and not get_parent_rollable_object().has_body():
 		ObjectRollable = false
 		var global_trans:Transform3D = global_transform
-		reparent(get_node("/root/KatamariStageRoot"))
+		#reparent(get_node("/root/KatamariStageRoot"))
 		global_transform = global_trans#.translated_local(Vector3.DOWN * (ObjHeightOffset * 0.5))
 		ObjectRollable = true
 	if not has_body_recursive():

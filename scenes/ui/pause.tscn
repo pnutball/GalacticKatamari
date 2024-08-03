@@ -244,3 +244,5 @@ Your current katamari will not be saved."
 dialog_close_on_escape = false
 script = ExtResource("11_u0od4")
 highlight_cancel = true
+
+[connection signal="confirmed" from="RetryConfirmation" to="." method="_retry_confirmed"]

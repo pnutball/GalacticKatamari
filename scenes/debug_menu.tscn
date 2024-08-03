@@ -7,11 +7,8 @@
 resource_name = "DebugMenuScript"
 script/source = "extends Control
 
-var selectedStage:String = \"\"
-var selectedLevel:String = \"\"
-var selectedMode:String = \"\"
-
 func _ready():
+	KingFace.get_node(\"RoyalRainbowAnimation\").play(\"RESET\")
 	var levelDir = DirAccess.open(\"res://data/levels\")
 	for file in levelDir.get_files():
 		if file.ends_with(\".gkl.json\"):
@@ -27,18 +24,18 @@ func _ready():
 	$\"../TextureRect\".texture = ImageTexture.create_from_image(GKGlobal.resultsKatamariImage)
 
 func _on_stage_list_item_selected(index):
-	selectedStage = $StageList.get_item_text(index)
+	StageLoader.queued_file = $StageList.get_item_text(index)
 	$LevelList.clear()
-	for stage in await StageLoader.getStages(selectedStage):
+	for stage in await StageLoader.getStages(StageLoader.queued_file):
 		$LevelList.add_item(stage)
 	
 	$InfoContainer/LoadButton.disabled = true
 	$InfoContainer/LevelInfo.text = \"Select a level...\"
 
 func _on_level_list_item_selected(index):
-	selectedLevel = $LevelList.get_item_text(index)
+	StageLoader.queued_stage = $LevelList.get_item_text(index)
 	$ModeList.clear()
-	await StageLoader.loadStage(selectedStage, selectedLevel)
+	await StageLoader.loadStage(StageLoader.queued_file, StageLoader.queued_stage)
 	for mode in StageLoader.getModes():
 		$ModeList.add_item(mode)
 	
@@ -46,22 +43,24 @@ func _on_level_list_item_selected(index):
 	$InfoContainer/LevelInfo.text = \"Select a level...\"
 
 func _on_mode_list_item_selected(index):
-	selectedMode = $ModeList.get_item_text(index)
+	StageLoader.queued_mode = $ModeList.get_item_text(index)
 	
 	$InfoContainer/LoadButton.disabled = false
 	$InfoContainer/LevelInfo.text = \"[b]%s[/b]\\n[i]%s[/i]\\n\\n%s\\nMusic: \\\"%s\\\"\" % [
 		GKGlobal.get_localized_string(StageLoader.currentStage.name),
-		GKGlobal.get_localized_string(StageLoader.currentStage.modes.get(selectedMode).name),
+		GKGlobal.get_localized_string(StageLoader.currentStage.modes.get(StageLoader.queued_mode).name),
 		GKGlobal.get_localized_string(StageLoader.currentStage.description),
-		GKGlobal.get_music(StageLoader.currentStage.modes.get(selectedMode, {}).get(\"music\", {}).get(\"default\", \"\"))[1]]
+		GKGlobal.get_music(StageLoader.currentStage.modes.get(StageLoader.queued_mode, {}).get(\"music\", {}).get(\"default\", \"\"))[1]]
 
 
 func _on_load_button_pressed():
-	GKGlobal.selectedMusic = StageLoader.currentStage.modes.get(selectedMode, {}).get(\"music\", {}).get(\"default\", \"\")
-	visible = false
-	$\"../Load\".visible = true
-	await StageLoader.instantiateStage(selectedMode)
-	$\"..\".queue_free()
+	GKGlobal.selectedMusic = StageLoader.currentStage.modes.get(StageLoader.queued_mode, {}).get(\"music\", {}).get(\"default\", \"\")
+	StageLoader.restarted = false
+	get_tree().change_scene_to_file(\"res://scenes/game/game_main.tscn\")
+	#visible = false
+	#$\"../Load\".visible = true
+	#await StageLoader.instantiateStage(selectedMode)
+	#$\"..\".queue_free()
 "
 
 [sub_resource type="GDScript" id="GDScript_k8lqt"]

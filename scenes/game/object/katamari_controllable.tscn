@@ -263,7 +263,7 @@ libraries = {
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
 process_mode = 3
-size = Vector2i(892, 354)
+size = Vector2i(892, 430)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
@@ -303,10 +303,12 @@ unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="KatamariDashEfA" type="MeshInstance3D" parent="KatamariBody/KatamariDashEfPivot"]
+layers = 16
 material_override = SubResource("StandardMaterial3D_7w1i5")
 mesh = SubResource("SphereMesh_78fgn")
 
 [node name="KatamariDashEfB" type="MeshInstance3D" parent="KatamariBody/KatamariDashEfPivot"]
+layers = 16
 material_override = SubResource("StandardMaterial3D_0uvt6")
 mesh = SubResource("SphereMesh_78fgn")
 

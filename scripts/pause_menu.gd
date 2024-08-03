@@ -27,5 +27,12 @@ func _input(_event):
 		_pause_in_progress = false
 	elif Input.is_action_just_pressed("Pause") and not $"..".Pausable and not DialogueBox.MessageQueue.is_empty():
 		DialogueBox.interrupt_queue()
-	elif Input.is_action_just_pressed("Cancel") and get_tree().paused and not $RetryConfirmation.visible:
+	elif Input.is_action_just_pressed("Cancel") and get_tree().paused and not $RetryConfirmation.visible and not $QuitConfirmation.visible:
 		$RetryConfirmation.visible = true
+
+func _retry_confirmed():
+	# TODO: put the retry animation here
+	# for now, just wait 0.5 sec
+	await get_tree().create_timer(0.5).timeout
+	StageLoader.restarted = true
+	get_tree().reload_current_scene()

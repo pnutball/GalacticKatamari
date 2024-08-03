@@ -167,6 +167,7 @@ func _ready():
 	var music_array = GKGlobal.get_music(Music)
 	$GameMusic.stream = music_array[0]
 	## TODO: add music title gui element
+	await get_tree().create_timer(0.5).timeout
 	DialogueBox.speak_queue()
 	await DialogueBox.queue_finished
 	$GameMusic.play()
@@ -208,7 +209,6 @@ func _end_stage():
 		await KingFace.get_node("MoyaInOutAnimation").animation_finished
 		await get_tree().create_timer(0.5).timeout
 		get_tree().change_scene_to_file("res://scenes/debug_menu.tscn")
-		get_node("/root/KatamariStageRoot").queue_free()
 	else:
 		DialogueBox.queue_dialog_string(GKGlobal.get_localized_string(mode.get("lose_dialogue", {})), DialogueBox.MODE_IN)
 

@@ -70,7 +70,7 @@
 						"show_object_count": false,
 						"can_quit_early": false
 					},
-					"time": 10,
+					"time": 30,
 					"time_100pts": 0,
 					"time_120pts": 0,
 					"skip_results": false,
