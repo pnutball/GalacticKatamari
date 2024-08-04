@@ -350,6 +350,17 @@ offset_top = 35.0
 offset_right = 734.0
 offset_bottom = 75.0
 
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -4096
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.298039, 0.298039, 0.298039, 1)
+
 [connection signal="pressed" from="Menu/EditorButton" to="Menu/EditorButton" method="_on_pressed"]
 [connection signal="pressed" from="Menu/HubButton" to="Menu/HubButton" method="_on_pressed"]
 [connection signal="pressed" from="Menu/LogosButton" to="Menu/LogosButton" method="_on_pressed"]

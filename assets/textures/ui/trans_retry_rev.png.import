@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpp4c3oy3jujq"
-path="res://.godot/imported/mode.png-fd8a4e69efdaadf449f119c237ac7c0d.ctex"
+uid="uid://cnm4aap0ckuwt"
+path="res://.godot/imported/trans_retry_rev.png-32f8c88c9bf6de44c9bfb0412bcae14c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://editor/icons/mode.png"
-dest_files=["res://.godot/imported/mode.png-fd8a4e69efdaadf449f119c237ac7c0d.ctex"]
+source_file="res://assets/textures/ui/trans_retry_rev.png"
+dest_files=["res://.godot/imported/trans_retry_rev.png-32f8c88c9bf6de44c9bfb0412bcae14c.ctex"]
 
 [params]
 

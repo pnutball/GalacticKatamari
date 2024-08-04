@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2n7fqkxxktdj"]
+[gd_scene load_steps=16 format=3 uid="uid://c2n7fqkxxktdj"]
 
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="1_b5jee"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_gvuf4"]
@@ -11,6 +11,68 @@
 [ext_resource type="PackedScene" uid="uid://cr1eqg7hqfcgy" path="res://scenes/ui/mini_input_label.tscn" id="9_dteet"]
 [ext_resource type="Theme" uid="uid://d25kxadhvp5wu" path="res://assets/menu_theme.tres" id="10_0iadn"]
 [ext_resource type="Script" path="res://scripts/GKConfirmationDialog.gd" id="11_u0od4"]
+[ext_resource type="Texture2D" uid="uid://c67jsjjlcto8m" path="res://assets/textures/ui/trans_retry.png" id="12_s2ibn"]
+
+[sub_resource type="Animation" id="Animation_b7cpn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RetryBG:anchor_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.05]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RetryBG:anchor_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.05]
+}
+
+[sub_resource type="Animation" id="Animation_q0na7"]
+resource_name = "retry"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RetryBG:anchor_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.05, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RetryBG:anchor_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.05, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dadpa"]
+_data = {
+"RESET": SubResource("Animation_b7cpn"),
+"retry": SubResource("Animation_q0na7")
+}
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -244,5 +306,24 @@ Your current katamari will not be saved."
 dialog_close_on_escape = false
 script = ExtResource("11_u0od4")
 highlight_cancel = true
+
+[node name="RetryBG" type="NinePatchRect" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.05
+anchor_right = 1.0
+anchor_bottom = 2.05
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_s2ibn")
+patch_margin_top = 31
+axis_stretch_horizontal = 1
+
+[node name="RetryAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dadpa")
+}
 
 [connection signal="confirmed" from="RetryConfirmation" to="." method="_retry_confirmed"]

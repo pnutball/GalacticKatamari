@@ -1474,6 +1474,7 @@ states/talk/position = Vector2(484, 100)
 transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_jnyep"), "RESET", "talk", SubResource("AnimationNodeStateMachineTransition_soblo"), "talk", "RESET", SubResource("AnimationNodeStateMachineTransition_xss05")]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_4vhce"]
+graph_offset = Vector2(-393.337, 19.4386)
 nodes/BlinkState/node = SubResource("AnimationNodeStateMachine_j5avm")
 nodes/BlinkState/position = Vector2(-140, 120)
 nodes/Emotion/node = SubResource("AnimationNodeAdd2_vm3w7")
@@ -1489,6 +1490,7 @@ node_connections = [&"Emotion", 0, &"TalkAdd", &"Emotion", 1, &"EmotionState", &
 
 [node name="KingMoya" type="Control"]
 top_level = true
+z_index = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

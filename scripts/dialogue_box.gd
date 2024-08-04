@@ -397,7 +397,7 @@ func speak_queue():
 	if not (MessageQueue.is_empty() or $DialogSizing.visible): 
 		KingFace.Emotion = &"Neutral"
 		KingFace.Shocked = false
-		if CurrentMode & MODE_IN: 
+		if CurrentMode & MODE_IN and not KingFace.get_node("MoyaPos/SubViewportContainer").visible: 
 			KingFace.get_node("MoyaInOutAnimation").play(&"in")
 		continue_message_queue()
 		

@@ -2,6 +2,8 @@ extends Node
 
 func _init(): process_mode = Node.PROCESS_MODE_ALWAYS
 
+func _ready(): RenderingServer.set_default_clear_color(Color.BLACK)
+
 const is_demo:bool = preload("res://flags.json").data.demo
 
 const ANGLE_SNAP_CURVE:Curve = preload("res://data/input_angle_curve.tres")

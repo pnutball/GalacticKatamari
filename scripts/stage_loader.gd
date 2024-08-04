@@ -1,6 +1,7 @@
 extends Node
 
 signal stage_loaded
+signal stage_preloaded
 signal stage_instantiated
 
 var queued_file:String = "res://data/levels/test_1.gkl.json"
@@ -27,11 +28,11 @@ func _init():
 func _ready():
 	preloadRoot.process_mode = Node.PROCESS_MODE_DISABLED
 
-func queue_stage(parent:Node = get_tree().get_root()):
+func queue_stage():
 	if queued_stage in await getStages(queued_file):
 		loadStage(queued_file, queued_stage)
 		if queued_mode in getModes():
-			instantiateStage(queued_mode, parent)
+			preloadStage(queued_mode)
 
 ## Returns an array of stage names located in the file at path, or an Error.
 func getStages(path:String):
@@ -83,11 +84,11 @@ func loadStagefromDict(dict:Dictionary, stage_name:String):
 func getModes():
 	return currentStage.modes.keys()
 
-## Instantiates the currently loaded stage.
+## Preloads the currently loaded stage.
 ##
 ## mode: The level's mode.
 ## parent: The node that the stage root node is parented to.
-func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
+func preloadStage(mode:String):
 	GKOverlays.load_start()
 	currentMode = mode
 	stageRoot = Node3D.new()
@@ -110,12 +111,12 @@ func instantiateStage(mode:String, parent:Node = get_tree().get_root()):
 	await instantiateArea(0)
 	
 	stageRoot.add_child(currentKatamari)
-	
-	# INSTANTIATE TIMER HERE
-	
+	stage_preloaded.emit()
+	GKOverlays.load_end()
+
+func instantiateStage(parent:Node = get_tree().get_root()):
 	parent.add_child(stageRoot)
 	stage_instantiated.emit()
-	GKOverlays.load_end()
 
 var preload_object_index:int = 0
 

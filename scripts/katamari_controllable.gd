@@ -169,6 +169,8 @@ func _ready():
 	## TODO: add music title gui element
 	await get_tree().create_timer(0.5).timeout
 	DialogueBox.speak_queue()
+	await get_tree().create_timer(0.2).timeout
+	$PauseMenu.enabled = true
 	await DialogueBox.queue_finished
 	$GameMusic.play()
 	MovementEnabled = true

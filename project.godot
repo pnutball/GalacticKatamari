@@ -61,7 +61,6 @@ folder_colors={
 "res://assets/music/": "yellow",
 "res://assets/sounds/": "orange",
 "res://data/": "orange",
-"res://editor/": "yellow",
 "res://fonts/": "orange",
 "res://i12n/": "green",
 "res://i12n/logo/": "blue",
