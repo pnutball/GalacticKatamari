@@ -35,6 +35,12 @@ func shot_finish():
 func shot_finish_end():
 	%OujiAnimTree.set("parameters/FinishMachine/conditions/StageEnding", true)
 
+func shot_dash():
+	%OujiAnimTree.set("parameters/DashOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+func shot_dash_end():
+	%OujiAnimTree.set("parameters/DashOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FADE_OUT)
+
 func _process(delta):
 	if not flipping:
 		GroundOffset = ($"../FloorBumpDetect".global_position - $"../KatamariBody".global_position).y

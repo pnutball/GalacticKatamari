@@ -252,6 +252,7 @@ func _process(delta):
 				MovementEnabled = false
 				$KatamariDashAudio.stream = preload("uid://cfisonr1vjblw")
 				$KatamariDashAudio.play()
+				$OujiView.shot_dash()
 			DashCharge += delta * 25
 		if DashCharge <= 0 or not CanDash: DashDir = 0
 		if CanDash and (MovementEnabled or DashCharge >= 25) and DashCharge >= 0 and ((Input.is_action_just_pressed("LS Dash Down") and DashDir < 1) or (Input.is_action_just_pressed("LS Dash Up") and DashDir > -1)):
@@ -423,6 +424,7 @@ func _physics_process(delta):
 			$KatamariDashAudio.stop()
 			$KatamariDashAudio.stream = preload("uid://t5sdks8wbp58")
 			$KatamariDashAudio.play()
+			$OujiView.shot_dash_end()
 			$KatamariBody.apply_central_impulse(Vector3(
 				(Speed * -4.5 * sin(%KatamariCamera.global_rotation.y)) * Size,
 				0,

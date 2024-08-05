@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://bfk4h2p6ortti"]
+[gd_scene load_steps=99 format=3 uid="uid://bfk4h2p6ortti"]
 
 [ext_resource type="Script" path="res://scripts/ouji_view.gd" id="1_g71is"]
 [ext_resource type="Texture2D" uid="uid://ddhgqxa1uojmq" path="res://assets/textures/ui/ouji_cam/back_glow.png" id="2_ds4g1"]
@@ -9,8 +9,15 @@
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dy5ji"]
+animation = &"Ouji_Dash_Charge"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_riy3c"]
 animation = &"Ouji_Flip"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_3srrh"]
+fadein_time = 0.2
+fadeout_time = 0.5
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ccn46"]
 animation = &"Ouji_Anguish"
@@ -462,25 +469,29 @@ transitions = ["Ouji_Idle", "Ouji_Roll", SubResource("AnimationNodeStateMachineT
 graph_offset = Vector2(1.621, 8.2412)
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5ly86"]
-graph_offset = Vector2(-160.821, -66.6161)
+graph_offset = Vector2(126.365, -11.1247)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_riy3c")
-nodes/Animation/position = Vector2(400, 200)
+nodes/Animation/position = Vector2(560, 80)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_dy5ji")
+"nodes/Animation 2/position" = Vector2(620, 200)
+nodes/DashOneShot/node = SubResource("AnimationNodeOneShot_3srrh")
+nodes/DashOneShot/position = Vector2(860, 60)
 nodes/FinishMachine/node = SubResource("AnimationNodeStateMachine_nu02o")
-nodes/FinishMachine/position = Vector2(820, 340)
+nodes/FinishMachine/position = Vector2(1020, 340)
 nodes/FinishShot/node = SubResource("AnimationNodeOneShot_cqpmf")
-nodes/FinishShot/position = Vector2(1000, 200)
+nodes/FinishShot/position = Vector2(1180, 220)
 nodes/FlipOneShot/node = SubResource("AnimationNodeOneShot_jnip6")
-nodes/FlipOneShot/position = Vector2(620, 60)
+nodes/FlipOneShot/position = Vector2(700, -60)
 nodes/MovementScale/node = SubResource("AnimationNodeTimeScale_7b822")
-nodes/MovementScale/position = Vector2(400, 60)
+nodes/MovementScale/position = Vector2(540, -60)
 nodes/TiredAdd/node = SubResource("AnimationNodeAdd2_85gch")
-nodes/TiredAdd/position = Vector2(820, 140)
+nodes/TiredAdd/position = Vector2(1020, 140)
 nodes/TiredAnim/node = SubResource("AnimationNodeAnimation_vut82")
-nodes/TiredAnim/position = Vector2(540, 280)
+nodes/TiredAnim/position = Vector2(820, 280)
 nodes/WalkState/node = SubResource("AnimationNodeStateMachine_lygbi")
-nodes/WalkState/position = Vector2(240, 60)
-nodes/output/position = Vector2(1160, 200)
-node_connections = [&"FinishShot", 0, &"TiredAdd", &"FinishShot", 1, &"FinishMachine", &"FlipOneShot", 0, &"MovementScale", &"FlipOneShot", 1, &"Animation", &"MovementScale", 0, &"WalkState", &"TiredAdd", 0, &"FlipOneShot", &"TiredAdd", 1, &"TiredAnim", &"output", 0, &"FinishShot"]
+nodes/WalkState/position = Vector2(380, -60)
+nodes/output/position = Vector2(1320, 220)
+node_connections = [&"DashOneShot", 0, &"FlipOneShot", &"DashOneShot", 1, &"Animation 2", &"FinishShot", 0, &"TiredAdd", &"FinishShot", 1, &"FinishMachine", &"FlipOneShot", 0, &"MovementScale", &"FlipOneShot", 1, &"Animation", &"MovementScale", 0, &"WalkState", &"TiredAdd", 0, &"DashOneShot", &"TiredAdd", 1, &"TiredAnim", &"output", 0, &"FinishShot"]
 
 [sub_resource type="Animation" id="Animation_x1rj8"]
 length = 0.001
@@ -602,10 +613,9 @@ render_target_update_mode = 4
 [node name="OujiViewRoot" type="Node3D" parent="OujiViewportContainer/SubViewport"]
 
 [node name="Camera3D" type="Camera3D" parent="OujiViewportContainer/SubViewport/OujiViewRoot"]
-transform = Transform3D(0.848048, 0.0369653, 0.528628, 0, 0.997564, -0.0697564, -0.529919, 0.0591568, 0.845982, 1.865, 1.005, 3.925)
+transform = Transform3D(0.848048, 0.0369653, 0.528628, 0, 0.997564, -0.0697564, -0.529919, 0.0591568, 0.845982, 2.015, 1.005, 3.925)
 cull_mask = 65536
 environment = SubResource("Environment_d2jpm")
-h_offset = 0.08
 fov = 35.9
 
 [node name="OujiAnimTree" type="AnimationTree" parent="OujiViewportContainer/SubViewport/OujiViewRoot"]
@@ -616,6 +626,9 @@ root_node = NodePath("%OujiAnimTree/../Ouji")
 tree_root = SubResource("AnimationNodeBlendTree_5ly86")
 advance_expression_base_node = NodePath("../../../../..")
 anim_player = NodePath("../Ouji/OujiAnimation")
+parameters/DashOneShot/active = false
+parameters/DashOneShot/internal_active = false
+parameters/DashOneShot/request = 0
 parameters/FinishMachine/conditions/StageEnding = false
 parameters/FinishMachine/conditions/won = false
 parameters/FinishShot/active = false
