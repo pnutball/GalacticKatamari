@@ -2,6 +2,8 @@ extends Control
 
 @export var flipping:bool = false
 
+var IdleTime:float = 0
+
 var FatiguePrev:float = 1
 var GroundOffset:float = 0
 var DistOffset:Vector2 = Vector2.ZERO
@@ -9,12 +11,15 @@ var DistOffset:Vector2 = Vector2.ZERO
 @export_range(-1,1) var DistMix:float = 1
 
 func _ready():
-	%OujiAnimTree.active = true
 	var OujiModel = load(GKGlobal.OujiInfo[GKGlobal.players[0][0]].get("Model")).instantiate()
-	OujiModel.position = Vector3.ZERO
-	OujiModel.scale = Vector3(0.038, 0.038, 0.038)
+	$OujiViewportContainer/SubViewport/OujiViewRoot/Ouji.queue_free()
 	$OujiViewportContainer/SubViewport/OujiViewRoot.add_child(OujiModel)
-	%OujiAnimTree.anim_player = ^"../Ouji/OujiAnimation"
+	OujiModel.name = "OujiP1"
+	OujiModel.scale = Vector3(0.038, 0.038, 0.038)
+	OujiModel.position = Vector3.ZERO
+	%OujiAnimTree.anim_player = ^"../OujiP1/OujiAnimation"
+	
+	%OujiAnimTree.active = true
 
 func flip(): 
 	%OujiAnimTree.set("parameters/FlipOneShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
@@ -45,6 +50,11 @@ func _process(delta):
 	# Animate cousin model
 	var rotatedVelocity = Vector2($"../KatamariBody".linear_velocity.x, $"../KatamariBody".linear_velocity.z).rotated($"..".CameraRotation)
 	%OujiAnimTree.set("parameters/WalkState/conditions/idle_speed_reached", $"../KatamariBody".linear_velocity.length() < ($"..".Size / 10))
+	if $"../KatamariBody".linear_velocity.length() < ($"..".Size / 10) and is_zero_approx($"..".StickAngle): 
+		IdleTime += delta
+	else:
+		IdleTime = 0
+	%OujiAnimTree.set("parameters/WalkState/Ouji_Idle/Ouji_Idle/conditions/Naptime", IdleTime >= 16)
 	%OujiAnimTree.set("parameters/WalkState/conditions/walk_speed_reached", $"../KatamariBody".linear_velocity.length() >= ($"..".Size / 10))
 	%OujiAnimTree.set("parameters/WalkState/Ouji_Roll/conditions/forward_condition", ($"..".StickMidpoint.angle_to(Vector2.UP) < (2.0*PI)/6.0) and ($"..".StickMidpoint.angle_to(Vector2.UP) > (-2.0*PI)/6.0))
 	%OujiAnimTree.set("parameters/WalkState/Ouji_Roll/conditions/backward_condition", ($"..".StickMidpoint.angle_to(Vector2.UP) > (4.0*PI)/6.0) or ($"..".StickMidpoint.angle_to(Vector2.UP) < (-4.0*PI)/6.0))
