@@ -209,7 +209,7 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_otope")
-patch_margin_bottom = 31
+patch_margin_bottom = 32
 axis_stretch_horizontal = 1
 
 [node name="LoadAnim" type="AnimationPlayer" parent="LoadScreen"]

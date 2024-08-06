@@ -34,6 +34,10 @@ func _input(_event):
 			DialogueBox.interrupt_queue()
 		elif Input.is_action_just_pressed("Cancel") and get_tree().paused and not $RetryConfirmation.visible and not $QuitConfirmation.visible:
 			$RetryConfirmation.visible = true
+		elif Input.is_action_just_pressed("Quit to Menu") and get_tree().paused and not $RetryConfirmation.visible and not $QuitConfirmation.visible:
+			$QuitConfirmation.visible = true
+		elif Input.is_action_just_pressed("Quick Turn Left") and get_tree().paused and not $RetryConfirmation.visible and not $QuitConfirmation.visible and OS.is_debug_build():
+			_debug_quit()
 
 func _retry_confirmed():
 	enabled = false
@@ -41,3 +45,19 @@ func _retry_confirmed():
 	await get_tree().create_timer(0.5).timeout
 	StageLoader.restarted = true
 	get_tree().reload_current_scene()
+
+func _debug_quit():
+	enabled = false
+	get_tree().change_scene_to_file("res://scenes/debug_menu.tscn")
+
+func _quit_confirmed():
+	enabled = false
+	$RetryAnim.play("quit")
+	await get_tree().create_timer(0.5).timeout
+	StageLoader.restarted = false
+	GKOverlays.load_start()
+	ResourceLoader.load_threaded_request("res://scenes/title_screen.tscn", "PackedScene")
+	while ResourceLoader.load_threaded_get_status("res://scenes/title_screen.tscn") != ResourceLoader.THREAD_LOAD_LOADED:
+		await get_tree().process_frame
+	GKOverlays.load_end()
+	get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get("res://scenes/title_screen.tscn"))

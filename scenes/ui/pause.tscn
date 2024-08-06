@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2n7fqkxxktdj"]
+[gd_scene load_steps=17 format=3 uid="uid://c2n7fqkxxktdj"]
 
 [ext_resource type="FontVariation" uid="uid://gfgnvtmg0njm" path="res://assets/fonts/hud.tres" id="1_b5jee"]
 [ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_gvuf4"]
@@ -39,6 +39,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [2.05]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RetryBG:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_q0na7"]
 resource_name = "retry"
@@ -67,10 +79,63 @@ tracks/1/keys = {
 "update": 0,
 "values": [2.05, 1.0]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RetryBG:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_yjquh"]
+resource_name = "quit"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RetryBG:anchor_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RetryBG:anchor_bottom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RetryBG:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_dadpa"]
 _data = {
 "RESET": SubResource("Animation_b7cpn"),
+"quit": SubResource("Animation_yjquh"),
 "retry": SubResource("Animation_q0na7")
 }
 
@@ -252,7 +317,7 @@ size_flags_horizontal = 0
 InputNameLocalized = {
 "en": "Title Screen"
 }
-InputKey = 74
+InputKey = 4194325
 IsStick = false
 InputController = 3
 
@@ -318,7 +383,7 @@ offset_top = -32.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_s2ibn")
-patch_margin_top = 31
+patch_margin_top = 32
 axis_stretch_horizontal = 1
 
 [node name="RetryAnim" type="AnimationPlayer" parent="."]
@@ -327,3 +392,4 @@ libraries = {
 }
 
 [connection signal="confirmed" from="RetryConfirmation" to="." method="_retry_confirmed"]
+[connection signal="confirmed" from="QuitConfirmation" to="." method="_quit_confirmed"]
