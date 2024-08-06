@@ -4,11 +4,26 @@ const SPEED:float = 720
 const BOUNDS:Vector2 = Vector2(1600,800) #Vector2(1500,700)
 
 var _animation_active:bool = false
-var load_text:String = "Test string... Testing... "
+var load_text:String = ""
+var load_colors:PackedColorArray = []
+
 @onready var king_vector:Vector2 = Vector2.RIGHT.rotated(randf_range(0, 2*PI))
 @onready var text_vector:Vector2 = Vector2.RIGHT.rotated(randf_range(0, 2*PI))
 
+func _process_tags(input:String) -> void:
+	var formattingSplits:PackedStringArray = input.split("|")
+	var currentColor:Color = Color.WHITE
+	for index in formattingSplits.size():
+		if index % 2 == 1 and Color.html_is_valid(formattingSplits[index]): 
+			currentColor = Color.html(formattingSplits[index])
+		else:
+			var colorArray:PackedColorArray = []
+			colorArray.resize(formattingSplits[index].length())
+			colorArray.fill(currentColor)
+			load_text = load_text + formattingSplits[index]
+			load_colors.append_array(colorArray)
 func _ready():
+	_process_tags(GKGlobal.get_localized_string(preload("res://data/load_text.json").data.load_text.pick_random()))
 	if get_tree().paused:
 		get_tree().paused = false
 	process_mode = Node.PROCESS_MODE_INHERIT
@@ -43,16 +58,16 @@ func _ready():
 func _letter_loop():
 	var index:int = 0
 	while _animation_active:
-		var letter:LoadLetter = LoadLetter.create(load_text[index % load_text.length()], text_vector * SPEED, Color.WHITE)
+		var letter:LoadLetter = LoadLetter.create(load_text[index % load_text.length()], text_vector * SPEED, load_colors[index % load_colors.size()])
 		letter.position = (KingFace.MoyaPosition - Vector2.ONE * 50 - Vector2.UP * 65) * 1.03
 		$LoadScreen/Letters.add_child(letter)
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.075).timeout
 		index += 1
 
 func _process(delta):
 	if _animation_active:
-		var king_input = Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5)
-		var text_input = Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5)
+		var king_input = GKGlobal.snap_input_angle(Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5))
+		var text_input = GKGlobal.snap_input_angle(Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5))
 		var pos_topleft:Vector2 = KingFace.MoyaPosition + BOUNDS/2
 		
 		if king_input.length() > 0:

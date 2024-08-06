@@ -21,7 +21,7 @@ func _init():
 
 func _ready():
 	text = letter
-	modulate = color
+	modulate = Color(color, 0)
 	add_theme_font_override("font", preload("res://assets/fonts/talk.tres"))
 	add_theme_font_size_override("font_size", 64)
 	var afterimage_1:Label = Label.new()
@@ -30,7 +30,7 @@ func _ready():
 	afterimage_1.custom_minimum_size = Vector2.ONE * 100
 	afterimage_1.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	afterimage_1.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	afterimage_1.self_modulate = Color(1,1,1,2/3.0)
+	afterimage_1.self_modulate = Color(1,1,1,0.3)
 	afterimage_1.add_theme_font_override("font", preload("res://assets/fonts/talk.tres"))
 	afterimage_1.add_theme_font_size_override("font_size", 64)
 	add_child(afterimage_1, false, Node.INTERNAL_MODE_FRONT)
@@ -40,14 +40,14 @@ func _ready():
 	afterimage_2.custom_minimum_size = Vector2.ONE * 100
 	afterimage_2.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	afterimage_2.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	afterimage_2.self_modulate = Color(1,1,1,1/3.0)
+	afterimage_2.self_modulate = Color(1,1,1,0.15)
 	afterimage_2.add_theme_font_override("font", preload("res://assets/fonts/talk.tres"))
 	afterimage_2.add_theme_font_size_override("font_size", 64)
 	afterimage_1.add_child(afterimage_2, false, Node.INTERNAL_MODE_FRONT)
 
 func _process(delta):
 	timer -= delta
-	modulate = Color(color, clampf(timer, 0, 1))
+	modulate = Color(color, minf(clampf(timer, 0, 1), clampf((timer - 5) * -20, 0, 1)))
 	position += vector * delta
 	$Afterimage1.position = vector * delta * -1
 	$Afterimage1/Afterimage2.position = vector * delta * -1
