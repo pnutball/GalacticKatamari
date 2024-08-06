@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bg6hh7hfmc43t"]
+[gd_scene load_steps=24 format=3 uid="uid://bg6hh7hfmc43t"]
 
 [ext_resource type="ArrayMesh" uid="uid://nyql1ax46qo0" path="res://assets/models/king/headdress.obj" id="1_1muie"]
 [ext_resource type="AnimationLibrary" uid="uid://x1oc4i0tsi8u" path="res://assets/animations/king/body_anims.tres" id="1_8lcge"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dwurxbp1gwoay" path="res://assets/textures/king/headdress_S.png" id="6_3se8p"]
 [ext_resource type="Texture2D" uid="uid://bh6huyeqsisti" path="res://assets/textures/king/headdress_SE.png" id="7_t5vo3"]
 [ext_resource type="ArrayMesh" uid="uid://d4m14udajb707" path="res://assets/models/king/headdress_side.obj" id="8_w0nnl"]
+[ext_resource type="Texture2D" uid="uid://2vv2r8yhmhhx" path="res://assets/textures/placeholder/DemITM05.png" id="14_jei08"]
 
 [sub_resource type="Gradient" id="Gradient_os3y5"]
 offsets = PackedFloat32Array(0.268657, 0.80597)
@@ -406,6 +407,7 @@ _data = {
 [node name="KingFull" type="Node3D"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+deterministic = true
 libraries = {
 "": ExtResource("1_8lcge")
 }
@@ -558,35 +560,35 @@ bones/20/rest = Transform3D(0.999839, -0.0126756, 0.0126747, 0.0126766, 0.99992,
 bones/20/enabled = true
 bones/20/position = Vector3(0.0002295, 89.5165, -1.29844e-06)
 bones/20/rotation = Quaternion(4.01669e-05, 0.00633737, 0.00633831, 0.99996)
-bones/20/scale = Vector3(1, 1, 1)
+bones/20/scale = Vector3(0.999999, 0.999999, 1)
 bones/21/name = "LeftArmRoll"
 bones/21/parent = 20
 bones/21/rest = Transform3D(1, 9.65239e-05, -9.68242e-05, -9.65169e-05, 1, 7.19677e-05, 9.68311e-05, -7.19584e-05, 1, -5.92626e-06, 103.98, 2.32167e-07)
 bones/21/enabled = true
 bones/21/position = Vector3(9.75528e-05, 103.98, 1.34675e-06)
 bones/21/rotation = Quaternion(-3.59815e-05, -4.84138e-05, -4.82602e-05, 1)
-bones/21/scale = Vector3(1, 1, 1)
+bones/21/scale = Vector3(0.999998, 1, 1)
 bones/22/name = "LeftForeArm"
 bones/22/parent = 21
 bones/22/rest = Transform3D(1, -9.65167e-05, 9.68339e-05, 9.65236e-05, 1, -7.17427e-05, -9.6827e-05, 7.1752e-05, 1, 0.000103471, 125.202, 1.56462e-07)
 bones/22/enabled = true
 bones/22/position = Vector3(0.000103471, 125.202, 1.56462e-07)
 bones/22/rotation = Quaternion(3.58737e-05, 4.84152e-05, 4.82601e-05, 1)
-bones/22/scale = Vector3(1, 1, 1)
+bones/22/scale = Vector3(0.999999, 0.999996, 1.00001)
 bones/23/name = "LeftForeArmRoll"
 bones/23/parent = 22
 bones/23/rest = Transform3D(0.998576, -0.0533412, -4.32036e-05, 0.0533412, 0.998576, -3.6723e-05, 4.51009e-05, 3.43662e-05, 1, 0.000116043, 101.662, 1.03682e-06)
 bones/23/enabled = true
 bones/23/position = Vector3(6.18758e-05, 101.662, 9.51545e-07)
 bones/23/rotation = Quaternion(1.77786e-05, -2.2084e-05, 0.0266801, 0.999644)
-bones/23/scale = Vector3(1, 1, 1)
+bones/23/scale = Vector3(0.999996, 1, 1)
 bones/24/name = "LeftHand"
 bones/24/parent = 23
 bones/24/rest = Transform3D(0.997909, -0.0478797, 0.0434097, 0.047752, 0.998851, 0.00397422, -0.0435502, -0.001893, 0.999049, -4.39495e-05, 73.7532, -7.07805e-08)
 bones/24/enabled = true
 bones/24/position = Vector3(-5.46424e-05, 73.7533, 4.14415e-06)
 bones/24/rotation = Quaternion(-0.00146757, 0.0217514, 0.0239205, 0.999476)
-bones/24/scale = Vector3(1, 1, 1)
+bones/24/scale = Vector3(1, 0.999999, 1)
 bones/25/name = "LeftHandIndex1"
 bones/25/parent = 24
 bones/25/rest = Transform3D(0.993943, 0.100915, -0.0435035, -0.101091, 0.994876, -0.00186103, 0.0430928, 0.00624759, 0.999051, 7.99228, 85.7104, -28.6819)
@@ -684,7 +686,7 @@ bones/38/rest = Transform3D(0.243932, -0.0284529, 0.969375, -0.666442, 0.721237,
 bones/38/enabled = true
 bones/38/position = Vector3(-32.1023, 27.7578, -29.5203)
 bones/38/rotation = Quaternion(-0.302376, 0.574529, -0.218976, 0.728378)
-bones/38/scale = Vector3(1, 1, 1)
+bones/38/scale = Vector3(0.999998, 1, 0.999999)
 bones/39/name = "LeftHandThumb2"
 bones/39/parent = 38
 bones/39/rest = Transform3D(1, -1.59637e-05, -4.86036e-05, 1.59621e-05, 1, -3.22651e-05, 4.86041e-05, 3.22644e-05, 1, 3.43323e-05, 42.6168, -3.48091e-05)
@@ -1105,7 +1107,7 @@ mesh = ExtResource("5_21ouu")
 skin = SubResource("Skin_0xeju")
 
 [node name="HeadAttach" type="BoneAttachment3D" parent="Skeleton3D"]
-transform = Transform3D(0.000245243, -0.000139185, 1, 0.000974455, 1, 0.000138945, -0.999999, 0.000974421, 0.000245333, 0.00598725, 1226.13, -10.9258)
+transform = Transform3D(0.000243574, -0.00013918, 1, 0.000975209, 1, 0.000138943, -1, 0.000975176, 0.000243753, 0.00598857, 1226.13, -10.9249)
 bone_name = "Head"
 bone_idx = 42
 
@@ -1130,3 +1132,24 @@ autoplay = "HeaddressBlink"
 
 [node name="KingFaceAttach" type="Node3D" parent="Skeleton3D/HeadAttach"]
 transform = Transform3D(-1.74846e-06, 0, -40, 0, 40, 0, 40, 0, -1.74846e-06, 0, 44, 0)
+
+[node name="HandAttach" type="BoneAttachment3D" parent="Skeleton3D"]
+transform = Transform3D(0.621167, -0.200852, -0.757502, -0.782897, -0.115983, -0.611248, 0.0349126, 0.972729, -0.22929, 234.281, 1018.25, 272.397)
+bone_name = "LeftHand"
+bone_idx = 24
+use_external_skeleton = true
+external_skeleton = NodePath("..")
+
+[node name="KatamariSpriteRoot" type="Node3D" parent="Skeleton3D/HandAttach"]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 42, 0)
+
+[node name="KatamariSizeOffset" type="Node3D" parent="Skeleton3D/HandAttach/KatamariSpriteRoot"]
+transform = Transform3D(1, 3.72529e-09, 5.96046e-08, -2.23517e-08, 1, 4.47035e-08, 1.49012e-08, 0, 1, 0, 0, 0)
+
+[node name="KatamariSprite" type="Sprite3D" parent="Skeleton3D/HandAttach/KatamariSpriteRoot/KatamariSizeOffset"]
+transform = Transform3D(1, 7.45058e-09, 2.70084e-08, -3.72529e-09, 1, 0, 1.49012e-08, 0, 1, -128, 128, 0)
+modulate = Color(1, 1, 1, 0)
+pixel_size = 0.5
+billboard = 1
+alpha_cut = 2
+texture = ExtResource("14_jei08")
