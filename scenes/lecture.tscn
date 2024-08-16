@@ -1,18 +1,31 @@
-[gd_scene load_steps=15 format=3 uid="uid://bgcdxwh4f2jqt"]
+[gd_scene load_steps=18 format=3 uid="uid://bgcdxwh4f2jqt"]
 
 [ext_resource type="Script" path="res://scripts/lecture.gd" id="1_4rncy"]
 [ext_resource type="PackedScene" uid="uid://dx4skkxtb28gf" path="res://scenes/environment/env_day.tscn" id="4_ei2rc"]
 [ext_resource type="AudioStream" uid="uid://dlaq63l2i5jv8" path="res://assets/music/king.ogg" id="7_leavv"]
 [ext_resource type="PackedScene" uid="uid://bg6hh7hfmc43t" path="res://assets/models/king/rig/king_full.tscn" id="9_d4g87"]
 
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_8jyf6"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mpn1t"]
+animation = &"KingArmsIdle"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oelro"]
 animation = &"KingIdle"
 
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_7nqgv"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_gv7fp"]
-graph_offset = Vector2(-252.348, -18.9702)
+graph_offset = Vector2(-205.052, 1.52733)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_8jyf6")
+nodes/Add2/position = Vector2(140, 100)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_oelro")
-nodes/Animation/position = Vector2(100, 120)
-node_connections = [&"output", 0, &"Animation"]
+nodes/Animation/position = Vector2(-120, 60)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_mpn1t")
+"nodes/Animation 2/position" = Vector2(-40, 180)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_7nqgv")
+nodes/TimeScale/position = Vector2(0, 60)
+node_connections = [&"Add2", 0, &"TimeScale", &"Add2", 1, &"Animation 2", &"TimeScale", 0, &"Animation", &"output", 0, &"Add2"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_okri3"]
 animation = &"KingIntro"
@@ -59,17 +72,20 @@ script = ExtResource("1_4rncy")
 [node name="KingFull" parent="." instance=ExtResource("9_d4g87")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.989016, 0.147809, 0, -0.147809, 0.989016, 0, 27.37, 21.29)
+transform = Transform3D(1, 0, 0, 0, 0.97437, 0.224951, 0, -0.224951, 0.97437, 0, 29.005, 21.29)
 
 [node name="LecAnimTree" type="AnimationTree" parent="."]
 root_node = NodePath("../KingFull")
 tree_root = SubResource("AnimationNodeStateMachine_cpucp")
 anim_player = NodePath("../KingFull/AnimationPlayer")
 parameters/conditions/LectureDone = false
+parameters/Idle/Add2/add_amount = 0
+parameters/Idle/TimeScale/scale = 0.5
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="KingMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_leavv")
 autoplay = true
+bus = &"Music"
 
 [node name="EnvDay" parent="." instance=ExtResource("4_ei2rc")]
 transform = Transform3D(-0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, -0.939693, 0, 0, 0)

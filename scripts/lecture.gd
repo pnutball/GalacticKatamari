@@ -4,4 +4,4 @@ extends Node3D
 
 func _ready():
 	camera.reparent(self)
-	
+	KingFace.summon_face($KingFull/Skeleton3D/HeadAttach/KingFaceAttach)

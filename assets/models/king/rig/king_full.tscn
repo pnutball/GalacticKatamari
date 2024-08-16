@@ -1134,7 +1134,7 @@ autoplay = "HeaddressBlink"
 transform = Transform3D(-1.74846e-06, 0, -40, 0, 40, 0, 40, 0, -1.74846e-06, 0, 44, 0)
 
 [node name="HandAttach" type="BoneAttachment3D" parent="Skeleton3D"]
-transform = Transform3D(0.621167, -0.200852, -0.757502, -0.782897, -0.115983, -0.611248, 0.0349126, 0.972729, -0.22929, 234.281, 1018.25, 272.397)
+transform = Transform3D(0.621166, -0.200852, -0.757499, -0.782899, -0.115985, -0.611249, 0.0349144, 0.972727, -0.229288, 234.28, 1018.25, 272.397)
 bone_name = "LeftHand"
 bone_idx = 24
 use_external_skeleton = true
