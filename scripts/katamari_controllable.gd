@@ -584,4 +584,3 @@ func _on_floor_bump(_body):
 	if $KatamariBody.linear_velocity.y < (-5 * Size * $"..".scale.y): 
 		playBumpSound(0)
 		$FloorBumpDetect/FloorBumpCollide/GPUParticles3D.emitting = true
-

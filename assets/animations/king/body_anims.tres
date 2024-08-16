@@ -1,5 +1,8 @@
 [gd_resource type="AnimationLibrary" load_steps=7 format=3 uid="uid://x1oc4i0tsi8u"]
 
+[sub_resource type="Animation" id="Animation_7dqbh"]
+resource_name = "KingArmsIdle"
+
 [sub_resource type="Animation" id="Animation_wbw7s"]
 resource_name = "KingHold"
 length = 0.001
@@ -5374,9 +5377,6 @@ tracks/185/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
-
-[sub_resource type="Animation" id="Animation_7dqbh"]
-resource_name = "KingArmsIdle"
 
 [resource]
 _data = {

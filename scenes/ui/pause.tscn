@@ -336,6 +336,7 @@ stream = ExtResource("3_dsb0h")
 bus = &"SFX"
 
 [node name="RetryConfirmation" type="ConfirmationDialog" parent="."]
+auto_translate_mode = 2
 transparent_bg = true
 initial_position = 2
 size = Vector2i(593, 214)
@@ -355,6 +356,7 @@ script = ExtResource("11_u0od4")
 highlight_cancel = true
 
 [node name="QuitConfirmation" type="ConfirmationDialog" parent="."]
+auto_translate_mode = 2
 transparent_bg = true
 initial_position = 2
 size = Vector2i(675, 214)

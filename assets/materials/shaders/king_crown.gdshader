@@ -24,5 +24,5 @@ void fragment(){
 	vec2 matcap_uv = (generate_matcap_uv(NORMAL, NODE_POSITION_VIEW, scale)); // Matcap UV's
 	vec3 _matcap = texture(matcap, matcap_uv).rgb; // Matcap Texture
 	vec3 _flatcap = texture (flatcap, matcap_uv).rgb;
-	ALBEDO = mix(((_flatcap + 0.2) * 1.25) - 0.35, _matcap, scale); // Sets the albedo to the matcap texture. 
+	ALBEDO = mix(((_flatcap + 0.2) * 1.25) - 0.35, _matcap, scale); // Sets the albedo to the matcap texture.
 }

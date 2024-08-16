@@ -21,6 +21,6 @@ void fragment() {
 		EmotionColor = AngerColor;
 	}
 	ALBEDO = mix(mix(texture(BaseTexture, UV).rgb, OverlayColor, abs(EmotionAmount) * FaceOverlayAmount * OverlayMask),
-	EmotionColor, 
+	EmotionColor,
 	abs(EmotionAmount) * ShadowMask);
 }
