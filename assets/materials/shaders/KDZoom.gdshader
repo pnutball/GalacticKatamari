@@ -15,7 +15,7 @@ uniform sampler2D FX_overlay: filter_linear;
 	Radial Blur Effect by Yui Kinomoto
 
 	MIT License
-	
+
 	Converted to Godot 4 function by crealol2
 */
 vec3 radial_blur(sampler2D tex, vec2 uv, vec2 blur_center, float blur_power, int sampling_count) {
@@ -36,6 +36,6 @@ void fragment() {
 	//vec3 screenColor = radial_blur(TEXTURE, UV, vec2(0.5), zoom_amount, 16);
 	vec3 screenColor = mix(texture(TEXTURE, UV).xyz, texture(FX_overlay, uv_zoom(UV, FX_zoom)).xyz, FX_opacity);
 	COLOR = vec4(clamp(mix(mix(screenColor, vec3(1), clamp(fade, 0, 1)), vec3(0), clamp(fade * -1.0, 0, 1)), 0, 1), 1);
-	
+
 
 }
