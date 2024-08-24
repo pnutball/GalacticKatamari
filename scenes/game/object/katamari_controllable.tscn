@@ -263,7 +263,7 @@ libraries = {
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
 process_mode = 3
-size = Vector2i(2, 2)
+size = Vector2i(929, 450)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
@@ -380,7 +380,6 @@ monitorable = false
 shape = SubResource("CapsuleShape3D_p0v8r")
 
 [node name="Debug" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

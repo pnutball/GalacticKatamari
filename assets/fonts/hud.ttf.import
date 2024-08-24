@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/hud.ttf-a77acbaecd459b0dbe6f9c2675a59797.font
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

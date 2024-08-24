@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/talk.ttf-f8dc02dbf21d1f70d2d805912b8a6d4d.fon
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

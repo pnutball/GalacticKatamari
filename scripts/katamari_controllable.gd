@@ -293,8 +293,11 @@ func _physics_process(delta):
 	LeftStick = GKGlobal.snap_input_angle(Input.get_vector("LS Left", "LS Right", "LS Up", "LS Down", 0.5))
 	RightStick = GKGlobal.snap_input_angle(Input.get_vector("RS Left", "RS Right", "RS Up", "RS Down", 0.5))
 	StickMidpoint = (LeftStick + Vector2.LEFT).lerp(RightStick + Vector2.RIGHT, 0.5) * int(MovementEnabled)
-	if StickMidpoint.length() <= 0.501: StickMidpoint = Vector2.ZERO
-	StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle() * int(CameraMovementEnabled)
+	if StickMidpoint.length() <= 0.501: 
+		StickMidpoint = Vector2.ZERO
+		StickAngle = ((RightStick + Vector2(4,0))-LeftStick).angle() * int(CameraMovementEnabled)
+	else: 
+		StickAngle = lerpf(LeftStick.y, RightStick.y, 0.5) * (lerpf(LeftStick.x, RightStick.x, 0.5) * -0.5)
 	
 	# DEBUG: Adjust size
 	if Input.is_action_pressed("DEBUG Bigger"): Size += delta

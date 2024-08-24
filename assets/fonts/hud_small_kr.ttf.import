@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/hud_small_kr.ttf-96cf807767217c6cb51b8cc20be5
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48
