@@ -167,7 +167,7 @@ func _preload_object(object:Dictionary, root:Node3D, area:int = currentArea + 1)
 	instantiated.ObjectKnockSize = objectList.get(object.id, objectList["debug_cube"]).knock_size
 	instantiated.ObjectRollSize = objectList.get(object.id, objectList["debug_cube"]).roll_size
 	instantiated.ObjectGrowSize = objectList.get(object.id, objectList["debug_cube"]).pickup_size
-	instantiated.ObjectTex = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").texture) if objectList.get(object.id, "debug_cube").texture != "" else preload("uid://bo151m2ckmef3")
+	instantiated.ObjectTex = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").texture) if objectList.get(object.id, "debug_cube").texture != "" else preload("res://assets/textures/object/placeholder.png")
 	instantiated.ObjectTexRoll = ResourceLoader.load_threaded_get(objectList.get(object.id, "debug_cube").texture_rolledup) if objectList.get(object.id, "debug_cube").texture_rolledup != "" else instantiated.ObjectTex
 	instantiated.position = Vector3(object.position[0], object.position[1], object.position[2])
 	instantiated.rotation = Vector3(object.rotation[0], object.rotation[1], object.rotation[2]) * (PI/180)

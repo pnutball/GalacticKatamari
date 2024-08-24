@@ -11,6 +11,6 @@ void fragment() {
 	vec2 shiftUV = (VIEW.xy * scale) + conv_offset;
 	vec2 rotUV = vec2(shiftUV.x * cos(rotation) - shiftUV.y * sin(rotation),
 	shiftUV.x * sin(rotation) + shiftUV.y * cos(rotation)) + 0.5;
-	
+
 	ALBEDO = texture(MoyaPattern, rotUV).rgb;
 }

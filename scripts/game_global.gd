@@ -24,7 +24,7 @@ const OujiInfo:Array[Dictionary] = [
 		"DialogueName":"???",
 		"DialogueColor":[Color("#CCC")],
 		"DialogueEffect":&"",
-		"Model": "uid://ddvym7hjeiewb",
+		"Model": "res://assets/ouji/rig/Ouji01.tscn",
 		"ShortSound": null,
 		"LongSound": null
 	}, # Fallback/error cousin
@@ -33,7 +33,7 @@ const OujiInfo:Array[Dictionary] = [
 		"DialogueName":"Prince",
 		"DialogueColor":[Color("#8FC93A")],
 		"DialogueEffect":&"",
-		"Model": "uid://ddvym7hjeiewb",
+		"Model": "res://assets/ouji/rig/Ouji01.tscn",
 		"ShortSound": null,
 		"LongSound": null
 	} # OUJI01, The Prince
@@ -120,7 +120,7 @@ var usingController:bool = false:
 		if old != new:
 			controller_changed.emit(0)
 
-const _KEY_IMG:Image = preload("uid://dmfusfg3uysus")
+const _KEY_IMG:Image = preload("res://assets/textures/input/key_symbols.png")
 const _KEY_IMG_SIZE:Vector2i = Vector2i(52,26)
 const _KEY_IMG_MAP:Dictionary = {
 	KEY_ESCAPE: Vector2i(0, 0),
@@ -219,7 +219,7 @@ func is_key_valid(key:Key) -> bool:
 func get_key(key:Key, pressed:bool = false) -> ImageTexture:
 	var key_image:Image = Image.create(68, 68, false, Image.FORMAT_RGBA8)
 	key_image.blend_rect(
-		preload("uid://bvrmr13ttg55c") if pressed else preload("uid://b72csthwn1kr1"),
+		preload("res://assets/textures/input/input_bg_key_pressed.png") if pressed else preload("res://assets/textures/input/input_bg_key.png"),
 		Rect2i(Vector2i.ZERO, Vector2i(68,68)),
 		Vector2i.ZERO
 	)
@@ -255,7 +255,7 @@ const BRAND_PLAYSTATION:Brand = Brand.BRAND_PLAYSTATION
 const BRAND_PLAYSTATION_3:Brand = Brand.BRAND_PLAYSTATION_3
 const BRAND_NINTENDO:Brand = Brand.BRAND_NINTENDO
 #endregion
-const _BUTTON_IMG:Image = preload("uid://bv2kf17wopqad")
+const _BUTTON_IMG:Image = preload("res://assets/textures/input/button_symbols.png")
 const _BUTTON_IMG_SIZE:Vector2i = Vector2i(52,26)
 const _BUTTON_IMG_MAP:Dictionary = {
 	BUTTON_NONE: Vector2i.ZERO,
@@ -280,26 +280,26 @@ func get_button(button:ControllerButton, pressed:bool = false, brand:Brand = BRA
 	var label_offset:Vector2i = Vector2i(8,21)
 	match button:
 		BUTTON_LEFT_SHOULDER: 
-			bg_image = preload("uid://6nrrv2xlyclh") if pressed else preload("uid://cjxkrjyv2qfch")
+			bg_image = preload("res://assets/textures/input/input_bg_bumper_L_pressed.png") if pressed else preload("res://assets/textures/input/input_bg_bumper_L.png")
 			label_offset = Vector2i(12,21)
 		BUTTON_RIGHT_SHOULDER: 
-			bg_image = preload("uid://dq0qhpc11y7r") if pressed else preload("uid://dp7pe7orsc51i")
+			bg_image = preload("res://assets/textures/input/input_bg_bumper_R.png") if pressed else preload("res://assets/textures/input/input_bg_bumper_R_pressed.png")
 			label_offset = Vector2i(4,21)
 		BUTTON_LEFT_TRIGGER: 
 			if brand == BRAND_XBOX_360:
-				bg_image = preload("uid://bvrmr13ttg55c") if pressed else preload("uid://b72csthwn1kr1")
-			else: bg_image = preload("uid://c77xk0ymlport") if pressed else preload("uid://drr8thsp1e6b6")
+				bg_image = preload("res://assets/textures/input/input_bg_key_pressed.png") if pressed else preload("res://assets/textures/input/input_bg_key.png")
+			else: bg_image = preload("res://assets/textures/input/input_bg_trigger_L_pressed.png") if pressed else preload("res://assets/textures/input/input_bg_trigger_L.png")
 		BUTTON_RIGHT_TRIGGER: 
 			if brand == BRAND_XBOX_360:
-				bg_image = preload("uid://bvrmr13ttg55c") if pressed else preload("uid://b72csthwn1kr1")
-			else: bg_image = preload("uid://d1addf7vlpekr") if pressed else preload("uid://bmgca2nvylpf3")
+				bg_image = preload("res://assets/textures/input/input_bg_key_pressed.png") if pressed else preload("res://assets/textures/input/input_bg_key.png")
+			else: bg_image = preload("res://assets/textures/input/input_bg_trigger_R_pressed.png") if pressed else preload("res://assets/textures/input/input_bg_trigger_R.png")
 		BUTTON_LEFT_STICK: 
-			bg_image = preload("uid://r8f3610sdxas") if pressed else preload("uid://coi45mr0j43wy")
+			bg_image = preload("res://assets/textures/input/input_bg_stickbutton_pressed.png") if pressed else preload("res://assets/textures/input/input_bg_stickbutton.png")
 			label_offset = Vector2i(8,2)
 		BUTTON_RIGHT_STICK: 
-			bg_image = preload("uid://r8f3610sdxas") if pressed else preload("uid://coi45mr0j43wy")
+			bg_image = preload("res://assets/textures/input/input_bg_stickbutton_pressed.png") if pressed else preload("res://assets/textures/input/input_bg_stickbutton.png")
 			label_offset = Vector2i(8,2)
-		_: bg_image = preload("uid://bgqj31l1pd5ol") if pressed else preload("uid://itw40r15v6ek")
+		_: bg_image = preload("res://assets/textures/input/input_bg_facebutton_pressed.png") if pressed else preload("res://assets/textures/input/input_bg_facebutton.png")
 	key_image.blend_rect(bg_image, Rect2i(Vector2i.ZERO, Vector2i(68,68)), Vector2i.ZERO)
 	
 	var button_position:Vector2i = _BUTTON_IMG_MAP[button]
@@ -318,13 +318,13 @@ func get_button(button:ControllerButton, pressed:bool = false, brand:Brand = BRA
 
 func get_stick(right:bool, direction:Vector2, brand:Brand = BRAND_GENERIC) -> ImageTexture:
 	var stick_image:Image = Image.create(68, 68, false, Image.FORMAT_RGBA8)
-	stick_image.blend_rect(preload("uid://ci7lb0bsrty3t"), Rect2i(Vector2i.ZERO, Vector2i(68,68)), Vector2i.ZERO)
+	stick_image.blend_rect(preload("res://assets/textures/input/input_bg_stick_base.png"), Rect2i(Vector2i.ZERO, Vector2i(68,68)), Vector2i.ZERO)
 	var button_position:Vector2i = Vector2i(208, int(right) * 26)
 	if brand == BRAND_XBOX or brand == BRAND_XBOX_360: button_position += Vector2i(0, 52)
 	elif brand == BRAND_PLAYSTATION or brand == BRAND_PLAYSTATION_3: button_position += Vector2i(0, 104)
 	elif brand == BRAND_NINTENDO: button_position += Vector2i(0, 156)
 	var stick_position:Vector2i = Vector2i(((direction.limit_length() * Vector2(1, -1)).normalized() * 11).round())
-	stick_image.blend_rect(preload("uid://c1ioqc7lkk7f7"), Rect2i(Vector2i.ZERO, Vector2i(68,68)), stick_position)
+	stick_image.blend_rect(preload("res://assets/textures/input/input_bg_stick_cap.png"), Rect2i(Vector2i.ZERO, Vector2i(68,68)), stick_position)
 	stick_image.blend_rect(_BUTTON_IMG, Rect2i(button_position, _BUTTON_IMG_SIZE), Vector2i(8,21) + stick_position)
 	stick_image.fix_alpha_edges()
 	return ImageTexture.create_from_image(stick_image)

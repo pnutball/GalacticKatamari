@@ -122,21 +122,21 @@ var RoyalWarping:bool = false
 @export var Pausable:bool = false
 
 const RollSounds = {
-	"XS": [preload("uid://d3gp43smimgy4"), preload("uid://ti521pkbxfs"), preload("uid://0litba7qydpt")],
-	"S": [preload("uid://b5xq50lmixdve"), preload("uid://bmu3gyrkst2yn"), preload("uid://gjptanm2fkl8")],
-	"M": [preload("uid://bi6nqj7yh7pq1"), preload("uid://dawg6qbhvr0ti"), preload("uid://cdeo3pysw4lim")],
-	"L": [preload("uid://buvsaumcdq1oj"), preload("uid://c2m77sxy8mx83"), preload("uid://d1ecf2413mwnr")],
-	"XL": [preload("uid://ckvrecid6eqe"), preload("uid://dq0jwr8i4pylr"), preload("uid://be5k6f8s4cq3k")],
-	"C": [preload("uid://c8jvswahn2u5i"), preload("uid://c4oso3eov6mep"), preload("uid://xdxvj8epddip")]
+	"XS": [preload("res://assets/sounds/game/grab_XS_00.wav"), preload("res://assets/sounds/game/grab_XS_01.wav"), preload("res://assets/sounds/game/grab_XS_02.wav")],
+	"S": [preload("res://assets/sounds/game/grab_S_00.wav"), preload("res://assets/sounds/game/grab_S_01.wav"), preload("res://assets/sounds/game/grab_S_02.wav")],
+	"M": [preload("res://assets/sounds/game/grab_M_00.wav"), preload("res://assets/sounds/game/grab_M_01.wav"), preload("res://assets/sounds/game/grab_M_02.wav")],
+	"L": [preload("res://assets/sounds/game/grab_L_00.wav"), preload("res://assets/sounds/game/grab_L_01.wav"), preload("res://assets/sounds/game/grab_L_02.wav")],
+	"XL": [preload("res://assets/sounds/game/grab_XL_00.wav"), preload("res://assets/sounds/game/grab_XL_01.wav"), preload("res://assets/sounds/game/grab_XL_02.wav")],
+	"C": [preload("res://assets/sounds/game/grab_C_00.wav"), preload("res://assets/sounds/game/grab_C_01.wav"), preload("res://assets/sounds/game/grab_C_02.wav")]
 }
 
 # [0] - floor bounce, [1] - wall hit, [2] wall crumble
 const BumpSounds = {
-	"XS": [preload("uid://3djag7lgql2s"), preload("uid://cwqocvfyv8e2t"), preload("uid://ss0bpy7jir2u")],
-	"S": [preload("uid://3djag7lgql2s"), preload("uid://bsd3iyu482wvs"), preload("uid://bkq6xqm1small")],
-	"M": [preload("uid://c73vie5kjqqfq"), preload("uid://bphuyxjxr4eev"), preload("uid://cnx1fj5tj3m10")],
-	"L": [preload("uid://f2xjjtjerdgh"), preload("uid://c3vmx0gs45dhc"), preload("uid://dv3v42siufu2m")],
-	"XL": [preload("uid://f2xjjtjerdgh"), preload("uid://tyhho1aot677"), preload("uid://b5awtwif2uav")],
+	"XS": [preload("res://assets/sounds/game/bound_S.wav"), preload("res://assets/sounds/game/bump_XS.wav"), preload("res://assets/sounds/game/crash_XS.wav")],
+	"S": [preload("res://assets/sounds/game/bound_S.wav"), preload("res://assets/sounds/game/bump_S.wav"), preload("res://assets/sounds/game/crash_S.wav")],
+	"M": [preload("res://assets/sounds/game/bound_M.wav"), preload("res://assets/sounds/game/bump_M.wav"), preload("res://assets/sounds/game/crash_M.wav")],
+	"L": [preload("res://assets/sounds/game/bound_L.wav"), preload("res://assets/sounds/game/bump_L.wav"), preload("res://assets/sounds/game/crash_L.wav")],
+	"XL": [preload("res://assets/sounds/game/bound_L.wav"), preload("res://assets/sounds/game/bump_XL.wav"), preload("res://assets/sounds/game/crash_XL.wav")],
 	"C": [null, null, null]
 }
 #endregion
@@ -250,7 +250,7 @@ func _process(delta):
 		elif DashCharge < 100 and not is_equal_approx(DashCharge, 100):
 			if MovementEnabled:
 				MovementEnabled = false
-				$KatamariDashAudio.stream = preload("uid://cfisonr1vjblw")
+				$KatamariDashAudio.stream = preload("res://assets/sounds/game/dash_charge.wav")
 				$KatamariDashAudio.play()
 				$OujiView.shot_dash()
 			DashCharge += delta * 25
@@ -425,7 +425,7 @@ func _physics_process(delta):
 					collider.transform = collider.transform.rotated(Vector3(0,0,1), zRotDash).rotated(Vector3(1,0,0), xRotDash)
 		elif DashCharge > 99:
 			$KatamariDashAudio.stop()
-			$KatamariDashAudio.stream = preload("uid://t5sdks8wbp58")
+			$KatamariDashAudio.stream = preload("res://assets/sounds/game/dash_release.wav")
 			$KatamariDashAudio.play()
 			$OujiView.shot_dash_end()
 			$KatamariBody.apply_central_impulse(Vector3(
@@ -505,7 +505,7 @@ func doQuickTurn():
 		var QTTiltTween = get_tree().create_tween()
 		var QTRotTween = get_tree().create_tween()
 		CameraSmoothing = 0.1
-		$KatamariQTAudio.stream = preload("uid://ctdba4rcx3s41")
+		$KatamariQTAudio.stream = preload("res://assets/sounds/game/quick_turn.wav")
 		$KatamariQTAudio.play()
 		$OujiView.flip()
 		QTRotTween.tween_property(self, "CameraRotation", CameraRotation + PI, 0.4).set_trans(Tween.TRANS_LINEAR)
@@ -521,12 +521,10 @@ func loadCore(texture:String = "res://assets/textures/core/core_test.png", model
 	$KatamariBody/KatamariMeshPivot/KatamariMesh.material_override.albedo_texture = load(texture)
 
 func playRollSound():
-	var soundNum:int = randi_range(0,2)
-	
 	var audioPlayer: AudioStreamPlayer = AudioStreamPlayer.new()
 	#audioPlayer.attenuation_model = AudioStreamPlayer3D.ATTENUATION_DISABLED
 	audioPlayer.bus = "SFX"
-	audioPlayer.stream = RollSounds.get(SoundSize)[soundNum]
+	audioPlayer.stream = RollSounds.get(SoundSize).pick_random()
 	audioPlayer.volume_db = -2
 	$KatamariBody/KatamariMeshPivot.add_child(audioPlayer)
 	audioPlayer.play()

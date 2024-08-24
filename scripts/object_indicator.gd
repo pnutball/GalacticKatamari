@@ -2,11 +2,11 @@ extends Control
 
 const RAINBOW:String = "[rainbow sat=0.3 val=1 freq=0.5]"
 
-const BG_NORMAL:Texture2D = preload("uid://crciqojmttmtt")
-const BOX_NORMAL:StyleBox = preload("uid://bvf3assm4mybr")
+const BG_NORMAL:Texture2D = preload("res://assets/textures/ui/object_view/object_view_bg.png")
+const BOX_NORMAL:StyleBox = preload("res://assets/textures/ui/object_view/object_label_box.tres")
 
-const BG_DANGER:Texture2D = preload("uid://buycys51burwc")
-const BOX_DANGER:StyleBox = preload("uid://bof1elw683t2m")
+const BG_DANGER:Texture2D = preload("res://assets/textures/ui/object_view/object_view_danger.png")
+const BOX_DANGER:StyleBox = preload("res://assets/textures/ui/object_view/object_label_box_danger.tres")
 
 var object_list:Dictionary = load("res://data/objects.json").data["objects"]
 

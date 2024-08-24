@@ -306,6 +306,10 @@ jolt_3d/continuous_cd/max_penetration=5.0
 jolt_3d/limits/max_linear_velocity=1000.0
 jolt_3d/limits/max_temporary_memory=64
 
+[plugins]
+
+gk_tools/object_data_folder="res://data"
+
 [rendering]
 
 renderer/rendering_method="mobile"

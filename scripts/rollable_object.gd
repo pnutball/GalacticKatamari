@@ -10,8 +10,8 @@ var Katamari
 @export_group("Visual")
 @export var ObjectMesh:Mesh = load("res://assets/models/object/debug_cube_view.tres")
 @export var ObjectCol:Shape3D = load("res://assets/models/object/debug_cube.shape")
-@export var ObjectTex:Texture2D = preload("uid://bo151m2ckmef3")
-@export var ObjectTexRoll:Texture2D = preload("uid://bo151m2ckmef3")
+@export var ObjectTex:Texture2D = preload("res://assets/textures/object/placeholder.png")
+@export var ObjectTexRoll:Texture2D = preload("res://assets/textures/object/placeholder_roll.png")
 @export var ObjectScale:float = 1
 @export_group("Size Thresholds")
 @export var ObjectKnockSize:float = 0
