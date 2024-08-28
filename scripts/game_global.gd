@@ -407,6 +407,7 @@ func _input(event):
 		else: 
 			lastWindowMode = get_window().mode
 			get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+	if Input.is_key_pressed(KEY_F9): get_tree().change_scene_to_file("res://scenes/debug_menu.tscn")
 
 func snap_input_angle(input:Vector2) -> Vector2:
 	return (Vector2.RIGHT * input.length()).rotated(
