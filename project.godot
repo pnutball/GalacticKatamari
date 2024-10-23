@@ -316,4 +316,5 @@ renderer/rendering_method="mobile"
 reflections/sky_reflections/texture_array_reflections=false
 reflections/sky_reflections/ggx_samples=8
 camera/depth_of_field/depth_of_field_bokeh_shape=0
+camera/depth_of_field/depth_of_field_bokeh_quality=0
 camera/depth_of_field/depth_of_field_use_jitter=true
