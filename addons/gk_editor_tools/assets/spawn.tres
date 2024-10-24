@@ -1,11 +1,11 @@
 [gd_resource type="ArrayMesh" load_steps=3 format=4 uid="uid://b1ny46n1fjoeg"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_arljr"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ggsn"]
 resource_name = "OUJI_HOLDER_M"
 cull_mode = 2
 vertex_color_use_as_albedo = true
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_sd0lm"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_sp5dv"]
 _surfaces = [{
 "aabb": AABB(-0.0121213, 0, -0.02, 0.0221213, 0.05, 0.04),
 "format": 34896613377,
@@ -29,7 +29,7 @@ _surfaces = [{
 "index_count": 114,
 "index_data": PackedByteArray("HAAdAAAAHQAeAAAAHwAAAB4ABAAeAAMABAAfAB4ABAAFAAEAAwAFAAQAAwACAAUAAgABAAUABgAFAAgABwAKAAUACAAFAAoACQAKAAsACQAIAAoACwAMAAkACwANAAwADAANAAUABQANAAcABgAMAAUADAAGAA8ACQAMAA8ACQAPAAgACAAPAAYACgAHAA4ADQAOAAcACwAOAA0ACwAKAA4AGAAbABIAGgAXABUAFAARABkAEwAWABAAAAAfABwAAwAdAAIAAwAeAB0AAgAcAAEAAgAdABwAHwABABwAHwAEAAEA"),
 "lods": [0.0103861, PackedByteArray("BAAcAB4AAgAeABwABAAeAAIAAgAcAAUABAAFABwABAACAAUADAANAAUACQANAAwACQAMAAUADQAKAAUACQAFAAoACQAKAA0AGAAbABIAGgAXABUAFAARABkAEwAWABAA"), 0.0117189, PackedByteArray("GAAbABIAGgAXABUAFAARABkAEwAWABAA"), 0.0118634, PackedByteArray("BAAcAB4ABAAeABwABAAcAAUABAAFABwAGAAbABIAGgAXABUAFAARABkAEwAWABAA")],
-"material": SubResource("StandardMaterial3D_arljr"),
+"material": SubResource("StandardMaterial3D_3ggsn"),
 "name": "OUJI_HOLDER_M",
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
@@ -37,4 +37,4 @@ _surfaces = [{
 "vertex_data": PackedByteArray("RYwAAP9///+/TGZm/38XwEWMvoD/v1/Cy8sTj/9/Ef5FjL6A/z9s+UWMmZn/fy/URYyZmf+/H/RFjJmZ/z+b94wYzMz/v2KyRYz///+/H/SMGMzM/z/mzUWM////P5v3///MzP+/Hvz//8zM/z9A/UWMzMwAAP//RYzMzP///7+MGMzMyHFv2YwYzMzIceb7jBjMzMhxGvsAAKjX/39v2QAAqNf/f+b7AACo1/9/3MeMGMzMNo5v2YwYzMw2jtzHjBjMzDaOGvv5UqXm/3/m+/lSpeb/f9zH+VKl5v9/GvuyZSIi/383xEWMIiJUlUbH2LIiIv9/r/9FjCIiqmrl9v9//z/+fxr6Eozlkcgcci2HwUo2I7cz+xN3pU7GQ77zcnkx8OuIWbEzeWT0OLxADMuz+Xx3yMR7/z//v/9//3/muhz6IsA/JkuiUFfmuhz6IsA/JgiNg6Pmuhz6CI2Do0uiUFciwD8mCI2Do0uiUFe4nzz/IHKDbcu26G8fPfbI")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_sd0lm")
+shadow_mesh = SubResource("ArrayMesh_sp5dv")
