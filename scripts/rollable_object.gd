@@ -95,16 +95,18 @@ func _physics_process(delta):
 		#BUG: Sinks into the ground when animating, use a ray to judge distance between object bottom and closest surface
 		
 		if ObjectPhysicsMode == ENUMS.PhysicsBehavior.GRAVITY and has_node("ObjectBody"):
-			$ObjectBody.set_collision_mask_value(3, true)
-			var gravity_collision:KinematicCollision3D = $ObjectBody.move_and_collide(Vector3.DOWN * GravVelocity * delta, true)
-			if gravity_collision == null:
-				GravVelocity += ($ObjectBody.get_gravity().length() * delta * 1.5)
+			GravVelocity += ($ObjectBody.get_gravity().length() * delta * 1.5)
+			$PhysicsRaycast.position = global_position
+			$PhysicsRaycast.target_position = Vector3.DOWN * GravVelocity * delta
 			
-			if gravity_collision != null:
-				global_position += Vector3.DOWN * gravity_collision.get_travel().length() * delta
-				GravVelocity *= -0.5
+			$PhysicsRaycast.enabled = true
+			$PhysicsRaycast.force_raycast_update()
+			if $PhysicsRaycast.is_colliding():
+				var offset:Vector3 = global_position - $PhysicsRaycast.get_collision_point() 
+				global_position = $PhysicsRaycast.get_collision_point()
+				ObjectPhysicsMode = ENUMS.PhysicsBehavior.STATIC
 			else: global_position += Vector3.DOWN * GravVelocity * delta
-		elif has_node("ObjectBody"): $ObjectBody.set_collision_mask_value(3, false)
+		else: $PhysicsRaycast.enabled = false
 	if not has_body_recursive():
 		queue_free()
 
