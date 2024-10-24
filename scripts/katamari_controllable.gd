@@ -300,8 +300,8 @@ func _physics_process(delta):
 		StickAngle = lerpf(LeftStick.y, RightStick.y, 0.5) * (lerpf(LeftStick.x, RightStick.x, 0.5) * -0.5)
 	
 	# DEBUG: Adjust size
-	if Input.is_action_pressed("DEBUG Bigger"): Size += delta
-	if Input.is_action_pressed("DEBUG Smaller"): Size = maxf(Size - delta, 0.05)
+	if Input.is_action_pressed("DEBUG Bigger"): Size *= 1.0+(0.5*delta)
+	if Input.is_action_pressed("DEBUG Smaller"): Size = maxf(Size * (1.0-(0.5*delta)), 0.05)
 	
 	# Adjust physics settings
 	$KatamariBody.gravity_scale = $"..".scale.y * Size
