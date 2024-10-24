@@ -32,6 +32,9 @@ var ObjectRollable: bool = true:
 	#get:
 		#return $ObjectBody.process_mode == Node.PROCESS_MODE_INHERIT
 
+@export_group("Physics")
+@export var ObjectPhysicsMode:ENUMS.PhysicsBehavior
+
 func has_parent_rollable_object() -> bool:
 	return has_node(^"../..") and get_node(^"../..") is RollableObject3D
 
@@ -75,17 +78,33 @@ func _ready():
 	$ObjectAnimation.play(AnimationName)
 	$ObjectAnimation.seek(AnimationPhase)
 
-func _physics_process(_delta):
+var GravVelocity:float = 0
+
+func _physics_process(delta):
 	if has_node("ObjectBody"):
 		$ObjectBody.collision_layer = 2 if Katamari.Size < ObjectKnockSize else 0
 		$ObjectBody.position = ((Vector3.UP * 0.5) + BodyPositionOffset) * ObjHeightOffset
 	rotation = ObjectBaseRotation + ObjectRotationOffset
 	if has_parent_rollable_object() and not get_parent_rollable_object().has_body():
-		ObjectRollable = false
-		var global_trans:Transform3D = global_transform
+		#ObjectRollable = false
+		#var global_trans:Transform3D = global_transform
 		#reparent(get_node("/root/KatamariStageRoot"))
-		global_transform = global_trans#.translated_local(Vector3.DOWN * (ObjHeightOffset * 0.5))
-		ObjectRollable = true
+		#global_transform = global_trans#.translated_local(Vector3.DOWN * (ObjHeightOffset * 0.5))
+		#ObjectRollable = true
+		
+		#BUG: Sinks into the ground when animating, use a ray to judge distance between object bottom and closest surface
+		
+		if ObjectPhysicsMode == ENUMS.PhysicsBehavior.GRAVITY and has_node("ObjectBody"):
+			$ObjectBody.set_collision_mask_value(3, true)
+			var gravity_collision:KinematicCollision3D = $ObjectBody.move_and_collide(Vector3.DOWN * GravVelocity * delta, true)
+			if gravity_collision == null:
+				GravVelocity += ($ObjectBody.get_gravity().length() * delta * 1.5)
+			
+			if gravity_collision != null:
+				global_position += Vector3.DOWN * gravity_collision.get_travel().length() * delta
+				GravVelocity *= -0.5
+			else: global_position += Vector3.DOWN * GravVelocity * delta
+		elif has_node("ObjectBody"): $ObjectBody.set_collision_mask_value(3, false)
 	if not has_body_recursive():
 		queue_free()
 

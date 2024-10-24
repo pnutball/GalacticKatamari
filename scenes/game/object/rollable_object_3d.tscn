@@ -145,10 +145,11 @@ _data = {
 
 [node name="RollableObject3D" type="Node3D"]
 script = ExtResource("1_mpgf7")
+ObjectPhysicsMode = 1
 
 [node name="ObjectBody" type="AnimatableBody3D" parent="."]
 collision_layer = 2
-collision_mask = 0
+collision_mask = 4
 input_ray_pickable = false
 sync_to_physics = false
 
