@@ -92,8 +92,6 @@ func _physics_process(delta):
 		#global_transform = global_trans#.translated_local(Vector3.DOWN * (ObjHeightOffset * 0.5))
 		#ObjectRollable = true
 		
-		#BUG: Sinks into the ground when animating, use a ray to judge distance between object bottom and closest surface
-		
 		if ObjectPhysicsMode == ENUMS.PhysicsBehavior.GRAVITY and has_node("ObjectBody"):
 			GravVelocity += ($ObjectBody.get_gravity().length() * delta * 1.5)
 			$PhysicsRaycast.position = global_position
