@@ -16,16 +16,17 @@ animation = &"KingIdle"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_7nqgv"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_gv7fp"]
-graph_offset = Vector2(-205.052, 1.52733)
+graph_offset = Vector2(-528.552, 61.914)
 nodes/Add2/node = SubResource("AnimationNodeAdd2_8jyf6")
-nodes/Add2/position = Vector2(140, 100)
+nodes/Add2/position = Vector2(180, 140)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_oelro")
-nodes/Animation/position = Vector2(-120, 60)
+nodes/Animation/position = Vector2(40, 140)
 "nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_mpn1t")
-"nodes/Animation 2/position" = Vector2(-40, 180)
+"nodes/Animation 2/position" = Vector2(20, 280)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_7nqgv")
-nodes/TimeScale/position = Vector2(0, 60)
-node_connections = [&"Add2", 0, &"TimeScale", &"Add2", 1, &"Animation 2", &"TimeScale", 0, &"Animation", &"output", 0, &"Add2"]
+nodes/TimeScale/position = Vector2(320, 140)
+nodes/output/position = Vector2(460, 140)
+node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"TimeScale", 0, &"Add2", &"output", 0, &"TimeScale"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_okri3"]
 animation = &"KingIntro"
@@ -79,7 +80,7 @@ root_node = NodePath("../KingFull")
 tree_root = SubResource("AnimationNodeStateMachine_cpucp")
 anim_player = NodePath("../KingFull/AnimationPlayer")
 parameters/conditions/LectureDone = false
-parameters/Idle/Add2/add_amount = 0
+parameters/Idle/Add2/add_amount = 1.0
 parameters/Idle/TimeScale/scale = 0.5
 
 [node name="KingMusic" type="AudioStreamPlayer" parent="."]
