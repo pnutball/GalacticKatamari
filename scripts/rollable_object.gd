@@ -85,26 +85,26 @@ func _physics_process(delta):
 		$ObjectBody.collision_layer = 2 if Katamari.Size < ObjectKnockSize else 0
 		$ObjectBody.position = ((Vector3.UP * 0.5) + BodyPositionOffset) * ObjHeightOffset
 	rotation = ObjectBaseRotation + ObjectRotationOffset
-	if has_parent_rollable_object() and not get_parent_rollable_object().has_body():
-		#ObjectRollable = false
-		#var global_trans:Transform3D = global_transform
-		#reparent(get_node("/root/KatamariStageRoot"))
-		#global_transform = global_trans#.translated_local(Vector3.DOWN * (ObjHeightOffset * 0.5))
-		#ObjectRollable = true
+	#if has_parent_rollable_object() and not get_parent_rollable_object().has_body():
+	#	ObjectRollable = false
+	#	top_level = true
+	#	reparent(get_node("/root/KatamariGame/KatamariStageRoot"))
+	#	top_level = false
+	#	ObjectRollable = true
+	if ObjectPhysicsMode == ENUMS.PhysicsBehavior.GRAVITY and has_node("ObjectBody") and (
+		(has_parent_rollable_object() and not get_parent_rollable_object().has_body()) or not has_parent_rollable_object()):
+		GravVelocity += ($ObjectBody.get_gravity().length() * delta * 1.5)
+		$PhysicsRaycast.position = global_position
+		$PhysicsRaycast.target_position = Vector3.DOWN * GravVelocity * delta
 		
-		if ObjectPhysicsMode == ENUMS.PhysicsBehavior.GRAVITY and has_node("ObjectBody"):
-			GravVelocity += ($ObjectBody.get_gravity().length() * delta * 1.5)
-			$PhysicsRaycast.position = global_position
-			$PhysicsRaycast.target_position = Vector3.DOWN * GravVelocity * delta
-			
-			$PhysicsRaycast.enabled = true
-			$PhysicsRaycast.force_raycast_update()
-			if $PhysicsRaycast.is_colliding():
-				var offset:Vector3 = global_position - $PhysicsRaycast.get_collision_point() 
-				global_position = $PhysicsRaycast.get_collision_point()
-				ObjectPhysicsMode = ENUMS.PhysicsBehavior.STATIC
-			else: global_position += Vector3.DOWN * GravVelocity * delta
-		else: $PhysicsRaycast.enabled = false
+		$PhysicsRaycast.enabled = true
+		$PhysicsRaycast.force_raycast_update()
+		if $PhysicsRaycast.is_colliding():
+			#var offset:Vector3 = global_position - $PhysicsRaycast.get_collision_point() 
+			global_position = $PhysicsRaycast.get_collision_point()
+			ObjectPhysicsMode = ENUMS.PhysicsBehavior.STATIC
+		else: global_position += Vector3.DOWN * GravVelocity * delta
+	else: $PhysicsRaycast.enabled = false
 	if not has_body_recursive():
 		queue_free()
 
