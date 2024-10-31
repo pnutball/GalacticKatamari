@@ -208,7 +208,7 @@ blend_shapes/Jaw = 0.0
 surface_material_override/0 = SubResource("ShaderMaterial_ticd3")
 
 [node name="HeadAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
-transform = Transform3D(1, 2.04281e-13, 2.38419e-07, -1.54078e-13, 1, -5.58794e-07, -2.38419e-07, 2.08616e-07, 0.999997, 9.81502e-13, 14.525, 1.78814e-07)
+transform = Transform3D(1, 2.63972e-08, 2.468e-07, 8.81846e-09, 1, 1.49012e-07, -2.24449e-07, -4.84288e-07, 0.999997, -0.0158538, 14.3751, 0.000305623)
 bone_name = "Head"
 bone_idx = 6
 
@@ -219,7 +219,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.43, 2.73)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.19785e-16, 3.16, -8.94079e-09)
 
 [node name="ChestAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
-transform = Transform3D(1, 2.27374e-13, 2.38419e-07, 1.83854e-08, 0.997022, -0.0771149, -2.37709e-07, 0.0771144, 0.99702, -3.50417e-13, 8.7535, -0.446395)
+transform = Transform3D(0.997872, -0.0650095, 0.00502837, 0.0652036, 0.9949, -0.0769502, -2.36288e-07, 0.0771138, 0.99702, 0.360469, 8.61585, -0.446086)
 bone_name = "Chest"
 bone_idx = 2
 
@@ -227,7 +227,7 @@ bone_idx = 2
 transform = Transform3D(1, -4.15592e-08, 5.68434e-14, 4.14011e-08, 0.996195, -0.0871558, 3.62233e-09, 0.0871558, 0.996195, 3.21799e-07, 1.50039, -1.34972)
 
 [node name="TorsoAttach" type="BoneAttachment3D" parent="OujiArmature/OujiSkeleton"]
-transform = Transform3D(1, -1.35003e-13, 2.38419e-07, -4.18519e-08, 0.984472, 0.17554, -2.34717e-07, -0.17554, 0.98447, 0, 6.25, 0)
+transform = Transform3D(0.997872, -0.0641912, -0.0114456, 0.0652036, 0.982377, 0.175166, -2.33296e-07, -0.17554, 0.98447, 0.523707, 6.11767, 0.000310051)
 bone_name = "Torso"
 bone_idx = 1
 
