@@ -5,3 +5,9 @@ extends Node3D
 func _ready():
 	camera.reparent(self)
 	KingFace.summon_face($KingFull/Skeleton3D/HeadAttach/KingFaceAttach)
+	await get_tree().create_timer(2).timeout
+	print("awawa")
+	DialogueBox.queue_dialog_string("hi|break|kingmo cosmo|break|damacy")
+	DialogueBox.speak_queue()
+	await DialogueBox.queue_finished
+	$LecAnimTree.set("parameters/conditions/LectureDone", true)

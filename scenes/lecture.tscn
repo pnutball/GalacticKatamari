@@ -73,7 +73,7 @@ script = ExtResource("1_4rncy")
 [node name="KingFull" parent="." instance=ExtResource("9_d4g87")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.97437, 0.224951, 0, -0.224951, 0.97437, 0, 29.005, 21.29)
+transform = Transform3D(1, 0, 0, 0, 0.968804, 0.247828, 0, -0.247828, 0.968804, 0, 28.718, 24.3224)
 
 [node name="LecAnimTree" type="AnimationTree" parent="."]
 root_node = NodePath("../KingFull")
