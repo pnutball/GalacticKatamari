@@ -6,6 +6,9 @@ extends PathFollow3D
 const ENUMS = preload("res://scripts/lib/gk_object_enums.gd")
 
 #region Graph stuff
+@export_custom(PROPERTY_HINT_NONE, "suffix:m") var position_offset:Vector3
+@export_custom(PROPERTY_HINT_RANGE, "-180,180,0.001,radians_as_degrees") var rotation_offset:Vector3
+
 @export var active:bool = true
 
 @export var parents:Array[GKRollableObject]
@@ -32,8 +35,7 @@ var _knock_size:float
 var _roll_size:float
 var _added_size:float
 
-@export_group("Behavior")
-@export_subgroup("Movement")
+@export_group("Movement")
 ## The movement speed when the katamari [u]can't[/u] roll up/knock over this object.[br][br]
 ## [b]Positive numbers:[/b] The object runs away from the katamari.[br]
 ## [b]Negative numbers:[/b] The object approaches the katamari.[br]
@@ -50,7 +52,7 @@ var _added_size:float
 @export var roam_distance:float = 0:
 	get: return roam_distance
 	set(new): roam_distance = max(new, 0)
-@export_subgroup("Animation")
+@export_group("Animation")
 
 @export_custom(PROPERTY_HINT_RANGE, "-180,180,0.001,radians_as_degrees") var pivot_rotation:Vector3:
 	set(new):
@@ -75,6 +77,8 @@ func _validate_property(property: Dictionary) -> void:
 	if property.name in ["speed_small", "speed_large", "roaming_distance"] and get_parent() is Path3D:
 		property.usage = property.usage | PROPERTY_USAGE_READ_ONLY
 	elif property.name == "path_speed":
+		property.usage = property.usage | PROPERTY_USAGE_READ_ONLY
+	if property.name in ["position", "rotation"]:
 		property.usage = property.usage | PROPERTY_USAGE_READ_ONLY
 
 func _ready() -> void:
@@ -108,8 +112,6 @@ func _ready() -> void:
 	node_AttachArea.add_child(node_AttachCollision, false, Node.INTERNAL_MODE_BACK)
 	add_child(node_AnimPivot, false, Node.INTERNAL_MODE_FRONT)
 	
-	if Engine.is_editor_hint():
-		pass
 	#endregion
 	
 	_refresh_object()
@@ -135,5 +137,8 @@ func _process(delta: float) -> void:
 		if has_node("AnimPivot/ObjectBody/ObjectMesh"):
 			$AnimPivot/ObjectBody/ObjectMesh.material_override.set("shader_parameter/Rolled", 
 			self in EditorInterface.get_selection().get_selected_nodes())
-	else:
-		pass
+		position = position_offset if orphaned else parents[1].position + position_offset
+
+func _physics_process(delta: float) -> void:
+	if not Engine.is_editor_hint():
+		position = position_offset if orphaned else parents[1].position + position_offset
