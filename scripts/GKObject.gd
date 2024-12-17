@@ -1,27 +1,31 @@
 @tool
 @icon("res://addons/gk_editor_tools/icons/gk_object.svg")
 class_name GKRollableObject
-extends PathFollow3D
+extends Node3D
 
 const ENUMS = preload("res://scripts/lib/gk_object_enums.gd")
 
-#region Graph stuff
+## The position offset when this object is parented to multiple objects.
 @export_custom(PROPERTY_HINT_NONE, "suffix:m") var position_offset:Vector3
+
+## The rotation offset when this object is parented to multiple objects.
 @export_custom(PROPERTY_HINT_RANGE, "-180,180,0.001,radians_as_degrees") var rotation_offset:Vector3
 
-@export var active:bool = true
+## Additional objects that this one is "parented" to.[br]
+## These additional objects are factored into transform calculations alongside any child GKRollableObjects in the node tree.
+@export var additional_parents:Array[GKRollableObject]
 
-@export var parents:Array[GKRollableObject]
-
-var orphaned:bool: 
-	get: return parents.all(func(obj): return obj.active)
-
-#endregion
+var parents:Array:
+	get:
+		return additional_parents + get_children(false)
+var has_parents:bool:
+	get:
+		return not parents.is_empty()
 
 #region Object stuff
 ## The Object ID (sourced from [code]res://data/objects.json[/code]) that this object uses.[br]
 ## The object's audio, model, collision, & textures are set based on this ID.
-@export var object_id:StringName:
+@export_placeholder("debug_cube") var object_id:String:
 	get: return object_id
 	set(new):
 		object_id = new
@@ -78,11 +82,22 @@ func _validate_property(property: Dictionary) -> void:
 		property.usage = property.usage | PROPERTY_USAGE_READ_ONLY
 	elif property.name == "path_speed":
 		property.usage = property.usage | PROPERTY_USAGE_READ_ONLY
-	if property.name in ["position", "rotation"]:
+	if property.name == "top_level":
+		property.usage = PROPERTY_USAGE_NONE
+	if property.name in ["position", "rotation"] and has_parents:
 		property.usage = property.usage | PROPERTY_USAGE_READ_ONLY
+	if property.name in ["position_offset", "rotation_offset"] and not has_parents:
+		property.usage = property.usage | PROPERTY_USAGE_READ_ONLY
+
+func _init() -> void:
+	top_level = true
 
 func _ready() -> void:
 	#region Setup nodes
+	if has_node("AnimPivot"): # prevent excess nodes
+		var pivot := get_node("AnimPivot")
+		remove_child(pivot)
+		pivot.queue_free() 
 	var node_AnimPivot := Marker3D.new()
 	node_AnimPivot.name = "AnimPivot"
 	node_AnimPivot.rotation = pivot_rotation
@@ -111,7 +126,6 @@ func _ready() -> void:
 	node_ObjectBody.add_child(node_Collision, false, Node.INTERNAL_MODE_BACK)
 	node_AttachArea.add_child(node_AttachCollision, false, Node.INTERNAL_MODE_BACK)
 	add_child(node_AnimPivot, false, Node.INTERNAL_MODE_FRONT)
-	
 	#endregion
 	
 	_refresh_object()
@@ -126,7 +140,7 @@ func _refresh_object() -> void:
 	_roll_size = obj_attributes.get("roll_size", 0.6)
 	_added_size = obj_attributes.get("pickup_size", 0.05)
 	
-	if has_node("AnimPivot/ObjectBody/ObjectMesh"):
+	if has_node("AnimPivot/ObjectBody/ObjectMesh") and is_inside_tree():
 		get_node("AnimPivot/ObjectBody/ObjectMesh").mesh = _model
 		$AnimPivot/ObjectBody/ObjectMesh.material_override.set("shader_parameter/Texture", _texture)
 		$AnimPivot/ObjectBody/ObjectMesh.material_override.set("shader_parameter/Texture_Rolled", _roll_texture)
@@ -137,8 +151,31 @@ func _process(delta: float) -> void:
 		if has_node("AnimPivot/ObjectBody/ObjectMesh"):
 			$AnimPivot/ObjectBody/ObjectMesh.material_override.set("shader_parameter/Rolled", 
 			self in EditorInterface.get_selection().get_selected_nodes())
-		position = position_offset if orphaned else parents[1].position + position_offset
+		if is_inside_tree(): _adjust_transform()
 
 func _physics_process(delta: float) -> void:
 	if not Engine.is_editor_hint():
-		position = position_offset if orphaned else parents[1].position + position_offset
+		if is_inside_tree(): _adjust_transform()
+
+func _adjust_transform() -> void:
+	if has_parents:
+		var pos:Vector3 = Vector3.ZERO
+		var rot:Vector3 = Vector3.ZERO
+		var count:int = 0
+		for obj in parents:
+			if obj != null and obj is GKRollableObject:
+				pos += obj.position
+				rot += obj.rotation
+				count += 1
+		if count > 0:
+			pos /= count
+			rot /= count
+			transform = (Transform3D(Basis.from_euler(rot), pos)
+				* Transform3D(Basis.from_euler(rotation_offset), position_offset))
+		else: 
+			position_offset = position
+			rotation_offset = rotation
+	else:
+		position_offset = position
+		rotation_offset = rotation
+		#transform = Transform3D(Basis.from_euler(rotation_offset), position_offset)

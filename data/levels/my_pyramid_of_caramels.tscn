@@ -1,0 +1,105 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdmdvqa4thkvs"]
+
+[ext_resource type="Script" path="res://scripts/GKObject.gd" id="1_ei3e7"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="caramel_layer1_1" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.052)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0, 0.052)
+object_id = "caramel"
+
+[node name="caramel_layer1_2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.026)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0, 0.026)
+object_id = "caramel"
+
+[node name="caramel_layer1_3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, 0)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(7.45058e-09, 0, 0)
+object_id = "caramel"
+
+[node name="caramel_layer1_4" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.026)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0, -0.026)
+object_id = "caramel"
+
+[node name="caramel_layer1_5" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.45058e-09, 0, -0.052)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(7.45058e-09, 0, -0.052)
+object_id = "caramel"
+
+[node name="caramel_layer2_1" type="Node3D" parent="." node_paths=PackedStringArray("additional_parents")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, 0.039)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0.015, 0)
+additional_parents = [NodePath("../caramel_layer1_1"), NodePath("../caramel_layer1_2")]
+object_id = "caramel"
+
+[node name="caramel_layer2_2" type="Node3D" parent="." node_paths=PackedStringArray("additional_parents")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72529e-09, 0.015, 0.013)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0.015, 0)
+additional_parents = [NodePath("../caramel_layer1_2"), NodePath("../caramel_layer1_3")]
+object_id = "caramel"
+
+[node name="caramel_layer2_3" type="Node3D" parent="." node_paths=PackedStringArray("additional_parents")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72529e-09, 0.015, -0.013)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0.015, 0)
+additional_parents = [NodePath("../caramel_layer1_3"), NodePath("../caramel_layer1_4")]
+object_id = "caramel"
+
+[node name="caramel_layer2_4" type="Node3D" parent="." node_paths=PackedStringArray("additional_parents")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72529e-09, 0.015, -0.039)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0.015, 0)
+additional_parents = [NodePath("../caramel_layer1_4"), NodePath("../caramel_layer1_5")]
+object_id = "caramel"
+
+[node name="caramel_layer3_1" type="Node3D" parent="." node_paths=PackedStringArray("additional_parents")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.86265e-09, 0.03, 0.026)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0.015, 0)
+additional_parents = [NodePath("../caramel_layer2_1"), NodePath("../caramel_layer2_2")]
+object_id = "caramel"
+
+[node name="caramel_layer3_2" type="Node3D" parent="." node_paths=PackedStringArray("additional_parents")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72529e-09, 0.03, 0)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0.015, 0)
+additional_parents = [NodePath("../caramel_layer2_2"), NodePath("../caramel_layer2_3")]
+object_id = "caramel"
+
+[node name="caramel_layer3_3" type="Node3D" parent="." node_paths=PackedStringArray("additional_parents")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72529e-09, 0.03, -0.026)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0.015, 0)
+additional_parents = [NodePath("../caramel_layer2_3"), NodePath("../caramel_layer2_4")]
+object_id = "caramel"
+
+[node name="caramel_layer4_1" type="Node3D" parent="." node_paths=PackedStringArray("additional_parents")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.79397e-09, 0.045, 0.013)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0.015, 0)
+additional_parents = [NodePath("../caramel_layer3_1"), NodePath("../caramel_layer3_2")]
+object_id = "caramel"
+
+[node name="caramel_layer4_2" type="Node3D" parent="." node_paths=PackedStringArray("additional_parents")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72529e-09, 0.045, -0.013)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0.015, 0)
+additional_parents = [NodePath("../caramel_layer3_2"), NodePath("../caramel_layer3_3")]
+object_id = "caramel"
+
+[node name="caramel_layer5_1" type="Node3D" parent="." node_paths=PackedStringArray("additional_parents")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.25963e-09, 0.06, 0)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0.015, 0)
+additional_parents = [NodePath("../caramel_layer4_1"), NodePath("../caramel_layer4_2")]
+object_id = "caramel"
