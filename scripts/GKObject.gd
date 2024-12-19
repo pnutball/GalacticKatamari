@@ -48,6 +48,7 @@ var _collision_shape:Shape3D
 var _knock_size:float
 var _roll_size:float
 var _added_size:float
+var _name:String
 
 @export_group("Movement")
 ## The movement speed when the katamari [u]can't[/u] roll up/knock over this object.[br][br]
@@ -81,8 +82,7 @@ var _animation_timer:float = 0
 		pivot_offset = new
 		if has_node("AnimPivot"): 
 			#get_node("AnimPivot").position = new
-			get_node("AnimPivot/ObjectBody").global_position = global_position
-			get_node("AnimPivot/ObjectBody").global_rotation = global_rotation
+			get_node("AnimPivot/ObjectBody").position = -pivot_offset
 	get: return pivot_offset
 ## The animation for the object's x position.
 @export_subgroup("Position X")
@@ -208,6 +208,7 @@ func _refresh_object() -> void:
 	_knock_size = obj_attributes.get("knock_size", 0.6)
 	_roll_size = obj_attributes.get("roll_size", 0.6)
 	_added_size = obj_attributes.get("pickup_size", 0.05)
+	_name = GKGlobal.get_localized_string(obj_attributes.get("name", {"en": "Dummy"}))
 	
 	if has_node("AnimPivot/ObjectBody/ObjectMesh") and is_inside_tree():
 		get_node("AnimPivot/ObjectBody/ObjectMesh").mesh = _model
@@ -231,7 +232,7 @@ func _physics_process(delta: float) -> void:
 			_animate(delta)
 
 func _adjust_transform() -> void:
-	if has_parents:
+	if has_parents and is_inside_tree():
 		var pos:Vector3 = Vector3.ZERO
 		var pos_min:Vector3 = Vector3(INF, INF, INF)
 		var pos_max:Vector3 = Vector3(-INF, -INF, -INF)
@@ -278,3 +279,12 @@ func _animate(delta:float) -> void:
 		0 if anim_rot_y == null or is_zero_approx(duration_rot_y) else deg_to_rad(anim_rot_y.sample(fmod(_animation_timer / duration_rot_y + phase_rot_y, 1))),
 		0 if anim_rot_z == null or is_zero_approx(duration_rot_z) else deg_to_rad(anim_rot_z.sample(fmod(_animation_timer / duration_rot_z + phase_rot_z, 1))),
 	)
+
+func _get_obj_info() -> Dictionary:
+	return {
+		"name": _name,
+		"mesh_node": get_node("AnimPivot/ObjectBody/ObjectMesh"),
+		"collision_node": get_node("AnimPivot/ObjectBody/Collision"),
+		"mesh": _model,
+		"texture": _roll_texture
+	}
