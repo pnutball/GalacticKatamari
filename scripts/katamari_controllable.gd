@@ -558,7 +558,7 @@ func respawn(noAnimation:bool = false):
 		await create_tween().tween_property(%ViewportRect, "material:shader_parameter/fade", 0, 0.25).finished
 	RoyalWarping = false
 
-func grabObject(ObjectSize:float, ObjectID:StringName, ObjectInstance:StringName):
+func grabObjectDeprecated(ObjectSize:float, ObjectID:StringName, ObjectInstance:StringName):
 	ObjectQueue.push_back(ObjectID)
 	ObjectIDQueue.push_back(ObjectInstance)
 	var object_cat:StringName = preload("res://data/objects.json").data.objects.get(ObjectID, {}).get("collection_category", "")
@@ -572,6 +572,27 @@ func grabObject(ObjectSize:float, ObjectID:StringName, ObjectInstance:StringName
 	$ObjectIndicator.push_object(ObjectID, ObjectInstance, %KatamariCamera)
 	if ScoringList != {} and ScoringList.get(String(ObjectID)) != null:
 		Score += ScoringList.get(String(ObjectID))
+
+func grabObject(ObjectInfo:Dictionary):
+	ObjectInfo["mesh_node"].layers = 1
+	ObjectInfo["mesh_node"].get("surface_material_override/0").set("shader_parameter/Rolled", true)
+	ObjectInfo["collision_node"].scale = Vector3(0.5,0.5,0.5)
+	ObjectInfo["collision_node"].reparent($KatamariBody, true)
+	ObjectInfo["mesh_node"].reparent($KatamariBody/KatamariMeshPivot)
+	
+	ObjectQueue.push_back(ObjectInfo["id"])
+	ObjectIDQueue.push_back(ObjectInfo["instance"])
+	var object_cat:StringName = preload("res://data/objects.json").data.objects.get(ObjectInfo["id"], {}).get("collection_category", "")
+	if not object_cat.is_empty(): 
+		if not ObjectCategoryNames.has(object_cat):
+			ObjectCategoryNames.push_back(object_cat)
+			ObjectCategoryCounts.push_back(1)
+		else: 
+			ObjectCategoryCounts[ObjectCategoryNames.find(object_cat)] += 1
+	Size += ObjectInfo["size"] * GrowthMultiplier
+	$ObjectIndicator.push_object(ObjectInfo["id"], ObjectInfo["instance"], %KatamariCamera)
+	if ScoringList != {} and ScoringList.get(String(ObjectInfo["id"])) != null:
+		Score += ScoringList.get(String(ObjectInfo["id"]))
 
 func _on_wall_bump(_body):
 	var vel:float = ($KatamariBody.linear_velocity * Vector3(1,0,1)).length()

@@ -147,6 +147,8 @@ var _animation_timer:float = 0
 @export_range(0, 1, 0.001) var phase_rot_z:float = 0
 #endregion
 
+@onready var Katamari = StageLoader.currentKatamari
+
 func _validate_property(property: Dictionary) -> void:
 	if property.name in ["speed_small", "speed_large", "roaming_distance"] and get_parent() is Path3D:
 		property.usage = property.usage | PROPERTY_USAGE_READ_ONLY
@@ -184,6 +186,7 @@ func _ready() -> void:
 	var node_AttachArea := Area3D.new()
 	node_AttachArea.name = "AttachArea"
 	node_AttachArea.collision_layer = 2
+	node_AttachArea.body_shape_entered.connect(_on_katamari_entered)
 	var node_Collision := CollisionShape3D.new()
 	node_Collision.name = "Collision"
 	var node_AttachCollision := CollisionShape3D.new()
@@ -286,5 +289,18 @@ func _get_obj_info() -> Dictionary:
 		"mesh_node": get_node("AnimPivot/ObjectBody/ObjectMesh"),
 		"collision_node": get_node("AnimPivot/ObjectBody/Collision"),
 		"mesh": _model,
-		"texture": _roll_texture
+		"texture": _roll_texture,
+		"size": _added_size,
+		"id": object_id,
+		"instance": name
 	}
+
+func _on_katamari_entered(_rid, body, shape, _locshape):
+	print_debug(body.to_string() + "'s shape %d collided with %s (instance %s)."%[shape, object_id, name])
+	if body == Katamari.get_node("KatamariBody") and shape == 0:
+		if Katamari.Size >= _roll_size:
+			Katamari.grabObject(_get_obj_info())
+			Katamari.playRollSound()
+			return
+		elif Katamari.Size >= _knock_size:
+			return
