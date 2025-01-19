@@ -74,6 +74,24 @@
 				"en": "A ball of packed rice and filling. It's easy to forget what's inside after making one."
 			},
 			"collection_category": "japanese_food"
+		},
+		"blueberry": {
+			"view_mesh": "res://assets/models/object/blueberry.obj",
+			"collision_mesh": "res://assets/models/object/caramel.shape",
+			"knock_size": 0.044,
+			"roll_size": 0.044,
+			"pickup_size": 0.001,
+			"scale": 1,
+			"view_scale": 13.62,
+			"texture": "res://assets/textures/object/blueberry.png",
+			"texture_rolledup": "res://assets/textures/object/blueberry_roll.png",
+			"name": {
+				"en": "Blueberry"
+			},
+			"description": {
+				"en": "Dummy"
+			},
+			"collection_category": "fruit"
 		}
 	}
 }
