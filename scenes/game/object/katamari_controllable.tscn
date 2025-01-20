@@ -257,13 +257,14 @@ attributes = SubResource("CameraAttributesPractical_qviqp")
 current = true
 
 [node name="KatamariCameraZoom" type="AnimationPlayer" parent="SubViewport/KatamariCameraPivot/KatamariCamera"]
+process_mode = 1
 libraries = {
 "": SubResource("AnimationLibrary_hdva6")
 }
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
 process_mode = 3
-size = Vector2i(2, 2)
+size = Vector2i(973, 450)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 

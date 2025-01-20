@@ -139,8 +139,16 @@ func preloadArea(area:int = currentArea + 1):
 		instantiated.set_script(null)
 		currentStatics.add_child(instantiated)
 	
+	if currentStage.modes.get(currentMode).map_zones[area].get("object_layout", []) != null:
+		ResourceLoader.load_threaded_request(currentStage.modes.get(currentMode).map_zones[area].object_layout)
+		while ResourceLoader.load_threaded_get_status(currentStage.modes.get(currentMode).map_zones[area].object_layout) == ResourceLoader.THREAD_LOAD_IN_PROGRESS:
+			await get_tree().process_frame
+		var instantiated:Node = ResourceLoader.load_threaded_get(currentStage.modes.get(currentMode).map_zones[area].object_layout).instantiate()
+		instantiated.set_script(null)
+		preloadRoot.add_child(instantiated)
+	
 	preload_object_index = 0
-	for object in currentStage.modes.get(currentMode).map_zones[area].objects:
+	for object in currentStage.modes.get(currentMode).map_zones[area].get("objects", []):
 		await _preload_object(object, preloadRoot, area)
 	loadFinished = true
 

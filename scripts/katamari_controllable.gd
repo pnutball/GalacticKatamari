@@ -1,4 +1,5 @@
 @icon("res://KatamariObject.svg")
+class_name KatamariControllable
 extends Node3D
 #region Variables
 #region Size and Position

@@ -147,8 +147,6 @@ var _animation_timer:float = 0
 @export_range(0, 1, 0.001) var phase_rot_z:float = 0
 #endregion
 
-@onready var Katamari = StageLoader.currentKatamari
-
 func _validate_property(property: Dictionary) -> void:
 	if property.name in ["speed_small", "speed_large", "roaming_distance"] and get_parent() is Path3D:
 		property.usage = property.usage | PROPERTY_USAGE_READ_ONLY
@@ -295,12 +293,14 @@ func _get_obj_info() -> Dictionary:
 		"instance": name
 	}
 
-func _on_katamari_entered(_rid, body, shape, _locshape):
-	print_debug(body.to_string() + "'s shape %d collided with %s (instance %s)."%[shape, object_id, name])
-	if body == Katamari.get_node("KatamariBody") and shape == 0:
-		if Katamari.Size >= _roll_size:
-			Katamari.grabObject(_get_obj_info())
-			Katamari.playRollSound()
-			return
-		elif Katamari.Size >= _knock_size:
-			return
+func _on_katamari_entered(_rid, body:Node, shape, _locshape):
+	if not Engine.is_editor_hint():
+		print_debug(body.to_string() + "'s shape %d collided with %s (instance %s)."%[shape, object_id, name])
+		var body_parent = body.get_parent()
+		if body_parent is KatamariControllable and shape == 0:
+			if body_parent.Size >= _roll_size:
+				body_parent.grabObject(_get_obj_info())
+				body_parent.playRollSound()
+				return
+			elif body_parent.Size >= _knock_size:
+				return
