@@ -16,7 +16,7 @@ dest_files=["res://.godot/imported/blueberry.obj-612c8e454e7dc07b1f350785cbf2b44
 [params]
 
 generate_tangents=true
-scale_mesh=Vector3(1, 1, 1)
+scale_mesh=Vector3(0.006, 0.006, 0.006)
 offset_mesh=Vector3(0, 0, 0)
 optimize_mesh=true
 force_disable_mesh_compression=false
