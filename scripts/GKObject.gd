@@ -184,6 +184,7 @@ func _ready() -> void:
 	var node_AttachArea := Area3D.new()
 	node_AttachArea.name = "AttachArea"
 	node_AttachArea.collision_layer = 2
+	node_AttachArea.body_shape_entered.connect(_on_katamari_entered)
 	var node_Collision := CollisionShape3D.new()
 	node_Collision.name = "Collision"
 	var node_AttachCollision := CollisionShape3D.new()
@@ -286,5 +287,20 @@ func _get_obj_info() -> Dictionary:
 		"mesh_node": get_node("AnimPivot/ObjectBody/ObjectMesh"),
 		"collision_node": get_node("AnimPivot/ObjectBody/Collision"),
 		"mesh": _model,
-		"texture": _roll_texture
+		"texture": _roll_texture,
+		"size": _added_size,
+		"id": object_id,
+		"instance": name
 	}
+
+func _on_katamari_entered(_rid, body:Node, shape, _locshape):
+	if not Engine.is_editor_hint():
+		print_debug(body.to_string() + "'s shape %d collided with %s (instance %s)."%[shape, object_id, name])
+		var body_parent = body.get_parent()
+		if body_parent is KatamariControllable and shape == 0:
+			if body_parent.Size >= _roll_size:
+				body_parent.grabObject(_get_obj_info())
+				body_parent.playRollSound()
+				return
+			elif body_parent.Size >= _knock_size:
+				return

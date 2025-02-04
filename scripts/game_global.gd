@@ -1,8 +1,9 @@
+@tool
 extends Node
 
 func _init(): process_mode = Node.PROCESS_MODE_ALWAYS
 
-func _ready(): RenderingServer.set_default_clear_color(Color.BLACK)
+func _ready(): if not Engine.is_editor_hint: RenderingServer.set_default_clear_color(Color.BLACK)
 
 const is_demo:bool = preload("res://flags.json").data.demo
 
@@ -106,10 +107,11 @@ signal controller_changed(index:int)
 ]
 
 func _process(_delta):
-	for i in _controller_list.size():
-		if _controller_list[i] != Input.get_joy_name(i):
-			_controller_list[i] = Input.get_joy_name(i)
-			controller_changed.emit(i)
+	if not Engine.is_editor_hint: 
+		for i in _controller_list.size():
+			if _controller_list[i] != Input.get_joy_name(i):
+				_controller_list[i] = Input.get_joy_name(i)
+				controller_changed.emit(i)
 
 var usingController:bool = false:
 	get:
@@ -396,18 +398,19 @@ func get_controller_texture(device:int = 0) -> Texture2D:
 		return preload("res://assets/textures/input/controller_generic.png")
 
 func _input(event):
-	if (event is InputEventKey or event is InputEventMouseButton):
-		usingController = false
-	elif (event is InputEventJoypadButton) and event.device == 0:
-		usingController = true
-	if Input.is_action_just_pressed("Fullscreen"):
-		if get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
-			@warning_ignore("int_as_enum_without_cast")
-			get_window().mode = lastWindowMode
-		else: 
-			lastWindowMode = get_window().mode
-			get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
-	if Input.is_key_pressed(KEY_F9): get_tree().change_scene_to_file("res://scenes/debug_menu.tscn")
+	if not Engine.is_editor_hint: 
+		if (event is InputEventKey or event is InputEventMouseButton):
+			usingController = false
+		elif (event is InputEventJoypadButton) and event.device == 0:
+			usingController = true
+		if Input.is_action_just_pressed("Fullscreen"):
+			if get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN:
+				@warning_ignore("int_as_enum_without_cast")
+				get_window().mode = lastWindowMode
+			else: 
+				lastWindowMode = get_window().mode
+				get_window().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+		if Input.is_key_pressed(KEY_F9): get_tree().change_scene_to_file("res://scenes/debug_menu.tscn")
 
 func snap_input_angle(input:Vector2) -> Vector2:
 	return (Vector2.RIGHT * input.length()).rotated(

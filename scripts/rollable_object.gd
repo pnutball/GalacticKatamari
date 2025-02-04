@@ -118,7 +118,7 @@ func _on_katamari_entered(_rid, body, shape, _locshape):
 			get_node("ObjectBody/" + InstanceName + "_C").queue_free()
 			get_node("ObjectBody/" + InstanceName + "_K").reparent(body, true)
 			mesh.reparent(body.get_node("KatamariMeshPivot"))
-			Katamari.grabObject(ObjectGrowSize, ObjectID, InstanceName)
+			Katamari.grabObjectDeprecated(ObjectGrowSize, ObjectID, InstanceName)
 			Katamari.playRollSound()
 			$ObjectAnimation.pause()
 			$ObjectAnimation.queue_free()

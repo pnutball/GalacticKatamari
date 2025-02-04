@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdmdvqa4thkvs"]
+[gd_scene load_steps=11 format=3 uid="uid://bdmdvqa4thkvs"]
 
 [ext_resource type="Script" path="res://scripts/GKObject.gd" id="1_ei3e7"]
 
@@ -56,6 +56,11 @@ point_count = 2
 max_value = 360.0
 _data = [Vector2(0, 0), 0.0, 360.0, 0, 1, Vector2(1, 360), 360.0, 0.0, 1, 0]
 point_count = 2
+
+[sub_resource type="Curve" id="Curve_o7vkg"]
+max_value = 0.05
+_data = [Vector2(0, 0), 0.0, 0.17967, 0, 0, Vector2(0.5, 0.05), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.17967, 0.0, 0, 0]
+point_count = 3
 
 [node name="Node3D" type="Node3D"]
 
@@ -311,3 +316,11 @@ phase_rot_y = 0.04
 duration_rot_z = 1.0
 anim_rot_z = SubResource("Curve_xp3mo")
 phase_rot_z = 0.08
+
+[node name="blueb" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.102)
+script = ExtResource("1_ei3e7")
+position_offset = Vector3(0, 0, 0.052)
+object_id = "blueberry"
+duration_pos_y = 0.5
+anim_pos_y = SubResource("Curve_o7vkg")

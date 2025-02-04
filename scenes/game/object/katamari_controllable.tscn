@@ -19,8 +19,8 @@
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_qviqp"]
 resource_local_to_scene = true
-dof_blur_far_distance = 15.0
-dof_blur_far_transition = 30.0
+dof_blur_far_enabled = true
+dof_blur_far_distance = 20.0
 dof_blur_amount = 0.3
 
 [sub_resource type="Animation" id="Animation_vc1w8"]
@@ -257,13 +257,14 @@ attributes = SubResource("CameraAttributesPractical_qviqp")
 current = true
 
 [node name="KatamariCameraZoom" type="AnimationPlayer" parent="SubViewport/KatamariCameraPivot/KatamariCamera"]
+process_mode = 1
 libraries = {
 "": SubResource("AnimationLibrary_hdva6")
 }
 
 [node name="SubViewportFeedback" type="SubViewport" parent="."]
 process_mode = 3
-size = Vector2i(1356, 615)
+size = Vector2i(973, 450)
 render_target_update_mode = 4
 script = ExtResource("4_ujqm4")
 
