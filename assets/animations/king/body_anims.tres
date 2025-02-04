@@ -1,4 +1,4 @@
-[gd_resource type="AnimationLibrary" load_steps=7 format=3 uid="uid://x1oc4i0tsi8u"]
+[gd_resource type="AnimationLibrary" load_steps=8 format=3 uid="uid://x1oc4i0tsi8u"]
 
 [sub_resource type="Animation" id="Animation_7dqbh"]
 resource_name = "KingArmsIdle"
@@ -5661,6 +5661,59 @@ tracks/185/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_rtcu2"]
+resource_name = "KingOutro_okaysorry"
+step = 1.0
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton3D:RightArm")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.0447279, -0.00591103, 0.113231, 0.992544)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton3D:LeftArm")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -0.339809, 0.0845361, -0.120527, 0.928901)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton3D:LeftArmRoll")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.0440758, 0.0104605, -0.0167705, 0.998833)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton3D:LeftForeArm")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.742186, 0.245633, 0.454234, -0.427195)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton3D:Spine")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0.991514, 1.3536e-07, -1.18551e-07, -0.129998)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton3D:Spine1")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0.18033, 4.69379e-08, 1.26592e-07, 0.983606)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Skeleton3D:Neck")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, 0.0258576, 0.966671, 0.108455, 0.23047)
+
 [resource]
 _data = {
 "KingArmsIdle": SubResource("Animation_7dqbh"),
@@ -5668,5 +5721,6 @@ _data = {
 "KingIdle": SubResource("Animation_t7ivh"),
 "KingIntro": SubResource("Animation_raub1"),
 "KingOutro_Point": SubResource("Animation_s77w8"),
+"KingOutro_okaysorry": SubResource("Animation_rtcu2"),
 "RESET": SubResource("Animation_csgf0")
 }

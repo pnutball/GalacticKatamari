@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://diaw2mn34xmsp"]
 
-[ext_resource type="Texture2D" uid="uid://2vv2r8yhmhhx" path="res://assets/textures/placeholder/DemITM05.png" id="1_4ndu6"]
+[ext_resource type="Texture2D" uid="uid://b30tugqheva1k" path="res://assets/textures/placeholder/ph_king.png" id="1_bvayv"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_domp4"]
 height = 2.335
@@ -32,10 +32,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0873108, 0)
 shape = SubResource("CylinderShape3D_domp4")
 
 [node name="test_MAMMOTH" type="Sprite3D" parent="."]
+transform = Transform3D(1.02, 0, 0, 0, 1.02, 0, 0, 0, 1.02, 0, 0, 0)
 offset = Vector2(-70, 14)
 billboard = 2
 texture_filter = 0
-texture = ExtResource("1_4ndu6")
+texture = ExtResource("1_bvayv")
 
 [node name="Area3D" type="Area3D" parent="."]
 monitorable = false

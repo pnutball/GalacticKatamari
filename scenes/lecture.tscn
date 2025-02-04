@@ -1,9 +1,52 @@
-[gd_scene load_steps=18 format=3 uid="uid://bgcdxwh4f2jqt"]
+[gd_scene load_steps=30 format=3 uid="uid://bgcdxwh4f2jqt"]
 
 [ext_resource type="Script" path="res://scripts/lecture.gd" id="1_4rncy"]
-[ext_resource type="PackedScene" uid="uid://dx4skkxtb28gf" path="res://scenes/environment/env_day.tscn" id="4_ei2rc"]
+[ext_resource type="PackedScene" uid="uid://ylofs60leu2w" path="res://scenes/environment/env_night.tscn" id="4_im0qd"]
+[ext_resource type="Material" uid="uid://cty8nxn5sxvla" path="res://scenes/environment/env_night_stars.tres" id="5_eoc6u"]
+[ext_resource type="Texture2D" uid="uid://bih33wjjv4u5h" path="res://assets/textures/king/lecture/swirl_lay3.png" id="6_2fvcj"]
+[ext_resource type="Texture2D" uid="uid://dejd7g2ymnpsx" path="res://assets/textures/king/lecture/swirl_lay2.png" id="7_dxrim"]
 [ext_resource type="AudioStream" uid="uid://dlaq63l2i5jv8" path="res://assets/music/king.ogg" id="7_leavv"]
+[ext_resource type="Texture2D" uid="uid://dq7t5gkiqp587" path="res://assets/textures/king/lecture/swirl_lay1.png" id="8_o7dlw"]
 [ext_resource type="PackedScene" uid="uid://bg6hh7hfmc43t" path="res://assets/models/king/rig/king_full.tscn" id="9_d4g87"]
+[ext_resource type="Texture2D" uid="uid://b44o7fq44huxj" path="res://assets/textures/king/lecture/cloud_front.png" id="9_skcyb"]
+
+[sub_resource type="Animation" id="Animation_o4l5v"]
+resource_name = "zoomout"
+length = 0.75
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(0.517632, 1.93187),
+"update": 0,
+"values": [Vector3(0, 36.498, 50.777), Vector3(0, 39.273, 57.882)]
+}
+
+[sub_resource type="Animation" id="Animation_x7454"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 36.498, 50.777)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7qqiq"]
+_data = {
+"RESET": SubResource("Animation_x7454"),
+"zoomout": SubResource("Animation_o4l5v")
+}
 
 [sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_8jyf6"]
 
@@ -32,7 +75,7 @@ node_connections = [&"Add2", 0, &"Animation", &"Add2", 1, &"Animation 2", &"Time
 animation = &"KingIntro"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xw6h5"]
-animation = &"KingOutro_Point"
+animation = &"KingOutro_okaysorry"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_smnbi"]
 advance_mode = 2
@@ -67,13 +110,158 @@ states/Start/position = Vector2(201, 100)
 transitions = ["Start", "Intro", SubResource("AnimationNodeStateMachineTransition_2e2o5"), "Intro", "Idle", SubResource("AnimationNodeStateMachineTransition_o4px7"), "Idle", "Outro", SubResource("AnimationNodeStateMachineTransition_43f28")]
 graph_offset = Vector2(115, -30)
 
+[sub_resource type="SphereMesh" id="SphereMesh_s31yp"]
+material = ExtResource("5_eoc6u")
+flip_faces = true
+
+[sub_resource type="Animation" id="Animation_4yk6v"]
+resource_name = "stars_spin"
+loop_mode = 1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:mesh:material:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:mesh:material:emission_energy_multiplier")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333, 0.266667, 0.3, 0.333333, 0.366667, 0.4, 0.433333, 0.466667, 0.5, 0.533333, 0.566667, 0.6, 0.633333, 0.666667, 0.7, 0.733333, 0.766667, 0.8, 0.833333, 0.866667, 0.9, 0.933333, 0.966667, 1, 1.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2, 0.8, 1.2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Aurora1:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 6.28319), Vector3(0, 0, -6.28319)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Aurora2:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -6.28319), Vector3(0, 0, 6.28319)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Aurora3:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 6.28319), Vector3(0, 0, -6.28319)]
+}
+
+[sub_resource type="Animation" id="Animation_7idqa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:mesh:material:uv1_offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:mesh:material:emission_energy_multiplier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.9]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Aurora1:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Aurora2:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -6.28319)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Aurora3:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 6.28319)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vgla6"]
+_data = {
+"RESET": SubResource("Animation_7idqa"),
+"stars_spin": SubResource("Animation_4yk6v")
+}
+
 [node name="LectureScene" type="Node3D"]
 script = ExtResource("1_4rncy")
 
 [node name="KingFull" parent="." instance=ExtResource("9_d4g87")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.968804, 0.247828, 0, -0.247828, 0.968804, 0, 28.718, 24.3224)
+transform = Transform3D(1, 0, 0, 0, 0.968804, 0.247828, 0, -0.247828, 0.968804, 0, 36.498, 50.777)
+fov = 30.0
+
+[node name="ZoomOut" type="AnimationPlayer" parent="Camera3D"]
+libraries = {
+"": SubResource("AnimationLibrary_7qqiq")
+}
+speed_scale = 0.7
 
 [node name="LecAnimTree" type="AnimationTree" parent="."]
 root_node = NodePath("../KingFull")
@@ -88,5 +276,60 @@ stream = ExtResource("7_leavv")
 autoplay = true
 bus = &"Music"
 
-[node name="EnvDay" parent="." instance=ExtResource("4_ei2rc")]
-transform = Transform3D(-0.939693, 0, -0.34202, 0, 1, 0, 0.34202, 0, -0.939693, 0, 0, 0)
+[node name="EnvNight" parent="." instance=ExtResource("4_im0qd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.94236, 23.1671, 26.9912)
+
+[node name="BG3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(221.31, 0, 0, 0, 221.31, 0, 0, 0, 221.31, 0, -28.3332, -57.0611)
+mesh = SubResource("SphereMesh_s31yp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BG3D"]
+libraries = {
+"": SubResource("AnimationLibrary_vgla6")
+}
+speed_scale = 0.01
+
+[node name="Aurora1" type="Sprite3D" parent="BG3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18, 0)
+modulate = Color(0.7, 0.7, 0.7, 1)
+pixel_size = 0.0005
+texture = ExtResource("6_2fvcj")
+
+[node name="Aurora2" type="Sprite3D" parent="BG3D"]
+transform = Transform3D(1, 1.74846e-07, 0, -1.74846e-07, 1, 0, 0, 0, 1, 0, 0.18, 0.0637176)
+modulate = Color(0.7, 0.7, 0.7, 1)
+pixel_size = 0.0003
+texture = ExtResource("7_dxrim")
+
+[node name="Aurora3" type="Sprite3D" parent="BG3D"]
+transform = Transform3D(1, -1.74846e-07, 0, 1.74846e-07, 1, 0, 0, 0, 1, 0, 0.18, 0.113491)
+modulate = Color(0.7, 0.7, 0.7, 1)
+pixel_size = 0.0002
+texture = ExtResource("8_o7dlw")
+
+[node name="BG2D" type="Node2D" parent="."]
+
+[node name="Control" type="Control" parent="BG2D"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Cloud_Front_PHolder" type="TextureRect" parent="BG2D/Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_top = -1080.0
+offset_right = 960.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("9_skcyb")
+expand_mode = 2

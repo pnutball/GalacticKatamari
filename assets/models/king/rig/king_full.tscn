@@ -574,7 +574,7 @@ bones/22/rest = Transform3D(1, -9.65167e-05, 9.68339e-05, 9.65236e-05, 1, -7.174
 bones/22/enabled = true
 bones/22/position = Vector3(0.000103471, 125.202, 1.56462e-07)
 bones/22/rotation = Quaternion(3.58737e-05, 4.84152e-05, 4.82601e-05, 1)
-bones/22/scale = Vector3(0.999997, 0.999996, 1.00001)
+bones/22/scale = Vector3(0.999995, 0.999996, 1.00001)
 bones/23/name = "LeftForeArmRoll"
 bones/23/parent = 22
 bones/23/rest = Transform3D(0.998576, -0.0533412, -4.32036e-05, 0.0533412, 0.998576, -3.6723e-05, 4.51009e-05, 3.43662e-05, 1, 0.000116043, 101.662, 1.03682e-06)
@@ -706,7 +706,7 @@ bones/41/parent = 18
 bones/41/rest = Transform3D(-0.89243, 2.58833e-07, 0.451186, 2.45073e-07, 1, -8.8927e-08, -0.451186, 3.12127e-08, -0.89243, -6.99968e-07, 113.984, -3.85955e-06)
 bones/41/enabled = true
 bones/41/position = Vector3(-6.99968e-07, 113.984, -3.85955e-06)
-bones/41/rotation = Quaternion(1.29508e-07, 0.972736, -1.4833e-08, 0.231916)
+bones/41/rotation = Quaternion(1.29507e-07, 0.972736, -1.48329e-08, 0.231916)
 bones/41/scale = Vector3(1, 1, 1)
 bones/42/name = "Head"
 bones/42/parent = 41
@@ -1107,7 +1107,7 @@ mesh = ExtResource("5_21ouu")
 skin = SubResource("Skin_0xeju")
 
 [node name="HeadAttach" type="BoneAttachment3D" parent="Skeleton3D"]
-transform = Transform3D(0.000243574, -0.00013918, 1, 0.000975209, 1, 0.000138943, -1, 0.000975176, 0.000243753, 0.00598857, 1226.13, -10.9249)
+transform = Transform3D(0.000243694, -0.00013918, 1, 0.000975209, 1, 0.000138943, -0.999999, 0.000975176, 0.000243872, 0.00598857, 1226.13, -10.9249)
 bone_name = "Head"
 bone_idx = 42
 
@@ -1134,7 +1134,7 @@ autoplay = "HeaddressBlink"
 transform = Transform3D(-1.74846e-06, 0, -40, 0, 40, 0, 40, 0, -1.74846e-06, 0, 44, 0)
 
 [node name="HandAttach" type="BoneAttachment3D" parent="Skeleton3D"]
-transform = Transform3D(-0.973378, -0.0252015, 0.227787, -0.0817144, -0.890444, -0.4477, 0.214101, -0.454386, 0.864699, 217.418, 854.098, 14.1594)
+transform = Transform3D(-0.973378, -0.0252015, 0.227785, -0.0817166, -0.890439, -0.4477, 0.2141, -0.454385, 0.864697, 217.418, 854.098, 14.1589)
 bone_name = "LeftHand"
 bone_idx = 24
 use_external_skeleton = true

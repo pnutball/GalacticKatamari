@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cty8nxn5sxvla"]
+
+[ext_resource type="Texture2D" uid="uid://ck5a3ucgxrafy" path="res://assets/textures/king/lecture/stars.png" id="1_batdw"]
+
+[resource]
+transparency = 1
+blend_mode = 1
+albedo_texture = ExtResource("1_batdw")
+metallic_specular = 0.0
+emission_enabled = true
+emission_energy_multiplier = 1.19878
+emission_texture = ExtResource("1_batdw")
+uv1_scale = Vector3(4, 2, 4)
+uv1_offset = Vector3(0.832259, 0, 0)
+uv1_world_triplanar = true
+texture_filter = 1

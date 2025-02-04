@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b30tugqheva1k"
-path.s3tc="res://.godot/imported/ph_king.png-ee191cd26fe67f40ceb6c3b92540d693.s3tc.ctex"
+uid="uid://ck5a3ucgxrafy"
+path.s3tc="res://.godot/imported/stars.png-f53aa6b9e684a0bc40d25b05ab0bfdfb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/placeholder/ph_king.png"
-dest_files=["res://.godot/imported/ph_king.png-ee191cd26fe67f40ceb6c3b92540d693.s3tc.ctex"]
+source_file="res://assets/textures/king/lecture/stars.png"
+dest_files=["res://.godot/imported/stars.png-f53aa6b9e684a0bc40d25b05ab0bfdfb.s3tc.ctex"]
 
 [params]
 

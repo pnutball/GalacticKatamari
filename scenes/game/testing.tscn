@@ -112,5 +112,6 @@ stream = ExtResource("9_660ba")
 [node name="KingMoya" parent="." instance=ExtResource("6_0kg0s")]
 
 [node name="TimerNormal" parent="." instance=ExtResource("7_kyiyc")]
+auto_translate_mode = 2
 
 [node name="EnvDay" parent="." instance=ExtResource("8_ax4vo")]
